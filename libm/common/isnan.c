@@ -173,38 +173,3 @@ QUICKREF
 QUICKREF
 	finite - pure
 */
-
-/*
- * isnan(x) returns 1 is x is nan, else 0;
- * no branching!
- *
- * The C99 standard dictates that isnan is a macro taking
- * multiple floating-point types while the SUSv2 standard
- * notes it is a function taking a double argument.  Newlib
- * has chosen to declare it both as a function and as a macro in
- * <math.h> for compatibility.
- */
-
-#include "fdlibm.h"
-#include <ieeefp.h>
-
-#ifndef _DOUBLE_IS_32BITS
-
-#undef isnan
-
-#ifdef __STDC__
-	int isnan(double x)
-#else
-	int isnan(x)
-	double x;
-#endif
-{
-	__int32_t hx,lx;
-	EXTRACT_WORDS(hx,lx,x);
-	hx &= 0x7fffffff;
-	hx |= (__uint32_t)(lx|(-lx))>>31;	
-	hx = 0x7ff00000 - hx;
-	return (int)(((__uint32_t)(hx))>>31);
-}
-
-#endif /* _DOUBLE_IS_32BITS */
