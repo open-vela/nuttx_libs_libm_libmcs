@@ -5,10 +5,16 @@ The following pages in this documentation try to give a xenodochial introduction
 
 .. toctree::
    :maxdepth: 2
-   :caption: Reference Manual
+   :caption: Software User Manual
 
    sum/conventions
+   sum/purpose
+   sum/general
+   sum/external
+   sum/operations-environment
+   sum/operations-manual
    api/libm
+   sum/tutorial
    
 
 Indices and tables
