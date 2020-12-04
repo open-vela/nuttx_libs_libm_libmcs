@@ -1,15 +1,5 @@
-/* @(#)e_atan2.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- *
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
 
 /* __ieee754_atan2(y,x)
  * Method :
@@ -128,19 +118,6 @@ pi_lo   = 1.2246467991473531772E-16; /* 0x3CA1A626, 0x33145C07 */
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-
-/* @(#)w_atan2.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- *
- */
 
 /*
 FUNCTION

@@ -15,6 +15,6 @@ Being under the terms of the following licenses:
 	LICENSES/RedHat.md
 	LICENSES/RichFelker-2005-2014.md
 	LICENSES/StevenKargl-2007.md
-	LICENSES/SunMicrosystems-1993.md
+	LICENSES/SunMicrosystems.md
 
 All contributions to the QLibmCS are subject to this COPYING file.
