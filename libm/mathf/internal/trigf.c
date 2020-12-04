@@ -1,17 +1,6 @@
-/* kf_rem_pio2.c -- float version of k_rem_pio2.c
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+// Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
 
@@ -208,22 +197,6 @@ recompute:
 	return n&7;
 }
 
-/* ef_rem_pio2.c -- float version of e_rem_pio2.c
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- *
- */
-
 /* __ieee754_rem_pio2f(x,y)
  * 
  * return the remainder of x rem pi/2 in y[0]+y[1] 
@@ -402,21 +375,6 @@ pio2_3t =  6.1232342629e-17; /* 0x248d3132 */
 	return n;
 }
 
-/* kf_cos.c -- float version of k_cos.c
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
-
 #include "fdlibm.h"
 
 #ifdef __STDC__
@@ -461,21 +419,6 @@ C6  = -1.1359647598e-11; /* 0xad47d74e */
 	    return a - (hz - (z*r-x*y));
 	}
 }
-
-/* kf_sin.c -- float version of k_sin.c
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
 
 #include "fdlibm.h"
 
