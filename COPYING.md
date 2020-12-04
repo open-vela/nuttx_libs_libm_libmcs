@@ -5,7 +5,6 @@ The QLibmCS is provided under:
 Being under the terms of the following licenses: 
 
 	LICENSES/CygnusSupport.md
-	LICENSES/IBM-2009.md
 	LICENSES/MentorGraphics-2014.md
 	LICENSES/NetBSD.md
 	LICENSES/NetBSD-Christos.md
