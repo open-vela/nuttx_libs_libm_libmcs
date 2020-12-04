@@ -1,17 +1,6 @@
-/* ef_pow.c -- float version of e_pow.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+// Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
 #include "math_config.h"
@@ -257,21 +246,6 @@ ivln2_l  =  7.0526075433e-06; /* 0x36eca570 =1/ln2 tail*/
 	return s*z;
 }
 #endif /* __OBSOLETE_MATH */
-
-/* wf_pow.c -- float version of w_pow.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
 
 /* 
  * wrapper powf(x,y) return x**y
