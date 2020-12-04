@@ -1,7 +1,4 @@
-/*
- * nanf () returns a nan.
- * Added by Cygnus Support.
- */
+// SPDX-License-Identifier: CygnusSupport
 
 #include "fdlibm.h"
 
