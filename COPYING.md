@@ -12,7 +12,7 @@ Being under the terms of the following licenses:
 	LICENSES/NetBSD-MatthiasDrochner.md
 	LICENSES/NetBSD-StephenMoshier.md
 	LICENSES/RedHat.md
-	LICENSES/RichFelker-2005-2014.md
+	LICENSES/RichFelker.md
 	LICENSES/StevenKargl-2007.md
 	LICENSES/SunMicrosystems.md
 
