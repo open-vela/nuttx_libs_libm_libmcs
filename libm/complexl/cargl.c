@@ -1,8 +1,4 @@
-/* $NetBSD: cargl.c,v 1.1 2014/10/10 00:48:18 christos Exp $ */
-
-/*
- * Public domain.
- */
+// SPDX-License-Identifier: PublicDomain
 
 #include <complex.h>
 #include <math.h>

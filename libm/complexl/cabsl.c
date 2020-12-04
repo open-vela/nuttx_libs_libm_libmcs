@@ -1,8 +1,5 @@
-/* Copyright (C) 2015 by  Red Hat, Incorporated. All rights reserved.
- *
- * Permission to use, copy, modify, and distribute this software
- * is freely granted, provided that this notice is preserved.
- */
+// SPDX-License-Identifier: RedHat
+// Copyright (C) 2015 by  Red Hat, Incorporated. All rights reserved.
 
 #include <complex.h>
 #include <math.h>
