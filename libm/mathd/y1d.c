@@ -21,28 +21,6 @@
 #ifndef _DOUBLE_IS_32BITS
 
 #ifdef __STDC__
-	double j1(double x)		/* wrapper j1 */
-#else
-	double j1(x)			/* wrapper j1 */
-	double x;
-#endif
-{
-#ifdef _IEEE_LIBM
-	return __ieee754_j1(x);
-#else
-	double z;
-	z = __ieee754_j1(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x) ) return z;
-	if(fabs(x)>X_TLOSS) {
-	    /* j1(|x|>X_TLOSS) */
-	    errno = ERANGE;
-	    return 0.0;
-	} else
-	    return z;
-#endif
-}
-
-#ifdef __STDC__
 	double y1(double x)		/* wrapper y1 */
 #else
 	double y1(x)			/* wrapper y1 */
@@ -72,8 +50,3 @@
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-
-
-
-
-
