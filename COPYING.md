@@ -4,7 +4,6 @@ The QLibmCS is provided under:
 
 Being under the terms of the following licenses: 
 
-	LICENSES/CygnusSupport.md
 	LICENSES/NetBSD.md
 	LICENSES/PublicDomain.md
 	LICENSES/RedHat.md
