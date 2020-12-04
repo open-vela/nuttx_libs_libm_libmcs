@@ -1,17 +1,6 @@
-/* ef_log10.c -- float version of e_log10.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+// Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
 
@@ -60,21 +49,6 @@ static float zero   =  0.0;
 	z  = y*log10_2lo + ivln10*__ieee754_logf(x);
 	return  z+y*log10_2hi;
 }
-
-/* wf_log10.c -- float version of w_log10.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
 
 /* 
  * wrapper log10f(X)
