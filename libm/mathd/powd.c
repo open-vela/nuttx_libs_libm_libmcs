@@ -1,14 +1,5 @@
-/* @(#)e_pow.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
 
 /* __ieee754_pow(x,y) return x**y
  *
@@ -318,18 +309,6 @@ ivln2_l  =  1.92596299112661746887e-08; /* 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail*/
 #endif /* defined(_DOUBLE_IS_32BITS) */
 #endif /* __OBSOLETE_MATH */
 
-/* @(#)w_pow.c 5.2 93/10/01 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
-
 /*
 FUNCTION
 	<<pow>>, <<powf>>---x to the power y
@@ -420,16 +399,3 @@ PORTABILITY
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
 #endif /* __OBSOLETE_MATH */
-
-
-
-
-
-
-
-
-
-
-
-
-
