@@ -1,7 +1,4 @@
-/*
- * nan () returns a nan.
- * Added by Cygnus Support.
- */
+// SPDX-License-Identifier: CygnusSupport
 
 /*
 FUNCTION
