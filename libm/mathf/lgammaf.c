@@ -1,18 +1,6 @@
-/* erf_lgamma.c -- float version of er_lgamma.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- *
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+// Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
 
@@ -242,22 +230,6 @@ static float zero=  0.0000000000e+00;
 	if(hx<0) r = nadj - r;
 	return r;
 }
-
-/* wf_lgamma.c -- float version of w_lgamma.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- *
- */
 
 #include "fdlibm.h"
 #include <reent.h>
