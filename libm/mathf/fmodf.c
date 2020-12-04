@@ -1,17 +1,6 @@
-/* ef_fmod.c -- float version of e_fmod.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+// Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 /* 
  * __ieee754_fmodf(x,y)
@@ -111,21 +100,6 @@ static float one = 1.0, Zero[] = {0.0, -0.0,};
 	}
 	return x;		/* exact output */
 }
-
-/* wf_fmod.c -- float version of w_fmod.c.
- * Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
- */
-
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
 
 /* 
  * wrapper fmodf(x,y)

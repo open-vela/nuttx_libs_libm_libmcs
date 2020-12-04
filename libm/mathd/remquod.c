@@ -1,16 +1,6 @@
-/* Adapted for Newlib, 2009.  (Allow for int < 32 bits; return *quo=0 during
- * errors to make test scripts easier.)  */
-/* @(#)e_fmod.c 1.3 95/01/18 */
-/*-
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunSoft, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+
 /*
 FUNCTION
 <<remquo>>, <<remquof>>---remainder and part of quotient
