@@ -1,12 +1,5 @@
-/* $NetBSD: cimag.c,v 1.2 2010/09/15 16:11:29 christos Exp $ */
-
-/*
- * Written by Matthias Drochner <drochner@NetBSD.org>.
- * Public domain.
- *
- * imported and modified include for newlib 2010/10/03 
- * Marco Atzeri <marco_atzeri@yahoo.it>
- */
+// SPDX-License-Identifier: PublicDomain
+// Written by Matthias Drochner <drochner@NetBSD.org>.
 
 /*
 FUNCTION

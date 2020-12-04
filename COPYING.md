@@ -6,11 +6,11 @@ Being under the terms of the following licenses:
 
 	LICENSES/CygnusSupport.md
 	LICENSES/MentorGraphics-2014.md
-	LICENSES/NetBSD.md
 	LICENSES/NetBSD-Christos.md
 	LICENSES/NetBSD-DavidSchultz.md
-	LICENSES/NetBSD-MatthiasDrochner.md
 	LICENSES/NetBSD-StephenMoshier.md
+	LICENSES/NetBSD.md
+	LICENSES/PublicDomain.md
 	LICENSES/RedHat.md
 	LICENSES/RichFelker.md
 	LICENSES/StevenKargl-2007.md
