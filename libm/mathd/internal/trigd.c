@@ -1,14 +1,5 @@
-/* @(#)k_rem_pio2.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
+// SPDX-License-Identifier: SunMicrosystems
+// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
 
 /*
  * __kernel_rem_pio2(x,y,e0,nx,prec,ipio2)
@@ -319,19 +310,6 @@ recompute:
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
 
-/* @(#)e_rem_pio2.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- *
- */
-
 /* __ieee754_rem_pio2(x,y)
  * 
  * return the remainder of x rem pi/2 in y[0]+y[1] 
@@ -504,18 +482,6 @@ pio2_3t =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
 
-/* @(#)k_cos.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
-
 /*
  * __kernel_cos( x,  y )
  * kernel cos function on [-pi/4, pi/4], pi/4 ~ 0.785398164
@@ -599,18 +565,6 @@ C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-
-/* @(#)k_sin.c 5.1 93/09/24 */
-/*
- * ====================================================
- * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
- *
- * Developed at SunPro, a Sun Microsystems, Inc. business.
- * Permission to use, copy, modify, and distribute this
- * software is freely granted, provided that this notice 
- * is preserved.
- * ====================================================
- */
 
 /* __kernel_sin( x, y, iy)
  * kernel sin function on [-pi/4, pi/4], pi/4 ~ 0.7854
