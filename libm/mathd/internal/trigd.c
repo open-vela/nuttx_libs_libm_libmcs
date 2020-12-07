@@ -121,17 +121,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const int init_jk[] = {2,3,4,6}; /* initial value for jk */
-#else
-static int init_jk[] = {2,3,4,6}; 
-#endif
 
-#ifdef __STDC__
 static const double PIo2[] = {
-#else
-static double PIo2[] = {
-#endif
   1.57079625129699707031e+00, /* 0x3FF921FB, 0x40000000 */
   7.54978941586159635335e-08, /* 0x3E74442D, 0x00000000 */
   5.39030252995776476554e-15, /* 0x3CF84698, 0x80000000 */
@@ -142,22 +134,13 @@ static double PIo2[] = {
   2.16741683877804819444e-51, /* 0x3569F31D, 0x00000000 */
 };
 
-#ifdef __STDC__
-static const double			
-#else
-static double			
-#endif
+static const double
 zero   = 0.0,
 one    = 1.0,
 two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
 twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
 
-#ifdef __STDC__
-	int __kernel_rem_pio2(double *x, double *y, int e0, int nx, int prec, const __int32_t *ipio2) 
-#else
-	int __kernel_rem_pio2(x,y,e0,nx,prec,ipio2) 	
-	double x[], y[]; int e0,nx,prec; __int32_t ipio2[];
-#endif
+int __kernel_rem_pio2(double *x, double *y, int e0, int nx, int prec, const __int32_t *ipio2)
 {
 	__int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
 	double z,fw,f[20],fq[20],q[20];
@@ -323,11 +306,7 @@ recompute:
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi 
  */
-#ifdef __STDC__
 static const __int32_t two_over_pi[] = {
-#else
-static __int32_t two_over_pi[] = {
-#endif
 0xA2F983, 0x6E4E44, 0x1529FC, 0x2757D1, 0xF534DD, 0xC0DB62, 
 0x95993C, 0x439041, 0xFE5163, 0xABDEBB, 0xC561B7, 0x246E3A, 
 0x424DD2, 0xE00649, 0x2EEA09, 0xD1921C, 0xFE1DEB, 0x1CB129, 
@@ -341,11 +320,7 @@ static __int32_t two_over_pi[] = {
 0x4D7327, 0x310606, 0x1556CA, 0x73A8C9, 0x60E27B, 0xC08C6B, 
 };
 
-#ifdef __STDC__
 static const __int32_t npio2_hw[] = {
-#else
-static __int32_t npio2_hw[] = {
-#endif
 0x3FF921FB, 0x400921FB, 0x4012D97C, 0x401921FB, 0x401F6A7A, 0x4022D97C,
 0x4025FDBB, 0x402921FB, 0x402C463A, 0x402F6A7A, 0x4031475C, 0x4032D97C,
 0x40346B9C, 0x4035FDBB, 0x40378FDB, 0x403921FB, 0x403AB41B, 0x403C463A,
@@ -364,11 +339,7 @@ static __int32_t npio2_hw[] = {
  * pio2_3t:  pi/2 - (pio2_1+pio2_2+pio2_3)
  */
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 zero =  0.00000000000000000000e+00, /* 0x00000000, 0x00000000 */
 half =  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
 two24 =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
@@ -380,12 +351,7 @@ pio2_2t =  2.02226624879595063154e-21, /* 0x3BA3198A, 0x2E037073 */
 pio2_3  =  2.02226624871116645580e-21, /* 0x3BA3198A, 0x2E000000 */
 pio2_3t =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 
-#ifdef __STDC__
-	__int32_t __ieee754_rem_pio2(double x, double *y)
-#else
-	__int32_t __ieee754_rem_pio2(x,y)
-	double x,y[];
-#endif
+__int32_t __ieee754_rem_pio2(double x, double *y)
 {
 	double z = 0.0,w,t,r,fn;
 	double tx[3];
@@ -521,11 +487,7 @@ pio2_3t =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 one =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
 C1  =  4.16666666666666019037e-02, /* 0x3FA55555, 0x5555554C */
 C2  = -1.38888888888741095749e-03, /* 0xBF56C16C, 0x16C15177 */
@@ -534,12 +496,7 @@ C4  = -2.75573143513906633035e-07, /* 0xBE927E4F, 0x809C52AD */
 C5  =  2.08757232129817482790e-09, /* 0x3E21EE9E, 0xBDB4B1C4 */
 C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 
-#ifdef __STDC__
-	double __kernel_cos(double x, double y)
-#else
-	double __kernel_cos(x, y)
-	double x,y;
-#endif
+double __kernel_cos(double x, double y)
 {
 	double a,hz,z,r,qx;
 	__int32_t ix;
@@ -598,11 +555,7 @@ C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 half =  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
 S1  = -1.66666666666666324348e-01, /* 0xBFC55555, 0x55555549 */
 S2  =  8.33333333332248946124e-03, /* 0x3F811111, 0x1110F8A6 */
@@ -611,12 +564,7 @@ S4  =  2.75573137070700676789e-06, /* 0x3EC71DE3, 0x57B1FE7D */
 S5  = -2.50507602534068634195e-08, /* 0xBE5AE5E6, 0x8A2B9CEB */
 S6  =  1.58969099521155010221e-10; /* 0x3DE5D93A, 0x5ACFD57C */
 
-#ifdef __STDC__
-	double __kernel_sin(double x, double y, int iy)
-#else
-	double __kernel_sin(x, y, iy)
-	double x,y; int iy;		/* iy=0 if y is zero */
-#endif
+double __kernel_sin(double x, double y, int iy)
 {
 	double z,r,v;
 	__int32_t ix;

@@ -4,11 +4,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+static const float
 tiny  = 1.0e-30,
 zero  = 0.0,
 pi_o_4  = 7.8539818525e-01, /* 0x3f490fdb */
@@ -16,12 +12,7 @@ pi_o_2  = 1.5707963705e+00, /* 0x3fc90fdb */
 pi      = 3.1415927410e+00,  /* 0x40490fdb */
 pi_lo   = -8.7422776573e-08; /* 0xb3bbbd2e */
 
-#ifdef __STDC__
-	float __ieee754_atan2f(float y, float x)
-#else
-	float __ieee754_atan2f(y,x)
-	float  y,x;
-#endif
+float __ieee754_atan2f(float y, float x)
 {  
 	float z;
 	__int32_t k,m,hx,hy,ix,iy;
@@ -93,26 +84,15 @@ pi_lo   = -8.7422776573e-08; /* 0xb3bbbd2e */
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float atan2f(float y, float x)		/* wrapper atan2f */
-#else
-	float atan2f(y,x)			/* wrapper atan2 */
-	float y,x;
-#endif
+float atan2f(float y, float x)		/* wrapper atan2f */
 {
 	return __ieee754_atan2f(y,x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double atan2(double y, double x)
-#else
-	double atan2(y,x)
-	double y,x;
-#endif
+double atan2(double y, double x)
 {
 	return (double) atan2f((float) y, (float) x);
 }

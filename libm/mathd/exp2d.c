@@ -39,21 +39,13 @@ PORTABILITY
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 #include <math.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double exp2(double x)		/* wrapper exp2 */
-#else
-	double exp2(x)			/* wrapper exp2 */
-	double x;
-#endif
+double exp2(double x)		/* wrapper exp2 */
 {
   return pow(2.0, x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

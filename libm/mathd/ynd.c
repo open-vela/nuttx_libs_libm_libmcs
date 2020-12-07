@@ -28,37 +28,12 @@
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double yn(int n, double x)	/* wrapper yn */
-#else
-	double yn(n,x)			/* wrapper yn */
-	double x; int n;
-#endif
+double yn(int n, double x)	/* wrapper yn */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_yn(n,x);
-#else
-	double z;
-	z = __ieee754_yn(n,x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x) ) return z;
-        if(x < 0.0){
-	    /* yn(x<0) = NaN */
-	    errno = EDOM;
-        }
-        if(x == 0.0){
-	    /* yn(0) = -inf */
-	    errno = ERANGE;
-        }
-	if(x>X_TLOSS) {
-	    /* yn(x>X_TLOSS) */
-	    errno = ERANGE;
-	}
-	return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

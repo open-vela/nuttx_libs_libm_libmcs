@@ -14,19 +14,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double zero = 0.0;
-#else
-static double zero = 0.0;
-#endif
 
-
-#ifdef __STDC__
-	double __ieee754_remainder(double x, double p)
-#else
-	double __ieee754_remainder(x,p)
-	double x,p;
-#endif
+double __ieee754_remainder(double x, double p)
 {
 	__int32_t hx,hp;
 	__uint32_t sx,lx,lp;
@@ -100,47 +90,12 @@ PORTABILITY
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double remainder(double x, double y)	/* wrapper remainder */
-#else
-	double remainder(x,y)			/* wrapper remainder */
-	double x,y;
-#endif
+double remainder(double x, double y)	/* wrapper remainder */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_remainder(x,y);
-#else
-	double z;
-	z = __ieee754_remainder(x,y);
-	if(_LIB_VERSION == _IEEE_ || isnan(y)) return z;
-	if(y==0.0) { 
-            /* remainder(x,0) */
-	    errno = EDOM;
-	    return 0.0/0.0;
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

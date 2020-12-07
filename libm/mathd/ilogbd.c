@@ -50,17 +50,11 @@ C99, POSIX
  * ilogb(inf/NaN) = 0x7fffffff (no signal is raised)
  */
 
-#include <limits.h>
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	int ilogb(double x)
-#else
-	int ilogb(x)
-	double x;
-#endif
+int ilogb(double x)
 {
 	__int32_t hx,lx,ix;
 

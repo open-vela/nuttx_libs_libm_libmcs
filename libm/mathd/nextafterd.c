@@ -42,12 +42,7 @@ PORTABILITY
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double nextafter(double x, double y)
-#else
-	double nextafter(x,y)
-	double x,y;
-#endif
+double nextafter(double x, double y)
 {
 	__int32_t	hx,hy,ix,iy;
 	__uint32_t lx,ly;

@@ -4,18 +4,9 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
 static const float one = 1.0, shuge = 1.0e37;
-#else
-static float one = 1.0, shuge = 1.0e37;
-#endif
 
-#ifdef __STDC__
-	float __ieee754_sinhf(float x)
-#else
-	float __ieee754_sinhf(x)
-	float x;
-#endif
+float __ieee754_sinhf(float x)
 {	
 	float t,w,h;
 	__int32_t ix,jx;
@@ -56,38 +47,15 @@ static float one = 1.0, shuge = 1.0e37;
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float sinhf(float x)		/* wrapper sinhf */
-#else
-	float sinhf(x)			/* wrapper sinhf */
-	float x;
-#endif
+float sinhf(float x)		/* wrapper sinhf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_sinhf(x);
-#else
-	float z; 
-	z = __ieee754_sinhf(x);
-	if(_LIB_VERSION == _IEEE_) return z;
-	if(!finitef(z)&&finitef(x)) {
-	    /* sinhf(finite) overflow */
-	    errno = ERANGE;
-	    return ( (x>0.0f) ? HUGE_VALF : -HUGE_VALF);
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double sinh(double x)
-#else
-	double sinh(x)
-	double x;
-#endif
+double sinh(double x)
 {
 	return (double) sinhf((float) x);
 }

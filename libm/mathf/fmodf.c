@@ -10,18 +10,9 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
 static const float one = 1.0, Zero[] = {0.0, -0.0,};
-#else
-static float one = 1.0, Zero[] = {0.0, -0.0,};
-#endif
 
-#ifdef __STDC__
-	float __ieee754_fmodf(float x, float y)
-#else
-	float __ieee754_fmodf(x,y)
-	float x,y ;
-#endif
+float __ieee754_fmodf(float x, float y)
 {
 	__int32_t n,hx,hy,hz,ix,iy,sx,i;
 
@@ -106,38 +97,15 @@ static float one = 1.0, Zero[] = {0.0, -0.0,};
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float fmodf(float x, float y)	/* wrapper fmodf */
-#else
-	float fmodf(x,y)		/* wrapper fmodf */
-	float x,y;
-#endif
+float fmodf(float x, float y)	/* wrapper fmodf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_fmodf(x,y);
-#else
-	float z;
-	z = __ieee754_fmodf(x,y);
-	if(_LIB_VERSION == _IEEE_ ||isnan(y)||isnan(x)) return z;
-	if(y==0.0f) {
-            /* fmodf(x,0) */
-	    errno = EDOM;
-	    return  0.0f/0.0f;
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double fmod(double x, double y)
-#else
-	double fmod(x,y)
-	double x,y;
-#endif
+double fmod(double x, double y)
 {
 	return (double) fmodf((float) x, (float) y);
 }

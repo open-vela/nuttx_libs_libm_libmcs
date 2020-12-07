@@ -28,30 +28,12 @@
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double jn(int n, double x)	/* wrapper jn */
-#else
-	double jn(n,x)			/* wrapper jn */
-	double x; int n;
-#endif
+double jn(int n, double x)	/* wrapper jn */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_jn(n,x);
-#else
-	double z;
-	z = __ieee754_jn(n,x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x) ) return z;
-	if(fabs(x)>X_TLOSS) {
-	    /* jn(|x|>X_TLOSS) */
-	    errno = ERANGE;
-	    return 0.0;
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

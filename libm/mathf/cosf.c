@@ -3,14 +3,8 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
 
-#ifdef __STDC__
-	float cosf(float x)
-#else
-	float cosf(x)
-	float x;
-#endif
+float cosf(float x)
 {
 	float y[2],z=0.0;
 	__int32_t n,ix;
@@ -39,15 +33,9 @@
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double cos(double x)
-#else
-	double cos(x)
-	double x;
-#endif
+double cos(double x)
 {
 	return (double) cosf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

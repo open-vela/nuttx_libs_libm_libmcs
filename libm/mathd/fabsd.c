@@ -39,12 +39,7 @@ PORTABILITY
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double fabs(double x)
-#else
-	double fabs(x)
-	double x;
-#endif
+double fabs(double x)
 {
 	__uint32_t high;
 	GET_HIGH_WORD(high,x);

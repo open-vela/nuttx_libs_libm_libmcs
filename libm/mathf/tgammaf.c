@@ -10,11 +10,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	float __ieee754_tgammaf(float x)
-#else
-	float __ieee754_tgammaf(x)
-#endif
+float __ieee754_tgammaf(float x)
 {
 	int signgam_local;
 	float y = __ieee754_expf(__ieee754_lgammaf_r(x, &signgam_local));
@@ -26,40 +22,14 @@
 #include "math.h"
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	float tgammaf(float x)
-#else
-	float tgammaf(x)
-	float x;
-#endif
+float tgammaf(float x)
 {
-        float y;
-	y = __ieee754_tgammaf(x);
-#ifdef _IEEE_LIBM
-	return y;
-#else
-	if(_LIB_VERSION == _IEEE_) return y;
-
-	if(!finitef(y)&&finitef(x)) {
-	  if(floorf(x)==x&&x<=(float)0.0)
-	    /* tgammaf pole */
-	    return (float)__kernel_standard((double)x,(double)x,141);
-	  else
-	    /* tgammaf overflow */
-	    return (float)__kernel_standard((double)x,(double)x,140);
-	}
-	return y;
-#endif
+	return __ieee754_tgammaf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double tgamma(double x)
-#else
-	double tgamma(x)
-	double x;
-#endif
+double tgamma(double x)
 {
 	return (double) tgammaf((float) x);
 }

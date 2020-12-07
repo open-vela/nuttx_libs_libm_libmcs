@@ -19,20 +19,11 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 one	= 1.0,
 ln2	= 6.93147180559945286227e-01;  /* 0x3FE62E42, 0xFEFA39EF */
 
-#ifdef __STDC__
-	double __ieee754_acosh(double x)
-#else
-	double __ieee754_acosh(x)
-	double x;
-#endif
+double __ieee754_acosh(double x)
 {	
 	double t;
 	__int32_t hx;
@@ -117,30 +108,12 @@ MATHREF
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double acosh(double x)		/* wrapper acosh */
-#else
-	double acosh(x)			/* wrapper acosh */
-	double x;
-#endif
+double acosh(double x)		/* wrapper acosh */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_acosh(x);
-#else
-	double z;
-	z = __ieee754_acosh(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(x<1.0) {
-            /* acosh(x<1) */
-	    errno = EDOM;
-	    return 0.0/0.0;
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

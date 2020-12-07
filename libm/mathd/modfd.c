@@ -53,12 +53,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double modf(double x, double *iptr)
-#else
-	double modf(x, iptr)
-	double x,*iptr;
-#endif
+double modf(double x, double *iptr)
 {
 	__int32_t i0,i1,j0;
 	__uint32_t i;

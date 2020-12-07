@@ -4,24 +4,9 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const float one = 1.0, huge = 1e30;
-#else
-static float one = 1.0, huge = 1e30;
-#endif
+static const float one = 1.0, huge = 1e30, zero = 0.0;
 
-#ifdef __STDC__
-static const float zero = 0.0;
-#else
-static float zero = 0.0;
-#endif
-
-#ifdef __STDC__
-	float __ieee754_atanhf(float x)
-#else
-	float __ieee754_atanhf(x)
-	float x;
-#endif
+float __ieee754_atanhf(float x)
 {
 	float t;
 	__int32_t hx,ix;
@@ -46,45 +31,15 @@ static float zero = 0.0;
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float atanhf(float x)		/* wrapper atanhf */
-#else
-	float atanhf(x)			/* wrapper atanhf */
-	float x;
-#endif
+float atanhf(float x)		/* wrapper atanhf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_atanhf(x);
-#else
-	float z,y;
-	z = __ieee754_atanhf(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	y = fabsf(x);
-	if(y>=1.0f) {
-	    if(y>1.0f) {
-		/* atanhf(|x|>1) */
-		errno = EDOM;
-		return 0.0f/0.0f;
-	    } else { 
-		/* atanhf(|x|=1) */
-		errno = EDOM;
-		return x/0.0f;	/* sign(x)*inf */
-	    }
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double atanh(double x)
-#else
-	double atanh(x)
-	double x;
-#endif
+double atanh(double x)
 {
 	return (double) atanhf((float) x);
 }

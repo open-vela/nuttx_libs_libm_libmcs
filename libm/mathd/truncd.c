@@ -35,12 +35,7 @@ ANSI C, POSIX
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double trunc(double x)
-#else
-	double trunc(x)
-	double x;
-#endif
+double trunc(double x)
 {
   int signbit;
   /* Most significant word, least significant word. */

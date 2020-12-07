@@ -4,24 +4,14 @@
 #include <math.h>
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	float nearbyintf(float x)
-#else
-	float nearbyintf(x)
-	float x;
-#endif
+float nearbyintf(float x)
 {
   return rintf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double nearbyint(double x)
-#else
-	double nearbyint(x)
-	double x;
-#endif
+double nearbyint(double x)
 {
   return (double) nearbyintf((float) x);
 }

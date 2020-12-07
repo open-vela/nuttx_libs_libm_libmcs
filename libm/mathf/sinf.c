@@ -3,14 +3,8 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
 
-#ifdef __STDC__
-	float sinf(float x)
-#else
-	float sinf(x)
-	float x;
-#endif
+float sinf(float x)
 {
 	float y[2],z=0.0;
 	__int32_t n,ix;
@@ -39,15 +33,9 @@
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double sin(double x)
-#else
-	double sin(x)
-	double x;
-#endif
+double sin(double x)
 {
 	return (double) sinf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

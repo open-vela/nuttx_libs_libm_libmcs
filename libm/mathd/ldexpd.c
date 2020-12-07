@@ -39,16 +39,10 @@ PORTABILITY
 */   
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double ldexp(double value, int exp)
-#else
-	double ldexp(value, exp)
-	double value; int exp;
-#endif
+double ldexp(double value, int exp)
 {
 	if(!finite(value)||value==0.0) return value;
 	value = scalbn(value,exp);

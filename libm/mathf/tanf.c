@@ -3,11 +3,8 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+
+static const float
 one   =  1.0000000000e+00, /* 0x3f800000 */
 pio4  =  7.8539812565e-01, /* 0x3f490fda */
 pio4lo=  3.7748947079e-08, /* 0x33222168 */
@@ -27,12 +24,7 @@ T[] =  {
   2.5907305826e-05, /* 0x37d95384 */
 };
 
-#ifdef __STDC__
-	float __kernel_tanf(float x, float y, int iy)
-#else
-	float __kernel_tanf(x, y, iy)
-	float x,y; int iy;
-#endif
+float __kernel_tanf(float x, float y, int iy)
 {
 	float z,r,v,w,s;
 	__int32_t ix,hx;
@@ -86,12 +78,7 @@ T[] =  {
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	float tanf(float x)
-#else
-	float tanf(x)
-	float x;
-#endif
+float tanf(float x)
 {
 	float y[2],z=0.0;
 	__int32_t n,ix;
@@ -115,12 +102,7 @@ T[] =  {
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double tan(double x)
-#else
-	double tan(x)
-	double x;
-#endif
+double tan(double x)
 {
 	return (double) tanf((float) x);
 }

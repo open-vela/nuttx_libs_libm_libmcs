@@ -66,13 +66,7 @@ frexp, ilogb
 
 #ifndef _DOUBLE_IS_32BITS
 
-double
-#ifdef __STDC__
-logb(double x)
-#else
-logb(x)
-double x;
-#endif
+double logb(double x)
 {
 	__int32_t hx,lx,ix;
 

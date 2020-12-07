@@ -7,33 +7,18 @@
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 #include <math.h>
-#undef log2
-#undef log2f
 
-#ifdef __STDC__
-	float log2f(float x)		/* wrapper log2f */
-#else
-	float log2f(x)			/* wrapper log2f */
-	float x;
-#endif
+float log2f(float x)		/* wrapper log2f */
 {
   return (logf(x) / (float_t) M_LN2);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double log2(double x)
-#else
-	double log2(x)
-	double x;
-#endif
+double log2(double x)
 {
 	return (double) log2f((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

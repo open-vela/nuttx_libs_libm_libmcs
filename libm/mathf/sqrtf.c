@@ -4,18 +4,9 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
 static	const float	one	= 1.0, tiny=1.0e-30;
-#else
-static	float	one	= 1.0, tiny=1.0e-30;
-#endif
 
-#ifdef __STDC__
-	float __ieee754_sqrtf(float x)
-#else
-	float __ieee754_sqrtf(x)
-	float x;
-#endif
+float __ieee754_sqrtf(float x)
 {
 	float z;
 	__uint32_t r,hx;
@@ -82,38 +73,15 @@ static	float	one	= 1.0, tiny=1.0e-30;
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float sqrtf(float x)		/* wrapper sqrtf */
-#else
-	float sqrtf(x)			/* wrapper sqrtf */
-	float x;
-#endif
+float sqrtf(float x)		/* wrapper sqrtf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_sqrtf(x);
-#else
-	float z;
-	z = __ieee754_sqrtf(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(x<0.0f) {
-	    /* sqrtf(negative) */
-	    errno = EDOM;
-	    return 0.0f/0.0f;
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double sqrt(double x)
-#else
-	double sqrt(x)
-	double x;
-#endif
+double sqrt(double x)
 {
 	return (double) sqrtf((float) x);
 }

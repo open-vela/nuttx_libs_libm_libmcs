@@ -4,12 +4,7 @@
 
 #include "fdlibm.h"
 
-#if __OBSOLETE_MATH
-#ifdef __STDC__
 static const float
-#else
-static float
-#endif
 ln2_hi =   6.9313812256e-01,	/* 0x3f317180 */
 ln2_lo =   9.0580006145e-06,	/* 0x3717f7d1 */
 two25 =    3.355443200e+07,	/* 0x4c000000 */
@@ -21,18 +16,9 @@ Lg5 = 1.8183572590e-01, /* 3E3A3325 */
 Lg6 = 1.5313838422e-01, /* 3E1CD04F */
 Lg7 = 1.4798198640e-01; /* 3E178897 */
 
-#ifdef __STDC__
 static const float zero   =  0.0;
-#else
-static float zero   =  0.0;
-#endif
 
-#ifdef __STDC__
-	float __ieee754_logf(float x)
-#else
-	float __ieee754_logf(x)
-	float x;
-#endif
+float __ieee754_logf(float x)
 {
 	float hfsq,f,s,z,R,w,t1,t2,dk;
 	__int32_t k,ix,i,j;
@@ -80,52 +66,23 @@ static float zero   =  0.0;
 		     return dk*ln2_hi-((s*(f-R)-dk*ln2_lo)-f);
 	}
 }
-#endif /* __OBSOLETE_MATH */
 
 /*
  * wrapper logf(x)
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 
-#ifdef __STDC__
-	float logf(float x)		/* wrapper logf */
-#else
-	float logf(x)			/* wrapper logf */
-	float x;
-#endif
+float logf(float x)		/* wrapper logf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_logf(x);
-#else
-	float z;
-	z = __ieee754_logf(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x) || x > 0.0f) return z;
-	if(x==0.0f) {
-	    /* logf(0) */
-	    errno = ERANGE;
-	    return -HUGE_VALF;
-	} else { 
-	    /* logf(x<0) */
-	    errno = EDOM;
-	    return nanf("");
-        }
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double log(double x)
-#else
-	double log(x)
-	double x;
-#endif
+double log(double x)
 {
 	return (double) logf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

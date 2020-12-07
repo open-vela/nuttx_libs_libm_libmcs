@@ -3,17 +3,8 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#include "math_config.h"
 
-#ifdef __v810__
-#define const
-#endif
-
-#ifdef __STDC__
 static const float
-#else
-static float
-#endif
 tiny	    = 1e-30,
 half=  5.0000000000e-01, /* 0x3F000000 */
 one =  1.0000000000e+00, /* 0x3F800000 */
@@ -88,12 +79,7 @@ sb5  =  2.5530502930e+03, /* 0x451f90ce */
 sb6  =  4.7452853394e+02, /* 0x43ed43a7 */
 sb7  = -2.2440952301e+01; /* 0xc1b38712 */
 
-#ifdef __STDC__
-	float erff(float x) 
-#else
-	float erff(x) 
-	float x;
-#endif
+float erff(float x)
 {
 	__int32_t hx,ix,i;
 	float R,S,P,Q,s,y,z,r;
@@ -147,12 +133,7 @@ sb7  = -2.2440952301e+01; /* 0xc1b38712 */
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double erf(double x)
-#else
-	double erf(x)
-	double x;
-#endif
+double erf(double x)
 {
 	return (double) erff((float) x);
 }
