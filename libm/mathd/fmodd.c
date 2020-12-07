@@ -11,18 +11,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double one = 1.0, Zero[] = {0.0, -0.0,};
-#else
-static double one = 1.0, Zero[] = {0.0, -0.0,};
-#endif
 
-#ifdef __STDC__
-	double __ieee754_fmod(double x, double y)
-#else
-	double __ieee754_fmod(x,y)
-	double x,y ;
-#endif
+double __ieee754_fmod(double x, double y)
 {
 	__int32_t n,hx,hy,hz,ix,iy,sx,i;
 	__uint32_t lx,ly,lz;
@@ -170,30 +161,12 @@ PORTABILITY
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double fmod(double x, double y)	/* wrapper fmod */
-#else
-	double fmod(x,y)		/* wrapper fmod */
-	double x,y;
-#endif
+double fmod(double x, double y)	/* wrapper fmod */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_fmod(x,y);
-#else
-	double z;
-	z = __ieee754_fmod(x,y);
-	if(_LIB_VERSION == _IEEE_ ||isnan(y)||isnan(x)) return z;
-	if(y==0.0) {
-	    /* fmod(x,0) */
-	    errno = EDOM;
-	    return 0.0/0.0;
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

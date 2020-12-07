@@ -3,24 +3,10 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#include "math_config.h"
 
-#ifdef __v810__
-#define const
-#endif
-
-#ifdef __STDC__
 static const float one = 1.0, half=0.5;
-#else
-static float one = 1.0, half=0.5;
-#endif
 
-#ifdef __STDC__
-	float __ieee754_coshf(float x)
-#else
-	float __ieee754_coshf(x)
-	float x;
-#endif
+float __ieee754_coshf(float x)
 {	
 	float t,w;
 	__int32_t ix;
@@ -65,38 +51,15 @@ static float one = 1.0, half=0.5;
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float coshf(float x)		/* wrapper coshf */
-#else
-	float coshf(x)			/* wrapper coshf */
-	float x;
-#endif
+float coshf(float x)		/* wrapper coshf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_coshf(x);
-#else
-	float z;
-	z = __ieee754_coshf(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(fabsf(x)>8.9415985107e+01f) {
-	    /* coshf(finite) overflow */
-	    errno = ERANGE;
-	    return HUGE_VALF;
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double cosh(double x)
-#else
-	double cosh(x)
-	double x;
-#endif
+double cosh(double x)
 {
 	return (double) coshf((float) x);
 }

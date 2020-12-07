@@ -23,18 +23,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double one = 1.0, shuge = 1.0e307;
-#else
-static double one = 1.0, shuge = 1.0e307;
-#endif
 
-#ifdef __STDC__
-	double __ieee754_sinh(double x)
-#else
-	double __ieee754_sinh(x)
-	double x;
-#endif
+double __ieee754_sinh(double x)
 {	
 	double t,w,h;
 	__int32_t ix,jx;
@@ -123,30 +114,12 @@ QUICKREF
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double sinh(double x)		/* wrapper sinh */
-#else
-	double sinh(x)			/* wrapper sinh */
-	double x;
-#endif
+double sinh(double x)		/* wrapper sinh */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_sinh(x);
-#else
-	double z; 
-	z = __ieee754_sinh(x);
-	if(_LIB_VERSION == _IEEE_) return z;
-	if(!finite(z)&&finite(x)) {
-	    /* sinh(finite) overflow */
-	    errno = ERANGE;
-	    return ((x>0.0) ? HUGE_VAL : -HUGE_VAL);
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

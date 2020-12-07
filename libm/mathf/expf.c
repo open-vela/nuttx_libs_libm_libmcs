@@ -3,18 +3,8 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#include "math_config.h"
 
-#if __OBSOLETE_MATH
-#ifdef __v810__
-#define const
-#endif
-
-#ifdef __STDC__
 static const float
-#else
-static float
-#endif
 one	= 1.0,
 halF[2]	= {0.5,-0.5,},
 huge	= 1.0e+30,
@@ -30,12 +20,7 @@ P3   =  6.6137559770e-05, /* 0x388ab355 */
 P4   = -1.6533901999e-06, /* 0xb5ddea0e */
 P5   =  4.1381369442e-08; /* 0x3331bb4c */
 
-#ifdef __STDC__
-	float __ieee754_expf(float x)	/* default IEEE double exp */
-#else
-	float __ieee754_expf(x)	/* default IEEE double exp */
-	float x;
-#endif
+float __ieee754_expf(float x)	/* default IEEE double exp */
 {
 	float y,hi,lo,c,t;
 	__int32_t k = 0,xsb,sx;
@@ -88,63 +73,27 @@ P5   =  4.1381369442e-08; /* 0x3331bb4c */
 	    return y*twom100;
 	}
 }
-#endif /* __OBSOLETE_MATH */
 
 /* 
  * wrapper expf(x)
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 
-#ifdef __STDC__
 static const float
-#else
-static float
-#endif
 o_threshold=  8.8721679688e+01,  /* 0x42b17180 */
 u_threshold= -1.0397208405e+02;  /* 0xc2cff1b5 */
 
-#ifdef __STDC__
-	float expf(float x)		/* wrapper expf */
-#else
-	float expf(x)			/* wrapper expf */
-	float x;
-#endif
+float expf(float x)		/* wrapper expf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_expf(x);
-#else
-	float z;
-	z = __ieee754_expf(x);
-	if(_LIB_VERSION == _IEEE_) return z;
-	if(finitef(x)) {
-	    if(x>o_threshold) {
-		/* expf(finite) overflow */
-		errno = ERANGE;
-	        return HUGE_VALF;
-	    } else if(x<u_threshold) {
-		/* expf(finite) underflow */
-		errno = ERANGE;
-		return 0.0f;
-	    } 
-	} 
-	return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double exp(double x)
-#else
-	double exp(x)
-	double x;
-#endif
+double exp(double x)
 {
 	return (double) expf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

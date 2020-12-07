@@ -44,12 +44,7 @@ ANSI C, POSIX
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	long int lround(double x)
-#else
-	long int lround(x)
-	double x;
-#endif
+long int lround(double x)
 {
   __int32_t sign, exponent_less_1023;
   /* Most significant word, least significant word. */

@@ -39,11 +39,7 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 one   =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
 pio4  =  7.85398163397448278999e-01, /* 0x3FE921FB, 0x54442D18 */
 pio4lo=  3.06161699786838301793e-17, /* 0x3C81A626, 0x33145C07 */
@@ -63,12 +59,7 @@ T[] =  {
   2.59073051863633712884e-05, /* 0x3EFB2A70, 0x74BF7AD4 */
 };
 
-#ifdef __STDC__
-	double __kernel_tan(double x, double y, int iy)
-#else
-	double __kernel_tan(x, y, iy)
-	double x,y; int iy;
-#endif
+double __kernel_tan(double x, double y, int iy)
 {
 	double z,r,v,w,s;
 	__int32_t ix,hx;
@@ -196,12 +187,7 @@ PORTABILITY
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double tan(double x)
-#else
-	double tan(x)
-	double x;
-#endif
+double tan(double x)
 {
 	double y[2],z=0.0;
 	__int32_t n,ix;

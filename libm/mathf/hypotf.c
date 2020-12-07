@@ -4,12 +4,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	float __ieee754_hypotf(float x, float y)
-#else
-	float __ieee754_hypotf(x,y)
-	float x, y;
-#endif
+float __ieee754_hypotf(float x, float y)
 {
 	float a=x,b=y,t1,t2,y1,y2,w;
 	__int32_t j,k,ha,hb;
@@ -76,38 +71,15 @@
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float hypotf(float x, float y)	/* wrapper hypotf */
-#else
-	float hypotf(x,y)		/* wrapper hypotf */
-	float x,y;
-#endif
+float hypotf(float x, float y)	/* wrapper hypotf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_hypotf(x,y);
-#else
-	float z;
-	z = __ieee754_hypotf(x,y);
-	if(_LIB_VERSION == _IEEE_) return z;
-	if((!finitef(z))&&finitef(x)&&finitef(y)) {
-	    /* hypotf(finite,finite) overflow */
-	    errno = ERANGE;
-	    return HUGE_VALF;
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double hypot(double x, double y)
-#else
-	double hypot(x,y)
-	double x,y;
-#endif
+double hypot(double x, double y)
 {
 	return (double) hypotf((float) x, (float) y);
 }

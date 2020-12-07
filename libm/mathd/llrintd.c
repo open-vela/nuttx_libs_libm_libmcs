@@ -16,28 +16,16 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-static const double
-#else
-static double 
-#endif
-
 /* Adding a double, x, to 2^52 will cause the result to be rounded based on
    the fractional part of x, according to the implementation's current rounding
    mode.  2^52 is the smallest double that can be represented using all 52 significant
    digits. */
-TWO52[2]={
+static const double TWO52[2]={
   4.50359962737049600000e+15, /* 0x43300000, 0x00000000 */
  -4.50359962737049600000e+15, /* 0xC3300000, 0x00000000 */
 };
 
-long long int
-#ifdef __STDC__
-	llrint(double x)
-#else
-	llrint(x)
-	double x;
-#endif
+long long int llrint(double x)
 {
   __int32_t i0,j0,sx;
   __uint32_t i1;

@@ -50,15 +50,9 @@
 #include "fdlibm.h"
 #include "math_config.h"
 
-#if __OBSOLETE_MATH
-
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 bp[] = {1.0, 1.5,},
 dp_h[] = { 0.0, 5.84962487220764160156e-01,}, /* 0x3FE2B803, 0x40000000 */
 dp_l[] = { 0.0, 1.35003920212974897128e-08,}, /* 0x3E4CFDEB, 0x43CFD006 */
@@ -89,12 +83,7 @@ ivln2    =  1.44269504088896338700e+00, /* 0x3FF71547, 0x652B82FE =1/ln2 */
 ivln2_h  =  1.44269502162933349609e+00, /* 0x3FF71547, 0x60000000 =24b 1/ln2*/
 ivln2_l  =  1.92596299112661746887e-08; /* 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail*/
 
-#ifdef __STDC__
-	double __ieee754_pow(double x, double y)
-#else
-	double __ieee754_pow(x,y)
-	double x, y;
-#endif
+double __ieee754_pow(double x, double y)
 {
 	double z,ax,z_h,z_l,p_h,p_l;
 	double y1,t1,t2,r,s,t,u,v,w;
@@ -307,7 +296,6 @@ ivln2_l  =  1.92596299112661746887e-08; /* 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail*/
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */
 
 /*
 FUNCTION
@@ -347,55 +335,12 @@ PORTABILITY
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double pow(double x, double y)	/* wrapper pow */
-#else
-	double pow(x,y)			/* wrapper pow */
-	double x,y;
-#endif
+double pow(double x, double y)	/* wrapper pow */
 {
-#ifdef _IEEE_LIBM
 	return  __ieee754_pow(x,y);
-#else
-	double z;
-	z=__ieee754_pow(x,y);
-	if(_LIB_VERSION == _IEEE_|| isnan(y)) return z;
-	if(x==0.0){ 
-	    if(y==0.0) {
-		/* pow(0.0,0.0) */
-		/* Not an error.  */
-		return 1.0;
-	    }
-	    if(finite(y)&&y<0.0) {
-		/* 0**neg */
-		errno = ERANGE;
-	    }
-	    return z;
-	}
-	if(!finite(z)) {
-	    if(finite(x)&&finite(y)) {
-	        if(isnan(z)) {
-		    /* neg**non-integral */
-		    errno = EDOM;
-	        } else {
-		    /* pow(x,y) overflow */
-		    errno = ERANGE;
-                }
-		return z;
-	    }
-	} 
-	if(z==0.0&&finite(x)&&finite(y)) {
-	    /* pow(x,y) underflow */
-	    errno = ERANGE;
-        } 
-	return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

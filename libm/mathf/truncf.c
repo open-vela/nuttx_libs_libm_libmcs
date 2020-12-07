@@ -3,12 +3,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	float truncf(float x)
-#else
-	float truncf(x)
-	float x;
-#endif
+float truncf(float x)
 {
   __int32_t signbit, w, exponent_less_127;
 
@@ -45,12 +40,7 @@
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double trunc(double x)
-#else
-	double trunc(x)
-	double x;
-#endif
+double trunc(double x)
 {
 	return (double) truncf((float) x);
 }

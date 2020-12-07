@@ -7,17 +7,9 @@
 /* In the float version, the input parameter x contains 8 bit
    integers, not 24 bit integers.  113 bit precision is not supported.  */
 
-#ifdef __STDC__
 static const int init_jk[] = {4,7,9}; /* initial value for jk */
-#else
-static int init_jk[] = {4,7,9}; 
-#endif
 
-#ifdef __STDC__
 static const float PIo2[] = {
-#else
-static float PIo2[] = {
-#endif
   1.5703125000e+00, /* 0x3fc90000 */
   4.5776367188e-04, /* 0x39f00000 */
   2.5987625122e-05, /* 0x37da0000 */
@@ -31,22 +23,13 @@ static float PIo2[] = {
   6.3331015649e-25, /* 0x17440000 */
 };
 
-#ifdef __STDC__
-static const float			
-#else
-static float			
-#endif
+static const float
 zero   = 0.0,
 one    = 1.0,
 two8   =  2.5600000000e+02, /* 0x43800000 */
 twon8  =  3.9062500000e-03; /* 0x3b800000 */
 
-#ifdef __STDC__
-	int __kernel_rem_pio2f(float *x, float *y, int e0, int nx, int prec, const __int32_t *ipio2) 
-#else
-	int __kernel_rem_pio2f(x,y,e0,nx,prec,ipio2) 	
-	float x[], y[]; int e0,nx,prec; __int32_t ipio2[];
-#endif
+int __kernel_rem_pio2f(float *x, float *y, int e0, int nx, int prec, const __int32_t *ipio2)
 {
 	__int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
 	float z,fw,f[20],fq[20],q[20];
@@ -208,11 +191,7 @@ recompute:
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi 
  */
-#ifdef __STDC__
 static const __int32_t two_over_pi[] = {
-#else
-static __int32_t two_over_pi[] = {
-#endif
 0xA2, 0xF9, 0x83, 0x6E, 0x4E, 0x44, 0x15, 0x29, 0xFC,
 0x27, 0x57, 0xD1, 0xF5, 0x34, 0xDD, 0xC0, 0xDB, 0x62, 
 0x95, 0x99, 0x3C, 0x43, 0x90, 0x41, 0xFE, 0x51, 0x63,
@@ -239,11 +218,7 @@ static __int32_t two_over_pi[] = {
 
 /* This array is like the one in e_rem_pio2.c, but the numbers are
    single precision and the last 8 bits are forced to 0.  */
-#ifdef __STDC__
 static const __int32_t npio2_hw[] = {
-#else
-static __int32_t npio2_hw[] = {
-#endif
 0x3fc90f00, 0x40490f00, 0x4096cb00, 0x40c90f00, 0x40fb5300, 0x4116cb00,
 0x412fed00, 0x41490f00, 0x41623100, 0x417b5300, 0x418a3a00, 0x4196cb00,
 0x41a35c00, 0x41afed00, 0x41bc7e00, 0x41c90f00, 0x41d5a000, 0x41e23100,
@@ -262,11 +237,7 @@ static __int32_t npio2_hw[] = {
  * pio2_3t:  pi/2 - (pio2_1+pio2_2+pio2_3)
  */
 
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+static const float
 zero =  0.0000000000e+00, /* 0x00000000 */
 half =  5.0000000000e-01, /* 0x3f000000 */
 two8 =  2.5600000000e+02, /* 0x43800000 */
@@ -278,12 +249,7 @@ pio2_2t =  6.0770999344e-11, /* 0x2e85a308 */
 pio2_3  =  6.0770943833e-11, /* 0x2e85a300 */
 pio2_3t =  6.1232342629e-17; /* 0x248d3132 */
 
-#ifdef __STDC__
-	__int32_t __ieee754_rem_pio2f(float x, float *y)
-#else
-	__int32_t __ieee754_rem_pio2f(x,y)
-	float x,y[];
-#endif
+__int32_t __ieee754_rem_pio2f(float x, float *y)
 {
 	float z,w,t,r,fn;
 	float tx[3];
@@ -377,11 +343,7 @@ pio2_3t =  6.1232342629e-17; /* 0x248d3132 */
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
 static const float 
-#else
-static float 
-#endif
 one =  1.0000000000e+00, /* 0x3f800000 */
 C1  =  4.1666667908e-02, /* 0x3d2aaaab */
 C2  = -1.3888889225e-03, /* 0xbab60b61 */
@@ -390,12 +352,7 @@ C4  = -2.7557314297e-07, /* 0xb493f27c */
 C5  =  2.0875723372e-09, /* 0x310f74f6 */
 C6  = -1.1359647598e-11; /* 0xad47d74e */
 
-#ifdef __STDC__
-	float __kernel_cosf(float x, float y)
-#else
-	float __kernel_cosf(x, y)
-	float x,y;
-#endif
+float __kernel_cosf(float x, float y)
 {
 	float a,hz,z,r,qx;
 	__int32_t ix;
@@ -422,11 +379,7 @@ C6  = -1.1359647598e-11; /* 0xad47d74e */
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+static const float
 half =  5.0000000000e-01,/* 0x3f000000 */
 S1  = -1.6666667163e-01, /* 0xbe2aaaab */
 S2  =  8.3333337680e-03, /* 0x3c088889 */
@@ -435,12 +388,7 @@ S4  =  2.7557314297e-06, /* 0x3638ef1b */
 S5  = -2.5050759689e-08, /* 0xb2d72f34 */
 S6  =  1.5896910177e-10; /* 0x2f2ec9d3 */
 
-#ifdef __STDC__
-	float __kernel_sinf(float x, float y, int iy)
-#else
-	float __kernel_sinf(x, y, iy)
-	float x,y; int iy;		/* iy=0 if y is zero */
-#endif
+float __kernel_sinf(float x, float y, int iy)
 {
 	float z,r,v;
 	__int32_t ix;

@@ -56,18 +56,9 @@ PORTABILITY
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double huge = 1.0e300;
-#else
-static double huge = 1.0e300;
-#endif
 
-#ifdef __STDC__
-	double floor(double x)
-#else
-	double floor(x)
-	double x;
-#endif
+double floor(double x)
 {
 	__int32_t i0,i1,j0;
 	__uint32_t i,j;

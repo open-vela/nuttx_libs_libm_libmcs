@@ -80,37 +80,12 @@ None of the Bessel functions are in ANSI C.
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double y0(double x)		/* wrapper y0 */
-#else
-	double y0(x)			/* wrapper y0 */
-	double x;
-#endif
+double y0(double x)		/* wrapper y0 */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_y0(x);
-#else
-	double z;
-	z = __ieee754_y0(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x) ) return z;
-        if(x < 0.0){
-	    /* y0(x<0) = NaN */
-	    errno = EDOM;
-        }
-        if(x == 0.0){
-	    /* y0(0) = -inf */
-	    errno = ERANGE;
-        }
-	if(x>X_TLOSS) {
-	    /* y0(x>X_TLOSS) */
-	    errno = ERANGE;
-	}
-	return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

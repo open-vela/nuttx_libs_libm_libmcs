@@ -3,12 +3,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	long int lroundf(float x)
-#else
-	long int lroundf(x)
-	float x;
-#endif
+long int lroundf(float x)
 {
   __int32_t exponent_less_127;
   __uint32_t w;
@@ -41,12 +36,7 @@
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	long int lround(double x)
-#else
-	long int lround(x)
-	double x;
-#endif
+long int lround(double x)
 {
 	return lroundf((float) x);
 }

@@ -4,11 +4,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+static const float
 one =  1.0000000000e+00, /* 0x3F800000 */
 huge =  1.000e+30,
 pio2_hi = 1.57079637050628662109375f,
@@ -26,12 +22,7 @@ qS2 =  2.0209457874e+00, /* 0x4001572d */
 qS3 = -6.8828397989e-01, /* 0xbf303361 */
 qS4 =  7.7038154006e-02; /* 0x3d9dc62e */
 
-#ifdef __STDC__
-	float __ieee754_asinf(float x)
-#else
-	float __ieee754_asinf(x)
-	float x;
-#endif
+float __ieee754_asinf(float x)
 {
 	float t,w,p,q,c,r,s;
 	__int32_t hx,ix;
@@ -82,38 +73,15 @@ qS4 =  7.7038154006e-02; /* 0x3d9dc62e */
 
 
 #include "fdlibm.h"
-#include <errno.h>
 
-#ifdef __STDC__
-	float asinf(float x)		/* wrapper asinf */
-#else
-	float asinf(x)			/* wrapper asinf */
-	float x;
-#endif
+float asinf(float x)		/* wrapper asinf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_asinf(x);
-#else
-	float z;
-	z = __ieee754_asinf(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(fabsf(x)>1.0f) {
-	    /* asinf(|x|>1) */
-	    errno = EDOM;
-	    return nanf("");
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double asin(double x)
-#else
-	double asin(x)
-	double x;
-#endif
+double asin(double x)
 {
 	return (double) asinf((float) x);
 }

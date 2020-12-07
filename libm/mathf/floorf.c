@@ -13,18 +13,9 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
 static const float huge = 1.0e30;
-#else
-static float huge = 1.0e30;
-#endif
 
-#ifdef __STDC__
-	float floorf(float x)
-#else
-	float floorf(x)
-	float x;
-#endif
+float floorf(float x)
 {
 	__int32_t i0,j0;
 	__uint32_t i,ix;
@@ -56,12 +47,7 @@ static float huge = 1.0e30;
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double floor(double x)
-#else
-	double floor(x)
-	double x;
-#endif
+double floor(double x)
 {
 	return (double) floorf((float) x);
 }

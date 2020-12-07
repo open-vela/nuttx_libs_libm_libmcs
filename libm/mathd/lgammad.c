@@ -70,11 +70,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const double 
-#else
-static double 
-#endif
+static const double
 two52=  4.50359962737049600000e+15, /* 0x43300000, 0x00000000 */
 half=  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
 one =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
@@ -142,18 +138,9 @@ w4  = -5.95187557450339963135e-04, /* 0xBF4380CB, 0x8C0FE741 */
 w5  =  8.36339918996282139126e-04, /* 0x3F4B67BA, 0x4CDAD5D1 */
 w6  = -1.63092934096575273989e-03; /* 0xBF5AB89D, 0x0B9E43E4 */
 
-#ifdef __STDC__
 static const double zero=  0.00000000000000000000e+00;
-#else
-static double zero=  0.00000000000000000000e+00;
-#endif
 
-#ifdef __STDC__
-	static double sin_pi(double x)
-#else
-	static double sin_pi(x)
-	double x;
-#endif
+static double sin_pi(double x)
 {
 	double y,z;
 	__int32_t n,ix;
@@ -197,13 +184,7 @@ static double zero=  0.00000000000000000000e+00;
 	return -y;
 }
 
-
-#ifdef __STDC__
-	double __ieee754_lgamma_r(double x, int *signgamp)
-#else
-	double __ieee754_lgamma_r(x,signgamp)
-	double x; int *signgamp;
-#endif
+double __ieee754_lgamma_r(double x, int *signgamp)
 {
 	double t,y,z,nadj = 0.0,p,p1,p2,p3,q,r,w;
 	__int32_t i,hx,lx,ix;
@@ -304,30 +285,12 @@ static double zero=  0.00000000000000000000e+00;
  */
 
 #include "fdlibm.h"
-#include <reent.h>
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double lgamma(double x)
-#else
-	double lgamma(x)
-	double x;
-#endif
+double lgamma(double x)
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_lgamma_r(x,&(_REENT_SIGNGAM(_REENT)));
-#else
-        double y;
-        y = __ieee754_lgamma_r(x,&(_REENT_SIGNGAM(_REENT)));
-        if(_LIB_VERSION == _IEEE_) return y;
-        if(!finite(y)&&finite(x)) {
-	    /* lgamma(finite) overflow */
-	    errno = ERANGE;
-	}
-	return y;
-#endif
 }             
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
