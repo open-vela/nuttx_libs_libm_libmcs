@@ -5,7 +5,6 @@
 #include <math.h>
 #include <sys/types.h>
 #include <machine/ieeefp.h>
-#include "math_config.h"
 
 /* Most routines need to check whether a float is finite, infinite, or not a
    number, and many need to know whether the result of an operation will
@@ -111,12 +110,8 @@
 #define FLT_SMALLEST_EXP -22
 #endif
 
-#ifdef __STDC__
 #undef __P
 #define	__P(p)	p
-#else
-#define	__P(p)	()
-#endif
 
 /* 
  * set X_TLOSS = pi*2**52, which is possibly defined in <values.h>
@@ -211,20 +206,6 @@ extern __int32_t __ieee754_rem_pio2f __P((float,float*));
 extern float __ieee754_scalbf __P((float,int));
 #else
 extern float __ieee754_scalbf __P((float,float));
-#endif
-
-#if !__OBSOLETE_MATH
-/* The new math code does not provide separate wrapper function
-   for error handling, so the extern symbol is called directly.
-   This is valid as long as there are no namespace issues (the
-   extern symbol is reserved whenever the caller is reserved)
-   and there are no observable error handling side effects.  */
-# define __ieee754_exp(x) exp(x)
-# define __ieee754_log(x) log(x)
-# define __ieee754_pow(x,y) pow(x,y)
-# define __ieee754_expf(x) expf(x)
-# define __ieee754_logf(x) logf(x)
-# define __ieee754_powf(x,y) powf(x,y)
 #endif
 
 /* float versions of fdlibm kernel functions */
