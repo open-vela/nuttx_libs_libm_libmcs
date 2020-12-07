@@ -31,13 +31,7 @@ ANSI C, POSIX.
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double fmax(double x, double y)
-#else
-	double fmax(x,y)
-	double x;
-	double y;
-#endif
+double fmax(double x, double y)
 {
   if (__fpclassifyd(x) == FP_NAN)
     return y;

@@ -3,18 +3,8 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 #include "fdlibm.h"
-#include "math_config.h"
 
-#if __OBSOLETE_MATH
-#ifdef __v810__
-#define const 
-#endif
-
-#ifdef __STDC__
 static const float
-#else
-static float
-#endif
 bp[] = {1.0, 1.5,},
 dp_h[] = { 0.0, 5.84960938e-01,}, /* 0x3f15c000 */
 dp_l[] = { 0.0, 1.56322085e-06,}, /* 0x35d1cfdc */
@@ -45,12 +35,7 @@ ivln2    =  1.4426950216e+00, /* 0x3fb8aa3b =1/ln2 */
 ivln2_h  =  1.4426879883e+00, /* 0x3fb8aa00 =16b 1/ln2*/
 ivln2_l  =  7.0526075433e-06; /* 0x36eca570 =1/ln2 tail*/
 
-#ifdef __STDC__
-	float __ieee754_powf(float x, float y)
-#else
-	float __ieee754_powf(x,y)
-	float x, y;
-#endif
+float __ieee754_powf(float x, float y)
 {
 	float z,ax,z_h,z_l,p_h,p_l;
 	float y1,t1,t2,r,s,t,u,v,w;
@@ -245,74 +230,23 @@ ivln2_l  =  7.0526075433e-06; /* 0x36eca570 =1/ln2 tail*/
 	else SET_FLOAT_WORD(z,j);
 	return s*z;
 }
-#endif /* __OBSOLETE_MATH */
 
 /* 
  * wrapper powf(x,y) return x**y
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 
-#ifdef __STDC__
-	float powf(float x, float y)	/* wrapper powf */
-#else
-	float powf(x,y)			/* wrapper powf */
-	float x,y;
-#endif
+float powf(float x, float y)	/* wrapper powf */
 {
-#ifdef _IEEE_LIBM
 	return  __ieee754_powf(x,y);
-#else
-	float z;
-	z=__ieee754_powf(x,y);
-	if(_LIB_VERSION == _IEEE_|| isnan(y)) return z;
-	if(x==0.0f){
-	    if(y==0.0f) {
-		/* powf(0.0,0.0) */
-		/* Not an error.  */
-		return 1.0f;
-	    }
-	    if(finitef(y)&&y<0.0f) {
-		/* 0**neg */
-		errno = ERANGE;
-	    }
-	    return z;
-	}
-	if(!finitef(z)) {
-	    if(finitef(x)&&finitef(y)) {
-		if(isnan(z)) {
-		    /* neg**non-integral */
-		    errno = EDOM;
-		    /* Use a float divide, to avoid a soft-float double
-		       divide call on single-float only targets.  */
-		} else {
-		    /* powf(x,y) overflow */
-		    errno = ERANGE;
-		}
-		return z;
-	    }
-	} 
-	if(z==0.0f&&finitef(x)&&finitef(y)) {
-	    /* powf(x,y) underflow */
-	    errno = ERANGE;
-        }
-	return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double pow(double x, double y)
-#else
-	double pow(x,y)
-	double x,y;
-#endif
+double pow(double x, double y)
 {
 	return (double) powf((float) x, (float) y);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

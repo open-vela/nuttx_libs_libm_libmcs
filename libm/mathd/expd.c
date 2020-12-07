@@ -65,16 +65,10 @@
  */
 
 #include "fdlibm.h"
-#include "math_config.h"
-#if __OBSOLETE_MATH
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double
-#else
-static double
-#endif
 one	= 1.0,
 halF[2]	= {0.5,-0.5,},
 huge	= 1.0e+300,
@@ -92,13 +86,7 @@ P3   =  6.61375632143793436117e-05, /* 0x3F11566A, 0xAF25DE2C */
 P4   = -1.65339022054652515390e-06, /* 0xBEBBBD41, 0xC5D26BF1 */
 P5   =  4.13813679705723846039e-08; /* 0x3E663769, 0x72BEA4D0 */
 
-
-#ifdef __STDC__
-	double __ieee754_exp(double x)	/* default IEEE double exp */
-#else
-	double __ieee754_exp(x)	/* default IEEE double exp */
-	double x;
-#endif
+double __ieee754_exp(double x)	/* default IEEE double exp */
 {
 	double y,hi,lo,c,t;
 	__int32_t k = 0,xsb;
@@ -156,7 +144,6 @@ P5   =  4.13813679705723846039e-08; /* 0x3E663769, 0x72BEA4D0 */
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */
 
 /*
 FUNCTION
@@ -197,46 +184,16 @@ PORTABILITY
  */
 
 #include "fdlibm.h"
-#if __OBSOLETE_MATH
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double
-#else
-static double
-#endif
 o_threshold=  7.09782712893383973096e+02,  /* 0x40862E42, 0xFEFA39EF */
 u_threshold= -7.45133219101941108420e+02;  /* 0xc0874910, 0xD52D3051 */
 
-#ifdef __STDC__
-	double exp(double x)		/* wrapper exp */
-#else
-	double exp(x)			/* wrapper exp */
-	double x;
-#endif
+double exp(double x)		/* wrapper exp */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_exp(x);
-#else
-	double z;
-	z = __ieee754_exp(x);
-	if(_LIB_VERSION == _IEEE_) return z;
-	if(finite(x)) {
-	    if(x>o_threshold) {
-		/* exp(finite) overflow */
-		errno = ERANGE;
-		return HUGE_VAL;
-	    } else if(x<u_threshold) {
-		/* exp(finite) underflow */
-		errno = ERANGE;
-		return 0.0;
-	    } 
-	} 
-	return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
-#endif /* __OBSOLETE_MATH */

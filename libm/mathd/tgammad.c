@@ -9,12 +9,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-	double __ieee754_tgamma(double x)
-#else
-	double __ieee754_tgamma(x)
-	double x;
-#endif
+double __ieee754_tgamma(double x)
 {
 	int signgam_local;
 	double y = __ieee754_exp(__ieee754_lgamma_r(x, &signgam_local));
@@ -32,28 +27,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double tgamma(double x)
-#else
-	double tgamma(x)
-	double x;
-#endif
+double tgamma(double x)
 {
-        double y;
-	y = __ieee754_tgamma(x);
-#ifdef _IEEE_LIBM
-	return y;
-#else
-	if(_LIB_VERSION == _IEEE_) return y;
-
-	if(!finite(y)&&finite(x)) {
-	  if(floor(x)==x&&x<=0.0)
-	    return __kernel_standard(x,x,41); /* tgamma pole */
-	  else
-	    return __kernel_standard(x,x,40); /* tgamma overflow */
-	}
-	return y;
-#endif
+	return __ieee754_tgamma(x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

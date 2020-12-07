@@ -23,22 +23,12 @@
  */
 
 #include "fdlibm.h"
-#include "math_config.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static const double one = 1.0, half=0.5;
-#else
-static double one = 1.0, half=0.5;
-#endif
 
-#ifdef __STDC__
-	double __ieee754_cosh(double x)
-#else
-	double __ieee754_cosh(x)
-	double x;
-#endif
+double __ieee754_cosh(double x)
 {	
 	double t,w;
 	__int32_t ix;
@@ -127,30 +117,12 @@ QUICKREF
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
  
-#ifdef __STDC__
-	double cosh(double x)		/* wrapper cosh */
-#else
-	double cosh(x)			/* wrapper cosh */
-	double x;
-#endif
+double cosh(double x)		/* wrapper cosh */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_cosh(x);
-#else
-	double z;
-	z = __ieee754_cosh(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(fabs(x)>7.10475860073943863426e+02) {	
-	    /* cosh(finite) overflow */
-	    errno = ERANGE;
-	    return HUGE_VAL;
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

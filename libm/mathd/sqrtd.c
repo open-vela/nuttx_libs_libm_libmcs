@@ -75,18 +75,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
 static	const double	one	= 1.0, tiny=1.0e-300;
-#else
-static	double	one	= 1.0, tiny=1.0e-300;
-#endif
 
-#ifdef __STDC__
-	double __ieee754_sqrt(double x)
-#else
-	double __ieee754_sqrt(x)
-	double x;
-#endif
+double __ieee754_sqrt(double x)
 {
 	double z;
 	__int32_t sign = 0x80000000; 
@@ -473,29 +464,12 @@ PORTABILITY
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double sqrt(double x)		/* wrapper sqrt */
-#else
-	double sqrt(x)			/* wrapper sqrt */
-	double x;
-#endif
+double sqrt(double x)		/* wrapper sqrt */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_sqrt(x);
-#else
-	double z;
-	z = __ieee754_sqrt(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(x<0.0) {
-	    errno = EDOM;
-	    return 0.0/0.0;
-	} else
-	    return z;
-#endif
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

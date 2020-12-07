@@ -4,22 +4,13 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
 static const float
-#else
-static float
-#endif
 two25   =  3.355443200e+07,	/* 0x4c000000 */
 twom25  =  2.9802322388e-08,	/* 0x33000000 */
 huge   = 1.0e+30,
 tiny   = 1.0e-30;
 
-#ifdef __STDC__
-	float scalblnf (float x, long int n)
-#else
-	float scalblnf (x,n)
-	float x; long int n;
-#endif
+float scalblnf (float x, long int n)
 {
 	__int32_t k,ix;
 	GET_FLOAT_WORD(ix,x);
@@ -47,12 +38,7 @@ tiny   = 1.0e-30;
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double scalbln (double x, long int n)
-#else
-	double scalbln (x,n)
-	double x; long int n;
-#endif
+double scalbln (double x, long int n)
 {
 	return (double) scalblnf((float) x, n);
 }

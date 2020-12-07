@@ -4,11 +4,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+static const float
 two23=  8.3886080000e+06, /* 0x4b000000 */
 half=  5.0000000000e-01, /* 0x3f000000 */
 one =  1.0000000000e+00, /* 0x3f800000 */
@@ -76,18 +72,9 @@ w4  = -5.9518753551e-04, /* 0xba1c065c */
 w5  =  8.3633989561e-04, /* 0x3a5b3dd2 */
 w6  = -1.6309292987e-03; /* 0xbad5c4e8 */
 
-#ifdef __STDC__
 static const float zero=  0.0000000000e+00;
-#else
-static float zero=  0.0000000000e+00;
-#endif
 
-#ifdef __STDC__
-	static float sin_pif(float x)
-#else
-	static float sin_pif(x)
-	float x;
-#endif
+static float sin_pif(float x)
 {
 	float y,z;
 	__int32_t n,ix;
@@ -131,13 +118,7 @@ static float zero=  0.0000000000e+00;
 	return -y;
 }
 
-
-#ifdef __STDC__
-	float __ieee754_lgammaf_r(float x, int *signgamp)
-#else
-	float __ieee754_lgammaf_r(x,signgamp)
-	float x; int *signgamp;
-#endif
+float __ieee754_lgammaf_r(float x, int *signgamp)
 {
 	float t,y,z,nadj = 0.0,p,p1,p2,p3,q,r,w;
 	__int32_t i,hx,ix;
@@ -232,38 +213,15 @@ static float zero=  0.0000000000e+00;
 }
 
 #include "fdlibm.h"
-#include <reent.h>
-#include <errno.h>
 
-#ifdef __STDC__
-	float lgammaf(float x)
-#else
-	float lgammaf(x)
-	float x;
-#endif
+float lgammaf(float x)
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_lgammaf_r(x,&(_REENT_SIGNGAM(_REENT)));
-#else
-        float y;
-        y = __ieee754_lgammaf_r(x,&(_REENT_SIGNGAM(_REENT)));
-        if(_LIB_VERSION == _IEEE_) return y;
-        if(!finitef(y)&&finitef(x)) {
-	    /* lgammaf(finite) overflow */
-	    errno = ERANGE;
-        }
-	return y;
-#endif
 }             
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double lgamma(double x)
-#else
-	double lgamma(x)
-	double x;
-#endif
+double lgamma(double x)
 {
 	return (double) lgammaf((float) x);
 }

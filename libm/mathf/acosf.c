@@ -4,11 +4,7 @@
 
 #include "fdlibm.h"
 
-#ifdef __STDC__
-static const float 
-#else
-static float 
-#endif
+static const float
 one =  1.0000000000e+00, /* 0x3F800000 */
 pi =  3.1415925026e+00, /* 0x40490fda */
 pio2_hi =  1.5707962513e+00, /* 0x3fc90fda */
@@ -24,12 +20,7 @@ qS2 =  2.0209457874e+00, /* 0x4001572d */
 qS3 = -6.8828397989e-01, /* 0xbf303361 */
 qS4 =  7.7038154006e-02; /* 0x3d9dc62e */
 
-#ifdef __STDC__
-	float __ieee754_acosf(float x)
-#else
-	float __ieee754_acosf(x)
-	float x;
-#endif
+float __ieee754_acosf(float x)
 {
 	float z,p,q,r,w,s,c,df;
 	__int32_t hx,ix;
@@ -77,33 +68,15 @@ qS4 =  7.7038154006e-02; /* 0x3d9dc62e */
  */
 
 #include "fdlibm.h"
-#include <errno.h>
 
-	float acosf(float x)		/* wrapper acosf */
+float acosf(float x)		/* wrapper acosf */
 {
-#ifdef _IEEE_LIBM
 	return __ieee754_acosf(x);
-#else
-	float z;
-	z = __ieee754_acosf(x);
-	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(fabsf(x)>1.0f) {
-	    /* acosf(|x|>1) */
-	    errno = EDOM;
-	    return nanf("");
-	} else
-	    return z;
-#endif
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-#ifdef __STDC__
-	double acos(double x)
-#else
-	double acos(x)
-	double x;
-#endif
+double acos(double x)
 {
 	return (double) acosf((float) x);
 }
