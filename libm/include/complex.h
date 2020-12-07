@@ -14,8 +14,6 @@
 
 #include <sys/cdefs.h>
 
-__BEGIN_DECLS
-
 /* 7.3.5 Trigonometric functions */
 /* 7.3.5.1 The cacos functions */
 double complex cacos(double complex);
@@ -147,7 +145,5 @@ long double complex cprojl(long double complex);
 long double complex clog10l(long double complex);
 #endif
 #endif /* __CYGWIN__ */
-
-__END_DECLS
 
 #endif	/* ! _COMPLEX_H */

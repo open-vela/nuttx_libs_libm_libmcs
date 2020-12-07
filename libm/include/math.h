@@ -7,8 +7,6 @@
 #include <machine/ieeefp.h>
 #include "_ansi.h"
 
-_BEGIN_STD_C
-
 /* Natural log of 2 */
 #define _M_LN2        0.693147180559945309417
 
@@ -181,25 +179,18 @@ extern int isnan (double);
 # define FP_ILOGBNAN __INT_MAX__
 #endif
 
+// These macros define the errno and exception behaviour of the library. This library enforces the use of math_errhandling as MATH_ERREXCEPT.
+// See ISO C18 standard §7.12 wrt. math_errhandling.
 #ifndef MATH_ERRNO
 # define MATH_ERRNO 1
 #endif
 #ifndef MATH_ERREXCEPT
 # define MATH_ERREXCEPT 2
 #endif
-#ifndef math_errhandling
-# ifdef _IEEE_LIBM
-#  define _MATH_ERRHANDLING_ERRNO 0
-# else
-#  define _MATH_ERRHANDLING_ERRNO MATH_ERRNO
-# endif
-# ifdef _SUPPORTS_ERREXCEPT
-#  define _MATH_ERRHANDLING_ERREXCEPT MATH_ERREXCEPT
-# else
-#  define _MATH_ERRHANDLING_ERREXCEPT 0
-# endif
-# define math_errhandling (_MATH_ERRHANDLING_ERRNO | _MATH_ERRHANDLING_ERREXCEPT)
+#ifdef math_errhandling
+# undef math_errhandling
 #endif
+#define math_errhandling MATH_ERREXCEPT
 
 extern int __isinff (float);
 extern int __isinfd (double);
@@ -613,11 +604,5 @@ extern int *__signgam (void);
 #define M_INVLN2        1.4426950408889633870E0  /* 1 / log(2) */
 
 #endif /* __BSD_VISIBLE */
-
-_END_STD_C
-
-#ifdef __FAST_MATH__
-#include <machine/fastmath.h>
-#endif
 
 #endif /* _MATH_H_ */
