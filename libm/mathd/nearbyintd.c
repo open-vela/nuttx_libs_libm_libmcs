@@ -46,7 +46,15 @@ SEEALSO
 
 double nearbyint(double x)
 {
-  return rint(x);
+    return rint(x);
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double nearbyintl (long double x)
+{
+	return (long double) nearbyint((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
