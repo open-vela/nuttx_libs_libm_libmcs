@@ -74,7 +74,7 @@ w6  = -1.6309292987e-03; /* 0xbad5c4e8 */
 
 static const float zero=  0.0000000000e+00;
 
-static float sin_pif(float x)
+static float __sin_pif(float x)
 {
 	float y,z;
 	__int32_t n,ix;
@@ -118,7 +118,7 @@ static float sin_pif(float x)
 	return -y;
 }
 
-float __ieee754_lgammaf_r(float x, int *signgamp)
+float __lgammaf(float x, int *signgamp)
 {
 	float t,y,z,nadj = 0.0,p,p1,p2,p3,q,r,w;
 	__int32_t i,hx,ix;
@@ -139,7 +139,7 @@ float __ieee754_lgammaf_r(float x, int *signgamp)
 	if(hx<0) {
 	    if(ix>=0x4b000000) 	/* |x|>=2**23, must be -integer */
 		return one/zero;
-	    t = sin_pif(x);
+	    t = __sin_pif(x);
 	    if(t==zero) return one/zero; /* -integer */
 	    nadj = __ieee754_logf(pi/fabsf(t*x));
 	    if(t<zero) *signgamp = -1;
@@ -212,11 +212,9 @@ float __ieee754_lgammaf_r(float x, int *signgamp)
 	return r;
 }
 
-#include "fdlibm.h"
-
 float lgammaf(float x)
 {
-	return __ieee754_lgammaf_r(x,&(_REENT_SIGNGAM(_REENT)));
+	return __lgammaf(x,&(_REENT_SIGNGAM(_REENT)));
 }             
 
 #ifdef _DOUBLE_IS_32BITS
