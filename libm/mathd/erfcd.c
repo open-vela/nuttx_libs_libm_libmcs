@@ -140,7 +140,6 @@ PORTABILITY
  *	   	erfc/erf(NaN) is NaN
  */
 
-
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -281,4 +280,12 @@ double erfc(double x)
 	}
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double erfcl (long double x)
+{
+	return (long double) erfc((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
