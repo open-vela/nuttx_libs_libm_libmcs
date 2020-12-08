@@ -29,7 +29,7 @@ one    = 1.0,
 two8   =  2.5600000000e+02, /* 0x43800000 */
 twon8  =  3.9062500000e-03; /* 0x3b800000 */
 
-int __kernel_rem_pio2f(float *x, float *y, int e0, int nx, int prec, const __int32_t *ipio2)
+int __rem_pio2f_internal(float *x, float *y, int e0, int nx, int prec, const __int32_t *ipio2)
 {
 	__int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
 	float z,fw,f[20],fq[20],q[20];
@@ -180,13 +180,11 @@ recompute:
 	return n&7;
 }
 
-/* __ieee754_rem_pio2f(x,y)
+/* __rem_pio2f(x,y)
  * 
  * return the remainder of x rem pi/2 in y[0]+y[1] 
- * use __kernel_rem_pio2f()
+ * use __rem_pio2f_internal()
  */
-
-#include "fdlibm.h"
 
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi 
@@ -249,7 +247,7 @@ pio2_2t =  6.0770999344e-11, /* 0x2e85a308 */
 pio2_3  =  6.0770943833e-11, /* 0x2e85a300 */
 pio2_3t =  6.1232342629e-17; /* 0x248d3132 */
 
-__int32_t __ieee754_rem_pio2f(float x, float *y)
+__int32_t __rem_pio2f(float x, float *y)
 {
 	float z,w,t,r,fn;
 	float tx[3];
@@ -336,12 +334,10 @@ __int32_t __ieee754_rem_pio2f(float x, float *y)
 	tx[2] = z;
 	nx = 3;
 	while(tx[nx-1]==zero) nx--;	/* skip zero term */
-	n  =  __kernel_rem_pio2f(tx,y,e0,nx,2,two_over_pi);
+	n  =  __rem_pio2f_internal(tx,y,e0,nx,2,two_over_pi);
 	if(hx<0) {y[0] = -y[0]; y[1] = -y[1]; return -n;}
 	return n;
 }
-
-#include "fdlibm.h"
 
 static const float 
 one =  1.0000000000e+00, /* 0x3f800000 */
@@ -352,7 +348,7 @@ C4  = -2.7557314297e-07, /* 0xb493f27c */
 C5  =  2.0875723372e-09, /* 0x310f74f6 */
 C6  = -1.1359647598e-11; /* 0xad47d74e */
 
-float __kernel_cosf(float x, float y)
+float __cosf(float x, float y)
 {
 	float a,hz,z,r,qx;
 	__int32_t ix;
@@ -377,8 +373,6 @@ float __kernel_cosf(float x, float y)
 	}
 }
 
-#include "fdlibm.h"
-
 static const float
 half =  5.0000000000e-01,/* 0x3f000000 */
 S1  = -1.6666667163e-01, /* 0xbe2aaaab */
@@ -388,7 +382,7 @@ S4  =  2.7557314297e-06, /* 0x3638ef1b */
 S5  = -2.5050759689e-08, /* 0xb2d72f34 */
 S6  =  1.5896910177e-10; /* 0x2f2ec9d3 */
 
-float __kernel_sinf(float x, float y, int iy)
+float __sinf(float x, float y, int iy)
 {
 	float z,r,v;
 	__int32_t ix;
