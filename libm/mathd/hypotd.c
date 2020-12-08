@@ -33,11 +33,44 @@
  * 	than 1 ulps (units in the last place) 
  */
 
+/*
+FUNCTION
+	<<hypot>>, <<hypotf>>---distance from origin
+INDEX
+	hypot
+INDEX
+	hypotf
+
+SYNOPSIS
+	#include <math.h>
+	double hypot(double <[x]>, double <[y]>);
+	float hypotf(float <[x]>, float <[y]>);
+
+DESCRIPTION
+	<<hypot>> calculates the Euclidean distance
+	@tex
+	$\sqrt{x^2+y^2}$
+	@end tex
+	@ifnottex
+	<<sqrt(<[x]>*<[x]> + <[y]>*<[y]>)>>
+	@end ifnottex
+	between the origin (0,0) and a point represented by the
+	Cartesian coordinates (<[x]>,<[y]>).  <<hypotf>> differs only
+	in the type of its arguments and result.
+
+RETURNS
+	Normally, the distance value is returned.  On overflow,
+	<<hypot>> returns <<HUGE_VAL>> and sets <<errno>> to
+	<<ERANGE>>.
+
+PORTABILITY
+	<<hypot>> and <<hypotf>> are not ANSI C.  */
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
-double __ieee754_hypot(double x, double y)
+double hypot(double x, double y)
 {
 	double a=x,b=y,t1,t2,y1,y2,w;
 	__int32_t j,k,ha,hb;
@@ -110,52 +143,12 @@ double __ieee754_hypot(double x, double y)
 	} else return w;
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/*
-FUNCTION
-	<<hypot>>, <<hypotf>>---distance from origin
-INDEX
-	hypot
-INDEX
-	hypotf
-
-SYNOPSIS
-	#include <math.h>
-	double hypot(double <[x]>, double <[y]>);
-	float hypotf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-	<<hypot>> calculates the Euclidean distance
-	@tex
-	$\sqrt{x^2+y^2}$
-	@end tex
-	@ifnottex
-	<<sqrt(<[x]>*<[x]> + <[y]>*<[y]>)>>
-	@end ifnottex
-	between the origin (0,0) and a point represented by the
-	Cartesian coordinates (<[x]>,<[y]>).  <<hypotf>> differs only
-	in the type of its arguments and result.
-
-RETURNS
-	Normally, the distance value is returned.  On overflow,
-	<<hypot>> returns <<HUGE_VAL>> and sets <<errno>> to
-	<<ERANGE>>.
-
-PORTABILITY
-	<<hypot>> and <<hypotf>> are not ANSI C.  */
-
-/*
- * wrapper hypot(x,y)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
-double hypot(double x, double y)/* wrapper hypot */
+long double hypotl (long double x, long double y)
 {
-	return __ieee754_hypot(x,y);
+	return (long double) hypot((double) x, (double) y);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */

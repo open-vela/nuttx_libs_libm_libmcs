@@ -29,9 +29,6 @@ PORTABILITY
 
 #ifndef _DOUBLE_IS_32BITS
 
-/* cbrt(x)
- * Return cube root of x
- */
 static const __uint32_t
 	B1 = 715094163, /* B1 = (682-0.03306235651)*2**20 */
 	B2 = 696219795; /* B2 = (664-0.03306235651)*2**20 */
@@ -91,4 +88,12 @@ double cbrt(double x)
 	return(t);
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double cbrtl (long double x)
+{
+	return (long double) cbrt((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
