@@ -78,4 +78,12 @@ int ilogb(double x)
 	else return INT_MAX;	/* infinite (or, possibly, NAN) */
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double ilogbl (long double x)
+{
+	return (long double) ilogb((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -59,4 +59,12 @@ double log2(double x)		/* wrapper log2 */
   return (log(x) / M_LN2);
 }
 
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double log2l (long double x)
+{
+	return (long double) log2((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */

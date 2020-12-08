@@ -92,4 +92,12 @@ double logb(double x)
 	else  return HUGE_VAL;	/* x==inf (+ or -) */
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double logbl (long double x)
+{
+	return (long double) logb((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
