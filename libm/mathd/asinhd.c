@@ -77,4 +77,12 @@ double asinh(double x)
 	if(hx>0) return w; else return -w;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double asinhl (long double x)
+{
+	return (long double) asinh((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

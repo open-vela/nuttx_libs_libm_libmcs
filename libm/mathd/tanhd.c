@@ -97,4 +97,12 @@ double tanh(double x)
 	return (jx>=0)? z: -z;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double tanhl (long double x)
+{
+	return (long double) tanh((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
