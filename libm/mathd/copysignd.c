@@ -35,12 +35,6 @@ Definition (Issue 2).
 
 */
 
-/*
- * copysign(double x, double y)
- * copysign(x,y) returns a value with the magnitude of x and
- * with the sign bit of y.
- */
-
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -54,4 +48,12 @@ double copysign(double x, double y)
         return x;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double copysignl (long double x, long double y)
+{
+	return (long double) copysign((double) x, (double) y);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
