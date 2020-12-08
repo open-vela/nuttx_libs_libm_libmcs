@@ -6,7 +6,7 @@
 
 static const float one = 1.0, huge = 1e30, zero = 0.0;
 
-float __ieee754_atanhf(float x)
+float atanhf(float x)
 {
 	float t;
 	__int32_t hx,ix;
@@ -24,17 +24,6 @@ float __ieee754_atanhf(float x)
 	} else 
 	    t = (float)0.5*log1pf((x+x)/(one-x));
 	if(hx>=0) return t; else return -t;
-}
-
-/* 
- * wrapper atanhf(x)
- */
-
-#include "fdlibm.h"
-
-float atanhf(float x)		/* wrapper atanhf */
-{
-	return __ieee754_atanhf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
