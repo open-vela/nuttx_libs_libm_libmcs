@@ -12,7 +12,7 @@ log10_2lo  =  7.9034151668e-07; /* 0x355427db */
 
 static const float zero   =  0.0;
 
-float __ieee754_log10f(float x)
+float log10f(float x)
 {
 	float y,z;
 	__int32_t i,k,hx;
@@ -35,17 +35,6 @@ float __ieee754_log10f(float x)
 	SET_FLOAT_WORD(x,hx);
 	z  = y*log10_2lo + ivln10*__ieee754_logf(x);
 	return  z+y*log10_2hi;
-}
-
-/* 
- * wrapper log10f(X)
- */
-
-#include "fdlibm.h"
-
-float log10f(float x)		/* wrapper log10f */
-{
-	return __ieee754_log10f(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
