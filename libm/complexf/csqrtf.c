@@ -40,15 +40,9 @@ csqrtf(float complex z)
 		y *= 0.25f;
 		scale = 2.0f;
 	} else {
-#if 1
 		x *= 6.7108864e7f; /* 2^26 */
 		y *= 6.7108864e7f;
 		scale = 1.220703125e-4f; /* 2^-13 */
-#else
-		x *= 4.0f;
-		y *= 4.0f;
-		scale = 0.5f;
-#endif
 	}
 	w = x + y * I;
 	r = cabsf(w);
