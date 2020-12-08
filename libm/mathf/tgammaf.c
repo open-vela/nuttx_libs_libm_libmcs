@@ -5,26 +5,18 @@
 /* __ieee754_tgammaf(x)
  * Float version the Gamma function. Returns gamma(x)
  *
- * Method: See __ieee754_lgammaf_r
+ * Method: See __lgammaf
  */
 
 #include "fdlibm.h"
 
-float __ieee754_tgammaf(float x)
+float tgammaf(float x)
 {
 	int signgam_local;
-	float y = __ieee754_expf(__ieee754_lgammaf_r(x, &signgam_local));
+	float y = __ieee754_expf(__lgammaf(x, &signgam_local));
 	if (signgam_local < 0)
 		y = -y;
 	return y;
-}
-
-#include "math.h"
-#include "fdlibm.h"
-
-float tgammaf(float x)
-{
-	return __ieee754_tgammaf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
