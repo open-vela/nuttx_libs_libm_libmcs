@@ -38,7 +38,7 @@ one   =  1.00000000000000000000e+00; /* 0x3FF00000, 0x00000000 */
 
 static const double zero  =  0.00000000000000000000e+00;
 
-double __ieee754_jn(int n, double x)
+double __jn(int n, double x)
 {
 	__int32_t i,hx,ix,lx, sgn;
 	double a, b, temp, di;
@@ -193,7 +193,7 @@ double __ieee754_jn(int n, double x)
 	if(sgn==1) return -b; else return b;
 }
 
-double __ieee754_yn(int n, double x)
+double __yn(int n, double x)
 {
 	__int32_t i,hx,ix,lx;
 	__int32_t sign;

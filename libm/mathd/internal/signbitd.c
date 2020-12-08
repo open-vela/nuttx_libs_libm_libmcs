@@ -33,8 +33,6 @@ C99, POSIX.
 
 #include "fdlibm.h"
 
-int __signbitd (double x);
-
 int
 __signbitd (double x)
 {
