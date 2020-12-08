@@ -12,7 +12,7 @@ pi_o_2  = 1.5707963705e+00, /* 0x3fc90fdb */
 pi      = 3.1415927410e+00,  /* 0x40490fdb */
 pi_lo   = -8.7422776573e-08; /* 0xb3bbbd2e */
 
-float __ieee754_atan2f(float y, float x)
+float atan2f(float y, float x)
 {  
 	float z;
 	__int32_t k,m,hx,hy,ix,iy;
@@ -77,17 +77,6 @@ float __ieee754_atan2f(float y, float x)
 	    default: /* case 3 */
 	    	    return  (z-pi_lo)-pi;/* atan(-,-) */
 	}
-}
-
-/* 
- * wrapper atan2f(y,x)
- */
-
-#include "fdlibm.h"
-
-float atan2f(float y, float x)		/* wrapper atan2f */
-{
-	return __ieee754_atan2f(y,x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
