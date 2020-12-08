@@ -35,7 +35,7 @@ ivln2    =  1.4426950216e+00, /* 0x3fb8aa3b =1/ln2 */
 ivln2_h  =  1.4426879883e+00, /* 0x3fb8aa00 =16b 1/ln2*/
 ivln2_l  =  7.0526075433e-06; /* 0x36eca570 =1/ln2 tail*/
 
-float __ieee754_powf(float x, float y)
+float powf(float x, float y)
 {
 	float z,ax,z_h,z_l,p_h,p_l;
 	float y1,t1,t2,r,s,t,u,v,w;
@@ -229,17 +229,6 @@ float __ieee754_powf(float x, float y)
 	if((j>>23)<=0) z = scalbnf(z,(int)n);	/* subnormal output */
 	else SET_FLOAT_WORD(z,j);
 	return s*z;
-}
-
-/* 
- * wrapper powf(x,y) return x**y
- */
-
-#include "fdlibm.h"
-
-float powf(float x, float y)	/* wrapper powf */
-{
-	return  __ieee754_powf(x,y);
 }
 
 #ifdef _DOUBLE_IS_32BITS
