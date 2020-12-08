@@ -8,7 +8,7 @@ static const float
 one	= 1.0,
 ln2	= 6.9314718246e-01;  /* 0x3f317218 */
 
-float __ieee754_acoshf(float x)
+float acoshf(float x)
 {	
 	float t;
 	__int32_t hx;
@@ -29,17 +29,6 @@ float __ieee754_acoshf(float x)
 	    t = x-one;
 	    return log1pf(t+__ieee754_sqrtf((float)2.0*t+t*t));
 	}
-}
-
-/* 
- * wrapper acoshf(x)
- */
-
-#include "fdlibm.h"
-
-float acoshf(float x)		/* wrapper acoshf */
-{
-	return __ieee754_acoshf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS

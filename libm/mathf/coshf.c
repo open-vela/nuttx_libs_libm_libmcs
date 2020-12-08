@@ -6,7 +6,7 @@
 
 static const float one = 1.0, half=0.5;
 
-float __ieee754_coshf(float x)
+float coshf(float x)
 {	
 	float t,w;
 	__int32_t ix;
@@ -44,17 +44,6 @@ float __ieee754_coshf(float x)
 
     /* |x| > overflowthresold, cosh(x) overflow */
 	return __math_oflowf(0);
-}
-
-/* 
- * wrapper coshf(x)
- */
-
-#include "fdlibm.h"
-
-float coshf(float x)		/* wrapper coshf */
-{
-	return __ieee754_coshf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS

@@ -6,7 +6,7 @@
 
 static const float one = 1.0, shuge = 1.0e37;
 
-float __ieee754_sinhf(float x)
+float sinhf(float x)
 {	
 	float t,w,h;
 	__int32_t ix,jx;
@@ -40,17 +40,6 @@ float __ieee754_sinhf(float x)
 
     /* |x| > overflowthresold, sinh(x) overflow */
 	return x*shuge;
-}
-
-/* 
- * wrapper sinhf(x)
- */
-
-#include "fdlibm.h"
-
-float sinhf(float x)		/* wrapper sinhf */
-{
-	return __ieee754_sinhf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
