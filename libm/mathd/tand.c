@@ -35,6 +35,64 @@
  *		       = 1 - 2*(tan(y) - (tan(y)^2)/(1+tan(y)))
  */
 
+/*
+
+FUNCTION
+        <<tan>>, <<tanf>>---tangent
+
+INDEX
+tan
+INDEX
+tanf
+
+SYNOPSIS
+        #include <math.h>
+        double tan(double <[x]>);
+        float tanf(float <[x]>);
+
+DESCRIPTION
+<<tan>> computes the tangent of the argument <[x]>.  
+Angles are specified in radians.  
+
+<<tanf>> is identical, save that it takes and returns <<float>> values.
+
+RETURNS
+The tangent of <[x]> is returned. 
+
+PORTABILITY
+<<tan>> is ANSI. <<tanf>> is an extension.
+*/
+
+/* tan(x)
+ * Return tangent function of x.
+ *
+ * kernel function:
+ *	__kernel_tan		... tangent function on [-pi/4,pi/4]
+ *	__ieee754_rem_pio2	... argument reduction routine
+ *
+ * Method.
+ *      Let S,C and T denote the sin, cos and tan respectively on 
+ *	[-PI/4, +PI/4]. Reduce the argument x to y1+y2 = x-k*pi/2 
+ *	in [-pi/4 , +pi/4], and let n = k mod 4.
+ *	We have
+ *
+ *          n        sin(x)      cos(x)        tan(x)
+ *     ----------------------------------------------------------
+ *	    0	       S	   C		 T
+ *	    1	       C	  -S		-1/T
+ *	    2	      -S	  -C		 T
+ *	    3	      -C	   S		-1/T
+ *     ----------------------------------------------------------
+ *
+ * Special cases:
+ *      Let trig be any of sin, cos, or tan.
+ *      trig(+-INF)  is NaN, with signals;
+ *      trig(NaN)    is that NaN;
+ *
+ * Accuracy:
+ *	TRIG(x) returns trig(x) nearly rounded 
+ */
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -59,7 +117,7 @@ T[] =  {
   2.59073051863633712884e-05, /* 0x3EFB2A70, 0x74BF7AD4 */
 };
 
-double __kernel_tan(double x, double y, int iy)
+double __tan(double x, double y, int iy)
 {
 	double z,r,v,w,s;
 	__int32_t ix,hx;
@@ -123,70 +181,6 @@ double __kernel_tan(double x, double y, int iy)
 	}
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
-
-/*
-
-FUNCTION
-        <<tan>>, <<tanf>>---tangent
-
-INDEX
-tan
-INDEX
-tanf
-
-SYNOPSIS
-        #include <math.h>
-        double tan(double <[x]>);
-        float tanf(float <[x]>);
-
-DESCRIPTION
-<<tan>> computes the tangent of the argument <[x]>.  
-Angles are specified in radians.  
-
-<<tanf>> is identical, save that it takes and returns <<float>> values.
-
-RETURNS
-The tangent of <[x]> is returned. 
-
-PORTABILITY
-<<tan>> is ANSI. <<tanf>> is an extension.
-*/
-
-/* tan(x)
- * Return tangent function of x.
- *
- * kernel function:
- *	__kernel_tan		... tangent function on [-pi/4,pi/4]
- *	__ieee754_rem_pio2	... argument reduction routine
- *
- * Method.
- *      Let S,C and T denote the sin, cos and tan respectively on 
- *	[-PI/4, +PI/4]. Reduce the argument x to y1+y2 = x-k*pi/2 
- *	in [-pi/4 , +pi/4], and let n = k mod 4.
- *	We have
- *
- *          n        sin(x)      cos(x)        tan(x)
- *     ----------------------------------------------------------
- *	    0	       S	   C		 T
- *	    1	       C	  -S		-1/T
- *	    2	      -S	  -C		 T
- *	    3	      -C	   S		-1/T
- *     ----------------------------------------------------------
- *
- * Special cases:
- *      Let trig be any of sin, cos, or tan.
- *      trig(+-INF)  is NaN, with signals;
- *      trig(NaN)    is that NaN;
- *
- * Accuracy:
- *	TRIG(x) returns trig(x) nearly rounded 
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
 double tan(double x)
 {
 	double y[2],z=0.0;
@@ -197,7 +191,7 @@ double tan(double x)
 
     /* |x| ~< pi/4 */
 	ix &= 0x7fffffff;
-	if(ix <= 0x3fe921fb) return __kernel_tan(x,z,1);
+	if(ix <= 0x3fe921fb) return __tan(x,z,1);
 
     /* tan(Inf or NaN) is NaN */
 	else if (ix>=0x7ff00000) return x-x;		/* NaN */
@@ -205,9 +199,17 @@ double tan(double x)
     /* argument reduction needed */
 	else {
 	    n = __ieee754_rem_pio2(x,y);
-	    return __kernel_tan(y[0],y[1],1-((n&1)<<1)); /*   1 -- n even
+	    return __tan(y[0],y[1],1-((n&1)<<1)); /*   1 -- n even
 							-1 -- n odd */
 	}
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double tanl (long double x)
+{
+	return (long double) tan((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

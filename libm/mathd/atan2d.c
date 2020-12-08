@@ -28,6 +28,49 @@
  * to produce the hexadecimal values shown.
  */
 
+/*
+FUNCTION
+        <<atan2>>, <<atan2f>>---arc tangent of y/x
+
+INDEX
+   atan2
+INDEX
+   atan2f
+
+SYNOPSIS
+        #include <math.h>
+        double atan2(double <[y]>,double <[x]>);
+        float atan2f(float <[y]>,float <[x]>);
+
+DESCRIPTION
+
+<<atan2>> computes the inverse tangent (arc tangent) of <[y]>/<[x]>. 
+<<atan2>> produces the correct result even for angles near 
+@ifnottex
+pi/2 or -pi/2 
+@end ifnottex
+@tex
+$\pi/2$ or $-\pi/2$
+@end tex
+(that is, when <[x]> is near 0). 
+
+<<atan2f>> is identical to <<atan2>>, save that it takes and returns
+<<float>>. 
+
+RETURNS
+<<atan2>> and <<atan2f>> return a value in radians, in the range of 
+@ifnottex
+-pi to pi.
+@end ifnottex
+@tex
+$-\pi$ to $\pi$.
+@end tex
+
+PORTABILITY
+<<atan2>> is ANSI C.  <<atan2f>> is an extension.
+
+*/
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -40,7 +83,7 @@ pi_o_2  = 1.5707963267948965580E+00, /* 0x3FF921FB, 0x54442D18 */
 pi      = 3.1415926535897931160E+00, /* 0x400921FB, 0x54442D18 */
 pi_lo   = 1.2246467991473531772E-16; /* 0x3CA1A626, 0x33145C07 */
 
-double __ieee754_atan2(double y, double x)
+double atan2(double y, double x)
 {  
 	double z;
 	__int32_t k,m,hx,hy,ix,iy;
@@ -108,63 +151,12 @@ double __ieee754_atan2(double y, double x)
 	}
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/*
-FUNCTION
-        <<atan2>>, <<atan2f>>---arc tangent of y/x
-
-INDEX
-   atan2
-INDEX
-   atan2f
-
-SYNOPSIS
-        #include <math.h>
-        double atan2(double <[y]>,double <[x]>);
-        float atan2f(float <[y]>,float <[x]>);
-
-DESCRIPTION
-
-<<atan2>> computes the inverse tangent (arc tangent) of <[y]>/<[x]>. 
-<<atan2>> produces the correct result even for angles near 
-@ifnottex
-pi/2 or -pi/2 
-@end ifnottex
-@tex
-$\pi/2$ or $-\pi/2$
-@end tex
-(that is, when <[x]> is near 0). 
-
-<<atan2f>> is identical to <<atan2>>, save that it takes and returns
-<<float>>. 
-
-RETURNS
-<<atan2>> and <<atan2f>> return a value in radians, in the range of 
-@ifnottex
--pi to pi.
-@end ifnottex
-@tex
-$-\pi$ to $\pi$.
-@end tex
-
-PORTABILITY
-<<atan2>> is ANSI C.  <<atan2f>> is an extension.
-
-
-*/
-
-/* 
- * wrapper atan2(y,x)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
-double atan2(double y, double x)	/* wrapper atan2 */
+long double atan2l (long double y, long double x)
 {
-	return __ieee754_atan2(y,x);
+	return (long double) atan2((double) y, (double) x);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */
