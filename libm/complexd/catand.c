@@ -50,14 +50,9 @@ QUICKREF
 
 */
 
-
 #include <complex.h>
 #include <math.h>
 #include "cephes_subr.h"
-
-#ifdef __weak_alias
-__weak_alias(catan, _catan)
-#endif
 
 double complex
 catan(double complex z)
@@ -90,9 +85,6 @@ catan(double complex z)
 	return w;
 
 ovrf:
-#if 0
-	mtherr ("catan", OVERFLOW);
-#endif
 	w = HUGE_VAL + HUGE_VAL * I;
 	return w;
 }

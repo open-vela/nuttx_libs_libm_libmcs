@@ -4,10 +4,6 @@
 #include <math.h>
 #include "cephes_subrf.h"
 
-#ifdef __weak_alias
-__weak_alias(catanf, _catanf)
-#endif
-
 float complex
 catanf(float complex z)
 {
@@ -39,9 +35,6 @@ catanf(float complex z)
 	return w;
 
 ovrf:
-#if 0
-	mtherr ("catan", OVERFLOW);
-#endif
 	w = HUGE_VALF + HUGE_VALF * I;
 	return w;
 }

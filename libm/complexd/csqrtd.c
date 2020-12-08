@@ -76,15 +76,9 @@ csqrt(double complex z)
 		y *= 0.25;
 		scale = 2.0;
 	} else {
-#if 1
 		x *= 1.8014398509481984e16;  /* 2^54 */
 		y *= 1.8014398509481984e16;
 		scale = 7.450580596923828125e-9; /* 2^-27 */
-#else
-		x *= 4.0;
-		y *= 4.0;
-		scale = 0.5;
-#endif
 	}
 	w = x + y * I;
 	r = cabs(w);

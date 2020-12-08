@@ -49,7 +49,6 @@ ctan(double complex z)
 		d = _ctans(z);
 
 	if (d == 0.0) {
-		/* mtherr ("ctan", OVERFLOW); */
 		w = HUGE_VAL + HUGE_VAL * I;
 		return w;
 	}
