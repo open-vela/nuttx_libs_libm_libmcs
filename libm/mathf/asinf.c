@@ -22,7 +22,7 @@ qS2 =  2.0209457874e+00, /* 0x4001572d */
 qS3 = -6.8828397989e-01, /* 0xbf303361 */
 qS4 =  7.7038154006e-02; /* 0x3d9dc62e */
 
-float __ieee754_asinf(float x)
+float asinf(float x)
 {
 	float t,w,p,q,c,r,s;
 	__int32_t hx,ix;
@@ -65,18 +65,6 @@ float __ieee754_asinf(float x)
 	    t  = pio4_hi-(p-q);
 	}    
 	if(hx>0) return t; else return -t;    
-}
-
-/* 
- * wrapper asinf(x)
- */
-
-
-#include "fdlibm.h"
-
-float asinf(float x)		/* wrapper asinf */
-{
-	return __ieee754_asinf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS

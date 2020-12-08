@@ -24,7 +24,7 @@ T[] =  {
   2.5907305826e-05, /* 0x37d95384 */
 };
 
-float __kernel_tanf(float x, float y, int iy)
+float __tanf(float x, float y, int iy)
 {
 	float z,r,v,w,s;
 	__int32_t ix,hx;
@@ -87,7 +87,7 @@ float tanf(float x)
 
     /* |x| ~< pi/4 */
 	ix &= 0x7fffffff;
-	if(ix <= 0x3f490fda) return __kernel_tanf(x,z,1);
+	if(ix <= 0x3f490fda) return __tanf(x,z,1);
 
     /* tan(Inf or NaN) is NaN */
 	else if (!FLT_UWORD_IS_FINITE(ix)) return x-x;		/* NaN */
@@ -95,7 +95,7 @@ float tanf(float x)
     /* argument reduction needed */
 	else {
 	    n = __ieee754_rem_pio2f(x,y);
-	    return __kernel_tanf(y[0],y[1],1-((n&1)<<1)); /*   1 -- n even
+	    return __tanf(y[0],y[1],1-((n&1)<<1)); /*   1 -- n even
 							      -1 -- n odd */
 	}
 }
