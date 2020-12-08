@@ -20,7 +20,7 @@ qS2 =  2.0209457874e+00, /* 0x4001572d */
 qS3 = -6.8828397989e-01, /* 0xbf303361 */
 qS4 =  7.7038154006e-02; /* 0x3d9dc62e */
 
-float __ieee754_acosf(float x)
+float acosf(float x)
 {
 	float z,p,q,r,w,s,c,df;
 	__int32_t hx,ix;
@@ -61,17 +61,6 @@ float __ieee754_acosf(float x)
 	    w = r*s+c;
 	    return (float)2.0*(df+w);
 	}
-}
-
-/*
- * wrap_acosf(x)
- */
-
-#include "fdlibm.h"
-
-float acosf(float x)		/* wrapper acosf */
-{
-	return __ieee754_acosf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
