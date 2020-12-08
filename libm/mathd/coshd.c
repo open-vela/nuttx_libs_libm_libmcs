@@ -22,13 +22,52 @@
  *	only cosh(0)=1 is exact for finite x.
  */
 
+/*
+
+FUNCTION
+        <<cosh>>, <<coshf>>---hyperbolic cosine
+
+SYNOPSIS
+        #include <math.h>
+        double cosh(double <[x]>);
+        float coshf(float <[x]>);
+
+DESCRIPTION
+
+	<<cosh>> computes the hyperbolic cosine of the argument <[x]>.
+	<<cosh(<[x]>)>> is defined as 
+	@ifnottex
+	. (exp(x) + exp(-x))/2
+	@end ifnottex
+	@tex
+	$${(e^x + e^{-x})} \over 2$$
+	@end tex
+
+	Angles are specified in radians.  
+		
+	<<coshf>> is identical, save that it takes and returns <<float>>.
+
+RETURNS
+	The computed value is returned.  When the correct value would create
+	an overflow,  <<cosh>> returns the value <<HUGE_VAL>> with the
+	appropriate sign, and the global value <<errno>> is set to <<ERANGE>>.
+
+PORTABILITY
+	<<cosh>> is ANSI.  
+	<<coshf>> is an extension.
+
+QUICKREF
+	cosh ansi pure
+	coshf - pure
+*/
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
 static const double one = 1.0, half=0.5;
 
-double __ieee754_cosh(double x)
+double cosh(double x)
 {	
 	double t,w;
 	__int32_t ix;
@@ -71,58 +110,12 @@ double __ieee754_cosh(double x)
 	return __math_oflow(0);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/*
-
-FUNCTION
-        <<cosh>>, <<coshf>>---hyperbolic cosine
-
-SYNOPSIS
-        #include <math.h>
-        double cosh(double <[x]>);
-        float coshf(float <[x]>);
-
-DESCRIPTION
-
-	<<cosh>> computes the hyperbolic cosine of the argument <[x]>.
-	<<cosh(<[x]>)>> is defined as 
-	@ifnottex
-	. (exp(x) + exp(-x))/2
-	@end ifnottex
-	@tex
-	$${(e^x + e^{-x})} \over 2$$
-	@end tex
-
-	Angles are specified in radians.  
-		
-	<<coshf>> is identical, save that it takes and returns <<float>>.
-
-RETURNS
-	The computed value is returned.  When the correct value would create
-	an overflow,  <<cosh>> returns the value <<HUGE_VAL>> with the
-	appropriate sign, and the global value <<errno>> is set to <<ERANGE>>.
-
-PORTABILITY
-	<<cosh>> is ANSI.  
-	<<coshf>> is an extension.
-
-QUICKREF
-	cosh ansi pure
-	coshf - pure
-*/
-
-/* 
- * wrapper cosh(x)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
- 
-double cosh(double x)		/* wrapper cosh */
+long double coshl (long double x)
 {
-	return __ieee754_cosh(x);
+	return (long double) cosh((double) x);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */
