@@ -70,6 +70,8 @@
 
 #include "fdlibm.h"
 
+#ifndef _DOUBLE_IS_32BITS
+
 static const double
 two52=  4.50359962737049600000e+15, /* 0x43300000, 0x00000000 */
 half=  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
@@ -140,7 +142,7 @@ w6  = -1.63092934096575273989e-03; /* 0xBF5AB89D, 0x0B9E43E4 */
 
 static const double zero=  0.00000000000000000000e+00;
 
-static double sin_pi(double x)
+static double __sin_pi(double x)
 {
 	double y,z;
 	__int32_t n,ix;
@@ -184,7 +186,7 @@ static double sin_pi(double x)
 	return -y;
 }
 
-double __ieee754_lgamma_r(double x, int *signgamp)
+double __lgamma(double x, int *signgamp)
 {
 	double t,y,z,nadj = 0.0,p,p1,p2,p3,q,r,w;
 	__int32_t i,hx,lx,ix;
@@ -205,7 +207,7 @@ double __ieee754_lgamma_r(double x, int *signgamp)
 	if(hx<0) {
 	    if(ix>=0x43300000) 	/* |x|>=2**52, must be -integer */
 		return one/zero;
-	    t = sin_pi(x);
+	    t = __sin_pi(x);
 	    if(t==zero) return one/zero; /* -integer */
 	    nadj = __ieee754_log(pi/fabs(t*x));
 	    if(t<zero) *signgamp = -1;
@@ -278,19 +280,17 @@ double __ieee754_lgamma_r(double x, int *signgamp)
 	return r;
 }
 
-/* double lgamma(double x)
- * Return the logarithm of the Gamma function of x.
- *
- * Method: call __ieee754_lgamma_r
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
 double lgamma(double x)
 {
-	return __ieee754_lgamma_r(x,&(_REENT_SIGNGAM(_REENT)));
-}             
+	return __lgamma(x,&(_REENT_SIGNGAM(_REENT)));
+}
 
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double lgammal (long double x)
+{
+	return (long double) lgamma((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */
