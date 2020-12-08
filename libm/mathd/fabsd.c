@@ -31,10 +31,6 @@ PORTABILITY
 
 */
 
-/*
- * fabs(x) returns the absolute value of x.
- */
-
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -47,4 +43,12 @@ double fabs(double x)
         return x;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double fabsl (long double x)
+{
+	return (long double) fabs((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
