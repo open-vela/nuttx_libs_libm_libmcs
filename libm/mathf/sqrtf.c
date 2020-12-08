@@ -6,7 +6,7 @@
 
 static	const float	one	= 1.0, tiny=1.0e-30;
 
-float __ieee754_sqrtf(float x)
+float sqrtf(float x)
 {
 	float z;
 	__uint32_t r,hx;
@@ -66,17 +66,6 @@ float __ieee754_sqrtf(float x)
 	ix += (m <<23);
 	SET_FLOAT_WORD(z,ix);
 	return z;
-}
-
-/* 
- * wrapper sqrtf(x)
- */
-
-#include "fdlibm.h"
-
-float sqrtf(float x)		/* wrapper sqrtf */
-{
-	return __ieee754_sqrtf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
