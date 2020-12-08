@@ -34,18 +34,22 @@ PORTABILITY
 
 */
 
-/*
- * wrapper exp2(x)
- */
-
 #include "fdlibm.h"
 #include <math.h>
 
 #ifndef _DOUBLE_IS_32BITS
 
-double exp2(double x)		/* wrapper exp2 */
+double exp2(double x)
 {
-  return pow(2.0, x);
+    return pow(2.0, x);
 }
 
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double exp2l (long double x)
+{
+	return (long double) exp2((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */
