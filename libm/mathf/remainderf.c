@@ -6,7 +6,7 @@
 
 static const float zero = 0.0;
 
-float __ieee754_remainderf(float x, float p)
+float remainderf(float x, float p)
 {
 	__int32_t hx,hp;
 	__uint32_t sx;
@@ -44,17 +44,6 @@ float __ieee754_remainderf(float x, float p)
 	GET_FLOAT_WORD(hx,x);
 	SET_FLOAT_WORD(x,hx^sx);
 	return x;
-}
-
-/* 
- * wrapper remainderf(x,p)
- */
-
-#include "fdlibm.h"
-
-float remainderf(float x, float y)	/* wrapper remainder */
-{
-	return __ieee754_remainderf(x,y);
 }
 
 #ifdef _DOUBLE_IS_32BITS

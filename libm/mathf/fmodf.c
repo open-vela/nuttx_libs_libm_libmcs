@@ -3,7 +3,7 @@
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
 /* 
- * __ieee754_fmodf(x,y)
+ * fmodf(x,y)
  * Return x mod y in exact arithmetic
  * Method: shift and subtract
  */
@@ -12,7 +12,7 @@
 
 static const float one = 1.0, Zero[] = {0.0, -0.0,};
 
-float __ieee754_fmodf(float x, float y)
+float fmodf(float x, float y)
 {
 	__int32_t n,hx,hy,hz,ix,iy,sx,i;
 
@@ -90,17 +90,6 @@ float __ieee754_fmodf(float x, float y)
 	    x *= one;		/* create necessary signal */
 	}
 	return x;		/* exact output */
-}
-
-/* 
- * wrapper fmodf(x,y)
- */
-
-#include "fdlibm.h"
-
-float fmodf(float x, float y)	/* wrapper fmodf */
-{
-	return __ieee754_fmodf(x,y);
 }
 
 #ifdef _DOUBLE_IS_32BITS
