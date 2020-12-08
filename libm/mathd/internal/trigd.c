@@ -2,10 +2,10 @@
 // Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
 
 /*
- * __kernel_rem_pio2(x,y,e0,nx,prec,ipio2)
+ * __rem_pio2_internal(x,y,e0,nx,prec,ipio2)
  * double x[],y[]; int e0,nx,prec; int ipio2[];
  * 
- * __kernel_rem_pio2 return the last three digits of N with 
+ * __rem_pio2_internal return the last three digits of N with 
  *		y = x - N*pi/2
  * so that |y| < pi/2.
  *
@@ -140,7 +140,7 @@ one    = 1.0,
 two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
 twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
 
-int __kernel_rem_pio2(double *x, double *y, int e0, int nx, int prec, const __int32_t *ipio2)
+int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const __int32_t *ipio2)
 {
 	__int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
 	double z,fw,f[20],fq[20],q[20];
@@ -291,17 +291,11 @@ recompute:
 	return n&7;
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
-
-/* __ieee754_rem_pio2(x,y)
+/* __rem_pio2(x,y)
  * 
  * return the remainder of x rem pi/2 in y[0]+y[1] 
- * use __kernel_rem_pio2()
+ * use __rem_pio2_internal()
  */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
 
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi 
@@ -351,7 +345,7 @@ pio2_2t =  2.02226624879595063154e-21, /* 0x3BA3198A, 0x2E037073 */
 pio2_3  =  2.02226624871116645580e-21, /* 0x3BA3198A, 0x2E000000 */
 pio2_3t =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 
-__int32_t __ieee754_rem_pio2(double x, double *y)
+__int32_t __rem_pio2(double x, double *y)
 {
 	double z = 0.0,w,t,r,fn;
 	double tx[3];
@@ -441,12 +435,10 @@ __int32_t __ieee754_rem_pio2(double x, double *y)
 	tx[2] = z;
 	nx = 3;
 	while(tx[nx-1]==zero) nx--;	/* skip zero term */
-	n  =  __kernel_rem_pio2(tx,y,e0,nx,2,two_over_pi);
+	n  =  __rem_pio2_internal(tx,y,e0,nx,2,two_over_pi);
 	if(hx<0) {y[0] = -y[0]; y[1] = -y[1]; return -n;}
 	return n;
 }
-
-#endif /* defined(_DOUBLE_IS_32BITS) */
 
 /*
  * __kernel_cos( x,  y )
@@ -483,10 +475,6 @@ __int32_t __ieee754_rem_pio2(double x, double *y)
  *	   thus, reducing the rounding error in the subtraction.
  */
 
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
 static const double
 one =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
 C1  =  4.16666666666666019037e-02, /* 0x3FA55555, 0x5555554C */
@@ -496,7 +484,7 @@ C4  = -2.75573143513906633035e-07, /* 0xBE927E4F, 0x809C52AD */
 C5  =  2.08757232129817482790e-09, /* 0x3E21EE9E, 0xBDB4B1C4 */
 C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 
-double __kernel_cos(double x, double y)
+double __cos(double x, double y)
 {
 	double a,hz,z,r,qx;
 	__int32_t ix;
@@ -520,8 +508,6 @@ double __kernel_cos(double x, double y)
 	    return a - (hz - (z*r-x*y));
 	}
 }
-
-#endif /* defined(_DOUBLE_IS_32BITS) */
 
 /* __kernel_sin( x, y, iy)
  * kernel sin function on [-pi/4, pi/4], pi/4 ~ 0.7854
@@ -551,10 +537,6 @@ double __kernel_cos(double x, double y)
  *		sin(x) = x + (S1*x + (x *(r-y/2)+y))
  */
 
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
 static const double
 half =  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
 S1  = -1.66666666666666324348e-01, /* 0xBFC55555, 0x55555549 */
@@ -564,7 +546,7 @@ S4  =  2.75573137070700676789e-06, /* 0x3EC71DE3, 0x57B1FE7D */
 S5  = -2.50507602534068634195e-08, /* 0xBE5AE5E6, 0x8A2B9CEB */
 S6  =  1.58969099521155010221e-10; /* 0x3DE5D93A, 0x5ACFD57C */
 
-double __kernel_sin(double x, double y, int iy)
+double __sin(double x, double y, int iy)
 {
 	double z,r,v;
 	__int32_t ix;

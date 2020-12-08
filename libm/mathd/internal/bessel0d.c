@@ -50,145 +50,14 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-static double pzero(double), qzero(double);
-
-static const double
-huge 	= 1e300,
-one	= 1.0,
-invsqrtpi=  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
-tpi      =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
- 		/* R0/S0 on [0, 2.00] */
-R02  =  1.56249999999999947958e-02, /* 0x3F8FFFFF, 0xFFFFFFFD */
-R03  = -1.89979294238854721751e-04, /* 0xBF28E6A5, 0xB61AC6E9 */
-R04  =  1.82954049532700665670e-06, /* 0x3EBEB1D1, 0x0C503919 */
-R05  = -4.61832688532103189199e-09, /* 0xBE33D5E7, 0x73D63FCE */
-S01  =  1.56191029464890010492e-02, /* 0x3F8FFCE8, 0x82C8C2A4 */
-S02  =  1.16926784663337450260e-04, /* 0x3F1EA6D2, 0xDD57DBF4 */
-S03  =  5.13546550207318111446e-07, /* 0x3EA13B54, 0xCE84D5A9 */
-S04  =  1.16614003333790000205e-09; /* 0x3E1408BC, 0xF4745D8F */
-
-static const double zero = 0.0;
-
-double __ieee754_j0(double x)
-{
-	double z, s,c,ss,cc,r,u,v;
-	__int32_t hx,ix;
-
-	GET_HIGH_WORD(hx,x);
-	ix = hx&0x7fffffff;
-	if(ix>=0x7ff00000) return one/(x*x);
-	x = fabs(x);
-	if(ix >= 0x40000000) {	/* |x| >= 2.0 */
-		s = sin(x);
-		c = cos(x);
-		ss = s-c;
-		cc = s+c;
-		if(ix<0x7fe00000) {  /* make sure x+x not overflow */
-		    z = -cos(x+x);
-		    if ((s*c)<zero) cc = z/ss;
-		    else 	    ss = z/cc;
-		}
-	/*
-	 * j0(x) = 1/sqrt(pi) * (P(0,x)*cc - Q(0,x)*ss) / sqrt(x)
-	 * y0(x) = 1/sqrt(pi) * (P(0,x)*ss + Q(0,x)*cc) / sqrt(x)
-	 */
-		if(ix>0x48000000) z = (invsqrtpi*cc)/__ieee754_sqrt(x);
-		else {
-		    u = pzero(x); v = qzero(x);
-		    z = invsqrtpi*(u*cc-v*ss)/__ieee754_sqrt(x);
-		}
-		return z;
-	}
-	if(ix<0x3f200000) {	/* |x| < 2**-13 */
-	    if(huge+x>one) {	/* raise inexact if x != 0 */
-	        if(ix<0x3e400000) return one;	/* |x|<2**-27 */
-	        else 	      return one - 0.25*x*x;
-	    }
-	}
-	z = x*x;
-	r =  z*(R02+z*(R03+z*(R04+z*R05)));
-	s =  one+z*(S01+z*(S02+z*(S03+z*S04)));
-	if(ix < 0x3FF00000) {	/* |x| < 1.00 */
-	    return one + z*(-0.25+(r/s));
-	} else {
-	    u = 0.5*x;
-	    return((one+u)*(one-u)+z*(r/s));
-	}
-}
-
-static const double
-u00  = -7.38042951086872317523e-02, /* 0xBFB2E4D6, 0x99CBD01F */
-u01  =  1.76666452509181115538e-01, /* 0x3FC69D01, 0x9DE9E3FC */
-u02  = -1.38185671945596898896e-02, /* 0xBF8C4CE8, 0xB16CFA97 */
-u03  =  3.47453432093683650238e-04, /* 0x3F36C54D, 0x20B29B6B */
-u04  = -3.81407053724364161125e-06, /* 0xBECFFEA7, 0x73D25CAD */
-u05  =  1.95590137035022920206e-08, /* 0x3E550057, 0x3B4EABD4 */
-u06  = -3.98205194132103398453e-11, /* 0xBDC5E43D, 0x693FB3C8 */
-v01  =  1.27304834834123699328e-02, /* 0x3F8A1270, 0x91C9C71A */
-v02  =  7.60068627350353253702e-05, /* 0x3F13ECBB, 0xF578C6C1 */
-v03  =  2.59150851840457805467e-07, /* 0x3E91642D, 0x7FF202FD */
-v04  =  4.41110311332675467403e-10; /* 0x3DFE5018, 0x3BD6D9EF */
-
-double __ieee754_y0(double x)
-{
-	double z, s,c,ss,cc,u,v;
-	__int32_t hx,ix,lx;
-
-	EXTRACT_WORDS(hx,lx,x);
-        ix = 0x7fffffff&hx;
-    /* Y0(NaN) is NaN, y0(-inf) is Nan, y0(inf) is 0  */
-	if(ix>=0x7ff00000) return  one/(x+x*x); 
-        if((ix|lx)==0) return -one/zero;
-        if(hx<0) return zero/zero;
-        if(ix >= 0x40000000) {  /* |x| >= 2.0 */
-        /* y0(x) = sqrt(2/(pi*x))*(p0(x)*sin(x0)+q0(x)*cos(x0))
-         * where x0 = x-pi/4
-         *      Better formula:
-         *              cos(x0) = cos(x)cos(pi/4)+sin(x)sin(pi/4)
-         *                      =  1/sqrt(2) * (sin(x) + cos(x))
-         *              sin(x0) = sin(x)cos(3pi/4)-cos(x)sin(3pi/4)
-         *                      =  1/sqrt(2) * (sin(x) - cos(x))
-         * To avoid cancellation, use
-         *              sin(x) +- cos(x) = -cos(2x)/(sin(x) -+ cos(x))
-         * to compute the worse one.
-         */
-                s = sin(x);
-                c = cos(x);
-                ss = s-c;
-                cc = s+c;
-	/*
-	 * j0(x) = 1/sqrt(pi) * (P(0,x)*cc - Q(0,x)*ss) / sqrt(x)
-	 * y0(x) = 1/sqrt(pi) * (P(0,x)*ss + Q(0,x)*cc) / sqrt(x)
-	 */
-                if(ix<0x7fe00000) {  /* make sure x+x not overflow */
-                    z = -cos(x+x);
-                    if ((s*c)<zero) cc = z/ss;
-                    else            ss = z/cc;
-                }
-                if(ix>0x48000000) z = (invsqrtpi*ss)/__ieee754_sqrt(x);
-                else {
-                    u = pzero(x); v = qzero(x);
-                    z = invsqrtpi*(u*ss+v*cc)/__ieee754_sqrt(x);
-                }
-                return z;
-	}
-	if(ix<=0x3e400000) {	/* x < 2**-27 */
-	    return(u00 + tpi*__ieee754_log(x));
-	}
-	z = x*x;
-	u = u00+z*(u01+z*(u02+z*(u03+z*(u04+z*(u05+z*u06)))));
-	v = one+z*(v01+z*(v02+z*(v03+z*v04)));
-	return(u/v + tpi*(__ieee754_j0(x)*__ieee754_log(x)));
-}
-
-/* The asymptotic expansions of pzero is
+/* The asymptotic expansions of __pzero is
  *	1 - 9/128 s^2 + 11025/98304 s^4 - ...,	where s = 1/x.
- * For x >= 2, We approximate pzero by
- * 	pzero(x) = 1 + (R/S)
+ * For x >= 2, We approximate __pzero by
+ * 	__pzero(x) = 1 + (R/S)
  * where  R = pR0 + pR1*s^2 + pR2*s^4 + ... + pR5*s^10
  * 	  S = 1 + pS0*s^2 + ... + pS4*s^10
  * and
- *	| pzero(x)-1-R/S | <= 2  ** ( -60.26)
+ *	| __pzero(x)-1-R/S | <= 2  ** ( -60.26)
  */
 static const double pR8[6] = { /* for x in [inf, 8]=1/[0,0.125] */
   0.00000000000000000000e+00, /* 0x00000000, 0x00000000 */
@@ -254,7 +123,7 @@ static const double pS2[5] = {
   1.46576176948256193810e+01, /* 0x402D50B3, 0x44391809 */
 };
 
-static double pzero(double x)
+static double __pzero(double x)
 {
 	const double *p,*q;
 	double z,r,s;
@@ -273,14 +142,14 @@ static double pzero(double x)
 }
 		
 
-/* For x >= 8, the asymptotic expansions of qzero is
+/* For x >= 8, the asymptotic expansions of __qzero is
  *	-1/8 s + 75/1024 s^3 - ..., where s = 1/x.
- * We approximate qzero by
- * 	qzero(x) = s*(-1.25 + (R/S))
+ * We approximate __qzero by
+ * 	__qzero(x) = s*(-1.25 + (R/S))
  * where  R = qR0 + qR1*s^2 + qR2*s^4 + ... + qR5*s^10
  * 	  S = 1 + qS0*s^2 + ... + qS5*s^12
  * and
- *	| qzero(x)/s +1.25-R/S | <= 2  ** ( -61.22)
+ *	| __qzero(x)/s +1.25-R/S | <= 2  ** ( -61.22)
  */
 static const double qR8[6] = { /* for x in [inf, 8]=1/[0,0.125] */
   0.00000000000000000000e+00, /* 0x00000000, 0x00000000 */
@@ -350,7 +219,7 @@ static const double qS2[6] = {
  -5.31095493882666946917e+00, /* 0xC0153E6A, 0xF8B32931 */
 };
 
-static double qzero(double x)
+static double __qzero(double x)
 {
 	const double *p,*q;
 	double s,r,z;
@@ -366,6 +235,135 @@ static double qzero(double x)
 	r = p[0]+z*(p[1]+z*(p[2]+z*(p[3]+z*(p[4]+z*p[5]))));
 	s = one+z*(q[0]+z*(q[1]+z*(q[2]+z*(q[3]+z*(q[4]+z*q[5])))));
 	return (-.125 + r/s)/x;
+}
+
+static const double
+huge 	= 1e300,
+one	= 1.0,
+invsqrtpi=  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
+tpi      =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
+ 		/* R0/S0 on [0, 2.00] */
+R02  =  1.56249999999999947958e-02, /* 0x3F8FFFFF, 0xFFFFFFFD */
+R03  = -1.89979294238854721751e-04, /* 0xBF28E6A5, 0xB61AC6E9 */
+R04  =  1.82954049532700665670e-06, /* 0x3EBEB1D1, 0x0C503919 */
+R05  = -4.61832688532103189199e-09, /* 0xBE33D5E7, 0x73D63FCE */
+S01  =  1.56191029464890010492e-02, /* 0x3F8FFCE8, 0x82C8C2A4 */
+S02  =  1.16926784663337450260e-04, /* 0x3F1EA6D2, 0xDD57DBF4 */
+S03  =  5.13546550207318111446e-07, /* 0x3EA13B54, 0xCE84D5A9 */
+S04  =  1.16614003333790000205e-09; /* 0x3E1408BC, 0xF4745D8F */
+
+static const double zero = 0.0;
+
+double __j0(double x)
+{
+	double z, s,c,ss,cc,r,u,v;
+	__int32_t hx,ix;
+
+	GET_HIGH_WORD(hx,x);
+	ix = hx&0x7fffffff;
+	if(ix>=0x7ff00000) return one/(x*x);
+	x = fabs(x);
+	if(ix >= 0x40000000) {	/* |x| >= 2.0 */
+		s = sin(x);
+		c = cos(x);
+		ss = s-c;
+		cc = s+c;
+		if(ix<0x7fe00000) {  /* make sure x+x not overflow */
+		    z = -cos(x+x);
+		    if ((s*c)<zero) cc = z/ss;
+		    else 	    ss = z/cc;
+		}
+	/*
+	 * j0(x) = 1/sqrt(pi) * (P(0,x)*cc - Q(0,x)*ss) / sqrt(x)
+	 * y0(x) = 1/sqrt(pi) * (P(0,x)*ss + Q(0,x)*cc) / sqrt(x)
+	 */
+		if(ix>0x48000000) z = (invsqrtpi*cc)/__ieee754_sqrt(x);
+		else {
+		    u = __pzero(x); v = __qzero(x);
+		    z = invsqrtpi*(u*cc-v*ss)/__ieee754_sqrt(x);
+		}
+		return z;
+	}
+	if(ix<0x3f200000) {	/* |x| < 2**-13 */
+	    if(huge+x>one) {	/* raise inexact if x != 0 */
+	        if(ix<0x3e400000) return one;	/* |x|<2**-27 */
+	        else 	      return one - 0.25*x*x;
+	    }
+	}
+	z = x*x;
+	r =  z*(R02+z*(R03+z*(R04+z*R05)));
+	s =  one+z*(S01+z*(S02+z*(S03+z*S04)));
+	if(ix < 0x3FF00000) {	/* |x| < 1.00 */
+	    return one + z*(-0.25+(r/s));
+	} else {
+	    u = 0.5*x;
+	    return((one+u)*(one-u)+z*(r/s));
+	}
+}
+
+static const double
+u00  = -7.38042951086872317523e-02, /* 0xBFB2E4D6, 0x99CBD01F */
+u01  =  1.76666452509181115538e-01, /* 0x3FC69D01, 0x9DE9E3FC */
+u02  = -1.38185671945596898896e-02, /* 0xBF8C4CE8, 0xB16CFA97 */
+u03  =  3.47453432093683650238e-04, /* 0x3F36C54D, 0x20B29B6B */
+u04  = -3.81407053724364161125e-06, /* 0xBECFFEA7, 0x73D25CAD */
+u05  =  1.95590137035022920206e-08, /* 0x3E550057, 0x3B4EABD4 */
+u06  = -3.98205194132103398453e-11, /* 0xBDC5E43D, 0x693FB3C8 */
+v01  =  1.27304834834123699328e-02, /* 0x3F8A1270, 0x91C9C71A */
+v02  =  7.60068627350353253702e-05, /* 0x3F13ECBB, 0xF578C6C1 */
+v03  =  2.59150851840457805467e-07, /* 0x3E91642D, 0x7FF202FD */
+v04  =  4.41110311332675467403e-10; /* 0x3DFE5018, 0x3BD6D9EF */
+
+double __y0(double x)
+{
+	double z, s,c,ss,cc,u,v;
+	__int32_t hx,ix,lx;
+
+	EXTRACT_WORDS(hx,lx,x);
+        ix = 0x7fffffff&hx;
+    /* Y0(NaN) is NaN, y0(-inf) is Nan, y0(inf) is 0  */
+	if(ix>=0x7ff00000) return  one/(x+x*x); 
+        if((ix|lx)==0) return -one/zero;
+        if(hx<0) return zero/zero;
+        if(ix >= 0x40000000) {  /* |x| >= 2.0 */
+        /* y0(x) = sqrt(2/(pi*x))*(p0(x)*sin(x0)+q0(x)*cos(x0))
+         * where x0 = x-pi/4
+         *      Better formula:
+         *              cos(x0) = cos(x)cos(pi/4)+sin(x)sin(pi/4)
+         *                      =  1/sqrt(2) * (sin(x) + cos(x))
+         *              sin(x0) = sin(x)cos(3pi/4)-cos(x)sin(3pi/4)
+         *                      =  1/sqrt(2) * (sin(x) - cos(x))
+         * To avoid cancellation, use
+         *              sin(x) +- cos(x) = -cos(2x)/(sin(x) -+ cos(x))
+         * to compute the worse one.
+         */
+                s = sin(x);
+                c = cos(x);
+                ss = s-c;
+                cc = s+c;
+	/*
+	 * j0(x) = 1/sqrt(pi) * (P(0,x)*cc - Q(0,x)*ss) / sqrt(x)
+	 * y0(x) = 1/sqrt(pi) * (P(0,x)*ss + Q(0,x)*cc) / sqrt(x)
+	 */
+                if(ix<0x7fe00000) {  /* make sure x+x not overflow */
+                    z = -cos(x+x);
+                    if ((s*c)<zero) cc = z/ss;
+                    else            ss = z/cc;
+                }
+                if(ix>0x48000000) z = (invsqrtpi*ss)/__ieee754_sqrt(x);
+                else {
+                    u = __pzero(x); v = __qzero(x);
+                    z = invsqrtpi*(u*ss+v*cc)/__ieee754_sqrt(x);
+                }
+                return z;
+	}
+	if(ix<=0x3e400000) {	/* x < 2**-27 */
+	    return(u00 + tpi*__ieee754_log(x));
+	}
+	z = x*x;
+	u = u00+z*(u01+z*(u02+z*(u03+z*(u04+z*(u05+z*u06)))));
+	v = one+z*(v01+z*(v02+z*(v03+z*v04)));
+	return(u/v + tpi*(__ieee754_j0(x)*__ieee754_log(x)));
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
