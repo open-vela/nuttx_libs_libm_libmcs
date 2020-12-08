@@ -20,7 +20,7 @@ P3   =  6.6137559770e-05, /* 0x388ab355 */
 P4   = -1.6533901999e-06, /* 0xb5ddea0e */
 P5   =  4.1381369442e-08; /* 0x3331bb4c */
 
-float __ieee754_expf(float x)	/* default IEEE double exp */
+float expf(float x)	/* default IEEE double exp */
 {
 	float y,hi,lo,c,t;
 	__int32_t k = 0,xsb,sx;
@@ -72,21 +72,6 @@ float __ieee754_expf(float x)	/* default IEEE double exp */
 	    SET_FLOAT_WORD(y,hy+((k+100)<<23));	/* add k to y's exponent */
 	    return y*twom100;
 	}
-}
-
-/* 
- * wrapper expf(x)
- */
-
-#include "fdlibm.h"
-
-static const float
-o_threshold=  8.8721679688e+01,  /* 0x42b17180 */
-u_threshold= -1.0397208405e+02;  /* 0xc2cff1b5 */
-
-float expf(float x)		/* wrapper expf */
-{
-	return __ieee754_expf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS

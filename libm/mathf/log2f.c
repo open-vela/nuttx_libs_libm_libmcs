@@ -2,14 +2,10 @@
 // Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
 // Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com.
 
-/*
- * wrapper log2f(x)
- */
-
 #include "fdlibm.h"
 #include <math.h>
 
-float log2f(float x)		/* wrapper log2f */
+float log2f(float x)
 {
   return (logf(x) / (float_t) M_LN2);
 }
