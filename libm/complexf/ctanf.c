@@ -16,7 +16,6 @@ ctanf(float complex z)
 		d = _ctansf(z);
 
 	if (d == 0.0f) {
-		/* mtherr ("ctan", OVERFLOW); */
 		w = HUGE_VALF + HUGE_VALF * I;
 		return w;
 	}

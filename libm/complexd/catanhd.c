@@ -45,7 +45,6 @@ QUICKREF
 
 */
 
-
 #include <complex.h>
 
 double complex
