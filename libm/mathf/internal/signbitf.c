@@ -33,8 +33,6 @@ C99, POSIX.
 
 #include "fdlibm.h"
 
-int __signbitf (float x);
-
 int
 __signbitf (float x)
 {
