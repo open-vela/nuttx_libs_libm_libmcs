@@ -7,13 +7,49 @@
  * Method: shift and subtract
  */
 
+/* 
+FUNCTION 
+<<fmod>>, <<fmodf>>---floating-point remainder (modulo)
+
+INDEX
+fmod
+INDEX
+fmodf
+
+SYNOPSIS
+#include <math.h>
+double fmod(double <[x]>, double <[y]>);
+float fmodf(float <[x]>, float <[y]>);
+
+DESCRIPTION
+The <<fmod>> and <<fmodf>> functions compute the floating-point
+remainder of <[x]>/<[y]> (<[x]> modulo <[y]>).
+
+RETURNS
+The <<fmod>> function returns the value 
+@ifnottex
+<[x]>-<[i]>*<[y]>, 
+@end ifnottex
+@tex
+$x-i\times y$,
+@end tex
+for the largest integer <[i]> such that, if <[y]> is nonzero, the
+result has the same sign as <[x]> and magnitude less than the
+magnitude of <[y]>. 
+
+<<fmod(<[x]>,0)>> returns NaN, and sets <<errno>> to <<EDOM>>.
+
+PORTABILITY
+<<fmod>> is ANSI C. <<fmodf>> is an extension.
+*/
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
 static const double one = 1.0, Zero[] = {0.0, -0.0,};
 
-double __ieee754_fmod(double x, double y)
+double fmod(double x, double y)
 {
 	__int32_t n,hx,hy,hz,ix,iy,sx,i;
 	__uint32_t lx,ly,lz;
@@ -118,55 +154,12 @@ double __ieee754_fmod(double x, double y)
 	return x;		/* exact output */
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/* 
-FUNCTION 
-<<fmod>>, <<fmodf>>---floating-point remainder (modulo)
-
-INDEX
-fmod
-INDEX
-fmodf
-
-SYNOPSIS
-#include <math.h>
-double fmod(double <[x]>, double <[y]>);
-float fmodf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-The <<fmod>> and <<fmodf>> functions compute the floating-point
-remainder of <[x]>/<[y]> (<[x]> modulo <[y]>).
-
-RETURNS
-The <<fmod>> function returns the value 
-@ifnottex
-<[x]>-<[i]>*<[y]>, 
-@end ifnottex
-@tex
-$x-i\times y$,
-@end tex
-for the largest integer <[i]> such that, if <[y]> is nonzero, the
-result has the same sign as <[x]> and magnitude less than the
-magnitude of <[y]>. 
-
-<<fmod(<[x]>,0)>> returns NaN, and sets <<errno>> to <<EDOM>>.
-
-PORTABILITY
-<<fmod>> is ANSI C. <<fmodf>> is an extension.
-*/
-
-/* 
- * wrapper fmod(x,y)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
-double fmod(double x, double y)	/* wrapper fmod */
+long double fmodl (long double x, long double y)
 {
-	return __ieee754_fmod(x,y);
+	return (long double) fmod((double) x, (double) y);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */

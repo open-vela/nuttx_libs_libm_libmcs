@@ -196,3 +196,13 @@ fixup:
 	*quo = (sxy ? -q : q);
 	return x;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double remquol (long double x, long double y, int *quo)
+{
+	return (long double) remquo((double) x, (double) y, quo);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

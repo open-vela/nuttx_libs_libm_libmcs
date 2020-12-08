@@ -10,13 +10,39 @@
  *	Based on fmod() return x-[x/p]chopped*p exactlp.
  */
 
+/*
+FUNCTION
+<<remainder>>, <<remainderf>>---round and  remainder
+INDEX
+	remainder
+INDEX
+	remainderf
+
+SYNOPSIS
+	#include <math.h>
+	double remainder(double <[x]>, double <[y]>);
+	float remainderf(float <[x]>, float <[y]>);
+
+DESCRIPTION
+<<remainder>> and <<remainderf>> find the remainder of
+<[x]>/<[y]>; this value is in the range -<[y]>/2 .. +<[y]>/2.
+
+RETURNS
+<<remainder>> returns the integer result as a double.
+
+PORTABILITY
+<<remainder>> is a System V release 4.
+<<remainderf>> is an extension.
+
+*/
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
 static const double zero = 0.0;
 
-double __ieee754_remainder(double x, double p)
+double remainder(double x, double p)
 {
 	__int32_t hx,hp;
 	__uint32_t sx,lx,lp;
@@ -57,45 +83,12 @@ double __ieee754_remainder(double x, double p)
 	return x;
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/*
-FUNCTION
-<<remainder>>, <<remainderf>>---round and  remainder
-INDEX
-	remainder
-INDEX
-	remainderf
-
-SYNOPSIS
-	#include <math.h>
-	double remainder(double <[x]>, double <[y]>);
-	float remainderf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-<<remainder>> and <<remainderf>> find the remainder of
-<[x]>/<[y]>; this value is in the range -<[y]>/2 .. +<[y]>/2.
-
-RETURNS
-<<remainder>> returns the integer result as a double.
-
-PORTABILITY
-<<remainder>> is a System V release 4.
-<<remainderf>> is an extension.
-
-*/
-
-/* 
- * wrapper remainder(x,p)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
-double remainder(double x, double y)	/* wrapper remainder */
+long double remainderl (long double x, long double y)
 {
-	return __ieee754_remainder(x,y);
+	return (long double) remainder((double) x, (double) y);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */

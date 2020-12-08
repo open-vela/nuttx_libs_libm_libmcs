@@ -143,4 +143,12 @@ long int lrint(double x)
   return sx ? -result : result;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long int lrintl (long double x)
+{
+	return lrint((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
