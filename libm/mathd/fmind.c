@@ -41,4 +41,12 @@ double fmin(double x, double y)
   return x < y ? x : y;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double fminl (long double x, long double y)
+{
+	return (long double) fmin((double) x, (double) y);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -47,4 +47,12 @@ double fdim(double x, double y)
   return x > y ? x - y : 0.0;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double fdiml (long double x, long double y)
+{
+	return (long double) fdim((double) x, (double) y);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
