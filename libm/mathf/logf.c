@@ -18,7 +18,7 @@ Lg7 = 1.4798198640e-01; /* 3E178897 */
 
 static const float zero   =  0.0;
 
-float __ieee754_logf(float x)
+float logf(float x)
 {
 	float hfsq,f,s,z,R,w,t1,t2,dk;
 	__int32_t k,ix,i,j;
@@ -65,17 +65,6 @@ float __ieee754_logf(float x)
 	    if(k==0) return f-s*(f-R); else
 		     return dk*ln2_hi-((s*(f-R)-dk*ln2_lo)-f);
 	}
-}
-
-/*
- * wrapper logf(x)
- */
-
-#include "fdlibm.h"
-
-float logf(float x)		/* wrapper logf */
-{
-	return __ieee754_logf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
