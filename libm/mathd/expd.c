@@ -64,6 +64,40 @@
  * to produce the hexadecimal values shown.
  */
 
+/*
+FUNCTION
+	<<exp>>, <<expf>>---exponential
+INDEX
+	exp
+INDEX
+	expf
+
+SYNOPSIS
+	#include <math.h>
+	double exp(double <[x]>);
+	float expf(float <[x]>);
+
+DESCRIPTION
+	<<exp>> and <<expf>> calculate the exponential of <[x]>, that is, 
+	@ifnottex
+	e raised to the power <[x]> (where e
+	@end ifnottex
+	@tex
+	$e^x$ (where $e$
+	@end tex
+	is the base of the natural system of logarithms, approximately 2.71828).
+
+RETURNS
+	On success, <<exp>> and <<expf>> return the calculated value.
+	If the result underflows, the returned value is <<0>>.  If the
+	result overflows, the returned value is <<HUGE_VAL>>.  In
+	either case, <<errno>> is set to <<ERANGE>>.
+
+PORTABILITY
+	<<exp>> is ANSI C.  <<expf>> is an extension.
+
+*/
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -86,7 +120,7 @@ P3   =  6.61375632143793436117e-05, /* 0x3F11566A, 0xAF25DE2C */
 P4   = -1.65339022054652515390e-06, /* 0xBEBBBD41, 0xC5D26BF1 */
 P5   =  4.13813679705723846039e-08; /* 0x3E663769, 0x72BEA4D0 */
 
-double __ieee754_exp(double x)	/* default IEEE double exp */
+double exp(double x)	/* default IEEE double exp */
 {
 	double y,hi,lo,c,t;
 	__int32_t k = 0,xsb;
@@ -143,57 +177,12 @@ double __ieee754_exp(double x)	/* default IEEE double exp */
 	}
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/*
-FUNCTION
-	<<exp>>, <<expf>>---exponential
-INDEX
-	exp
-INDEX
-	expf
-
-SYNOPSIS
-	#include <math.h>
-	double exp(double <[x]>);
-	float expf(float <[x]>);
-
-DESCRIPTION
-	<<exp>> and <<expf>> calculate the exponential of <[x]>, that is, 
-	@ifnottex
-	e raised to the power <[x]> (where e
-	@end ifnottex
-	@tex
-	$e^x$ (where $e$
-	@end tex
-	is the base of the natural system of logarithms, approximately 2.71828).
-
-RETURNS
-	On success, <<exp>> and <<expf>> return the calculated value.
-	If the result underflows, the returned value is <<0>>.  If the
-	result overflows, the returned value is <<HUGE_VAL>>.  In
-	either case, <<errno>> is set to <<ERANGE>>.
-
-PORTABILITY
-	<<exp>> is ANSI C.  <<expf>> is an extension.
-
-*/
-
-/* 
- * wrapper exp(x)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
-static const double
-o_threshold=  7.09782712893383973096e+02,  /* 0x40862E42, 0xFEFA39EF */
-u_threshold= -7.45133219101941108420e+02;  /* 0xc0874910, 0xD52D3051 */
-
-double exp(double x)		/* wrapper exp */
+long double expl (long double x)
 {
-	return __ieee754_exp(x);
+	return (long double) exp((double) x);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */

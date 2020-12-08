@@ -52,6 +52,35 @@
  * to produce the hexadecimal values shown.
  */
 
+/*
+FUNCTION
+       <<log>>, <<logf>>---natural logarithms
+
+INDEX
+    log
+INDEX
+    logf
+
+SYNOPSIS
+       #include <math.h>
+       double log(double <[x]>);
+       float logf(float <[x]>);
+
+DESCRIPTION
+Return the natural logarithm of <[x]>, that is, its logarithm base e
+(where e is the base of the natural system of logarithms, 2.71828@dots{}).
+<<log>> and <<logf>> are identical save for the return and argument types.
+
+RETURNS
+Normally, returns the calculated value.  When <[x]> is zero, the
+returned value is <<-HUGE_VAL>> and <<errno>> is set to <<ERANGE>>.
+When <[x]> is negative, the returned value is NaN (not a number) and
+<<errno>> is set to <<EDOM>>.
+
+PORTABILITY
+<<log>> is ANSI. <<logf>> is an extension.
+*/
+
 #include "fdlibm.h"
 
 #ifndef _DOUBLE_IS_32BITS
@@ -70,7 +99,7 @@ Lg7 = 1.479819860511658591e-01;  /* 3FC2F112 DF3E5244 */
 
 static const double zero   =  0.0;
 
-double __ieee754_log(double x)
+double log(double x)
 {
 	double hfsq,f,s,z,R,w,t1,t2,dk;
 	__int32_t k,hx,i,j;
@@ -120,48 +149,12 @@ double __ieee754_log(double x)
 	}
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#ifdef _LONG_DOUBLE_IS_64BITS
 
-/*
-FUNCTION
-       <<log>>, <<logf>>---natural logarithms
-
-INDEX
-    log
-INDEX
-    logf
-
-SYNOPSIS
-       #include <math.h>
-       double log(double <[x]>);
-       float logf(float <[x]>);
-
-DESCRIPTION
-Return the natural logarithm of <[x]>, that is, its logarithm base e
-(where e is the base of the natural system of logarithms, 2.71828@dots{}).
-<<log>> and <<logf>> are identical save for the return and argument types.
-
-RETURNS
-Normally, returns the calculated value.  When <[x]> is zero, the
-returned value is <<-HUGE_VAL>> and <<errno>> is set to <<ERANGE>>.
-When <[x]> is negative, the returned value is NaN (not a number) and
-<<errno>> is set to <<EDOM>>.
-
-PORTABILITY
-<<log>> is ANSI. <<logf>> is an extension.
-*/
-
-/*
- * wrapper log(x)
- */
-
-#include "fdlibm.h"
-
-#ifndef _DOUBLE_IS_32BITS
-
-double log(double x)		/* wrapper log */
+long double log10l (long double x)
 {
-	return __ieee754_log(x);
+	return (long double) log10((double) x);
 }
 
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */

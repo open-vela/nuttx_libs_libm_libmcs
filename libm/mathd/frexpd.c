@@ -81,4 +81,12 @@ double frexp(double x, int *eptr)
 	return x;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double frexpl (long double x, int *eptr)
+{
+	return (long double) frexp((double) x, eptr);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

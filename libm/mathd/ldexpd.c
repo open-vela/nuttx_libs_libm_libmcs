@@ -46,8 +46,15 @@ double ldexp(double value, int exp)
 {
 	if(!finite(value)||value==0.0) return value;
 	value = scalbn(value,exp);
-	if(!finite(value)||value==0.0) errno = ERANGE;
 	return value;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double ldexpl (long double value, int exp)
+{
+	return (long double) ldexp((double) value, exp);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

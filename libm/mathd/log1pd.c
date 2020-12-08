@@ -185,4 +185,12 @@ double log1p(double x)
 		 return k*ln2_hi-((hfsq-(s*(hfsq+R)+(k*ln2_lo+c)))-f);
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double log1pl (long double x)
+{
+	return (long double) log1p((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

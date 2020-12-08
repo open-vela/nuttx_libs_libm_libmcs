@@ -88,4 +88,12 @@ double scalbn (double x, int n)
         return x*twom54;
 }
 
-#endif /* _DOUBLE_IS_32BITS */
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double scalbnl (long double x, int n)
+{
+	return (long double) scalbn((double) x, n);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
