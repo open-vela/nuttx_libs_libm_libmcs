@@ -1,9 +1,5 @@
-/* $NetBSD: complex.h,v 1.3 2010/09/15 16:11:30 christos Exp $ */
-
-/*
- * Written by Matthias Drochner.
- * Public domain.
- */
+// SPDX-License-Identifier: NetBSD
+// Written by Matthias Drochner.
 
 #ifndef	_COMPLEX_H
 #define	_COMPLEX_H
