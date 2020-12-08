@@ -7,17 +7,6 @@
  * Method: See __ieee754_lgamma_r
  */
 
-#include "fdlibm.h"
-
-double __ieee754_tgamma(double x)
-{
-	int signgam_local;
-	double y = __ieee754_exp(__ieee754_lgamma_r(x, &signgam_local));
-	if (signgam_local < 0)
-		y = -y;
-	return y;
-}
-
 /* double gamma(double x)
  * Return  the logarithm of the Gamma function of x or the Gamma function of x,
  * depending on the library mode.
@@ -29,7 +18,19 @@ double __ieee754_tgamma(double x)
 
 double tgamma(double x)
 {
-	return __ieee754_tgamma(x);
+	int signgam_local;
+	double y = __ieee754_exp(__lgamma(x, &signgam_local));
+	if (signgam_local < 0)
+		y = -y;
+	return y;
 }
 
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double tgammal (long double x)
+{
+	return (long double) tgamma((double) x);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 #endif /* defined(_DOUBLE_IS_32BITS) */
