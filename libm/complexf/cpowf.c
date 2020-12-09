@@ -4,24 +4,33 @@
 #include <math.h>
 
 float complex
-cpowf(float complex a, float complex z)
+cpowf(float complex x, float complex y)
 {
 	float complex w;
-	float x, y, r, theta, absa, arga;
+	float realz, imagz, result, theta, absx, argx;
 
-	x = crealf(z);
-	y = cimagf(z);
-	absa = cabsf(a);
-	if (absa == 0.0f) {
+	realz = crealf(y);
+	imagz = cimagf(y);
+	absx = cabsf(x);
+	if (absx == 0.0f) {
 		return (0.0f + 0.0f * I);
 	}
-	arga = cargf(a);
-	r = powf(absa, x);
-	theta = x * arga;
-	if (y != 0.0f) {
-		r = r * expf(-y * arga);
-		theta = theta + y * logf(absa);
+	argx = cargf(x);
+	result = powf(absx, realz);
+	theta = realz * argx;
+	if (imagz != 0.0f) {
+		result = result * expf(-imagz * argx);
+		theta = theta + imagz * logf(absx);
 	}
-	w = r * cosf(theta) + (r * sinf(theta)) * I;
+	w = result * cosf(theta) + (result * sinf(theta)) * I;
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex cacos (double complex x, double complex y)
+{
+	return (double complex) cacosf((float complex) x, (float complex) y);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -11,3 +11,12 @@ crealf(float complex z)
 
 	return (REAL_PART(w));
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double creal (double complex z)
+{
+	return (double) crealf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -11,3 +11,12 @@ cimagf(float complex z)
 
 	return (IMAG_PART(w));
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double cimag (double complex z)
+{
+	return (double) cimagf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

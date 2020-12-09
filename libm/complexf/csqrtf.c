@@ -62,3 +62,12 @@ csqrtf(float complex z)
 		w = t + r * I;
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex csqrt (double complex z)
+{
+	return (double complex) csqrtf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */
