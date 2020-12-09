@@ -15,3 +15,12 @@ clogf(float complex z)
 	w = p + rr * I;
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex clog (double complex z)
+{
+	return (double complex) clogf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

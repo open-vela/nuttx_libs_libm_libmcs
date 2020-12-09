@@ -29,3 +29,12 @@ casinf(float complex z)
 	w = zz * (-1.0f * I);
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex casin (double complex z)
+{
+	return (double complex) casinf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

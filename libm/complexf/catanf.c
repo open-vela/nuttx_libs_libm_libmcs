@@ -2,7 +2,6 @@
 
 #include <complex.h>
 #include <math.h>
-#include "cephes_subrf.h"
 
 float complex
 catanf(float complex z)
@@ -22,7 +21,7 @@ catanf(float complex z)
 		goto ovrf;
 
 	t = 0.5f * atan2f(2.0f * x, a);
-	w = _redupif(t);
+	w = __redupif(t);
 
 	t = y - 1.0f;
 	a = x2 + (t * t);
@@ -38,3 +37,12 @@ ovrf:
 	w = HUGE_VALF + HUGE_VALF * I;
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex catan (double complex z)
+{
+	return (double complex) catanf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

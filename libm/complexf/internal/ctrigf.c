@@ -2,12 +2,11 @@
 
 #include <complex.h>
 #include <math.h>
-#include "cephes_subrf.h"
 
 /* calculate cosh and sinh */
 
 void
-_cchshf(float x, float *c, float *s)
+__cchshf(float x, float *c, float *s)
 {
 	float e, ei;
 
@@ -32,7 +31,7 @@ static const double DP3 =  1.509957990978376432E-7;
 #define MACHEPF 3.0e-8
 
 float
-_redupif(float x)
+__redupif(float x)
 {
 	float t;
 	long i;
@@ -52,14 +51,14 @@ _redupif(float x)
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
 float
-_ctansf(float complex z)
+__ctansf(float complex z)
 {
 	float f, x, x2, y, y2, rn, t, d;
 
 	x = fabsf(2.0f * crealf(z));
 	y = fabsf(2.0f * cimagf(z));
 
-	x = _redupif(x);
+	x = __redupif(x);
 
 	x = x * x;
 	y = y * y;

@@ -11,3 +11,12 @@ cacoshf(float complex z)
 
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex cacosh (double complex z)
+{
+	return (double complex) cacoshf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */
