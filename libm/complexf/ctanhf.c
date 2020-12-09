@@ -16,3 +16,12 @@ ctanhf(float complex z)
 
 	return w;
 }
+
+#ifdef _DOUBLE_IS_32BITS
+
+double complex ctanh (double complex z)
+{
+	return (double complex) ctanhf((float complex) z);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */
