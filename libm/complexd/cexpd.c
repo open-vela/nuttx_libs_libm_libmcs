@@ -36,6 +36,8 @@ QUICKREF
 #include <complex.h>
 #include <math.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
 cexp(double complex z)
 {
@@ -48,3 +50,13 @@ cexp(double complex z)
 	w = r * cos(y) + r * sin(y) * I;
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex cexpl (long double complex z)
+{
+	return (long double complex) cexp((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -35,7 +35,8 @@ QUICKREF
 
 #include <complex.h>
 #include <math.h>
-#include "cephes_subr.h"
+
+#ifndef _DOUBLE_IS_32BITS
 
 double complex
 ccos(double complex z)
@@ -47,3 +48,13 @@ ccos(double complex z)
 	w = cos(creal(z)) * ch - (sin(creal(z)) * sh) * I;
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex ccosl (long double complex z)
+{
+	return (long double complex) ccos((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

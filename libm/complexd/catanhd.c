@@ -47,6 +47,8 @@ QUICKREF
 
 #include <complex.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
 catanh(double complex z)
 {
@@ -55,3 +57,13 @@ catanh(double complex z)
 	w = -1.0 * I * catan(z * I);
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex catanhl (long double complex z)
+{
+	return (long double complex) catanh((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
