@@ -50,48 +50,4 @@ __redupi(double x)
 	return t;
 }
 
-/* Taylor series expansion for cosh(2y) - cos(2x) */
-
-double
-__ctans(double complex z)
-{
-	double f, x, x2, y, y2, rn, t;
-	double d;
-
-	x = fabs(2.0 * creal(z));
-	y = fabs(2.0 * cimag(z));
-
-	x = __redupi(x);
-
-	x = x * x;
-	y = y * y;
-	x2 = 1.0;
-	y2 = 1.0;
-	f = 1.0;
-	rn = 0.0;
-	d = 0.0;
-	do {
-		rn += 1.0;
-		f *= rn;
-		rn += 1.0;
-		f *= rn;
-		x2 *= x;
-		y2 *= y;
-		t = y2 + x2;
-		t /= f;
-		d += t;
-
-		rn += 1.0;
-		f *= rn;
-		rn += 1.0;
-		f *= rn;
-		x2 *= x;
-		y2 *= y;
-		t = y2 - x2;
-		t /= f;
-		d += t;
-	} while (fabs(t/d) > MACHEP);
-	return d;
-}
-
 #endif /* defined(_DOUBLE_IS_32BITS) */
