@@ -44,8 +44,20 @@ QUICKREF
 #include <complex.h>
 #include <math.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double
 carg(double complex z)
 {
 	return atan2( cimag(z) , creal(z) );
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double cargl (long double complex z)
+{
+	return (long double) carg((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

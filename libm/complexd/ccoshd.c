@@ -36,6 +36,8 @@ QUICKREF
 #include <complex.h>
 #include <math.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
 ccosh(double complex z)
 {
@@ -47,3 +49,13 @@ ccosh(double complex z)
 	w = cosh(x) * cos(y) + (sinh(x) * sin(y)) * I;
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex ccoshl (long double complex z)
+{
+	return (long double complex) ccosh((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
