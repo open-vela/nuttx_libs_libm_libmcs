@@ -43,6 +43,8 @@ QUICKREF
 #include <complex.h>
 #include "../common/fdlibm.h"
 
+#ifndef _DOUBLE_IS_32BITS
+
 double
 cimag(double complex z)
 {
@@ -50,3 +52,13 @@ cimag(double complex z)
 
 	return (IMAG_PART(w));
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double cimagl (long double complex z)
+{
+	return (long double) cimag((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

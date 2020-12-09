@@ -44,9 +44,20 @@ QUICKREF
 #include <complex.h>
 #include <math.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double
 cabs(double complex z)
 {
-
 	return hypot( creal(z), cimag(z) );
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double cabsl (long double complex z)
+{
+	return (long double) cabs((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

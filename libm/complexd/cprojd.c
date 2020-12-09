@@ -46,6 +46,8 @@ QUICKREF
 
 #include "../common/fdlibm.h"
 
+#ifndef _DOUBLE_IS_32BITS
+
 /*
  * cproj(double complex z)
  *
@@ -70,3 +72,13 @@ cproj(double complex z)
 
 	return (w.z);
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex cprojl (long double complex z)
+{
+	return (long double complex) cproj((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -35,7 +35,8 @@ QUICKREF
 
 #include <complex.h>
 #include <math.h>
-#include "cephes_subr.h"
+
+#ifndef _DOUBLE_IS_32BITS
 
 double complex
 ctan(double complex z)
@@ -56,3 +57,13 @@ ctan(double complex z)
 	w = sin(2.0 * creal(z)) / d + (sinh(2.0 * cimag(z)) / d) * I;
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex ctanl (long double complex z)
+{
+	return (long double complex) ctan((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

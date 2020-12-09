@@ -37,6 +37,8 @@ QUICKREF
 #include <complex.h>
 #include "../common/fdlibm.h"
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
 conj(double complex z)
 {
@@ -46,3 +48,13 @@ conj(double complex z)
 
 	return (w.z);
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex conjl (long double complex z)
+{
+	return (long double complex) conj((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

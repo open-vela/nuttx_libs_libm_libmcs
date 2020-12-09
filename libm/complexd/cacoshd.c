@@ -47,6 +47,8 @@ QUICKREF
 
 #include <complex.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
 cacosh(double complex z)
 {
@@ -56,3 +58,13 @@ cacosh(double complex z)
 
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex cacoshl (long double complex z)
+{
+	return (long double complex) cacosh((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

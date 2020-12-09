@@ -45,25 +45,37 @@ QUICKREF
 #include <complex.h>
 #include <math.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
-cpow(double complex a, double complex z)
+cpow(double complex x, double complex y)
 {
 	double complex w;
-	double x, y, r, theta, absa, arga;
+	double realz, imagz, result, theta, absx, argx;
 
-	x = creal(z);
-	y = cimag(z);
-	absa = cabs(a);
-	if (absa == 0.0) {
+	realz = creal(y);
+	imagz = cimag(y);
+	absx = cabs(x);
+	if (absx == 0.0) {
 		return (0.0 + 0.0 * I);
 	}
-	arga = carg(a);
-	r = pow(absa, x);
-	theta = x * arga;
-	if (y != 0.0) {
-		r = r * exp(-y * arga);
-		theta = theta + y * log(absa);
+	argx = carg(x);
+	result = pow(absx, realz);
+	theta = realz * argx;
+	if (imagz != 0.0) {
+		result = result * exp(-imagz * argx);
+		theta = theta + imagz * log(absx);
 	}
-	w = r * cos(theta) + (r * sin(theta)) * I;
+	w = result * cos(theta) + (result * sin(theta)) * I;
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex cpowl (long double complex x, long double complex y)
+{
+	return (long double complex) cpow((double complex) x, (double complex) y);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

@@ -45,6 +45,8 @@ QUICKREF
 #include <complex.h>
 #include <math.h>
 
+#ifndef _DOUBLE_IS_32BITS
+
 double complex
 cacos(double complex z)
 {
@@ -57,3 +59,13 @@ cacos(double complex z)
 
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex cacosl (long double complex z)
+{
+	return (long double complex) cacos((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */

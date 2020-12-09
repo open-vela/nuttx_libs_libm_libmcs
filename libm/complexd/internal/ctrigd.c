@@ -2,12 +2,13 @@
 
 #include <complex.h>
 #include <math.h>
-#include "cephes_subr.h"
+
+#ifndef _DOUBLE_IS_32BITS
 
 /* calculate cosh and sinh */
 
 void
-_cchsh(double x, double *c, double *s)
+__cchsh(double x, double *c, double *s)
 {
 	double e, ei;
 
@@ -32,7 +33,7 @@ static const double DP3 = 1.14423774522196636802E-17;
 #define MACHEP 1.1e-16
 
 double
-_redupi(double x)
+__redupi(double x)
 {
 	double t;
 	long i;
@@ -52,7 +53,7 @@ _redupi(double x)
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
 double
-_ctans(double complex z)
+__ctans(double complex z)
 {
 	double f, x, x2, y, y2, rn, t;
 	double d;
@@ -60,7 +61,7 @@ _ctans(double complex z)
 	x = fabs(2.0 * creal(z));
 	y = fabs(2.0 * cimag(z));
 
-	x = _redupi(x);
+	x = __redupi(x);
 
 	x = x * x;
 	y = y * y;
@@ -92,3 +93,5 @@ _ctans(double complex z)
 	} while (fabs(t/d) > MACHEP);
 	return d;
 }
+
+#endif /* defined(_DOUBLE_IS_32BITS) */

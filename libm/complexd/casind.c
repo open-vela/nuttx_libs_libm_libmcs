@@ -42,9 +42,10 @@ QUICKREF
 
 */
 
-
 #include <complex.h>
 #include <math.h>
+
+#ifndef _DOUBLE_IS_32BITS
 
 double complex
 casin(double complex z)
@@ -72,3 +73,13 @@ casin(double complex z)
 	w = zz * (-1.0 * I);
 	return w;
 }
+
+#ifdef _LONG_DOUBLE_IS_64BITS
+
+long double complex casinl (long double complex z)
+{
+	return (long double complex) casin((double complex) z);
+}
+
+#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(_DOUBLE_IS_32BITS) */
