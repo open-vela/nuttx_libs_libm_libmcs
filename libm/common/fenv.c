@@ -15,12 +15,12 @@ int feraiseexcept(int excepts)
     return -1;
 }
 
-int fegetexceptflag(fexcept_t* flagp, int excepts)
+int fegetexceptflag(fexcept_t *flagp, int excepts)
 {
     return -1;
 }
 
-int fesetexceptflag(const fexcept_t* flagp, int excepts)
+int fesetexceptflag(const fexcept_t *flagp, int excepts)
 {
     return -1;
 }
@@ -35,22 +35,22 @@ int fesetround(int rdir)
     return -1;
 }
 
-int fegetenv(fenv_t* envp)
+int fegetenv(fenv_t *envp)
 {
     return -1;
 }
 
-int fesetenv(const fenv_t* envp)
+int fesetenv(const fenv_t *envp)
 {
     return -1;
 }
 
-int feholdexcept(fenv_t* envp)
+int feholdexcept(fenv_t *envp)
 {
     return -1;
 }
 
-int feupdateenv(const fenv_t* envp)
+int feupdateenv(const fenv_t *envp)
 {
     return -1;
 }

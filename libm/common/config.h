@@ -44,23 +44,23 @@
     otherwise) */
 
 #ifdef _FLT_LARGEST_EXPONENT_IS_NORMAL
-#define FLT_UWORD_IS_FINITE(x) 1
-#define FLT_UWORD_IS_NAN(x) 0
-#define FLT_UWORD_IS_INFINITE(x) 0
-#define FLT_UWORD_MAX 0x7fffffff
-#define FLT_UWORD_EXP_MAX 0x43010000
-#define FLT_UWORD_LOG_MAX 0x42b2d4fc
-#define FLT_UWORD_LOG_2MAX 0x42b437e0
-#define HUGE ((float)0X1.FFFFFEP128)
+    #define FLT_UWORD_IS_FINITE(x) 1
+    #define FLT_UWORD_IS_NAN(x) 0
+    #define FLT_UWORD_IS_INFINITE(x) 0
+    #define FLT_UWORD_MAX 0x7fffffff
+    #define FLT_UWORD_EXP_MAX 0x43010000
+    #define FLT_UWORD_LOG_MAX 0x42b2d4fc
+    #define FLT_UWORD_LOG_2MAX 0x42b437e0
+    #define HUGE ((float)0X1.FFFFFEP128)
 #else
-#define FLT_UWORD_IS_FINITE(x) ((x)<0x7f800000L)
-#define FLT_UWORD_IS_NAN(x) ((x)>0x7f800000L)
-#define FLT_UWORD_IS_INFINITE(x) ((x)==0x7f800000L)
-#define FLT_UWORD_MAX 0x7f7fffffL
-#define FLT_UWORD_EXP_MAX 0x43000000
-#define FLT_UWORD_LOG_MAX 0x42b17217
-#define FLT_UWORD_LOG_2MAX 0x42b2d4fc
-#define HUGE ((float)3.40282346638528860e+38)
+    #define FLT_UWORD_IS_FINITE(x) ((x)<0x7f800000L)
+    #define FLT_UWORD_IS_NAN(x) ((x)>0x7f800000L)
+    #define FLT_UWORD_IS_INFINITE(x) ((x)==0x7f800000L)
+    #define FLT_UWORD_MAX 0x7f7fffffL
+    #define FLT_UWORD_EXP_MAX 0x43000000
+    #define FLT_UWORD_LOG_MAX 0x42b17217
+    #define FLT_UWORD_LOG_2MAX 0x42b2d4fc
+    #define HUGE ((float)3.40282346638528860e+38)
 #endif
 #define FLT_UWORD_HALF_MAX (FLT_UWORD_MAX-(1L<<23))
 #define FLT_LARGEST_EXP (FLT_UWORD_MAX>>23)
@@ -93,19 +93,19 @@
 */
 
 #ifdef _FLT_NO_DENORMALS
-#define FLT_UWORD_IS_ZERO(x) ((x)<0x00800000L)
-#define FLT_UWORD_IS_SUBNORMAL(x) 0
-#define FLT_UWORD_MIN 0x00800000
-#define FLT_UWORD_EXP_MIN 0x42fc0000
-#define FLT_UWORD_LOG_MIN 0x42aeac50
-#define FLT_SMALLEST_EXP 1
+    #define FLT_UWORD_IS_ZERO(x) ((x)<0x00800000L)
+    #define FLT_UWORD_IS_SUBNORMAL(x) 0
+    #define FLT_UWORD_MIN 0x00800000
+    #define FLT_UWORD_EXP_MIN 0x42fc0000
+    #define FLT_UWORD_LOG_MIN 0x42aeac50
+    #define FLT_SMALLEST_EXP 1
 #else
-#define FLT_UWORD_IS_ZERO(x) ((x)==0)
-#define FLT_UWORD_IS_SUBNORMAL(x) ((x)<0x00800000L)
-#define FLT_UWORD_MIN 0x00000001
-#define FLT_UWORD_EXP_MIN 0x43160000
-#define FLT_UWORD_LOG_MIN 0x42cff1b5
-#define FLT_SMALLEST_EXP -22
+    #define FLT_UWORD_IS_ZERO(x) ((x)==0)
+    #define FLT_UWORD_IS_SUBNORMAL(x) ((x)<0x00800000L)
+    #define FLT_UWORD_MIN 0x00000001
+    #define FLT_UWORD_EXP_MIN 0x43160000
+    #define FLT_UWORD_LOG_MIN 0x42cff1b5
+    #define FLT_SMALLEST_EXP -22
 #endif
 
 /* The original code used statements like
@@ -120,7 +120,7 @@
    endianness at run time.  */
 
 #ifndef __IEEE_BIG_ENDIAN
-#ifndef __IEEE_LITTLE_ENDIAN
- #error Must define endianness
-#endif
+    #ifndef __IEEE_LITTLE_ENDIAN
+        #error Must define endianness
+    #endif
 #endif
