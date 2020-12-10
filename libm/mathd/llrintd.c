@@ -7,9 +7,9 @@
  * Return x rounded to integral value according to the prevailing
  * rounding mode.
  * Method:
- *	Using floating addition.
+ *    Using floating addition.
  * Exception:
- *	Inexact flag raised if x not equal to llrint(x).
+ *    Inexact flag raised if x not equal to llrint(x).
  */
 
 #include "fdlibm.h"
@@ -50,7 +50,7 @@ long long int llrint(double x)
       else
         {
           /* j0 in [0,19] */
-	  /* shift amt in [0,19] */
+      /* shift amt in [0,19] */
           w = TWO52[sx] + x;
           t = w - TWO52[sx];
           GET_HIGH_WORD(i0, t);
@@ -62,7 +62,7 @@ long long int llrint(double x)
           j0 = ((i0 & 0x7ff00000) >> 20) - 1023;
           i0 &= 0x000fffff;
           i0 |= 0x00100000;
-	  /* shift amt in [20,0] */
+      /* shift amt in [20,0] */
           result = i0 >> (20 - j0);
         }
     }
@@ -70,14 +70,14 @@ long long int llrint(double x)
     {
       /* 64bit return: j0 in [20,62] */
       if (j0 >= 52)
-	/* 64bit return: j0 in [52,62] */
-	/* 64bit return: left shift amt in [32,42] */
+    /* 64bit return: j0 in [52,62] */
+    /* 64bit return: left shift amt in [32,42] */
         result = ((long long int) ((i0 & 0x000fffff) | 0x00100000) << (j0 - 20)) |
-		/* 64bit return: right shift amt in [0,10] */
+        /* 64bit return: right shift amt in [0,10] */
                    ((long long int) i1 << (j0 - 52));
       else
         {
-	  /* 64bit return: j0 in [20,51] */
+      /* 64bit return: j0 in [20,51] */
           w = TWO52[sx] + x;
           t = w - TWO52[sx];
           EXTRACT_WORDS (i0, i1, t);
@@ -85,11 +85,11 @@ long long int llrint(double x)
           i0 &= 0x000fffff;
           i0 |= 0x00100000;
           /* After round:
-	   * 64bit return: j0 in [20,52] */
-	  /* 64bit return: left shift amt in [0,32] */
+       * 64bit return: j0 in [20,52] */
+      /* 64bit return: left shift amt in [0,32] */
           /* ***64bit return: right shift amt in [32,0] */
           result = ((long long int) i0 << (j0 - 20))
-			| SAFE_RIGHT_SHIFT (i1, (52 - j0));
+            | SAFE_RIGHT_SHIFT (i1, (52 - j0));
         }
     }
   else
@@ -104,7 +104,7 @@ long long int llrint(double x)
 
 long long int llrintl (long double x)
 {
-	return llrint((double) x);
+    return llrint((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

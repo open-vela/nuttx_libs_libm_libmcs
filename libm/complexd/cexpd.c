@@ -41,21 +41,21 @@ QUICKREF
 double complex
 cexp(double complex z)
 {
-	double complex w;
-	double r, x, y;
+    double complex w;
+    double r, x, y;
 
-	x = creal(z);
-	y = cimag(z);
-	r = exp(x);
-	w = r * cos(y) + r * sin(y) * I;
-	return w;
+    x = creal(z);
+    y = cimag(z);
+    r = exp(x);
+    w = r * cos(y) + r * sin(y) * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex cexpl (long double complex z)
 {
-	return (long double complex) cexp((double complex) z);
+    return (long double complex) cexp((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

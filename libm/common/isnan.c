@@ -7,49 +7,49 @@ FUNCTION
 
 @c C99 (start
 INDEX
-	fpclassify
+    fpclassify
 INDEX
-	isfinite
+    isfinite
 INDEX
-	isinf
+    isinf
 INDEX
-	isnan
+    isnan
 INDEX
-	isnormal
+    isnormal
 @c C99 end)
 @c SUSv2 (start
 INDEX
-	isnan
+    isnan
 INDEX
-	isinf
+    isinf
 INDEX
-	finite
+    finite
 
 INDEX
-	isnanf
+    isnanf
 INDEX
-	isinff
+    isinff
 INDEX
-	finitef
+    finitef
 @c SUSv2 end)
 
 SYNOPSIS
-	[C99 standard macros:]
-	#include <math.h>
-	int fpclassify(real-floating <[x]>);
-	int isfinite(real-floating <[x]>);
-	int isinf(real-floating <[x]>);
-	int isnan(real-floating <[x]>);
-	int isnormal(real-floating <[x]>);
+    [C99 standard macros:]
+    #include <math.h>
+    int fpclassify(real-floating <[x]>);
+    int isfinite(real-floating <[x]>);
+    int isinf(real-floating <[x]>);
+    int isnan(real-floating <[x]>);
+    int isnormal(real-floating <[x]>);
 
-	[Archaic SUSv2 functions:]
-	#include <math.h>
-	int isnan(double <[arg]>);
-	int isinf(double <[arg]>);
-	int finite(double <[arg]>);
-	int isnanf(float <[arg]>);
-	int isinff(float <[arg]>);
-	int finitef(float <[arg]>);
+    [Archaic SUSv2 functions:]
+    #include <math.h>
+    int isnan(double <[arg]>);
+    int isinf(double <[arg]>);
+    int finite(double <[arg]>);
+    int isnanf(float <[arg]>);
+    int isinff(float <[arg]>);
+    int finitef(float <[arg]>);
 
 DESCRIPTION
 <<fpclassify>>, <<isfinite>>, <<isinf>>, <<isnan>>, and <<isnormal>> are macros
@@ -68,15 +68,15 @@ appropriate to the value of its argument:
 
 o+
 o FP_INFINITE
-	<[x]> is either plus or minus infinity;
+    <[x]> is either plus or minus infinity;
 o FP_NAN
-	<[x]> is "Not A Number" (plus or minus);
+    <[x]> is "Not A Number" (plus or minus);
 o FP_NORMAL
-	<[x]> is a "normal" number (i.e. is none of the other special forms);
+    <[x]> is a "normal" number (i.e. is none of the other special forms);
 o FP_SUBNORMAL
-	<[x]> is too small be stored as a regular normalized number (i.e. loss of precision is likely); or
+    <[x]> is too small be stored as a regular normalized number (i.e. loss of precision is likely); or
 o FP_ZERO
-	<[x]> is 0 (either plus or minus).
+    <[x]> is 0 (either plus or minus).
 o-
 
 The "<<is>>" set of macros provide a useful set of shorthand ways for
@@ -101,39 +101,39 @@ returns non-zero if <[x]> is normal.  (It is equivalent to
 (<<fpclassify>>(<[x]>) == FP_NORMAL).)
 o-
 
-	The archaic SUSv2 functions provide information on the floating-point
-	argument supplied.
+    The archaic SUSv2 functions provide information on the floating-point
+    argument supplied.
 
-	There are five major number formats ("exponent" referring to the
-	biased exponent in the binary-encoded number):
-	o+
-	o zero
-	  A number which contains all zero bits, excluding the sign bit.
-	o subnormal
-	  A number with a zero exponent but a nonzero fraction.
-	o normal
-	  A number with an exponent and a fraction.
-     	o infinity
-	  A number with an all 1's exponent and a zero fraction.
-	o NAN
-	  A number with an all 1's exponent and a nonzero fraction.
+    There are five major number formats ("exponent" referring to the
+    biased exponent in the binary-encoded number):
+    o+
+    o zero
+      A number which contains all zero bits, excluding the sign bit.
+    o subnormal
+      A number with a zero exponent but a nonzero fraction.
+    o normal
+      A number with an exponent and a fraction.
+         o infinity
+      A number with an all 1's exponent and a zero fraction.
+    o NAN
+      A number with an all 1's exponent and a nonzero fraction.
 
-	o-
+    o-
 
-	<<isnan>> returns 1 if the argument is a nan. <<isinf>>
-	returns 1 if the argument is infinity.  <<finite>> returns 1 if the
-	argument is zero, subnormal or normal.
-	
-	The <<isnanf>>, <<isinff>> and <<finitef>> functions perform the same
-	operations as their <<isnan>>, <<isinf>> and <<finite>>
-	counterparts, but on single-precision floating-point numbers.
+    <<isnan>> returns 1 if the argument is a nan. <<isinf>>
+    returns 1 if the argument is infinity.  <<finite>> returns 1 if the
+    argument is zero, subnormal or normal.
+    
+    The <<isnanf>>, <<isinff>> and <<finitef>> functions perform the same
+    operations as their <<isnan>>, <<isinf>> and <<finite>>
+    counterparts, but on single-precision floating-point numbers.
 
-	It should be noted that the C99 standard dictates that <<isnan>>
-	and <<isinf>> are macros that operate on multiple types of
-	floating-point.  The SUSv2 standard declares <<isnan>> as
-	a function taking double.  Newlib has decided to declare
-	them both as functions and as macros in math.h to
-	maintain backward compatibility.
+    It should be noted that the C99 standard dictates that <<isnan>>
+    and <<isinf>> are macros that operate on multiple types of
+    floating-point.  The SUSv2 standard declares <<isnan>> as
+    a function taking double.  Newlib has decided to declare
+    them both as functions and as macros in math.h to
+    maintain backward compatibility.
 
 RETURNS
 @comment Formatting note:  "$@" forces a new line
@@ -151,15 +151,15 @@ Portability Guide and Single Unix Specification, but was dropped when
 the macro was standardized in POSIX.1-2001.
 
 QUICKREF
-	isnan - pure
+    isnan - pure
 QUICKREF
-	isinf - pure
+    isinf - pure
 QUICKREF
-	finite - pure
+    finite - pure
 QUICKREF
-	isnan - pure
+    isnan - pure
 QUICKREF
-	isinf - pure
+    isinf - pure
 QUICKREF
-	finite - pure
+    finite - pure
 */

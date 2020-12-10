@@ -6,11 +6,11 @@ FUNCTION
 <<signbit>>---Does floating-point number have negative sign?
 
 INDEX
-	signbit
+    signbit
 
 SYNOPSIS
-	#include <math.h>
-	int signbit(real-floating <[x]>);
+    #include <math.h>
+    int signbit(real-floating <[x]>);
 
 DESCRIPTION
 The <<signbit>> macro determines whether the sign of its argument value is

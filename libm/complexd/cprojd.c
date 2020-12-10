@@ -63,21 +63,21 @@ QUICKREF
 double complex
 cproj(double complex z)
 {
-	double_complex w = { .z = z };
+    double_complex w = { .z = z };
 
-	if (isinf(creal(z)) || isinf(cimag(z))) {
-		REAL_PART(w) = INFINITY;
-		IMAG_PART(w) = copysign(0.0, cimag(z));
-	}
+    if (isinf(creal(z)) || isinf(cimag(z))) {
+        REAL_PART(w) = INFINITY;
+        IMAG_PART(w) = copysign(0.0, cimag(z));
+    }
 
-	return (w.z);
+    return (w.z);
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex cprojl (long double complex z)
 {
-	return (long double complex) cproj((double complex) z);
+    return (long double complex) cproj((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

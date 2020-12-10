@@ -3,16 +3,16 @@
 
 /*
 FUNCTION
-	<<log2>>, <<log2f>>---base 2 logarithm
+    <<log2>>, <<log2f>>---base 2 logarithm
 INDEX
-	log2
+    log2
 INDEX
-	log2f
+    log2f
 
 SYNOPSIS
-	#include <math.h>
-	double log2(double <[x]>);
-	float log2f(float <[x]>);
+    #include <math.h>
+    double log2(double <[x]>);
+    float log2f(float <[x]>);
 
 DESCRIPTION
 The <<log2>> functions compute the base-2 logarithm of <[x]>.  A domain error
@@ -54,7 +54,7 @@ C99, POSIX, System V Interface Definition (Issue 6).
 
 #ifndef _DOUBLE_IS_32BITS
 
-double log2(double x)		/* wrapper log2 */
+double log2(double x)        /* wrapper log2 */
 {
   return (log(x) / M_LN2);
 }
@@ -63,7 +63,7 @@ double log2(double x)		/* wrapper log2 */
 
 long double log2l (long double x)
 {
-	return (long double) log2((double) x);
+    return (long double) log2((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

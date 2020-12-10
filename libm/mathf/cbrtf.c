@@ -8,8 +8,8 @@
  * Return cube root of x
  */
 static const __uint32_t
-	B1 = 709958130, /* B1 = (84+2/3-0.03306235651)*2**23 */
-	B2 = 642849266; /* B2 = (76+2/3-0.03306235651)*2**23 */
+    B1 = 709958130, /* B1 = (84+2/3-0.03306235651)*2**23 */
+    B2 = 642849266; /* B2 = (76+2/3-0.03306235651)*2**23 */
 
 static const float
 C =  5.4285717010e-01, /* 19/35     = 0x3f0af8b0 */
@@ -20,45 +20,45 @@ G =  3.5714286566e-01; /* 5/14      = 0x3eb6db6e */
 
 float cbrtf(float x)
 {
-	__int32_t	hx;
-	float r,s,t;
-	__uint32_t sign;
-	__uint32_t high;
+    __int32_t    hx;
+    float r,s,t;
+    __uint32_t sign;
+    __uint32_t high;
 
-	GET_FLOAT_WORD(hx,x);
-	sign=hx&0x80000000; 		/* sign= sign(x) */
-	hx  ^=sign;
-	if(!FLT_UWORD_IS_FINITE(hx))
-	    return(x+x);		/* cbrt(NaN,INF) is itself */
-	if(FLT_UWORD_IS_ZERO(hx))
-	    return(x);			/* cbrt(0) is itself */
+    GET_FLOAT_WORD(hx,x);
+    sign=hx&0x80000000;         /* sign= sign(x) */
+    hx  ^=sign;
+    if(!FLT_UWORD_IS_FINITE(hx))
+        return(x+x);        /* cbrt(NaN,INF) is itself */
+    if(FLT_UWORD_IS_ZERO(hx))
+        return(x);            /* cbrt(0) is itself */
 
-	SET_FLOAT_WORD(x,hx);	/* x <- |x| */
+    SET_FLOAT_WORD(x,hx);    /* x <- |x| */
     /* rough cbrt to 5 bits */
-	if(FLT_UWORD_IS_SUBNORMAL(hx)) 		/* subnormal number */
-	  {SET_FLOAT_WORD(t,0x4b800000); /* set t= 2**24 */
-	   t*=x; GET_FLOAT_WORD(high,t); SET_FLOAT_WORD(t,high/3+B2);
-	  }
-	else
-	  SET_FLOAT_WORD(t,hx/3+B1);
+    if(FLT_UWORD_IS_SUBNORMAL(hx))         /* subnormal number */
+      {SET_FLOAT_WORD(t,0x4b800000); /* set t= 2**24 */
+       t*=x; GET_FLOAT_WORD(high,t); SET_FLOAT_WORD(t,high/3+B2);
+      }
+    else
+      SET_FLOAT_WORD(t,hx/3+B1);
 
 
     /* new cbrt to 23 bits */
-	r=t*t/x;
-	s=C+r*t;
-	t*=G+F/(s+E+D/s);	
+    r=t*t/x;
+    s=C+r*t;
+    t*=G+F/(s+E+D/s);    
 
     /* retore the sign bit */
-	GET_FLOAT_WORD(high,t);
-	SET_FLOAT_WORD(t,high|sign);
-	return(t);
+    GET_FLOAT_WORD(high,t);
+    SET_FLOAT_WORD(t,high|sign);
+    return(t);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double cbrt(double x)
 {
-	return (double) cbrtf((float) x);
+    return (double) cbrtf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

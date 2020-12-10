@@ -5,26 +5,26 @@
 FUNCTION
 <<fdim>>, <<fdimf>>---positive difference
 INDEX
-	fdim
+    fdim
 INDEX
-	fdimf
+    fdimf
 
 SYNOPSIS
-	#include <math.h>
-	double fdim(double <[x]>, double <[y]>);
-	float fdimf(float <[x]>, float <[y]>);
+    #include <math.h>
+    double fdim(double <[x]>, double <[y]>);
+    float fdimf(float <[x]>, float <[y]>);
 
 DESCRIPTION
 The <<fdim>> functions determine the positive difference between their
 arguments, returning:
-.	<[x]> - <[y]>	if <[x]> > <[y]>, or
-	@ifnottex
-.	+0	if <[x]> <= <[y]>, or
-	@end ifnottex
-	@tex
-.	+0	if <[x]> $\leq$ <[y]>, or
-	@end tex
-.	NAN	if either argument is NAN.
+.    <[x]> - <[y]>    if <[x]> > <[y]>, or
+    @ifnottex
+.    +0    if <[x]> <= <[y]>, or
+    @end ifnottex
+    @tex
+.    +0    if <[x]> $\leq$ <[y]>, or
+    @end tex
+.    NAN    if either argument is NAN.
 A range error may occur.
 
 RETURNS
@@ -51,7 +51,7 @@ double fdim(double x, double y)
 
 long double fdiml (long double x, long double y)
 {
-	return (long double) fdim((double) x, (double) y);
+    return (long double) fdim((double) x, (double) y);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

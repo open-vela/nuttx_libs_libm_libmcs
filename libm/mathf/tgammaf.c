@@ -12,18 +12,18 @@
 
 float tgammaf(float x)
 {
-	int signgam_local;
-	float y = __ieee754_expf(__lgammaf(x, &signgam_local));
-	if (signgam_local < 0)
-		y = -y;
-	return y;
+    int signgam_local;
+    float y = __ieee754_expf(__lgammaf(x, &signgam_local));
+    if (signgam_local < 0)
+        y = -y;
+    return y;
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double tgamma(double x)
 {
-	return (double) tgammaf((float) x);
+    return (double) tgammaf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

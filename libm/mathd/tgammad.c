@@ -18,18 +18,18 @@
 
 double tgamma(double x)
 {
-	int signgam_local;
-	double y = __ieee754_exp(__lgamma(x, &signgam_local));
-	if (signgam_local < 0)
-		y = -y;
-	return y;
+    int signgam_local;
+    double y = __ieee754_exp(__lgamma(x, &signgam_local));
+    if (signgam_local < 0)
+        y = -y;
+    return y;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double tgammal (long double x)
 {
-	return (long double) tgamma((double) x);
+    return (long double) tgamma((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

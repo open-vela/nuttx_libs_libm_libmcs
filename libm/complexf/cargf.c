@@ -7,14 +7,14 @@
 float
 cargf(float complex z)
 {
-	return atan2f( cimagf(z), crealf(z) );
+    return atan2f( cimagf(z), crealf(z) );
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double carg (double complex z)
 {
-	return (double) cargf((float complex) z);
+    return (double) cargf((float complex) z);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

@@ -48,16 +48,16 @@ QUICKREF
 double
 creal(double complex z)
 {
-	double_complex w = { .z = z };
+    double_complex w = { .z = z };
 
-	return (REAL_PART(w));
+    return (REAL_PART(w));
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double creall (long double complex z)
 {
-	return (long double) creal((double complex) z);
+    return (long double) creal((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

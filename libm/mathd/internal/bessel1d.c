@@ -4,46 +4,46 @@
 /* __ieee754_j1(x), __ieee754_y1(x)
  * Bessel function of the first and second kinds of order zero.
  * Method -- j1(x):
- *	1. For tiny x, we use j1(x) = x/2 - x^3/16 + x^5/384 - ...
- *	2. Reduce x to |x| since j1(x)=-j1(-x),  and
- *	   for x in (0,2)
- *		j1(x) = x/2 + x*z*R0/S0,  where z = x*x;
- *	   (precision:  |j1/x - 1/2 - R0/S0 |<2**-61.51 )
- *	   for x in (2,inf)
- * 		j1(x) = sqrt(2/(pi*x))*(p1(x)*cos(x1)-q1(x)*sin(x1))
- * 		y1(x) = sqrt(2/(pi*x))*(p1(x)*sin(x1)+q1(x)*cos(x1))
- * 	   where x1 = x-3*pi/4. It is better to compute sin(x1),cos(x1)
- *	   as follow:
- *		cos(x1) =  cos(x)cos(3pi/4)+sin(x)sin(3pi/4)
- *			=  1/sqrt(2) * (sin(x) - cos(x))
- *		sin(x1) =  sin(x)cos(3pi/4)-cos(x)sin(3pi/4)
- *			= -1/sqrt(2) * (sin(x) + cos(x))
- * 	   (To avoid cancellation, use
- *		sin(x) +- cos(x) = -cos(2x)/(sin(x) -+ cos(x))
- * 	    to compute the worse one.)
- *	   
- *	3 Special cases
- *		j1(nan)= nan
- *		j1(0) = 0
- *		j1(inf) = 0
- *		
+ *    1. For tiny x, we use j1(x) = x/2 - x^3/16 + x^5/384 - ...
+ *    2. Reduce x to |x| since j1(x)=-j1(-x),  and
+ *       for x in (0,2)
+ *        j1(x) = x/2 + x*z*R0/S0,  where z = x*x;
+ *       (precision:  |j1/x - 1/2 - R0/S0 |<2**-61.51 )
+ *       for x in (2,inf)
+ *         j1(x) = sqrt(2/(pi*x))*(p1(x)*cos(x1)-q1(x)*sin(x1))
+ *         y1(x) = sqrt(2/(pi*x))*(p1(x)*sin(x1)+q1(x)*cos(x1))
+ *        where x1 = x-3*pi/4. It is better to compute sin(x1),cos(x1)
+ *       as follow:
+ *        cos(x1) =  cos(x)cos(3pi/4)+sin(x)sin(3pi/4)
+ *            =  1/sqrt(2) * (sin(x) - cos(x))
+ *        sin(x1) =  sin(x)cos(3pi/4)-cos(x)sin(3pi/4)
+ *            = -1/sqrt(2) * (sin(x) + cos(x))
+ *        (To avoid cancellation, use
+ *        sin(x) +- cos(x) = -cos(2x)/(sin(x) -+ cos(x))
+ *         to compute the worse one.)
+ *       
+ *    3 Special cases
+ *        j1(nan)= nan
+ *        j1(0) = 0
+ *        j1(inf) = 0
+ *        
  * Method -- y1(x):
- *	1. screen out x<=0 cases: y1(0)=-inf, y1(x<0)=NaN 
- *	2. For x<2.
- *	   Since 
- *		y1(x) = 2/pi*(j1(x)*(ln(x/2)+Euler)-1/x-x/2+5/64*x^3-...)
- *	   therefore y1(x)-2/pi*j1(x)*ln(x)-1/x is an odd function.
- *	   We use the following function to approximate y1,
- *		y1(x) = x*U(z)/V(z) + (2/pi)*(j1(x)*ln(x)-1/x), z= x^2
- *	   where for x in [0,2] (abs err less than 2**-65.89)
- *		U(z) = U0[0] + U0[1]*z + ... + U0[4]*z^4
- *		V(z) = 1  + v0[0]*z + ... + v0[4]*z^5
- *	   Note: For tiny x, 1/x dominate y1 and hence
- *		y1(tiny) = -2/pi/tiny, (choose tiny<2**-54)
- *	3. For x>=2.
- * 		y1(x) = sqrt(2/(pi*x))*(p1(x)*sin(x1)+q1(x)*cos(x1))
- * 	   where x1 = x-3*pi/4. It is better to compute sin(x1),cos(x1)
- *	   by method mentioned above.
+ *    1. screen out x<=0 cases: y1(0)=-inf, y1(x<0)=NaN 
+ *    2. For x<2.
+ *       Since 
+ *        y1(x) = 2/pi*(j1(x)*(ln(x/2)+Euler)-1/x-x/2+5/64*x^3-...)
+ *       therefore y1(x)-2/pi*j1(x)*ln(x)-1/x is an odd function.
+ *       We use the following function to approximate y1,
+ *        y1(x) = x*U(z)/V(z) + (2/pi)*(j1(x)*ln(x)-1/x), z= x^2
+ *       where for x in [0,2] (abs err less than 2**-65.89)
+ *        U(z) = U0[0] + U0[1]*z + ... + U0[4]*z^4
+ *        V(z) = 1  + v0[0]*z + ... + v0[4]*z^5
+ *       Note: For tiny x, 1/x dominate y1 and hence
+ *        y1(tiny) = -2/pi/tiny, (choose tiny<2**-54)
+ *    3. For x>=2.
+ *         y1(x) = sqrt(2/(pi*x))*(p1(x)*sin(x1)+q1(x)*cos(x1))
+ *        where x1 = x-3*pi/4. It is better to compute sin(x1),cos(x1)
+ *       by method mentioned above.
  */
 
 #include "fdlibm.h"
@@ -51,13 +51,13 @@
 #ifndef _DOUBLE_IS_32BITS
 
 /* For x >= 8, the asymptotic expansions of __pone is
- *	1 + 15/128 s^2 - 4725/2^15 s^4 - ...,	where s = 1/x.
+ *    1 + 15/128 s^2 - 4725/2^15 s^4 - ...,    where s = 1/x.
  * We approximate __pone by
- * 	__pone(x) = 1 + (R/S)
+ *     __pone(x) = 1 + (R/S)
  * where  R = pr0 + pr1*s^2 + pr2*s^4 + ... + pr5*s^10
- * 	  S = 1 + ps0*s^2 + ... + ps4*s^10
+ *       S = 1 + ps0*s^2 + ... + ps4*s^10
  * and
- *	| __pone(x)-1-R/S | <= 2  ** ( -60.06)
+ *    | __pone(x)-1-R/S | <= 2  ** ( -60.06)
  */
 
 static const double pr8[6] = { /* for x in [inf, 8]=1/[0,0.125] */
@@ -126,13 +126,13 @@ static const double ps2[5] = {
 
 static double __pone(double x)
 {
-	const double *p,*q;
-	double z,r,s;
+    const double *p,*q;
+    double z,r,s;
         __int32_t ix;
-	GET_HIGH_WORD(ix,x);
-	ix &= 0x7fffffff;
-	if (ix>=0x41b00000)    {return one;}
-	else if(ix>=0x40200000){p = pr8; q= ps8;}
+    GET_HIGH_WORD(ix,x);
+    ix &= 0x7fffffff;
+    if (ix>=0x41b00000)    {return one;}
+    else if(ix>=0x40200000){p = pr8; q= ps8;}
         else if(ix>=0x40122E8B){p = pr5; q= ps5;}
         else if(ix>=0x4006DB6D){p = pr3; q= ps3;}
         else {p = pr2; q= ps2;}
@@ -141,16 +141,16 @@ static double __pone(double x)
         s = one+z*(q[0]+z*(q[1]+z*(q[2]+z*(q[3]+z*q[4]))));
         return one+ r/s;
 }
-		
+        
 
 /* For x >= 8, the asymptotic expansions of __qone is
- *	3/8 s - 105/1024 s^3 - ..., where s = 1/x.
+ *    3/8 s - 105/1024 s^3 - ..., where s = 1/x.
  * We approximate __qone by
- * 	__qone(x) = s*(0.375 + (R/S))
+ *     __qone(x) = s*(0.375 + (R/S))
  * where  R = qr1*s^2 + qr2*s^4 + ... + qr5*s^10
- * 	  S = 1 + qs1*s^2 + ... + qs6*s^12
+ *       S = 1 + qs1*s^2 + ... + qs6*s^12
  * and
- *	| __qone(x)/s -0.375-R/S | <= 2  ** ( -61.13)
+ *    | __qone(x)/s -0.375-R/S | <= 2  ** ( -61.13)
  */
 
 static const double qr8[6] = { /* for x in [inf, 8]=1/[0,0.125] */
@@ -223,28 +223,28 @@ static const double qs2[6] = {
 
 static double __qone(double x)
 {
-	const double *p,*q;
-	double  s,r,z;
-	__int32_t ix;
-	GET_HIGH_WORD(ix,x);
-	ix &= 0x7fffffff;
-	if (ix>=0x41b00000)    {return .375/x;}
-	else if(ix>=0x40200000){p = qr8; q= qs8;}
-	else if(ix>=0x40122E8B){p = qr5; q= qs5;}
-	else if(ix>=0x4006DB6D){p = qr3; q= qs3;}
+    const double *p,*q;
+    double  s,r,z;
+    __int32_t ix;
+    GET_HIGH_WORD(ix,x);
+    ix &= 0x7fffffff;
+    if (ix>=0x41b00000)    {return .375/x;}
+    else if(ix>=0x40200000){p = qr8; q= qs8;}
+    else if(ix>=0x40122E8B){p = qr5; q= qs5;}
+    else if(ix>=0x4006DB6D){p = qr3; q= qs3;}
       else {p = qr2; q= qs2;}
-	z = one/(x*x);
-	r = p[0]+z*(p[1]+z*(p[2]+z*(p[3]+z*(p[4]+z*p[5]))));
-	s = one+z*(q[0]+z*(q[1]+z*(q[2]+z*(q[3]+z*(q[4]+z*q[5])))));
-	return (.375 + r/s)/x;
+    z = one/(x*x);
+    r = p[0]+z*(p[1]+z*(p[2]+z*(p[3]+z*(p[4]+z*p[5]))));
+    s = one+z*(q[0]+z*(q[1]+z*(q[2]+z*(q[3]+z*(q[4]+z*q[5])))));
+    return (.375 + r/s)/x;
 }
 
 static const double
 huge    = 1e300,
-one	= 1.0,
+one    = 1.0,
 invsqrtpi=  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
 tpi      =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
-	/* R0/S0 on [0,2] */
+    /* R0/S0 on [0,2] */
 r00  = -6.25000000000000000000e-02, /* 0xBFB00000, 0x00000000 */
 r01  =  1.40705666955189706048e-03, /* 0x3F570D9F, 0x98472C61 */
 r02  = -1.59955631084035597520e-05, /* 0xBEF0C5C6, 0xBA169668 */
@@ -259,43 +259,43 @@ static const double zero    = 0.0;
 
 double __j1(double x)
 {
-	double z, s,c,ss,cc,r,u,v,y;
-	__int32_t hx,ix;
+    double z, s,c,ss,cc,r,u,v,y;
+    __int32_t hx,ix;
 
-	GET_HIGH_WORD(hx,x);
-	ix = hx&0x7fffffff;
-	if(ix>=0x7ff00000) return one/x;
-	y = fabs(x);
-	if(ix >= 0x40000000) {	/* |x| >= 2.0 */
-		s = sin(y);
-		c = cos(y);
-		ss = -s-c;
-		cc = s-c;
-		if(ix<0x7fe00000) {  /* make sure y+y not overflow */
-		    z = cos(y+y);
-		    if ((s*c)>zero) cc = z/ss;
-		    else 	    ss = z/cc;
-		}
-	/*
-	 * j1(x) = 1/__ieee754_sqrt(pi) * (P(1,x)*cc - Q(1,x)*ss) / __ieee754_sqrt(x)
-	 * y1(x) = 1/__ieee754_sqrt(pi) * (P(1,x)*ss + Q(1,x)*cc) / __ieee754_sqrt(x)
-	 */
-		if(ix>0x48000000) z = (invsqrtpi*cc)/__ieee754_sqrt(y);
-		else {
-		    u = __pone(y); v = __qone(y);
-		    z = invsqrtpi*(u*cc-v*ss)/__ieee754_sqrt(y);
-		}
-		if(hx<0) return -z;
-		else  	 return  z;
-	}
-	if(ix<0x3e400000) {	/* |x|<2**-27 */
-	    if(huge+x>one) return 0.5*x;/* inexact if x!=0 necessary */
-	}
-	z = x*x;
-	r =  z*(r00+z*(r01+z*(r02+z*r03)));
-	s =  one+z*(s01+z*(s02+z*(s03+z*(s04+z*s05))));
-	r *= x;
-	return(x*0.5+r/s);
+    GET_HIGH_WORD(hx,x);
+    ix = hx&0x7fffffff;
+    if(ix>=0x7ff00000) return one/x;
+    y = fabs(x);
+    if(ix >= 0x40000000) {    /* |x| >= 2.0 */
+        s = sin(y);
+        c = cos(y);
+        ss = -s-c;
+        cc = s-c;
+        if(ix<0x7fe00000) {  /* make sure y+y not overflow */
+            z = cos(y+y);
+            if ((s*c)>zero) cc = z/ss;
+            else         ss = z/cc;
+        }
+    /*
+     * j1(x) = 1/__ieee754_sqrt(pi) * (P(1,x)*cc - Q(1,x)*ss) / __ieee754_sqrt(x)
+     * y1(x) = 1/__ieee754_sqrt(pi) * (P(1,x)*ss + Q(1,x)*cc) / __ieee754_sqrt(x)
+     */
+        if(ix>0x48000000) z = (invsqrtpi*cc)/__ieee754_sqrt(y);
+        else {
+            u = __pone(y); v = __qone(y);
+            z = invsqrtpi*(u*cc-v*ss)/__ieee754_sqrt(y);
+        }
+        if(hx<0) return -z;
+        else       return  z;
+    }
+    if(ix<0x3e400000) {    /* |x|<2**-27 */
+        if(huge+x>one) return 0.5*x;/* inexact if x!=0 necessary */
+    }
+    z = x*x;
+    r =  z*(r00+z*(r01+z*(r02+z*r03)));
+    s =  one+z*(s01+z*(s02+z*(s03+z*(s04+z*s05))));
+    r *= x;
+    return(x*0.5+r/s);
 }
 
 static const double U0[5] = {
@@ -315,13 +315,13 @@ static const double V0[5] = {
 
 double __y1(double x)
 {
-	double z, s,c,ss,cc,u,v;
-	__int32_t hx,ix,lx;
+    double z, s,c,ss,cc,u,v;
+    __int32_t hx,ix,lx;
 
-	EXTRACT_WORDS(hx,lx,x);
+    EXTRACT_WORDS(hx,lx,x);
         ix = 0x7fffffff&hx;
     /* if Y1(NaN) is NaN, Y1(-inf) is NaN, Y1(inf) is 0 */
-	if(ix>=0x7ff00000) return  one/(x+x*x); 
+    if(ix>=0x7ff00000) return  one/(x+x*x); 
         if((ix|lx)==0) return -one/zero;
         if(hx<0) return zero/zero;
         if(ix >= 0x40000000) {  /* |x| >= 2.0 */

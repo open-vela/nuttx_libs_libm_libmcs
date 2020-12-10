@@ -42,18 +42,18 @@ QUICKREF
 double complex
 conj(double complex z)
 {
-	double_complex w = { .z = z };
+    double_complex w = { .z = z };
 
-	IMAG_PART(w) = -IMAG_PART(w);
+    IMAG_PART(w) = -IMAG_PART(w);
 
-	return (w.z);
+    return (w.z);
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex conjl (long double complex z)
 {
-	return (long double complex) conj((double complex) z);
+    return (long double complex) conj((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

@@ -10,18 +10,18 @@
 void
 __cchsh(double x, double *c, double *s)
 {
-	double e, ei;
+    double e, ei;
 
-	if (fabs(x) <= 0.5) {
-		*c = cosh(x);
-		*s = sinh(x);
-	} else {
-		e = exp(x);
-		ei = 0.5 / e;
-		e = 0.5 * e;
-		*s = e - ei;
-		*c = e + ei;
-	}
+    if (fabs(x) <= 0.5) {
+        *c = cosh(x);
+        *s = sinh(x);
+    } else {
+        e = exp(x);
+        ei = 0.5 / e;
+        e = 0.5 * e;
+        *s = e - ei;
+        *c = e + ei;
+    }
 }
 
 /* Program to subtract nearest integer multiple of PI */
@@ -35,19 +35,19 @@ static const double DP3 = 1.14423774522196636802E-17;
 double
 __redupi(double x)
 {
-	double t;
-	long i;
+    double t;
+    long i;
 
-	t = x / M_PI;
-	if (t >= 0.0)
-		t += 0.5;
-	else
-		t -= 0.5;
+    t = x / M_PI;
+    if (t >= 0.0)
+        t += 0.5;
+    else
+        t -= 0.5;
 
-	i = t;	/* the multiple */
-	t = i;
-	t = ((x - t * DP1) - t * DP2) - t * DP3;
-	return t;
+    i = t;    /* the multiple */
+    t = i;
+    t = ((x - t * DP1) - t * DP2) - t * DP3;
+    return t;
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

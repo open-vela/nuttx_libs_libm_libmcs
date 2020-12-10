@@ -5,23 +5,23 @@
 FUNCTION
 <<round>>, <<roundf>>---round to integer, to nearest
 INDEX
-	round
+    round
 INDEX
-	roundf
+    roundf
 
 SYNOPSIS
-	#include <math.h>
-	double round(double <[x]>);
-	float roundf(float <[x]>);
+    #include <math.h>
+    double round(double <[x]>);
+    float roundf(float <[x]>);
 
 DESCRIPTION
-	The <<round>> functions round their argument to the nearest integer
-	value in floating-point format, rounding halfway cases away from zero,
-	regardless of the current rounding direction.  (While the "inexact"
-	floating-point exception behavior is unspecified by the C standard, the
-	<<round>> functions are written so that "inexact" is not raised if the
-	result does not equal the argument, which behavior is as recommended by
-	IEEE 754 for its related functions.)
+    The <<round>> functions round their argument to the nearest integer
+    value in floating-point format, rounding halfway cases away from zero,
+    regardless of the current rounding direction.  (While the "inexact"
+    floating-point exception behavior is unspecified by the C standard, the
+    <<round>> functions are written so that "inexact" is not raised if the
+    result does not equal the argument, which behavior is as recommended by
+    IEEE 754 for its related functions.)
 
 RETURNS
 <[x]> rounded to an integral value.
@@ -104,7 +104,7 @@ double round(double x)
 
 long double roundl (long double x)
 {
-	return (long double) round((double) x);
+    return (long double) round((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

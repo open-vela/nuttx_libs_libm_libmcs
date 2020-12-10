@@ -50,21 +50,21 @@ QUICKREF
 double complex
 cacos(double complex z)
 {
-	double complex w;
-	double complex tmp0, tmp1;
+    double complex w;
+    double complex tmp0, tmp1;
 
-	tmp0 = casin(z);
-	tmp1 = M_PI_2 - creal(tmp0);
-	w = tmp1 - (cimag(tmp0) * I);
+    tmp0 = casin(z);
+    tmp1 = M_PI_2 - creal(tmp0);
+    w = tmp1 - (cimag(tmp0) * I);
 
-	return w;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex cacosl (long double complex z)
 {
-	return (long double complex) cacos((double complex) z);
+    return (long double complex) cacos((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

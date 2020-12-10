@@ -52,18 +52,18 @@ QUICKREF
 double complex
 cacosh(double complex z)
 {
-	double complex w;
+    double complex w;
 
-	w = clog(z + csqrt(z + 1) * csqrt(z - 1));
+    w = clog(z + csqrt(z + 1) * csqrt(z - 1));
 
-	return w;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex cacoshl (long double complex z)
 {
-	return (long double complex) cacosh((double complex) z);
+    return (long double complex) cacosh((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

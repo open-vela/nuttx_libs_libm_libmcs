@@ -10,7 +10,7 @@ float nanf (const char * payload)
 
 double nan (const char * payload)
 {
-	return (double) nanf(payload);
+    return (double) nanf(payload);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

@@ -5,14 +5,14 @@
 FUNCTION
 <<fmax>>, <<fmaxf>>---maximum
 INDEX
-	fmax
+    fmax
 INDEX
-	fmaxf
+    fmaxf
 
 SYNOPSIS
-	#include <math.h>
-	double fmax(double <[x]>, double <[y]>);
-	float fmaxf(float <[x]>, float <[y]>);
+    #include <math.h>
+    double fmax(double <[x]>, double <[y]>);
+    float fmaxf(float <[x]>, float <[y]>);
 
 DESCRIPTION
 The <<fmax>> functions determine the maximum numeric value of their arguments.
@@ -45,7 +45,7 @@ double fmax(double x, double y)
 
 long double fmaxl (long double x, long double y)
 {
-	return (long double) fmax((double) x, (double) y);
+    return (long double) fmax((double) x, (double) y);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

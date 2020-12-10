@@ -5,11 +5,11 @@
 #include "fdlibm.h"
 
 static const float
-tiny	    = 1e-30,
+tiny        = 1e-30,
 half=  5.0000000000e-01, /* 0x3F000000 */
 one =  1.0000000000e+00, /* 0x3F800000 */
 two =  2.0000000000e+00, /* 0x40000000 */
-	/* c = (subfloat)0.84506291151 */
+    /* c = (subfloat)0.84506291151 */
 erx =  8.4506291151e-01, /* 0x3f58560b */
 /*
  * Coefficients for approximation to  erf on [0,0.84375]
@@ -81,61 +81,61 @@ sb7  = -2.2440952301e+01; /* 0xc1b38712 */
 
 float erff(float x)
 {
-	__int32_t hx,ix,i;
-	float R,S,P,Q,s,y,z,r;
-	GET_FLOAT_WORD(hx,x);
-	ix = hx&0x7fffffff;
-	if(!FLT_UWORD_IS_FINITE(ix)) {		/* erf(nan)=nan */
-	    i = ((__uint32_t)hx>>31)<<1;
-	    return (float)(1-i)+one/x;	/* erf(+-inf)=+-1 */
-	}
+    __int32_t hx,ix,i;
+    float R,S,P,Q,s,y,z,r;
+    GET_FLOAT_WORD(hx,x);
+    ix = hx&0x7fffffff;
+    if(!FLT_UWORD_IS_FINITE(ix)) {        /* erf(nan)=nan */
+        i = ((__uint32_t)hx>>31)<<1;
+        return (float)(1-i)+one/x;    /* erf(+-inf)=+-1 */
+    }
 
-	if(ix < 0x3f580000) {		/* |x|<0.84375 */
-	    if(ix < 0x31800000) { 	/* |x|<2**-28 */
-	        if (ix < 0x04000000) 
-		    /*avoid underflow */
-		    return (float)0.125*((float)8.0*x+efx8*x);
-		return x + efx*x;
-	    }
-	    z = x*x;
-	    r = pp0+z*(pp1+z*(pp2+z*(pp3+z*pp4)));
-	    s = one+z*(qq1+z*(qq2+z*(qq3+z*(qq4+z*qq5))));
-	    y = r/s;
-	    return x + x*y;
-	}
-	if(ix < 0x3fa00000) {		/* 0.84375 <= |x| < 1.25 */
-	    s = fabsf(x)-one;
-	    P = pa0+s*(pa1+s*(pa2+s*(pa3+s*(pa4+s*(pa5+s*pa6)))));
-	    Q = one+s*(qa1+s*(qa2+s*(qa3+s*(qa4+s*(qa5+s*qa6)))));
-	    if(hx>=0) return erx + P/Q; else return -erx - P/Q;
-	}
-	if (ix >= 0x40c00000) {		/* inf>|x|>=6 */
-	    if(hx>=0) return one-tiny; else return tiny-one;
-	}
-	x = fabsf(x);
- 	s = one/(x*x);
-	if(ix< 0x4036DB6E) {	/* |x| < 1/0.35 */
-	    R=ra0+s*(ra1+s*(ra2+s*(ra3+s*(ra4+s*(
-				ra5+s*(ra6+s*ra7))))));
-	    S=one+s*(sa1+s*(sa2+s*(sa3+s*(sa4+s*(
-				sa5+s*(sa6+s*(sa7+s*sa8)))))));
-	} else {	/* |x| >= 1/0.35 */
-	    R=rb0+s*(rb1+s*(rb2+s*(rb3+s*(rb4+s*(
-				rb5+s*rb6)))));
-	    S=one+s*(sb1+s*(sb2+s*(sb3+s*(sb4+s*(
-				sb5+s*(sb6+s*sb7))))));
-	}
-	GET_FLOAT_WORD(ix,x);
-	SET_FLOAT_WORD(z,ix&0xfffff000);
-	r  =  __ieee754_expf(-z*z-(float)0.5625)*__ieee754_expf((z-x)*(z+x)+R/S);
-	if(hx>=0) return one-r/x; else return  r/x-one;
+    if(ix < 0x3f580000) {        /* |x|<0.84375 */
+        if(ix < 0x31800000) {     /* |x|<2**-28 */
+            if (ix < 0x04000000) 
+            /*avoid underflow */
+            return (float)0.125*((float)8.0*x+efx8*x);
+        return x + efx*x;
+        }
+        z = x*x;
+        r = pp0+z*(pp1+z*(pp2+z*(pp3+z*pp4)));
+        s = one+z*(qq1+z*(qq2+z*(qq3+z*(qq4+z*qq5))));
+        y = r/s;
+        return x + x*y;
+    }
+    if(ix < 0x3fa00000) {        /* 0.84375 <= |x| < 1.25 */
+        s = fabsf(x)-one;
+        P = pa0+s*(pa1+s*(pa2+s*(pa3+s*(pa4+s*(pa5+s*pa6)))));
+        Q = one+s*(qa1+s*(qa2+s*(qa3+s*(qa4+s*(qa5+s*qa6)))));
+        if(hx>=0) return erx + P/Q; else return -erx - P/Q;
+    }
+    if (ix >= 0x40c00000) {        /* inf>|x|>=6 */
+        if(hx>=0) return one-tiny; else return tiny-one;
+    }
+    x = fabsf(x);
+     s = one/(x*x);
+    if(ix< 0x4036DB6E) {    /* |x| < 1/0.35 */
+        R=ra0+s*(ra1+s*(ra2+s*(ra3+s*(ra4+s*(
+                ra5+s*(ra6+s*ra7))))));
+        S=one+s*(sa1+s*(sa2+s*(sa3+s*(sa4+s*(
+                sa5+s*(sa6+s*(sa7+s*sa8)))))));
+    } else {    /* |x| >= 1/0.35 */
+        R=rb0+s*(rb1+s*(rb2+s*(rb3+s*(rb4+s*(
+                rb5+s*rb6)))));
+        S=one+s*(sb1+s*(sb2+s*(sb3+s*(sb4+s*(
+                sb5+s*(sb6+s*sb7))))));
+    }
+    GET_FLOAT_WORD(ix,x);
+    SET_FLOAT_WORD(z,ix&0xfffff000);
+    r  =  __ieee754_expf(-z*z-(float)0.5625)*__ieee754_expf((z-x)*(z+x)+R/S);
+    if(hx>=0) return one-r/x; else return  r/x-one;
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double erf(double x)
 {
-	return (double) erff((float) x);
+    return (double) erff((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

@@ -41,19 +41,19 @@ QUICKREF
 double complex
 csin(double complex z)
 {
-	double complex w;
-	double ch, sh;
+    double complex w;
+    double ch, sh;
 
-	_cchsh(cimag(z), &ch, &sh);
-	w = sin(creal(z)) * ch + (cos(creal(z)) * sh) * I;
-	return w;
+    _cchsh(cimag(z), &ch, &sh);
+    w = sin(creal(z)) * ch + (cos(creal(z)) * sh) * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex csinl (long double complex z)
 {
-	return (long double complex) csin((double complex) z);
+    return (long double complex) csin((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

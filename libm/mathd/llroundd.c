@@ -37,9 +37,9 @@ llround(double x)
       else
         {
           /* exponent_less_1023 in [0,19] */
-	  /* shift amt in [0,19] */
+      /* shift amt in [0,19] */
           msw += 0x80000 >> exponent_less_1023;
-	  /* shift amt in [20,1] */
+      /* shift amt in [20,1] */
           result = msw >> (20 - exponent_less_1023);
         }
     }
@@ -47,22 +47,22 @@ llround(double x)
     {
       /* 64bit longlong: exponent_less_1023 in [20,62] */
       if (exponent_less_1023 >= 52)
-	/* 64bit longlong: exponent_less_1023 in [52,62] */
-	/* 64bit longlong: shift amt in [32,42] */
+    /* 64bit longlong: exponent_less_1023 in [52,62] */
+    /* 64bit longlong: shift amt in [32,42] */
         result = ((long long int) msw << (exponent_less_1023 - 20))
-		    /* 64bit longlong: shift amt in [0,10] */
+            /* 64bit longlong: shift amt in [0,10] */
                     | (lsw << (exponent_less_1023 - 52));
       else
         {
-	  /* 64bit longlong: exponent_less_1023 in [20,51] */
+      /* 64bit longlong: exponent_less_1023 in [20,51] */
           unsigned int tmp = lsw
-		    /* 64bit longlong: shift amt in [0,31] */
+            /* 64bit longlong: shift amt in [0,31] */
                     + (0x80000000 >> (exponent_less_1023 - 20));
           if (tmp < lsw)
             ++msw;
-	  /* 64bit longlong: shift amt in [0,31] */
+      /* 64bit longlong: shift amt in [0,31] */
           result = ((long long int) msw << (exponent_less_1023 - 20))
-		    /* ***64bit longlong: shift amt in [32,1] */
+            /* ***64bit longlong: shift amt in [32,1] */
                     | SAFE_RIGHT_SHIFT (tmp, (52 - exponent_less_1023));
         }
     }
@@ -77,7 +77,7 @@ llround(double x)
 
 long long int llroundl (long double x)
 {
-	return llround((double) x);
+    return llround((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

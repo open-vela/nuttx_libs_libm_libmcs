@@ -49,14 +49,14 @@ QUICKREF
 double
 carg(double complex z)
 {
-	return atan2( cimag(z) , creal(z) );
+    return atan2( cimag(z) , creal(z) );
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double cargl (long double complex z)
 {
-	return (long double) carg((double complex) z);
+    return (long double) carg((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

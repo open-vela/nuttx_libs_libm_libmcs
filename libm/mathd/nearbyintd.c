@@ -5,14 +5,14 @@
 FUNCTION
 <<nearbyint>>, <<nearbyintf>>---round to integer
 INDEX
-	nearbyint
+    nearbyint
 INDEX
-	nearbyintf
+    nearbyintf
 
 SYNOPSIS
-	#include <math.h>
-	double nearbyint(double <[x]>);
-	float nearbyintf(float <[x]>);
+    #include <math.h>
+    double nearbyint(double <[x]>);
+    float nearbyintf(float <[x]>);
 
 DESCRIPTION
 The <<nearbyint>> functions round their argument to an integer value in
@@ -53,7 +53,7 @@ double nearbyint(double x)
 
 long double nearbyintl (long double x)
 {
-	return (long double) nearbyint((double) x);
+    return (long double) nearbyint((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

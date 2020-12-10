@@ -6,21 +6,21 @@
 float complex
 cexpf(float complex z)
 {
-	float complex w;
-	float r, x, y;
+    float complex w;
+    float r, x, y;
 
-	x = crealf(z);
-	y = cimagf(z);
-	r = expf(x);
-	w = r * cosf(y) + r * sinf(y) * I;
-	return w;
+    x = crealf(z);
+    y = cimagf(z);
+    r = expf(x);
+    w = r * cosf(y) + r * sinf(y) * I;
+    return w;
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double complex cexp (double complex z)
 {
-	return (double complex) cexpf((float complex) z);
+    return (double complex) cexpf((float complex) z);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

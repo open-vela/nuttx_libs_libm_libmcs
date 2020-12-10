@@ -42,7 +42,7 @@ float truncf(float x)
 
 double trunc(double x)
 {
-	return (double) truncf((float) x);
+    return (double) truncf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

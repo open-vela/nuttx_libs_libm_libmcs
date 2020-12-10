@@ -41,22 +41,22 @@ QUICKREF
 double complex
 ctanh(double complex z)
 {
-	double complex w;
-	double x, y, d;
+    double complex w;
+    double x, y, d;
 
-	x = creal(z);
-	y = cimag(z);
-	d = cosh(2.0 * x) + cos(2.0 * y);
-	w = sinh(2.0 * x) / d  +  (sin(2.0 * y) / d) * I;
+    x = creal(z);
+    y = cimag(z);
+    d = cosh(2.0 * x) + cos(2.0 * y);
+    w = sinh(2.0 * x) / d  +  (sin(2.0 * y) / d) * I;
 
-	return w;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex ctanhl (long double complex z)
 {
-	return (long double complex) ctanh((double complex) z);
+    return (long double complex) ctanh((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

@@ -41,19 +41,19 @@ QUICKREF
 double complex
 ccos(double complex z)
 {
-	double complex w;
-	double ch, sh;
+    double complex w;
+    double ch, sh;
 
-	_cchsh(cimag(z), &ch, &sh);
-	w = cos(creal(z)) * ch - (sin(creal(z)) * sh) * I;
-	return w;
+    _cchsh(cimag(z), &ch, &sh);
+    w = cos(creal(z)) * ch - (sin(creal(z)) * sh) * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex ccosl (long double complex z)
 {
-	return (long double complex) ccos((double complex) z);
+    return (long double complex) ccos((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

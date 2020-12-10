@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: NetBSD
 // Written by Matthias Drochner.
 
-#ifndef	_COMPLEX_H
-#define	_COMPLEX_H
+#ifndef    _COMPLEX_H
+#define    _COMPLEX_H
 
 #define complex _Complex
 #define _Complex_I 1.0fi
@@ -130,4 +130,4 @@ long double creall(long double complex);
 
 #define CMPLX () // TODO
 
-#endif	/* ! _COMPLEX_H */
+#endif    /* ! _COMPLEX_H */

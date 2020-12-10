@@ -49,14 +49,14 @@ QUICKREF
 double
 cabs(double complex z)
 {
-	return hypot( creal(z), cimag(z) );
+    return hypot( creal(z), cimag(z) );
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double cabsl (long double complex z)
 {
-	return (long double) cabs((double complex) z);
+    return (long double) cabs((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

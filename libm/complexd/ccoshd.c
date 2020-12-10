@@ -41,20 +41,20 @@ QUICKREF
 double complex
 ccosh(double complex z)
 {
-	double complex w;
-	double x, y;
+    double complex w;
+    double x, y;
 
-	x = creal(z);
-	y = cimag(z);
-	w = cosh(x) * cos(y) + (sinh(x) * sin(y)) * I;
-	return w;
+    x = creal(z);
+    y = cimag(z);
+    w = cosh(x) * cos(y) + (sinh(x) * sin(y)) * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex ccoshl (long double complex z)
 {
-	return (long double complex) ccosh((double complex) z);
+    return (long double complex) ccosh((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

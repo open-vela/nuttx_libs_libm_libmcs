@@ -31,153 +31,153 @@ twon8  =  3.9062500000e-03; /* 0x3b800000 */
 
 int __rem_pio2f_internal(float *x, float *y, int e0, int nx, int prec, const __int32_t *ipio2)
 {
-	__int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
-	float z,fw,f[20],fq[20],q[20];
+    __int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
+    float z,fw,f[20],fq[20],q[20];
 
     /* initialize jk*/
-	jk = init_jk[prec];
-	jp = jk;
+    jk = init_jk[prec];
+    jp = jk;
 
     /* determine jx,jv,q0, note that 3>q0 */
-	jx =  nx-1;
-	jv = (e0-3)/8; if(jv<0) jv=0;
-	q0 =  e0-8*(jv+1);
+    jx =  nx-1;
+    jv = (e0-3)/8; if(jv<0) jv=0;
+    q0 =  e0-8*(jv+1);
 
     /* set up f[0] to f[jx+jk] where f[jx+jk] = ipio2[jv+jk] */
-	j = jv-jx; m = jx+jk;
-	for(i=0;i<=m;i++,j++) f[i] = (j<0)? zero : (float) ipio2[j];
+    j = jv-jx; m = jx+jk;
+    for(i=0;i<=m;i++,j++) f[i] = (j<0)? zero : (float) ipio2[j];
 
     /* compute q[0],q[1],...q[jk] */
-	for (i=0;i<=jk;i++) {
-	    for(j=0,fw=0.0;j<=jx;j++) fw += x[j]*f[jx+i-j];
-	    q[i] = fw;
-	}
+    for (i=0;i<=jk;i++) {
+        for(j=0,fw=0.0;j<=jx;j++) fw += x[j]*f[jx+i-j];
+        q[i] = fw;
+    }
 
-	jz = jk;
+    jz = jk;
 recompute:
     /* distill q[] into iq[] reversingly */
-	for(i=0,j=jz,z=q[jz];j>0;i++,j--) {
-	    fw    =  (float)((__int32_t)(twon8* z));
-	    iq[i] =  (__int32_t)(z-two8*fw);
-	    z     =  q[j-1]+fw;
-	}
+    for(i=0,j=jz,z=q[jz];j>0;i++,j--) {
+        fw    =  (float)((__int32_t)(twon8* z));
+        iq[i] =  (__int32_t)(z-two8*fw);
+        z     =  q[j-1]+fw;
+    }
 
     /* compute n */
-	z  = scalbnf(z,(int)q0);	/* actual value of z */
-	z -= (float)8.0*floorf(z*(float)0.125);	/* trim off integer >= 8 */
-	n  = (__int32_t) z;
-	z -= (float)n;
-	ih = 0;
-	if(q0>0) {	/* need iq[jz-1] to determine n */
-	    i  = (iq[jz-1]>>(8-q0)); n += i;
-	    iq[jz-1] -= i<<(8-q0);
-	    ih = iq[jz-1]>>(7-q0);
-	} 
-	else if(q0==0) ih = iq[jz-1]>>7;
-	else if(z>=(float)0.5) ih=2;
+    z  = scalbnf(z,(int)q0);    /* actual value of z */
+    z -= (float)8.0*floorf(z*(float)0.125);    /* trim off integer >= 8 */
+    n  = (__int32_t) z;
+    z -= (float)n;
+    ih = 0;
+    if(q0>0) {    /* need iq[jz-1] to determine n */
+        i  = (iq[jz-1]>>(8-q0)); n += i;
+        iq[jz-1] -= i<<(8-q0);
+        ih = iq[jz-1]>>(7-q0);
+    } 
+    else if(q0==0) ih = iq[jz-1]>>7;
+    else if(z>=(float)0.5) ih=2;
 
-	if(ih>0) {	/* q > 0.5 */
-	    n += 1; carry = 0;
-	    for(i=0;i<jz ;i++) {	/* compute 1-q */
-		j = iq[i];
-		if(carry==0) {
-		    if(j!=0) {
-			carry = 1; iq[i] = 0x100- j;
-		    }
-		} else  iq[i] = 0xff - j;
-	    }
-	    if(q0>0) {		/* rare case: chance is 1 in 12 */
-	        switch(q0) {
-	        case 1:
-	    	   iq[jz-1] &= 0x7f; break;
-	    	case 2:
-	    	   iq[jz-1] &= 0x3f; break;
-	        }
-	    }
-	    if(ih==2) {
-		z = one - z;
-		if(carry!=0) z -= scalbnf(one,(int)q0);
-	    }
-	}
+    if(ih>0) {    /* q > 0.5 */
+        n += 1; carry = 0;
+        for(i=0;i<jz ;i++) {    /* compute 1-q */
+        j = iq[i];
+        if(carry==0) {
+            if(j!=0) {
+            carry = 1; iq[i] = 0x100- j;
+            }
+        } else  iq[i] = 0xff - j;
+        }
+        if(q0>0) {        /* rare case: chance is 1 in 12 */
+            switch(q0) {
+            case 1:
+               iq[jz-1] &= 0x7f; break;
+            case 2:
+               iq[jz-1] &= 0x3f; break;
+            }
+        }
+        if(ih==2) {
+        z = one - z;
+        if(carry!=0) z -= scalbnf(one,(int)q0);
+        }
+    }
 
     /* check if recomputation is needed */
-	if(z==zero) {
-	    j = 0;
-	    for (i=jz-1;i>=jk;i--) j |= iq[i];
-	    if(j==0) { /* need recomputation */
-		for(k=1;iq[jk-k]==0;k++);   /* k = no. of terms needed */
+    if(z==zero) {
+        j = 0;
+        for (i=jz-1;i>=jk;i--) j |= iq[i];
+        if(j==0) { /* need recomputation */
+        for(k=1;iq[jk-k]==0;k++);   /* k = no. of terms needed */
 
-		for(i=jz+1;i<=jz+k;i++) {   /* add q[jz+1] to q[jz+k] */
-		    f[jx+i] = (float) ipio2[jv+i];
-		    for(j=0,fw=0.0;j<=jx;j++) fw += x[j]*f[jx+i-j];
-		    q[i] = fw;
-		}
-		jz += k;
-		goto recompute;
-	    }
-	}
+        for(i=jz+1;i<=jz+k;i++) {   /* add q[jz+1] to q[jz+k] */
+            f[jx+i] = (float) ipio2[jv+i];
+            for(j=0,fw=0.0;j<=jx;j++) fw += x[j]*f[jx+i-j];
+            q[i] = fw;
+        }
+        jz += k;
+        goto recompute;
+        }
+    }
 
     /* chop off zero terms */
-	if(z==(float)0.0) {
-	    jz -= 1; q0 -= 8;
-	    while(iq[jz]==0) { jz--; q0-=8;}
-	} else { /* break z into 8-bit if necessary */
-	    z = scalbnf(z,-(int)q0);
-	    if(z>=two8) { 
-		fw = (float)((__int32_t)(twon8*z));
-		iq[jz] = (__int32_t)(z-two8*fw);
-		jz += 1; q0 += 8;
-		iq[jz] = (__int32_t) fw;
-	    } else iq[jz] = (__int32_t) z ;
-	}
+    if(z==(float)0.0) {
+        jz -= 1; q0 -= 8;
+        while(iq[jz]==0) { jz--; q0-=8;}
+    } else { /* break z into 8-bit if necessary */
+        z = scalbnf(z,-(int)q0);
+        if(z>=two8) { 
+        fw = (float)((__int32_t)(twon8*z));
+        iq[jz] = (__int32_t)(z-two8*fw);
+        jz += 1; q0 += 8;
+        iq[jz] = (__int32_t) fw;
+        } else iq[jz] = (__int32_t) z ;
+    }
 
     /* convert integer "bit" chunk to floating-point value */
-	fw = scalbnf(one,(int)q0);
-	for(i=jz;i>=0;i--) {
-	    q[i] = fw*(float)iq[i]; fw*=twon8;
-	}
+    fw = scalbnf(one,(int)q0);
+    for(i=jz;i>=0;i--) {
+        q[i] = fw*(float)iq[i]; fw*=twon8;
+    }
 
     /* compute PIo2[0,...,jp]*q[jz,...,0] */
-	for(i=jz;i>=0;i--) {
-	    for(fw=0.0,k=0;k<=jp&&k<=jz-i;k++) fw += PIo2[k]*q[i+k];
-	    fq[jz-i] = fw;
-	}
+    for(i=jz;i>=0;i--) {
+        for(fw=0.0,k=0;k<=jp&&k<=jz-i;k++) fw += PIo2[k]*q[i+k];
+        fq[jz-i] = fw;
+    }
 
     /* compress fq[] into y[] */
-	switch(prec) {
-	    case 0:
-		fw = 0.0;
-		for (i=jz;i>=0;i--) fw += fq[i];
-		y[0] = (ih==0)? fw: -fw; 
-		break;
-	    case 1:
-	    case 2:
-		fw = 0.0;
-		for (i=jz;i>=0;i--) fw += fq[i]; 
-		y[0] = (ih==0)? fw: -fw; 
-		fw = fq[0]-fw;
-		for (i=1;i<=jz;i++) fw += fq[i];
-		y[1] = (ih==0)? fw: -fw; 
-		break;
-	    case 3:	/* painful */
-		for (i=jz;i>0;i--) {
-		    fw      = fq[i-1]+fq[i]; 
-		    fq[i]  += fq[i-1]-fw;
-		    fq[i-1] = fw;
-		}
-		for (i=jz;i>1;i--) {
-		    fw      = fq[i-1]+fq[i]; 
-		    fq[i]  += fq[i-1]-fw;
-		    fq[i-1] = fw;
-		}
-		for (fw=0.0,i=jz;i>=2;i--) fw += fq[i]; 
-		if(ih==0) {
-		    y[0] =  fq[0]; y[1] =  fq[1]; y[2] =  fw;
-		} else {
-		    y[0] = -fq[0]; y[1] = -fq[1]; y[2] = -fw;
-		}
-	}
-	return n&7;
+    switch(prec) {
+        case 0:
+        fw = 0.0;
+        for (i=jz;i>=0;i--) fw += fq[i];
+        y[0] = (ih==0)? fw: -fw; 
+        break;
+        case 1:
+        case 2:
+        fw = 0.0;
+        for (i=jz;i>=0;i--) fw += fq[i]; 
+        y[0] = (ih==0)? fw: -fw; 
+        fw = fq[0]-fw;
+        for (i=1;i<=jz;i++) fw += fq[i];
+        y[1] = (ih==0)? fw: -fw; 
+        break;
+        case 3:    /* painful */
+        for (i=jz;i>0;i--) {
+            fw      = fq[i-1]+fq[i]; 
+            fq[i]  += fq[i-1]-fw;
+            fq[i-1] = fw;
+        }
+        for (i=jz;i>1;i--) {
+            fw      = fq[i-1]+fq[i]; 
+            fq[i]  += fq[i-1]-fw;
+            fq[i-1] = fw;
+        }
+        for (fw=0.0,i=jz;i>=2;i--) fw += fq[i]; 
+        if(ih==0) {
+            y[0] =  fq[0]; y[1] =  fq[1]; y[2] =  fw;
+        } else {
+            y[0] = -fq[0]; y[1] = -fq[1]; y[2] = -fw;
+        }
+    }
+    return n&7;
 }
 
 /* __rem_pio2f(x,y)
@@ -249,94 +249,94 @@ pio2_3t =  6.1232342629e-17; /* 0x248d3132 */
 
 __int32_t __rem_pio2f(float x, float *y)
 {
-	float z,w,t,r,fn;
-	float tx[3];
-	__int32_t i,j,n,ix,hx;
-	int e0,nx;
+    float z,w,t,r,fn;
+    float tx[3];
+    __int32_t i,j,n,ix,hx;
+    int e0,nx;
 
-	GET_FLOAT_WORD(hx,x);
-	ix = hx&0x7fffffff;
-	if(ix<=0x3f490fd8)   /* |x| ~<= pi/4 , no need for reduction */
-	    {y[0] = x; y[1] = 0; return 0;}
-	if(ix<0x4016cbe4) {  /* |x| < 3pi/4, special case with n=+-1 */
-	    if(hx>0) { 
-		z = x - pio2_1;
-		if((ix&0xfffffff0)!=0x3fc90fd0) { /* 24+24 bit pi OK */
-		    y[0] = z - pio2_1t;
-		    y[1] = (z-y[0])-pio2_1t;
-		} else {		/* near pi/2, use 24+24+24 bit pi */
-		    z -= pio2_2;
-		    y[0] = z - pio2_2t;
-		    y[1] = (z-y[0])-pio2_2t;
-		}
-		return 1;
-	    } else {	/* negative x */
-		z = x + pio2_1;
-		if((ix&0xfffffff0)!=0x3fc90fd0) { /* 24+24 bit pi OK */
-		    y[0] = z + pio2_1t;
-		    y[1] = (z-y[0])+pio2_1t;
-		} else {		/* near pi/2, use 24+24+24 bit pi */
-		    z += pio2_2;
-		    y[0] = z + pio2_2t;
-		    y[1] = (z-y[0])+pio2_2t;
-		}
-		return -1;
-	    }
-	}
-	if(ix<=0x43490f80) { /* |x| ~<= 2^7*(pi/2), medium size */
-	    t  = fabsf(x);
-	    n  = (__int32_t) (t*invpio2+half);
-	    fn = (float)n;
-	    r  = t-fn*pio2_1;
-	    w  = fn*pio2_1t;	/* 1st round good to 40 bit */
-	    if(n<32&&(ix&0xffffff00)!=npio2_hw[n-1]) {	
-		y[0] = r-w;	/* quick check no cancellation */
-	    } else {
-	        __uint32_t high;
-	        j  = ix>>23;
-	        y[0] = r-w; 
-		GET_FLOAT_WORD(high,y[0]);
-	        i = j-((high>>23)&0xff);
-	        if(i>8) {  /* 2nd iteration needed, good to 57 */
-		    t  = r;
-		    w  = fn*pio2_2;	
-		    r  = t-w;
-		    w  = fn*pio2_2t-((t-r)-w);	
-		    y[0] = r-w;
-		    GET_FLOAT_WORD(high,y[0]);
-		    i = j-((high>>23)&0xff);
-		    if(i>25)  {	/* 3rd iteration need, 74 bits acc */
-		    	t  = r;	/* will cover all possible cases */
-		    	w  = fn*pio2_3;	
-		    	r  = t-w;
-		    	w  = fn*pio2_3t-((t-r)-w);	
-		    	y[0] = r-w;
-		    }
-		}
-	    }
-	    y[1] = (r-y[0])-w;
-	    if(hx<0) 	{y[0] = -y[0]; y[1] = -y[1]; return -n;}
-	    else	 return n;
-	}
+    GET_FLOAT_WORD(hx,x);
+    ix = hx&0x7fffffff;
+    if(ix<=0x3f490fd8)   /* |x| ~<= pi/4 , no need for reduction */
+        {y[0] = x; y[1] = 0; return 0;}
+    if(ix<0x4016cbe4) {  /* |x| < 3pi/4, special case with n=+-1 */
+        if(hx>0) { 
+        z = x - pio2_1;
+        if((ix&0xfffffff0)!=0x3fc90fd0) { /* 24+24 bit pi OK */
+            y[0] = z - pio2_1t;
+            y[1] = (z-y[0])-pio2_1t;
+        } else {        /* near pi/2, use 24+24+24 bit pi */
+            z -= pio2_2;
+            y[0] = z - pio2_2t;
+            y[1] = (z-y[0])-pio2_2t;
+        }
+        return 1;
+        } else {    /* negative x */
+        z = x + pio2_1;
+        if((ix&0xfffffff0)!=0x3fc90fd0) { /* 24+24 bit pi OK */
+            y[0] = z + pio2_1t;
+            y[1] = (z-y[0])+pio2_1t;
+        } else {        /* near pi/2, use 24+24+24 bit pi */
+            z += pio2_2;
+            y[0] = z + pio2_2t;
+            y[1] = (z-y[0])+pio2_2t;
+        }
+        return -1;
+        }
+    }
+    if(ix<=0x43490f80) { /* |x| ~<= 2^7*(pi/2), medium size */
+        t  = fabsf(x);
+        n  = (__int32_t) (t*invpio2+half);
+        fn = (float)n;
+        r  = t-fn*pio2_1;
+        w  = fn*pio2_1t;    /* 1st round good to 40 bit */
+        if(n<32&&(ix&0xffffff00)!=npio2_hw[n-1]) {    
+        y[0] = r-w;    /* quick check no cancellation */
+        } else {
+            __uint32_t high;
+            j  = ix>>23;
+            y[0] = r-w; 
+        GET_FLOAT_WORD(high,y[0]);
+            i = j-((high>>23)&0xff);
+            if(i>8) {  /* 2nd iteration needed, good to 57 */
+            t  = r;
+            w  = fn*pio2_2;    
+            r  = t-w;
+            w  = fn*pio2_2t-((t-r)-w);    
+            y[0] = r-w;
+            GET_FLOAT_WORD(high,y[0]);
+            i = j-((high>>23)&0xff);
+            if(i>25)  {    /* 3rd iteration need, 74 bits acc */
+                t  = r;    /* will cover all possible cases */
+                w  = fn*pio2_3;    
+                r  = t-w;
+                w  = fn*pio2_3t-((t-r)-w);    
+                y[0] = r-w;
+            }
+        }
+        }
+        y[1] = (r-y[0])-w;
+        if(hx<0)     {y[0] = -y[0]; y[1] = -y[1]; return -n;}
+        else     return n;
+    }
     /* 
      * all other (large) arguments
      */
-	if(!FLT_UWORD_IS_FINITE(ix)) {
-	    y[0]=y[1]=x-x; return 0;
-	}
+    if(!FLT_UWORD_IS_FINITE(ix)) {
+        y[0]=y[1]=x-x; return 0;
+    }
     /* set z = scalbn(|x|,ilogb(x)-7) */
-	e0 	= (int)((ix>>23)-134);	/* e0 = ilogb(z)-7; */
-	SET_FLOAT_WORD(z, ix - ((__int32_t)e0<<23));
-	for(i=0;i<2;i++) {
-		tx[i] = (float)((__int32_t)(z));
-		z     = (z-tx[i])*two8;
-	}
-	tx[2] = z;
-	nx = 3;
-	while(tx[nx-1]==zero) nx--;	/* skip zero term */
-	n  =  __rem_pio2f_internal(tx,y,e0,nx,2,two_over_pi);
-	if(hx<0) {y[0] = -y[0]; y[1] = -y[1]; return -n;}
-	return n;
+    e0     = (int)((ix>>23)-134);    /* e0 = ilogb(z)-7; */
+    SET_FLOAT_WORD(z, ix - ((__int32_t)e0<<23));
+    for(i=0;i<2;i++) {
+        tx[i] = (float)((__int32_t)(z));
+        z     = (z-tx[i])*two8;
+    }
+    tx[2] = z;
+    nx = 3;
+    while(tx[nx-1]==zero) nx--;    /* skip zero term */
+    n  =  __rem_pio2f_internal(tx,y,e0,nx,2,two_over_pi);
+    if(hx<0) {y[0] = -y[0]; y[1] = -y[1]; return -n;}
+    return n;
 }
 
 static const float 
@@ -350,27 +350,27 @@ C6  = -1.1359647598e-11; /* 0xad47d74e */
 
 float __cosf(float x, float y)
 {
-	float a,hz,z,r,qx;
-	__int32_t ix;
-	GET_FLOAT_WORD(ix,x);
-	ix &= 0x7fffffff;			/* ix = |x|'s high word*/
-	if(ix<0x32000000) {			/* if x < 2**27 */
-	    if(((int)x)==0) return one;		/* generate inexact */
-	}
-	z  = x*x;
-	r  = z*(C1+z*(C2+z*(C3+z*(C4+z*(C5+z*C6)))));
-	if(ix < 0x3e99999a) 			/* if |x| < 0.3 */ 
-	    return one - ((float)0.5*z - (z*r - x*y));
-	else {
-	    if(ix > 0x3f480000) {		/* x > 0.78125 */
-		qx = (float)0.28125;
-	    } else {
-	        SET_FLOAT_WORD(qx,ix-0x01000000);	/* x/4 */
-	    }
-	    hz = (float)0.5*z-qx;
-	    a  = one-qx;
-	    return a - (hz - (z*r-x*y));
-	}
+    float a,hz,z,r,qx;
+    __int32_t ix;
+    GET_FLOAT_WORD(ix,x);
+    ix &= 0x7fffffff;            /* ix = |x|'s high word*/
+    if(ix<0x32000000) {            /* if x < 2**27 */
+        if(((int)x)==0) return one;        /* generate inexact */
+    }
+    z  = x*x;
+    r  = z*(C1+z*(C2+z*(C3+z*(C4+z*(C5+z*C6)))));
+    if(ix < 0x3e99999a)             /* if |x| < 0.3 */ 
+        return one - ((float)0.5*z - (z*r - x*y));
+    else {
+        if(ix > 0x3f480000) {        /* x > 0.78125 */
+        qx = (float)0.28125;
+        } else {
+            SET_FLOAT_WORD(qx,ix-0x01000000);    /* x/4 */
+        }
+        hz = (float)0.5*z-qx;
+        a  = one-qx;
+        return a - (hz - (z*r-x*y));
+    }
 }
 
 static const float
@@ -384,15 +384,15 @@ S6  =  1.5896910177e-10; /* 0x2f2ec9d3 */
 
 float __sinf(float x, float y, int iy)
 {
-	float z,r,v;
-	__int32_t ix;
-	GET_FLOAT_WORD(ix,x);
-	ix &= 0x7fffffff;			/* high word of x */
-	if(ix<0x32000000)			/* |x| < 2**-27 */
-	   {if((int)x==0) return x;}		/* generate inexact */
-	z	=  x*x;
-	v	=  z*x;
-	r	=  S2+z*(S3+z*(S4+z*(S5+z*S6)));
-	if(iy==0) return x+v*(S1+z*r);
-	else      return x-((z*(half*y-v*r)-y)-v*S1);
+    float z,r,v;
+    __int32_t ix;
+    GET_FLOAT_WORD(ix,x);
+    ix &= 0x7fffffff;            /* high word of x */
+    if(ix<0x32000000)            /* |x| < 2**-27 */
+       {if((int)x==0) return x;}        /* generate inexact */
+    z    =  x*x;
+    v    =  z*x;
+    r    =  S2+z*(S3+z*(S4+z*(S5+z*S6)));
+    if(iy==0) return x+v*(S1+z*r);
+    else      return x-((z*(half*y-v*r)-y)-v*S1);
 }

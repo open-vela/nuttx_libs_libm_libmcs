@@ -7,9 +7,9 @@
  * Return x rounded to integral value according to the prevailing
  * rounding mode.
  * Method:
- *	Using floating addition.
+ *    Using floating addition.
  * Exception:
- *	Inexact flag raised if x not equal to llrintf(x).
+ *    Inexact flag raised if x not equal to llrintf(x).
  */
 
 #include "fdlibm.h"

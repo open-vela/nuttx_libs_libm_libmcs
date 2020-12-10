@@ -48,16 +48,16 @@ QUICKREF
 double
 cimag(double complex z)
 {
-	double_complex w = { .z = z };
+    double_complex w = { .z = z };
 
-	return (IMAG_PART(w));
+    return (IMAG_PART(w));
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double cimagl (long double complex z)
 {
-	return (long double) cimag((double complex) z);
+    return (long double) cimag((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

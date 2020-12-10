@@ -60,17 +60,17 @@ QUICKREF
 double complex
 casinh(double complex z)
 {
-	double complex w;
+    double complex w;
 
-	w = -1.0 * I * casin(z * I);
-	return w;
+    w = -1.0 * I * casin(z * I);
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex casinhl (long double complex z)
 {
-	return (long double complex) casinh((double complex) z);
+    return (long double complex) casinh((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

@@ -5,14 +5,14 @@
 FUNCTION
 <<fmin>>, <<fminf>>---minimum
 INDEX
-	fmin
+    fmin
 INDEX
-	fminf
+    fminf
 
 SYNOPSIS
-	#include <math.h>
-	double fmin(double <[x]>, double <[y]>);
-	float fminf(float <[x]>, float <[y]>);
+    #include <math.h>
+    double fmin(double <[x]>, double <[y]>);
+    float fminf(float <[x]>, float <[y]>);
 
 DESCRIPTION
 The <<fmin>> functions determine the minimum numeric value of their arguments.
@@ -45,7 +45,7 @@ double fmin(double x, double y)
 
 long double fminl (long double x, long double y)
 {
-	return (long double) fmin((double) x, (double) y);
+    return (long double) fmin((double) x, (double) y);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

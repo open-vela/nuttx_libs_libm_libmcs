@@ -10,9 +10,9 @@
 
 float fabsf(float x)
 {
-	__uint32_t ix;
-	GET_FLOAT_WORD(ix,x);
-	SET_FLOAT_WORD(x,ix&0x7fffffff);
+    __uint32_t ix;
+    GET_FLOAT_WORD(ix,x);
+    SET_FLOAT_WORD(x,ix&0x7fffffff);
         return x;
 }
 
@@ -20,7 +20,7 @@ float fabsf(float x)
 
 double fabs(double x)
 {
-	return (double) fabsf((float) x);
+    return (double) fabsf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

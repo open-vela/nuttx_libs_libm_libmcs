@@ -5,26 +5,26 @@
 FUNCTION
 <<isgreater>>, <<isgreaterequal>>, <<isless>>, <<islessequal>>, <<islessgreater>>, and <<isunordered>>---comparison macros
 INDEX
-	isgreater
+    isgreater
 INDEX
-	isgreaterequal
+    isgreaterequal
 INDEX
-	isless
+    isless
 INDEX
-	islessequal
+    islessequal
 INDEX
-	islessgreater
+    islessgreater
 INDEX
-	isunordered
+    isunordered
 
 SYNOPSIS
-	#include <math.h>
-	int isgreater(real-floating <[x]>, real-floating <[y]>);
-	int isgreaterequal(real-floating <[x]>, real-floating <[y]>);
-	int isless(real-floating <[x]>, real-floating <[y]>);
-	int islessequal(real-floating <[x]>, real-floating <[y]>);
-	int islessgreater(real-floating <[x]>, real-floating <[y]>);
-	int isunordered(real-floating <[x]>, real-floating <[y]>);
+    #include <math.h>
+    int isgreater(real-floating <[x]>, real-floating <[y]>);
+    int isgreaterequal(real-floating <[x]>, real-floating <[y]>);
+    int isless(real-floating <[x]>, real-floating <[y]>);
+    int islessequal(real-floating <[x]>, real-floating <[y]>);
+    int islessgreater(real-floating <[x]>, real-floating <[y]>);
+    int isunordered(real-floating <[x]>, real-floating <[y]>);
 
 DESCRIPTION
 <<isgreater>>, <<isgreaterequal>>, <<isless>>, <<islessequal>>,
@@ -50,12 +50,12 @@ exceptions, it is referring to the function that they are performing.  It
 is certainly possible to give them an expression which causes an exception.
 For example:
 o+
-o	NaN < 1.0
-		causes an "invalid" exception,
-o	isless(NaN, 1.0)
-		does not, and
-o	isless(NaN*0., 1.0)
-		causes an exception due to the "NaN*0.", but not from the
+o    NaN < 1.0
+        causes an "invalid" exception,
+o    isless(NaN, 1.0)
+        does not, and
+o    isless(NaN*0., 1.0)
+        causes an exception due to the "NaN*0.", but not from the
 resultant reduced comparison of isless(NaN, 1.0).
 o-
 

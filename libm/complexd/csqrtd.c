@@ -43,68 +43,68 @@ QUICKREF
 double complex
 csqrt(double complex z)
 {
-	double complex w;
-	double x, y, r, t, scale;
+    double complex w;
+    double x, y, r, t, scale;
 
-	x = creal (z);
-	y = cimag (z);
+    x = creal (z);
+    y = cimag (z);
 
-	if (y == 0.0) {
-		if (x == 0.0) {
-			w = 0.0 + y * I;
-		} else {
-			r = fabs(x);
-			r = sqrt(r);
-			if (x < 0.0) {
-				w = 0.0 + r * I;
-			} else {
-				w = r + y * I;
-			}
-		}
-		return w;
-	}
-	if (x == 0.0) {
-		r = fabs(y);
-		r = sqrt(0.5 * r);
-		if (y > 0)
-			w = r + r * I;
-		else
-			w = r - r * I;
-		return w;
-	}
-	/* Rescale to avoid internal overflow or underflow.  */
-	if ((fabs(x) > 4.0) || (fabs(y) > 4.0)) {
-		x *= 0.25;
-		y *= 0.25;
-		scale = 2.0;
-	} else {
-		x *= 1.8014398509481984e16;  /* 2^54 */
-		y *= 1.8014398509481984e16;
-		scale = 7.450580596923828125e-9; /* 2^-27 */
-	}
-	w = x + y * I;
-	r = cabs(w);
-	if (x > 0) {
-		t = sqrt(0.5 * r + 0.5 * x);
-		r = scale * fabs((0.5 * y) / t );
-		t *= scale;
-	} else {
-		r = sqrt(0.5 * r - 0.5 * x);
-		t = scale * fabs((0.5 * y) / r);
-		r *= scale;
-	}
-	if (y < 0)
-		w = t - r * I;
-	else
-		w = t + r * I;
-	return w;
+    if (y == 0.0) {
+        if (x == 0.0) {
+            w = 0.0 + y * I;
+        } else {
+            r = fabs(x);
+            r = sqrt(r);
+            if (x < 0.0) {
+                w = 0.0 + r * I;
+            } else {
+                w = r + y * I;
+            }
+        }
+        return w;
+    }
+    if (x == 0.0) {
+        r = fabs(y);
+        r = sqrt(0.5 * r);
+        if (y > 0)
+            w = r + r * I;
+        else
+            w = r - r * I;
+        return w;
+    }
+    /* Rescale to avoid internal overflow or underflow.  */
+    if ((fabs(x) > 4.0) || (fabs(y) > 4.0)) {
+        x *= 0.25;
+        y *= 0.25;
+        scale = 2.0;
+    } else {
+        x *= 1.8014398509481984e16;  /* 2^54 */
+        y *= 1.8014398509481984e16;
+        scale = 7.450580596923828125e-9; /* 2^-27 */
+    }
+    w = x + y * I;
+    r = cabs(w);
+    if (x > 0) {
+        t = sqrt(0.5 * r + 0.5 * x);
+        r = scale * fabs((0.5 * y) / t );
+        t *= scale;
+    } else {
+        r = sqrt(0.5 * r - 0.5 * x);
+        t = scale * fabs((0.5 * y) / r);
+        r *= scale;
+    }
+    if (y < 0)
+        w = t - r * I;
+    else
+        w = t + r * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex csqrtl (long double complex z)
 {
-	return (long double complex) csqrt((double complex) z);
+    return (long double complex) csqrt((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
