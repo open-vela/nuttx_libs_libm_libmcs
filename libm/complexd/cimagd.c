@@ -45,8 +45,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double
-cimag(double complex z)
+double cimag(double complex z)
 {
     double_complex w = { .z = z };
 
@@ -55,7 +54,7 @@ cimag(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double cimagl (long double complex z)
+long double cimagl(long double complex z)
 {
     return (long double) cimag((double complex) z);
 }

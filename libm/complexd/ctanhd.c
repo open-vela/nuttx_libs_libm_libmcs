@@ -38,8 +38,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-ctanh(double complex z)
+double complex ctanh(double complex z)
 {
     double complex w;
     double x, y, d;
@@ -47,14 +46,14 @@ ctanh(double complex z)
     x = creal(z);
     y = cimag(z);
     d = cosh(2.0 * x) + cos(2.0 * y);
-    w = sinh(2.0 * x) / d  +  (sin(2.0 * y) / d) * I;
+    w = sinh(2.0 * x) / d  + (sin(2.0 * y) / d) * I;
 
     return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex ctanhl (long double complex z)
+long double complex ctanhl(long double complex z)
 {
     return (long double complex) ctanh((double complex) z);
 }

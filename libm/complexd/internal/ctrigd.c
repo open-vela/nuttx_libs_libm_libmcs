@@ -7,8 +7,7 @@
 
 /* calculate cosh and sinh */
 
-void
-__cchsh(double x, double *c, double *s)
+void __ccoshsinh(double x, double *c, double *s)
 {
     double e, ei;
 
@@ -32,17 +31,18 @@ static const double DP2 = 1.98418714791870343106E-9;
 static const double DP3 = 1.14423774522196636802E-17;
 #define MACHEP 1.1e-16
 
-double
-__redupi(double x)
+double __redupi(double x)
 {
     double t;
     long i;
 
     t = x / M_PI;
-    if (t >= 0.0)
+
+    if (t >= 0.0) {
         t += 0.5;
-    else
+    } else {
         t -= 0.5;
+    }
 
     i = t;    /* the multiple */
     t = i;
