@@ -123,7 +123,7 @@ o-
     <<isnan>> returns 1 if the argument is a nan. <<isinf>>
     returns 1 if the argument is infinity.  <<finite>> returns 1 if the
     argument is zero, subnormal or normal.
-    
+
     The <<isnanf>>, <<isinff>> and <<finitef>> functions perform the same
     operations as their <<isnan>>, <<isinf>> and <<finite>>
     counterparts, but on single-precision floating-point numbers.
