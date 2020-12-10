@@ -17,7 +17,7 @@ SYNOPSIS
 
 
 DESCRIPTION
-        These functions compute the argument (also called phase angle) 
+        These functions compute the argument (also called phase angle)
         of <[z]>, with a branch cut along the negative real axis.
 
         <<cargf>> is identical to <<carg>>, except that it performs
@@ -25,11 +25,11 @@ DESCRIPTION
 
 RETURNS
         @ifnottex
-        The carg functions return the value of the argument in the 
+        The carg functions return the value of the argument in the
         interval [-pi, +pi]
         @end ifnottex
         @tex
-        The carg functions return the value of the argument in the 
+        The carg functions return the value of the argument in the
         interval [$-\pi$, $+\pi$]
         @end tex
 
@@ -46,15 +46,14 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double
-carg(double complex z)
+double carg(double complex z)
 {
-    return atan2( cimag(z) , creal(z) );
+    return atan2(cimag(z), creal(z));
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double cargl (long double complex z)
+long double cargl(long double complex z)
 {
     return (long double) carg((double complex) z);
 }

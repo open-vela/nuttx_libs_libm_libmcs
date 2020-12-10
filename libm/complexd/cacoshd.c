@@ -24,15 +24,15 @@ DESCRIPTION
 
 RETURNS
         @ifnottex
-        These functions return the complex arc hyperbolic cosine value, 
-        in the range of a half-strip of non-negative values along the 
-        real axis and in the interval [-i * pi, +i * pi] along the 
+        These functions return the complex arc hyperbolic cosine value,
+        in the range of a half-strip of non-negative values along the
+        real axis and in the interval [-i * pi, +i * pi] along the
         imaginary axis.
         @end ifnottex
         @tex
-        These functions return the complex arc hyperbolic cosine value, 
-        in the range of a half-strip of non-negative values along the 
-        real axis and in the interval [$-i\pi$, $+i\pi$] along the 
+        These functions return the complex arc hyperbolic cosine value,
+        in the range of a half-strip of non-negative values along the
+        real axis and in the interval [$-i\pi$, $+i\pi$] along the
         imaginary axis.
         @end tex
 
@@ -49,8 +49,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-cacosh(double complex z)
+double complex cacosh(double complex z)
 {
     double complex w;
 
@@ -61,7 +60,7 @@ cacosh(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex cacoshl (long double complex z)
+long double complex cacoshl(long double complex z)
 {
     return (long double complex) cacosh((double complex) z);
 }

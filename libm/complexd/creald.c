@@ -18,7 +18,7 @@ SYNOPSIS
        float crealf(float complex <[z]>);
        double long creall(long double complex <[z]>);
 
-       
+
 DESCRIPTION
         These functions compute the real part of <[z]>.
 
@@ -45,8 +45,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double
-creal(double complex z)
+double creal(double complex z)
 {
     double_complex w = { .z = z };
 
@@ -55,7 +54,7 @@ creal(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double creall (long double complex z)
+long double creall(long double complex z)
 {
     return (long double) creal((double complex) z);
 }

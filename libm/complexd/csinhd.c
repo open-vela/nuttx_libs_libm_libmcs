@@ -37,8 +37,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-csinh(double complex z)
+double complex csinh(double complex z)
 {
     double complex w;
     double x, y;
@@ -51,7 +50,7 @@ csinh(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex csinhl (long double complex z)
+long double complex csinhl(long double complex z)
 {
     return (long double complex) csinh((double complex) z);
 }

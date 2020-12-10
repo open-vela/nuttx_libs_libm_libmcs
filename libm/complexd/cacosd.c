@@ -47,8 +47,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-cacos(double complex z)
+double complex cacos(double complex z)
 {
     double complex w;
     double complex tmp0, tmp1;
@@ -62,7 +61,7 @@ cacos(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex cacosl (long double complex z)
+long double complex cacosl(long double complex z)
 {
     return (long double complex) cacos((double complex) z);
 }

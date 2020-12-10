@@ -38,20 +38,19 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-ccos(double complex z)
+double complex ccos(double complex z)
 {
     double complex w;
     double ch, sh;
 
-    _cchsh(cimag(z), &ch, &sh);
+    __ccoshsinh(cimag(z), &ch, &sh);
     w = cos(creal(z)) * ch - (sin(creal(z)) * sh) * I;
     return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex ccosl (long double complex z)
+long double complex ccosl(long double complex z)
 {
     return (long double complex) ccos((double complex) z);
 }

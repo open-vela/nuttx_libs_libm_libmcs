@@ -16,16 +16,16 @@ SYNOPSIS
 
 
 DESCRIPTION
-        These functions compute the complex natural (base-<[e]>) logarithm 
-        of <[z]>, with a branch cut along the negative real axis. 
+        These functions compute the complex natural (base-<[e]>) logarithm
+        of <[z]>, with a branch cut along the negative real axis.
 
         <<clogf>> is identical to <<clog>>, except that it performs
         its calculations on <<floats complex>>.
 
 RETURNS
         @ifnottex
-        The clog functions return the complex natural logarithm value, in 
-        the range of a strip mathematically unbounded along the real axis 
+        The clog functions return the complex natural logarithm value, in
+        the range of a strip mathematically unbounded along the real axis
         and in the interval [-i*pi , +i*pi] along the imaginary axis.
         @end ifnottex
         @tex
@@ -47,8 +47,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-clog(double complex z)
+double complex clog(double complex z)
 {
     double complex w;
     double p, rr;
@@ -62,7 +61,7 @@ clog(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex clogl (long double complex z)
+long double complex clogl(long double complex z)
 {
     return (long double complex) clog((double complex) z);
 }

@@ -17,7 +17,7 @@ SYNOPSIS
 
 
 DESCRIPTION
-        These functions compute the complex conjugate of <[z]>, 
+        These functions compute the complex conjugate of <[z]>,
         by reversing the sign of its imaginary part.
 
         <<conjf>> is identical to <<conj>>, except that it performs
@@ -39,8 +39,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-conj(double complex z)
+double complex conj(double complex z)
 {
     double_complex w = { .z = z };
 
@@ -51,7 +50,7 @@ conj(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex conjl (long double complex z)
+long double complex conjl(long double complex z)
 {
     return (long double complex) conj((double complex) z);
 }

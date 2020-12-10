@@ -16,14 +16,14 @@ SYNOPSIS
 
 
 DESCRIPTION
-        These functions compute the complex square root of <[z]>, with 
-        a branch cut along the negative real axis. 
+        These functions compute the complex square root of <[z]>, with
+        a branch cut along the negative real axis.
 
         <<csqrtf>> is identical to <<csqrt>>, except that it performs
         its calculations on <<floats complex>>.
 
 RETURNS
-        The csqrt functions return the complex square root value, in 
+        The csqrt functions return the complex square root value, in
         the range of the right halfplane (including the imaginary axis).
 
 PORTABILITY
@@ -40,14 +40,13 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-csqrt(double complex z)
+double complex csqrt(double complex z)
 {
     double complex w;
     double x, y, r, t, scale;
 
-    x = creal (z);
-    y = cimag (z);
+    x = creal(z);
+    y = cimag(z);
 
     if (y == 0.0) {
         if (x == 0.0) {
@@ -55,23 +54,30 @@ csqrt(double complex z)
         } else {
             r = fabs(x);
             r = sqrt(r);
+
             if (x < 0.0) {
                 w = 0.0 + r * I;
             } else {
                 w = r + y * I;
             }
         }
+
         return w;
     }
+
     if (x == 0.0) {
         r = fabs(y);
         r = sqrt(0.5 * r);
-        if (y > 0)
+
+        if (y > 0) {
             w = r + r * I;
-        else
+        } else {
             w = r - r * I;
+        }
+
         return w;
     }
+
     /* Rescale to avoid internal overflow or underflow.  */
     if ((fabs(x) > 4.0) || (fabs(y) > 4.0)) {
         x *= 0.25;
@@ -82,27 +88,32 @@ csqrt(double complex z)
         y *= 1.8014398509481984e16;
         scale = 7.450580596923828125e-9; /* 2^-27 */
     }
+
     w = x + y * I;
     r = cabs(w);
+
     if (x > 0) {
         t = sqrt(0.5 * r + 0.5 * x);
-        r = scale * fabs((0.5 * y) / t );
+        r = scale * fabs((0.5 * y) / t);
         t *= scale;
     } else {
         r = sqrt(0.5 * r - 0.5 * x);
         t = scale * fabs((0.5 * y) / r);
         r *= scale;
     }
-    if (y < 0)
+
+    if (y < 0) {
         w = t - r * I;
-    else
+    } else {
         w = t + r * I;
+    }
+
     return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex csqrtl (long double complex z)
+long double complex csqrtl(long double complex z)
 {
     return (long double complex) csqrt((double complex) z);
 }

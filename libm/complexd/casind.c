@@ -47,8 +47,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-casin(double complex z)
+double complex casin(double complex z)
 {
     double complex w;
     double complex ca, ct, zz, z2;
@@ -76,7 +75,7 @@ casin(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex casinl (long double complex z)
+long double complex casinl(long double complex z)
 {
     return (long double complex) casin((double complex) z);
 }

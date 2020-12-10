@@ -18,12 +18,12 @@ SYNOPSIS
 DESCRIPTION
         @ifnottex
         These functions compute the complex arc tangent of <[z]>,
-        with branch cuts outside the interval [-i, +i] along the 
+        with branch cuts outside the interval [-i, +i] along the
         imaginary axis.
         @end ifnottex
         @tex
         These functions compute the complex arc tangent of <[z]>,
-        with branch cuts outside the interval [$-i$, $+i$] along the 
+        with branch cuts outside the interval [$-i$, $+i$] along the
         imaginary axis.
         @end tex
 
@@ -55,8 +55,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-catan(double complex z)
+double complex catan(double complex z)
 {
     double complex w;
     double a, t, x, x2, y;
@@ -64,24 +63,29 @@ catan(double complex z)
     x = creal(z);
     y = cimag(z);
 
-    if ((x == 0.0) && (y > 1.0))
+    if ((x == 0.0) && (y > 1.0)) {
         goto ovrf;
+    }
 
     x2 = x * x;
     a = 1.0 - x2 - (y * y);
-    if (a == 0.0)
+
+    if (a == 0.0) {
         goto ovrf;
+    }
 
     t = 0.5 * atan2(2.0 * x, a);
-    w = _redupi(t);
+    w = __redupi(t);
 
     t = y - 1.0;
     a = x2 + (t * t);
-    if (a == 0.0)
+
+    if (a == 0.0) {
         goto ovrf;
+    }
 
     t = y + 1.0;
-    a = (x2 + (t * t))/a;
+    a = (x2 + (t * t)) / a;
     w = w + (0.25 * log(a)) * I;
     return w;
 
@@ -92,7 +96,7 @@ ovrf:
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex catanl (long double complex z)
+long double complex catanl(long double complex z)
 {
     return (long double complex) catan((double complex) z);
 }
