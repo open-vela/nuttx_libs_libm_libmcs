@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: SunMicrosystems
+// SPDX-License-Identifier: RichFelker
 // Copyright © 2005-2014 Rich Felker, et al.
 
 #include <math.h>
