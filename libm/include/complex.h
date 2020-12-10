@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: NetBSD
 // Written by Matthias Drochner.
 
-#ifndef    _COMPLEX_H
-#define    _COMPLEX_H
+#pragma once
 
 #define complex _Complex
 #define _Complex_I 1.0fi
@@ -83,7 +82,7 @@ double complex csqrt(double complex);
 float complex csqrtf(float complex);
 
 /* 7.3.9 Manipulation functions */
-/* 7.3.9.1 The carg functions */ 
+/* 7.3.9.1 The carg functions */
 double carg(double complex);
 float cargf(float complex);
 
@@ -104,30 +103,34 @@ double creal(double complex);
 float crealf(float complex);
 
 #ifdef _LONG_DOUBLE_IS_64BITS
-long double complex cacosl(long double complex);
-long double complex casinl(long double complex);
-long double complex catanl(long double complex);
-long double complex ccosl(long double complex);
-long double complex csinl(long double complex);
-long double complex ctanl(long double complex);
-long double complex cacoshl(long double complex);
-long double complex casinhl(long double complex);
-long double complex catanhl(long double complex);
-long double complex ccoshl(long double complex);
-long double complex csinhl(long double complex);
-long double complex ctanhl(long double complex);
-long double complex cexpl(long double complex);
-long double complex clogl(long double complex);
-long double cabsl(long double complex) ;
-long double complex cpowl(long double complex, long double complex);
-long double complex csqrtl(long double complex);
-long double cargl(long double complex);
-long double cimagl(long double complex);
-long double complex conjl(long double complex);
-long double complex cprojl(long double complex);
-long double creall(long double complex);
+
+    long double complex cacosl(long double complex);
+    long double complex casinl(long double complex);
+    long double complex catanl(long double complex);
+    long double complex ccosl(long double complex);
+    long double complex csinl(long double complex);
+    long double complex ctanl(long double complex);
+    
+    long double complex cacoshl(long double complex);
+    long double complex casinhl(long double complex);
+    long double complex catanhl(long double complex);
+    long double complex ccoshl(long double complex);
+    long double complex csinhl(long double complex);
+    long double complex ctanhl(long double complex);
+    
+    long double complex cexpl(long double complex);
+    long double complex clogl(long double complex);
+    
+    long double cabsl(long double complex) ;
+    long double complex cpowl(long double complex, long double complex);
+    long double complex csqrtl(long double complex);
+    
+    long double cargl(long double complex);
+    long double cimagl(long double complex);
+    long double complex conjl(long double complex);
+    long double complex cprojl(long double complex);
+    long double creall(long double complex);
+    
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 
 #define CMPLX () // TODO
-
-#endif    /* ! _COMPLEX_H */
