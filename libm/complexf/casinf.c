@@ -3,8 +3,7 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-casinf(float complex z)
+float complex casinf(float complex z)
 {
     float complex w;
     float complex ca, ct, zz, z2;
@@ -32,7 +31,7 @@ casinf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex casin (double complex z)
+double complex casin(double complex z)
 {
     return (double complex) casinf((float complex) z);
 }

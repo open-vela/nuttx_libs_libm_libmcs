@@ -2,8 +2,7 @@
 
 #include <complex.h>
 
-float complex
-casinhf(float complex z)
+float complex casinhf(float complex z)
 {
     float complex w;
 
@@ -13,7 +12,7 @@ casinhf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex casinh (double complex z)
+double complex casinh(double complex z)
 {
     return (double complex) casinhf((float complex) z);
 }

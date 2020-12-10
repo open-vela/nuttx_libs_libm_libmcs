@@ -3,8 +3,7 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-clogf(float complex z)
+float complex clogf(float complex z)
 {
     float complex w;
     float p, rr;
@@ -18,7 +17,7 @@ clogf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex clog (double complex z)
+double complex clog(double complex z)
 {
     return (double complex) clogf((float complex) z);
 }
