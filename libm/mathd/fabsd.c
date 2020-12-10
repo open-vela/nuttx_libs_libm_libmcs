@@ -5,12 +5,12 @@
 FUNCTION
        <<fabs>>, <<fabsf>>---absolute value (magnitude)
 INDEX
-	fabs
+    fabs
 INDEX
-	fabsf
+    fabsf
 
 SYNOPSIS
-	#include <math.h>
+    #include <math.h>
        double fabs(double <[x]>);
        float fabsf(float <[x]>);
 
@@ -37,9 +37,9 @@ PORTABILITY
 
 double fabs(double x)
 {
-	__uint32_t high;
-	GET_HIGH_WORD(high,x);
-	SET_HIGH_WORD(x,high&0x7fffffff);
+    __uint32_t high;
+    GET_HIGH_WORD(high,x);
+    SET_HIGH_WORD(x,high&0x7fffffff);
         return x;
 }
 
@@ -47,7 +47,7 @@ double fabs(double x)
 
 long double fabsl (long double x)
 {
-	return (long double) fabs((double) x);
+    return (long double) fabs((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

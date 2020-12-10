@@ -20,26 +20,26 @@ tiny   = 1.0e-300;
 
 double scalbln (double x, long int n)
 {
-	__int32_t k,hx,lx;
-	EXTRACT_WORDS(hx,lx,x);
-        k = (hx&0x7ff00000)>>20;		/* extract exponent */
-        if (k==0) {				/* 0 or subnormal x */
+    __int32_t k,hx,lx;
+    EXTRACT_WORDS(hx,lx,x);
+        k = (hx&0x7ff00000)>>20;        /* extract exponent */
+        if (k==0) {                /* 0 or subnormal x */
             if ((lx|(hx&0x7fffffff))==0) return x; /* +-0 */
-	    x *= two54;
-	    GET_HIGH_WORD(hx,x);
-	    k = ((hx&0x7ff00000)>>20) - 54;
-	    }
-        if (k==0x7ff) return x+x;		/* NaN or Inf */
+        x *= two54;
+        GET_HIGH_WORD(hx,x);
+        k = ((hx&0x7ff00000)>>20) - 54;
+        }
+        if (k==0x7ff) return x+x;        /* NaN or Inf */
         k = k+n;
         if (n> 50000 || k >  0x7fe)
-	  return huge*copysign(huge,x); /* overflow  */
-	if (n< -50000) return tiny*copysign(tiny,x); /*underflow*/
-        if (k > 0) 				/* normal result */
-	    {SET_HIGH_WORD(x,(hx&0x800fffff)|(k<<20)); return x;}
+      return huge*copysign(huge,x); /* overflow  */
+    if (n< -50000) return tiny*copysign(tiny,x); /*underflow*/
+        if (k > 0)                 /* normal result */
+        {SET_HIGH_WORD(x,(hx&0x800fffff)|(k<<20)); return x;}
         if (k <= -54)
-	  return tiny*copysign(tiny,x); 	/*underflow*/
-        k += 54;				/* subnormal result */
-	SET_HIGH_WORD(x,(hx&0x800fffff)|(k<<20));
+      return tiny*copysign(tiny,x);     /*underflow*/
+        k += 54;                /* subnormal result */
+    SET_HIGH_WORD(x,(hx&0x800fffff)|(k<<20));
         return x*twom54;
 }
 
@@ -47,7 +47,7 @@ double scalbln (double x, long int n)
 
 long double scalblnl (long double x, long int n)
 {
-	return (long double) scalbln((double) x, n);
+    return (long double) scalbln((double) x, n);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

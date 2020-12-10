@@ -12,10 +12,10 @@
 
 float copysignf(float x, float y)
 {
-	__uint32_t ix,iy;
-	GET_FLOAT_WORD(ix,x);
-	GET_FLOAT_WORD(iy,y);
-	SET_FLOAT_WORD(x,(ix&0x7fffffff)|(iy&0x80000000));
+    __uint32_t ix,iy;
+    GET_FLOAT_WORD(ix,x);
+    GET_FLOAT_WORD(iy,y);
+    SET_FLOAT_WORD(x,(ix&0x7fffffff)|(iy&0x80000000));
         return x;
 }
 
@@ -23,7 +23,7 @@ float copysignf(float x, float y)
 
 double copysign(double x, double y)
 {
-	return (double) copysignf((float) x, (float) y);
+    return (double) copysignf((float) x, (float) y);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

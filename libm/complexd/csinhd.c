@@ -40,20 +40,20 @@ QUICKREF
 double complex
 csinh(double complex z)
 {
-	double complex w;
-	double x, y;
+    double complex w;
+    double x, y;
 
-	x = creal(z);
-	y = cimag(z);
-	w = sinh(x) * cos(y) + (cosh(x) * sin(y)) * I;
-	return w;
+    x = creal(z);
+    y = cimag(z);
+    w = sinh(x) * cos(y) + (cosh(x) * sin(y)) * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex csinhl (long double complex z)
 {
-	return (long double complex) csinh((double complex) z);
+    return (long double complex) csinh((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

@@ -6,9 +6,9 @@ FUNCTION
        <<ldexp>>, <<ldexpf>>---load exponent
 
 INDEX
-	ldexp
+    ldexp
 INDEX
-	ldexpf
+    ldexpf
 
 SYNOPSIS
        #include <math.h>
@@ -44,16 +44,16 @@ PORTABILITY
 
 double ldexp(double value, int exp)
 {
-	if(!finite(value)||value==0.0) return value;
-	value = scalbn(value,exp);
-	return value;
+    if(!finite(value)||value==0.0) return value;
+    value = scalbn(value,exp);
+    return value;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double ldexpl (long double value, int exp)
 {
-	return (long double) ldexp((double) value, exp);
+    return (long double) ldexp((double) value, exp);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

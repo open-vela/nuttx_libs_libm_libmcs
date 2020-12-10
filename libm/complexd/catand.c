@@ -58,43 +58,43 @@ QUICKREF
 double complex
 catan(double complex z)
 {
-	double complex w;
-	double a, t, x, x2, y;
+    double complex w;
+    double a, t, x, x2, y;
 
-	x = creal(z);
-	y = cimag(z);
+    x = creal(z);
+    y = cimag(z);
 
-	if ((x == 0.0) && (y > 1.0))
-		goto ovrf;
+    if ((x == 0.0) && (y > 1.0))
+        goto ovrf;
 
-	x2 = x * x;
-	a = 1.0 - x2 - (y * y);
-	if (a == 0.0)
-		goto ovrf;
+    x2 = x * x;
+    a = 1.0 - x2 - (y * y);
+    if (a == 0.0)
+        goto ovrf;
 
-	t = 0.5 * atan2(2.0 * x, a);
-	w = _redupi(t);
+    t = 0.5 * atan2(2.0 * x, a);
+    w = _redupi(t);
 
-	t = y - 1.0;
-	a = x2 + (t * t);
-	if (a == 0.0)
-		goto ovrf;
+    t = y - 1.0;
+    a = x2 + (t * t);
+    if (a == 0.0)
+        goto ovrf;
 
-	t = y + 1.0;
-	a = (x2 + (t * t))/a;
-	w = w + (0.25 * log(a)) * I;
-	return w;
+    t = y + 1.0;
+    a = (x2 + (t * t))/a;
+    w = w + (0.25 * log(a)) * I;
+    return w;
 
 ovrf:
-	w = HUGE_VAL + HUGE_VAL * I;
-	return w;
+    w = HUGE_VAL + HUGE_VAL * I;
+    return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double complex catanl (long double complex z)
 {
-	return (long double complex) catan((double complex) z);
+    return (long double complex) catan((double complex) z);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

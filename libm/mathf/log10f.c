@@ -14,34 +14,34 @@ static const float zero   =  0.0;
 
 float log10f(float x)
 {
-	float y,z;
-	__int32_t i,k,hx;
+    float y,z;
+    __int32_t i,k,hx;
 
-	GET_FLOAT_WORD(hx,x);
+    GET_FLOAT_WORD(hx,x);
 
         k=0;
         if (FLT_UWORD_IS_ZERO(hx&0x7fffffff))
             return -two25/zero;             /* log(+-0)=-inf */
         if (hx<0) return (x-x)/zero;        /* log(-#) = NaN */
-	if (!FLT_UWORD_IS_FINITE(hx)) return x+x;
+    if (!FLT_UWORD_IS_FINITE(hx)) return x+x;
         if (FLT_UWORD_IS_SUBNORMAL(hx)) {
             k -= 25; x *= two25; /* subnormal number, scale up x */
-	    GET_FLOAT_WORD(hx,x);
+        GET_FLOAT_WORD(hx,x);
         }
-	k += (hx>>23)-127;
-	i  = ((__uint32_t)k&0x80000000)>>31;
+    k += (hx>>23)-127;
+    i  = ((__uint32_t)k&0x80000000)>>31;
         hx = (hx&0x007fffff)|((0x7f-i)<<23);
         y  = (float)(k+i);
-	SET_FLOAT_WORD(x,hx);
-	z  = y*log10_2lo + ivln10*__ieee754_logf(x);
-	return  z+y*log10_2hi;
+    SET_FLOAT_WORD(x,hx);
+    z  = y*log10_2lo + ivln10*__ieee754_logf(x);
+    return  z+y*log10_2hi;
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double log10(double x)
 {
-	return (double) log10f((float) x);
+    return (double) log10f((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

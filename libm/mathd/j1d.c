@@ -9,9 +9,9 @@
 
 #ifndef _DOUBLE_IS_32BITS
 
-double j1(double x)		/* wrapper j1 */
+double j1(double x)        /* wrapper j1 */
 {
-	return __ieee754_j1(x);
+    return __ieee754_j1(x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

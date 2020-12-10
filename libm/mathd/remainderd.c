@@ -3,25 +3,25 @@
 
 /* __ieee754_remainder(x,p)
  * Return :                  
- * 	returns  x REM p  =  x - [x/p]*p as if in infinite 
- * 	precise arithmetic, where [x/p] is the (infinite bit) 
- *	integer nearest x/p (in half way case choose the even one).
+ *     returns  x REM p  =  x - [x/p]*p as if in infinite 
+ *     precise arithmetic, where [x/p] is the (infinite bit) 
+ *    integer nearest x/p (in half way case choose the even one).
  * Method : 
- *	Based on fmod() return x-[x/p]chopped*p exactlp.
+ *    Based on fmod() return x-[x/p]chopped*p exactlp.
  */
 
 /*
 FUNCTION
 <<remainder>>, <<remainderf>>---round and  remainder
 INDEX
-	remainder
+    remainder
 INDEX
-	remainderf
+    remainderf
 
 SYNOPSIS
-	#include <math.h>
-	double remainder(double <[x]>, double <[y]>);
-	float remainderf(float <[x]>, float <[y]>);
+    #include <math.h>
+    double remainder(double <[x]>, double <[y]>);
+    float remainderf(float <[x]>, float <[y]>);
 
 DESCRIPTION
 <<remainder>> and <<remainderf>> find the remainder of
@@ -44,50 +44,50 @@ static const double zero = 0.0;
 
 double remainder(double x, double p)
 {
-	__int32_t hx,hp;
-	__uint32_t sx,lx,lp;
-	double p_half;
+    __int32_t hx,hp;
+    __uint32_t sx,lx,lp;
+    double p_half;
 
-	EXTRACT_WORDS(hx,lx,x);
-	EXTRACT_WORDS(hp,lp,p);
-	sx = hx&0x80000000;
-	hp &= 0x7fffffff;
-	hx &= 0x7fffffff;
+    EXTRACT_WORDS(hx,lx,x);
+    EXTRACT_WORDS(hp,lp,p);
+    sx = hx&0x80000000;
+    hp &= 0x7fffffff;
+    hx &= 0x7fffffff;
 
     /* purge off exception values */
-	if((hp|lp)==0) return (x*p)/(x*p); 	/* p = 0 */
-	if((hx>=0x7ff00000)||			/* x not finite */
-	  ((hp>=0x7ff00000)&&			/* p is NaN */
-	  (((hp-0x7ff00000)|lp)!=0)))
-	    return (x*p)/(x*p);
+    if((hp|lp)==0) return (x*p)/(x*p);     /* p = 0 */
+    if((hx>=0x7ff00000)||            /* x not finite */
+      ((hp>=0x7ff00000)&&            /* p is NaN */
+      (((hp-0x7ff00000)|lp)!=0)))
+        return (x*p)/(x*p);
 
 
-	if (hp<=0x7fdfffff) x = __ieee754_fmod(x,p+p);	/* now x < 2p */
-	if (((hx-hp)|(lx-lp))==0) return zero*x;
-	x  = fabs(x);
-	p  = fabs(p);
-	if (hp<0x00200000) {
-	    if(x+x>p) {
-		x-=p;
-		if(x+x>=p) x -= p;
-	    }
-	} else {
-	    p_half = 0.5*p;
-	    if(x>p_half) {
-		x-=p;
-		if(x>=p_half) x -= p;
-	    }
-	}
-	GET_HIGH_WORD(hx,x);
-	SET_HIGH_WORD(x,hx^sx);
-	return x;
+    if (hp<=0x7fdfffff) x = __ieee754_fmod(x,p+p);    /* now x < 2p */
+    if (((hx-hp)|(lx-lp))==0) return zero*x;
+    x  = fabs(x);
+    p  = fabs(p);
+    if (hp<0x00200000) {
+        if(x+x>p) {
+        x-=p;
+        if(x+x>=p) x -= p;
+        }
+    } else {
+        p_half = 0.5*p;
+        if(x>p_half) {
+        x-=p;
+        if(x>=p_half) x -= p;
+        }
+    }
+    GET_HIGH_WORD(hx,x);
+    SET_HIGH_WORD(x,hx^sx);
+    return x;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
 long double remainderl (long double x, long double y)
 {
-	return (long double) remainder((double) x, (double) y);
+    return (long double) remainder((double) x, (double) y);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

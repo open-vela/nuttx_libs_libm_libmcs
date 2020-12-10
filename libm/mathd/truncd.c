@@ -5,23 +5,23 @@
 FUNCTION
 <<trunc>>, <<truncf>>---round to integer, towards zero
 INDEX
-	trunc
+    trunc
 INDEX
-	truncf
+    truncf
 
 SYNOPSIS
-	#include <math.h>
-	double trunc(double <[x]>);
-	float truncf(float <[x]>);
+    #include <math.h>
+    double trunc(double <[x]>);
+    float truncf(float <[x]>);
 
 DESCRIPTION
-	The <<trunc>> functions round their argument to the integer value, in
-	floating format, nearest to but no larger in magnitude than the
-	argument, regardless of the current rounding direction.  (While the
-	"inexact" floating-point exception behavior is unspecified by the C
-	standard, the <<trunc>> functions are written so that "inexact" is not
-	raised if the result does not equal the argument, which behavior is as
-	recommended by IEEE 754 for its related functions.)
+    The <<trunc>> functions round their argument to the integer value, in
+    floating format, nearest to but no larger in magnitude than the
+    argument, regardless of the current rounding direction.  (While the
+    "inexact" floating-point exception behavior is unspecified by the C
+    standard, the <<trunc>> functions are written so that "inexact" is not
+    raised if the result does not equal the argument, which behavior is as
+    recommended by IEEE 754 for its related functions.)
 
 RETURNS
 <[x]> truncated to an integral value.
@@ -87,7 +87,7 @@ double trunc(double x)
 
 long double truncl (long double x)
 {
-	return (long double) trunc((double) x);
+    return (long double) trunc((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

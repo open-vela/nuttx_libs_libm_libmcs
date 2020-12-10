@@ -10,7 +10,7 @@ float fmaf (float x, float y, float z)
 
 double fma (double x, double y, double z)
 {
-	return (double) fmaf((float) x, (float) y, (float) z);
+    return (double) fmaf((float) x, (float) y, (float) z);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

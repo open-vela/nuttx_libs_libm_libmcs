@@ -14,7 +14,7 @@ float exp2f(float x)
 
 double exp2(double x)
 {
-	return (double) exp2f((float) x);
+    return (double) exp2f((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
