@@ -4,8 +4,7 @@
 #include <complex.h>
 #include "../common/fdlibm.h"
 
-float
-cimagf(float complex z)
+float cimagf(float complex z)
 {
     float_complex w = { .z = z };
 
@@ -14,7 +13,7 @@ cimagf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double cimag (double complex z)
+double cimag(double complex z)
 {
     return (double) cimagf((float complex) z);
 }

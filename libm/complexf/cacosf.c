@@ -3,8 +3,7 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-cacosf(float complex z)
+float complex cacosf(float complex z)
 {
     float complex w;
 
@@ -15,7 +14,7 @@ cacosf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex cacos (double complex z)
+double complex cacos(double complex z)
 {
     return (double complex) cacosf((float complex) z);
 }

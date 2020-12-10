@@ -5,8 +5,7 @@
 
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
-float
-__ctansf(float complex z)
+float __ctansf(float complex z)
 {
     float f, x, x2, y, y2, rn, t, d;
 
@@ -22,6 +21,7 @@ __ctansf(float complex z)
     f = 1.0f;
     rn = 0.0f;
     d = 0.0f;
+
     do {
         rn += 1.0f;
         f *= rn;
@@ -42,20 +42,21 @@ __ctansf(float complex z)
         t = y2 - x2;
         t /= f;
         d += t;
-    } while (fabsf(t/d) > MACHEPF);
+    } while (fabsf(t / d) > MACHEPF);
+
     return d;
 }
 
-float complex
-ctanf(float complex z)
+float complex ctanf(float complex z)
 {
     float complex w;
     float d;
 
     d = cosf(2.0f * crealf(z)) + coshf(2.0f * cimagf(z));
 
-    if (fabsf(d) < 0.25f)
+    if (fabsf(d) < 0.25f) {
         d = __ctansf(z);
+    }
 
     if (d == 0.0f) {
         w = HUGE_VALF + HUGE_VALF * I;
@@ -68,7 +69,7 @@ ctanf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex ctan (double complex z)
+double complex ctan(double complex z)
 {
     return (double complex) ctanf((float complex) z);
 }
