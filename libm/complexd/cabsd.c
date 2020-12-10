@@ -20,8 +20,8 @@ SYNOPSIS
 
 
 DESCRIPTION
-        These functions compute compute the complex absolute value 
-        (also called norm, modulus, or magnitude) of <[z]>. 
+        These functions compute compute the complex absolute value
+        (also called norm, modulus, or magnitude) of <[z]>.
 
         <<cabsf>> is identical to <<cabs>>, except that it performs
         its calculations on <<float complex>>.
@@ -46,15 +46,14 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double
-cabs(double complex z)
+double cabs(double complex z)
 {
-    return hypot( creal(z), cimag(z) );
+    return hypot(creal(z), cimag(z));
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double cabsl (long double complex z)
+long double cabsl(long double complex z)
 {
     return (long double) cabs((double complex) z);
 }

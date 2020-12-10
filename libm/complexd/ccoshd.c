@@ -38,8 +38,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-ccosh(double complex z)
+double complex ccosh(double complex z)
 {
     double complex w;
     double x, y;
@@ -52,7 +51,7 @@ ccosh(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex ccoshl (long double complex z)
+long double complex ccoshl(long double complex z)
 {
     return (long double complex) ccosh((double complex) z);
 }

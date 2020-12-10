@@ -40,8 +40,7 @@ QUICKREF
 
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
-double
-__ctans(double complex z)
+double __ctans(double complex z)
 {
     double f, x, x2, y, y2, rn, t;
     double d;
@@ -58,6 +57,7 @@ __ctans(double complex z)
     f = 1.0;
     rn = 0.0;
     d = 0.0;
+
     do {
         rn += 1.0;
         f *= rn;
@@ -78,20 +78,21 @@ __ctans(double complex z)
         t = y2 - x2;
         t /= f;
         d += t;
-    } while (fabs(t/d) > MACHEP);
+    } while (fabs(t / d) > MACHEP);
+
     return d;
 }
 
-double complex
-ctan(double complex z)
+double complex ctan(double complex z)
 {
     double complex w;
     double d;
 
     d = cos(2.0 * creal(z)) + cosh(2.0 * cimag(z));
 
-    if (fabs(d) < 0.25)
-        d = _ctans(z);
+    if (fabs(d) < 0.25) {
+        d = __ctans(z);
+    }
 
     if (d == 0.0) {
         w = HUGE_VAL + HUGE_VAL * I;
@@ -104,7 +105,7 @@ ctan(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex ctanl (long double complex z)
+long double complex ctanl(long double complex z)
 {
     return (long double complex) ctan((double complex) z);
 }

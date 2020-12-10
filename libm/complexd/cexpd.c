@@ -38,8 +38,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-cexp(double complex z)
+double complex cexp(double complex z)
 {
     double complex w;
     double r, x, y;
@@ -53,7 +52,7 @@ cexp(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex cexpl (long double complex z)
+long double complex cexpl(long double complex z)
 {
     return (long double complex) cexp((double complex) z);
 }

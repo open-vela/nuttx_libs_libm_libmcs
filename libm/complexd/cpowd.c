@@ -17,13 +17,13 @@ SYNOPSIS
 
 DESCRIPTION
         @ifnottex
-        The cpow functions compute the complex power function x^y 
-        power, with a branch cut for the first parameter along the 
+        The cpow functions compute the complex power function x^y
+        power, with a branch cut for the first parameter along the
         negative real axis.
         @end ifnottex
         @tex
-        The cpow functions compute the complex power function $x^y$ 
-        power, with a branch cut for the first parameter along the 
+        The cpow functions compute the complex power function $x^y$
+        power, with a branch cut for the first parameter along the
         negative real axis.
         @end tex
 
@@ -47,8 +47,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-cpow(double complex x, double complex y)
+double complex cpow(double complex x, double complex y)
 {
     double complex w;
     double realz, imagz, result, theta, absx, argx;
@@ -56,23 +55,27 @@ cpow(double complex x, double complex y)
     realz = creal(y);
     imagz = cimag(y);
     absx = cabs(x);
+
     if (absx == 0.0) {
         return (0.0 + 0.0 * I);
     }
+
     argx = carg(x);
     result = pow(absx, realz);
     theta = realz * argx;
+
     if (imagz != 0.0) {
         result = result * exp(-imagz * argx);
         theta = theta + imagz * log(absx);
     }
+
     w = result * cos(theta) + (result * sin(theta)) * I;
     return w;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex cpowl (long double complex x, long double complex y)
+long double complex cpowl(long double complex x, long double complex y)
 {
     return (long double complex) cpow((double complex) x, (double complex) y);
 }

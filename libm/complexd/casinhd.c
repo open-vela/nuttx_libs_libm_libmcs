@@ -18,13 +18,13 @@ SYNOPSIS
 DESCRIPTION
         @ifnottex
         These functions compute the complex arc hyperbolic sine of <[z]>,
-        with branch cuts outside the interval [-i, +i] along the 
-        imaginary axis.        
+        with branch cuts outside the interval [-i, +i] along the
+        imaginary axis.
         @end ifnottex
         @tex
         These functions compute the complex arc hyperbolic sine of <[z]>,
-        with branch cuts outside the interval [$-i$, $+i$] along the 
-        imaginary axis.        
+        with branch cuts outside the interval [$-i$, $+i$] along the
+        imaginary axis.
         @end tex
 
         <<casinhf>> is identical to <<casinh>>, except that it performs
@@ -32,15 +32,15 @@ DESCRIPTION
 
 RETURNS
         @ifnottex
-        These functions return the complex arc hyperbolic sine value, 
-        in the range of a strip mathematically unbounded along the 
-        real axis and in the interval [-i*p/2, +i*p/2] along the 
+        These functions return the complex arc hyperbolic sine value,
+        in the range of a strip mathematically unbounded along the
+        real axis and in the interval [-i*p/2, +i*p/2] along the
         imaginary axis.
         @end ifnottex
         @tex
-        These functions return the complex arc hyperbolic sine value, 
-        in the range of a strip mathematically unbounded along the 
-        real axis and in the interval [$-i\pi/2$, $+i\pi/2$] along the 
+        These functions return the complex arc hyperbolic sine value,
+        in the range of a strip mathematically unbounded along the
+        real axis and in the interval [$-i\pi/2$, $+i\pi/2$] along the
         imaginary axis.
         @end tex
 
@@ -57,8 +57,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-double complex
-casinh(double complex z)
+double complex casinh(double complex z)
 {
     double complex w;
 
@@ -68,7 +67,7 @@ casinh(double complex z)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double complex casinhl (long double complex z)
+long double complex casinhl(long double complex z)
 {
     return (long double complex) casinh((double complex) z);
 }
