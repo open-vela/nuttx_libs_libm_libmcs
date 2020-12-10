@@ -12,7 +12,7 @@ double nan (const char * payload)
 
 long double nanl (const char * payload)
 {
-	return (long double) nan(payload);
+    return (long double) nan(payload);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

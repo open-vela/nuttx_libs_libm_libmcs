@@ -6,15 +6,15 @@
 
 float ldexpf(float value, int exp)
 {
-	if(!finitef(value)||value==(float)0.0) return value;
-	return scalbnf(value,exp);
+    if(!finitef(value)||value==(float)0.0) return value;
+    return scalbnf(value,exp);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double ldexp(double value, int exp)
 {
-	return (double) ldexpf((float) value, exp);
+    return (double) ldexpf((float) value, exp);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

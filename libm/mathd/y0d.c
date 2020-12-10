@@ -83,9 +83,9 @@ None of the Bessel functions are in ANSI C.
 
 #ifndef _DOUBLE_IS_32BITS
 
-double y0(double x)		/* wrapper y0 */
+double y0(double x)        /* wrapper y0 */
 {
-	return __ieee754_y0(x);
+    return __ieee754_y0(x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

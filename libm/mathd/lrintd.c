@@ -5,20 +5,20 @@
 FUNCTION
 <<lrint>>, <<lrintf>>, <<llrint>>, <<llrintf>>---round to integer
 INDEX
-	lrint
+    lrint
 INDEX
-	lrintf
+    lrintf
 INDEX
-	llrint
+    llrint
 INDEX
-	llrintf
+    llrintf
 
 SYNOPSIS
-	#include <math.h>
-	long int lrint(double <[x]>);
-	long int lrintf(float <[x]>);
-	long long int llrint(double <[x]>);
-	long long int llrintf(float <[x]>);
+    #include <math.h>
+    long int lrint(double <[x]>);
+    long int lrintf(float <[x]>);
+    long long int llrint(double <[x]>);
+    long long int llrintf(float <[x]>);
 
 DESCRIPTION
 The <<lrint>> and <<llrint>> functions round their argument to the nearest
@@ -45,9 +45,9 @@ ANSI C, POSIX
  * Return x rounded to integral value according to the prevailing
  * rounding mode.
  * Method:
- *	Using floating addition.
+ *    Using floating addition.
  * Exception:
- *	Inexact flag raised if x not equal to lrint(x).
+ *    Inexact flag raised if x not equal to lrint(x).
  */
 
 #include "fdlibm.h"
@@ -88,7 +88,7 @@ long int lrint(double x)
       else
         {
           /* j0 in [0,19] */
-	  /* shift amt in [0,19] */
+      /* shift amt in [0,19] */
           w = TWO52[sx] + x;
           t = w - TWO52[sx];
           GET_HIGH_WORD(i0, t);
@@ -100,7 +100,7 @@ long int lrint(double x)
           j0 = ((i0 & 0x7ff00000) >> 20) - 1023;
           i0 &= 0x000fffff;
           i0 |= 0x00100000;
-	  /* shift amt in [20,0] */
+      /* shift amt in [20,0] */
           result = i0 >> (20 - j0);
         }
     }
@@ -109,15 +109,15 @@ long int lrint(double x)
       /* 32bit return: j0 in [20,30] */
       /* 64bit return: j0 in [20,62] */
       if (j0 >= 52)
-	/* 64bit return: j0 in [52,62] */
-	/* 64bit return: left shift amt in [32,42] */
+    /* 64bit return: j0 in [52,62] */
+    /* 64bit return: left shift amt in [32,42] */
         result = ((long int) ((i0 & 0x000fffff) | 0x00100000) << (j0 - 20)) |
-		/* 64bit return: right shift amt in [0,10] */
+        /* 64bit return: right shift amt in [0,10] */
                    ((long int) i1 << (j0 - 52));
       else
         {
-	  /* 32bit return: j0 in [20,30] */
-	  /* 64bit return: j0 in [20,51] */
+      /* 32bit return: j0 in [20,30] */
+      /* 64bit return: j0 in [20,51] */
           w = TWO52[sx] + x;
           t = w - TWO52[sx];
           EXTRACT_WORDS (i0, i1, t);
@@ -125,14 +125,14 @@ long int lrint(double x)
           i0 &= 0x000fffff;
           i0 |= 0x00100000;
           /* After round:
-	   * 32bit return: j0 in [20,31];
-	   * 64bit return: j0 in [20,52] */
-	  /* 32bit return: left shift amt in [0,11] */
-	  /* 64bit return: left shift amt in [0,32] */
+       * 32bit return: j0 in [20,31];
+       * 64bit return: j0 in [20,52] */
+      /* 32bit return: left shift amt in [0,11] */
+      /* 64bit return: left shift amt in [0,32] */
           /* ***32bit return: right shift amt in [32,21] */
           /* ***64bit return: right shift amt in [32,0] */
           result = ((long int) i0 << (j0 - 20))
-			| SAFE_RIGHT_SHIFT (i1, (52 - j0));
+            | SAFE_RIGHT_SHIFT (i1, (52 - j0));
         }
     }
   else
@@ -147,7 +147,7 @@ long int lrint(double x)
 
 long int lrintl (long double x)
 {
-	return lrint((double) x);
+    return lrint((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

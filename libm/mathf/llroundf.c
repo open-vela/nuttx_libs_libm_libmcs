@@ -41,7 +41,7 @@ llroundf(float x)
 long long int
 llround(double x)
 {
-	return llroundf((float) x);
+    return llroundf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

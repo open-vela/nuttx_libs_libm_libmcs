@@ -14,7 +14,7 @@ float log2f(float x)
 
 double log2(double x)
 {
-	return (double) log2f((float) x);
+    return (double) log2f((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
