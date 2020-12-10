@@ -2,8 +2,7 @@
 
 #include <complex.h>
 
-float complex
-catanhf(float complex z)
+float complex catanhf(float complex z)
 {
     float complex w;
 
@@ -13,7 +12,7 @@ catanhf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex catanh (double complex z)
+double complex catanh(double complex z)
 {
     return (double complex) catanhf((float complex) z);
 }

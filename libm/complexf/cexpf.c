@@ -3,8 +3,7 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-cexpf(float complex z)
+float complex cexpf(float complex z)
 {
     float complex w;
     float r, x, y;
@@ -18,7 +17,7 @@ cexpf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex cexp (double complex z)
+double complex cexp(double complex z)
 {
     return (double complex) cexpf((float complex) z);
 }

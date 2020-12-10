@@ -4,8 +4,7 @@
 #include <complex.h>
 #include "../common/fdlibm.h"
 
-float
-crealf(float complex z)
+float crealf(float complex z)
 {
     float_complex w = { .z = z };
 
@@ -14,7 +13,7 @@ crealf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double creal (double complex z)
+double creal(double complex z)
 {
     return (double) crealf((float complex) z);
 }

@@ -20,8 +20,7 @@
  * INFINITY + I * copysign(0.0, cimag(z))
  */
 
-float complex
-cprojf(float complex z)
+float complex cprojf(float complex z)
 {
     float_complex w = { .z = z };
 
@@ -35,7 +34,7 @@ cprojf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex cproj (double complex z)
+double complex cproj(double complex z)
 {
     return (double complex) cprojf((float complex) z);
 }

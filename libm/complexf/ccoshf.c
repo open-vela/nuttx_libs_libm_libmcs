@@ -3,8 +3,7 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-ccoshf(float complex z)
+float complex ccoshf(float complex z)
 {
     float complex w;
     float x, y;
@@ -17,7 +16,7 @@ ccoshf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex ccosh (double complex z)
+double complex ccosh(double complex z)
 {
     return (double complex) ccoshf((float complex) z);
 }

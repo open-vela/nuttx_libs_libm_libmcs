@@ -3,8 +3,7 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-csinhf(float complex z)
+float complex csinhf(float complex z)
 {
     float complex w;
     float x, y;
@@ -17,7 +16,7 @@ csinhf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex csinh (double complex z)
+double complex csinh(double complex z)
 {
     return (double complex) csinhf((float complex) z);
 }

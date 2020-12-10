@@ -3,14 +3,13 @@
 #include <complex.h>
 #include <math.h>
 
-float complex
-csqrtf(float complex z)
+float complex csqrtf(float complex z)
 {
     float complex w;
     float x, y, r, t, scale;
 
-    x = crealf (z);
-    y = cimagf (z);
+    x = crealf(z);
+    y = cimagf(z);
 
     if (y == 0.0f) {
         if (x < 0.0f) {
@@ -27,10 +26,13 @@ csqrtf(float complex z)
     if (x == 0.0f) {
         r = fabsf(y);
         r = sqrtf(0.5f * r);
-        if (y > 0)
+
+        if (y > 0) {
             w = r + r * I;
-        else
+        } else {
             w = r - r * I;
+        }
+
         return w;
     }
 
@@ -44,9 +46,11 @@ csqrtf(float complex z)
         y *= 6.7108864e7f;
         scale = 1.220703125e-4f; /* 2^-13 */
     }
+
     w = x + y * I;
     r = cabsf(w);
-    if( x > 0 ) {
+
+    if (x > 0) {
         t = sqrtf(0.5f * r + 0.5f * x);
         r = scale * fabsf((0.5f * y) / t);
         t *= scale;
@@ -56,16 +60,18 @@ csqrtf(float complex z)
         r *= scale;
     }
 
-    if (y < 0)
+    if (y < 0) {
         w = t - r * I;
-    else
+    } else {
         w = t + r * I;
+    }
+
     return w;
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex csqrt (double complex z)
+double complex csqrt(double complex z)
 {
     return (double complex) csqrtf((float complex) z);
 }

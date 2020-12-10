@@ -4,15 +4,14 @@
 #include <complex.h>
 #include <math.h>
 
-float
-cargf(float complex z)
+float cargf(float complex z)
 {
-    return atan2f( cimagf(z), crealf(z) );
+    return atan2f(cimagf(z), crealf(z));
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-double carg (double complex z)
+double carg(double complex z)
 {
     return (double) cargf((float complex) z);
 }

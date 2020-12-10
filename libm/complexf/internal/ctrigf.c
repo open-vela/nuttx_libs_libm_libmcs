@@ -5,8 +5,7 @@
 
 /* calculate cosh and sinh */
 
-void
-__cchshf(float x, float *c, float *s)
+void __ccoshsinhf(float x, float *c, float *s)
 {
     float e, ei;
 
@@ -30,17 +29,18 @@ static const double DP2 =  9.67502593994140625E-4;
 static const double DP3 =  1.509957990978376432E-7;
 #define MACHEPF 3.0e-8
 
-float
-__redupif(float x)
+float __redupif(float x)
 {
     float t;
     long i;
 
     t = x / (float)M_PI;
-    if (t >= 0.0f)
+
+    if (t >= 0.0f) {
         t += 0.5f;
-    else
+    } else {
         t -= 0.5f;
+    }
 
     i = t;    /* the multiple */
     t = i;

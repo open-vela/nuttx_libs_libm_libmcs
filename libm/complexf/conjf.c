@@ -4,8 +4,7 @@
 #include <complex.h>
 #include "../common/fdlibm.h"
 
-float complex
-conjf(float complex z)
+float complex conjf(float complex z)
 {
     float_complex w = { .z = z };
 
@@ -16,7 +15,7 @@ conjf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex conj (double complex z)
+double complex conj(double complex z)
 {
     return (double complex) conjf((float complex) z);
 }

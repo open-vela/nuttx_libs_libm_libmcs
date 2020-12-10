@@ -2,8 +2,7 @@
 
 #include <complex.h>
 
-float complex
-cacoshf(float complex z)
+float complex cacoshf(float complex z)
 {
     float complex w;
 
@@ -14,7 +13,7 @@ cacoshf(float complex z)
 
 #ifdef _DOUBLE_IS_32BITS
 
-double complex cacosh (double complex z)
+double complex cacosh(double complex z)
 {
     return (double complex) cacoshf((float complex) z);
 }
