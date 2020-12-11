@@ -15,7 +15,7 @@ SYNOPSIS
     float exp2f(float <[x]>);
 
 DESCRIPTION
-    <<exp2>> and <<exp2f>> calculate 2 ^ <[x]>, that is, 
+    <<exp2>> and <<exp2f>> calculate 2 ^ <[x]>, that is,
     @ifnottex
     2 raised to the power <[x]>.
     @end ifnottex
@@ -46,7 +46,7 @@ double exp2(double x)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double exp2l (long double x)
+long double exp2l(long double x)
 {
     return (long double) exp2((double) x);
 }

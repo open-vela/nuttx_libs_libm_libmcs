@@ -3,7 +3,7 @@
 
 /* __ieee754_acosh(x)
  * Method :
- *    Based on 
+ *    Based on
  *        acosh(x) = log [ x + sqrt(x*x-1) ]
  *    we have
  *        acosh(x) := log(x)+ln2,    if x is large; else
@@ -17,7 +17,7 @@
 
 /*
 FUNCTION
-<<acosh>>, <<acoshf>>---inverse hyperbolic cosine 
+<<acosh>>, <<acoshf>>---inverse hyperbolic cosine
 
 INDEX
 acosh
@@ -31,7 +31,7 @@ SYNOPSIS
 
 DESCRIPTION
 <<acosh>> calculates the inverse hyperbolic cosine of <[x]>.
-<<acosh>> is defined as 
+<<acosh>> is defined as
 @ifnottex
 . log(<[x]> + sqrt(<[x]>*<[x]>-1))
 @end ifnottex
@@ -44,7 +44,7 @@ $$ln\Bigl(x + \sqrt{x^2-1}\Bigr)$$
 <<acoshf>> is identical, other than taking and returning floats.
 
 RETURNS
-<<acosh>> and <<acoshf>> return the calculated value.  If <[x]> 
+<<acosh>> and <<acoshf>> return the calculated value.  If <[x]>
 less than 1, the return value is NaN and <<errno>> is set to <<EDOM>>.
 
 PORTABILITY
@@ -57,7 +57,7 @@ QUICKREF
  acos     n,n,m
  acosf   n,n,m
 
-MATHREF  
+MATHREF
  acosh, NAN,   arg,DOMAIN,EDOM
  acosh, < 1.0, NAN,DOMAIN,EDOM
  acosh, >=1.0, acosh(arg),,,
@@ -78,32 +78,34 @@ one    = 1.0,
 ln2    = 6.93147180559945286227e-01;  /* 0x3FE62E42, 0xFEFA39EF */
 
 double acosh(double x)
-{    
+{
     double t;
     __int32_t hx;
     __uint32_t lx;
-    EXTRACT_WORDS(hx,lx,x);
-    if(hx<0x3ff00000) {        /* x < 1 */
-        return (x-x)/(x-x);
-    } else if(hx >=0x41b00000) {    /* x > 2**28 */
-        if(hx >=0x7ff00000) {    /* x is inf of NaN */
-            return x+x;
-        } else 
-        return __ieee754_log(x)+ln2;    /* acosh(huge)=log(2x) */
-    } else if(((hx-0x3ff00000)|lx)==0) {
+    EXTRACT_WORDS(hx, lx, x);
+
+    if (hx < 0x3ff00000) {     /* x < 1 */
+        return (x - x) / (x - x);
+    } else if (hx >= 0x41b00000) {  /* x > 2**28 */
+        if (hx >= 0x7ff00000) {  /* x is inf of NaN */
+            return x + x;
+        } else {
+            return __ieee754_log(x) + ln2;    /* acosh(huge)=log(2x) */
+        }
+    } else if (((hx - 0x3ff00000) | lx) == 0) {
         return 0.0;            /* acosh(1) = 0 */
     } else if (hx > 0x40000000) {    /* 2**28 > x > 2 */
-        t=x*x;
-        return __ieee754_log(2.0*x-one/(x+__ieee754_sqrt(t-one)));
+        t = x * x;
+        return __ieee754_log(2.0 * x - one / (x + __ieee754_sqrt(t - one)));
     } else {            /* 1<x<2 */
-        t = x-one;
-        return log1p(t+__ieee754_sqrt(2.0*t+t*t));
+        t = x - one;
+        return log1p(t + __ieee754_sqrt(2.0 * t + t * t));
     }
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double acoshl (long double x)
+long double acoshl(long double x)
 {
     return (long double) acosh((double) x);
 }

@@ -41,16 +41,16 @@ Definition (Issue 2).
 
 double copysign(double x, double y)
 {
-    __uint32_t hx,hy;
-    GET_HIGH_WORD(hx,x);
-    GET_HIGH_WORD(hy,y);
-    SET_HIGH_WORD(x,(hx&0x7fffffff)|(hy&0x80000000));
-        return x;
+    __uint32_t hx, hy;
+    GET_HIGH_WORD(hx, x);
+    GET_HIGH_WORD(hy, y);
+    SET_HIGH_WORD(x, (hx & 0x7fffffff) | (hy & 0x80000000));
+    return x;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double copysignl (long double x, long double y)
+long double copysignl(long double x, long double y)
 {
     return (long double) copysign((double) x, (double) y);
 }

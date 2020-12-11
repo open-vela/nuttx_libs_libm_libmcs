@@ -5,14 +5,14 @@
 
 #include <math.h>
 
-double nexttoward (double x, double y)
+double nexttoward(double x, double y)
 {
     return nextafter(x, y);
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double nexttowardl (long double x, long double y)
+long double nexttowardl(long double x, long double y)
 {
     return (long double) nexttoward((double) x, (double) y);
 }

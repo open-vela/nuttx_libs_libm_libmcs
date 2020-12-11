@@ -33,17 +33,20 @@ ANSI C, POSIX.
 
 double fmax(double x, double y)
 {
-  if (__fpclassifyd(x) == FP_NAN)
-    return y;
-  if (__fpclassifyd(y) == FP_NAN)
-    return x;
-  
-  return x > y ? x : y;
+    if (__fpclassifyd(x) == FP_NAN) {
+        return y;
+    }
+
+    if (__fpclassifyd(y) == FP_NAN) {
+        return x;
+    }
+
+    return x > y ? x : y;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double fmaxl (long double x, long double y)
+long double fmaxl(long double x, long double y)
 {
     return (long double) fmax((double) x, (double) y);
 }

@@ -54,14 +54,14 @@ C99, POSIX, System V Interface Definition (Issue 6).
 
 #ifndef _DOUBLE_IS_32BITS
 
-double log2(double x)        /* wrapper log2 */
+double log2(double x)
 {
-  return (log(x) / M_LN2);
+    return (log(x) / M_LN2);
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double log2l (long double x)
+long double log2l(long double x)
 {
     return (long double) log2((double) x);
 }

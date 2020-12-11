@@ -16,7 +16,7 @@ SYNOPSIS
        float ldexpf(float <[val]>, int <[exp]>);
 
 DESCRIPTION
-<<ldexp>> calculates the value 
+<<ldexp>> calculates the value
 @ifnottex
 <[val]> times 2 to the power <[exp]>.
 @end ifnottex
@@ -35,8 +35,8 @@ On overflow, <<ldexp>> returns plus or minus <<HUGE_VAL>>.
 
 PORTABILITY
 <<ldexp>> is ANSI. <<ldexpf>> is an extension.
-              
-*/   
+
+*/
 
 #include "fdlibm.h"
 
@@ -44,14 +44,17 @@ PORTABILITY
 
 double ldexp(double value, int exp)
 {
-    if(!finite(value)||value==0.0) return value;
-    value = scalbn(value,exp);
+    if (!finite(value) || value == 0.0) {
+        return value;
+    }
+
+    value = scalbn(value, exp);
     return value;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double ldexpl (long double value, int exp)
+long double ldexpl(long double value, int exp)
 {
     return (long double) ldexp((double) value, exp);
 }

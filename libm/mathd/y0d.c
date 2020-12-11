@@ -3,7 +3,7 @@
 
 /*
 FUNCTION
-<<jN>>, <<jNf>>, <<yN>>, <<yNf>>---Bessel functions 
+<<jN>>, <<jNf>>, <<yN>>, <<yNf>>---Bessel functions
 
 INDEX
 j0
@@ -47,7 +47,7 @@ float ynf(int <[n]>, float <[x]>);
 
 DESCRIPTION
 The Bessel functions are a family of functions that solve the
-differential equation 
+differential equation
 @ifnottex
 .  2               2    2
 . x  y'' + xy' + (x  - p )y  = 0
@@ -83,7 +83,7 @@ None of the Bessel functions are in ANSI C.
 
 #ifndef _DOUBLE_IS_32BITS
 
-double y0(double x)        /* wrapper y0 */
+double y0(double x)
 {
     return __ieee754_y0(x);
 }

@@ -15,9 +15,9 @@ SYNOPSIS
        float fabsf(float <[x]>);
 
 DESCRIPTION
-<<fabs>> and <<fabsf>> calculate 
+<<fabs>> and <<fabsf>> calculate
 @tex
-$|x|$, 
+$|x|$,
 @end tex
 the absolute value (magnitude) of the argument <[x]>, by direct
 manipulation of the bit representation of <[x]>.
@@ -38,14 +38,14 @@ PORTABILITY
 double fabs(double x)
 {
     __uint32_t high;
-    GET_HIGH_WORD(high,x);
-    SET_HIGH_WORD(x,high&0x7fffffff);
-        return x;
+    GET_HIGH_WORD(high, x);
+    SET_HIGH_WORD(x, high & 0x7fffffff);
+    return x;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double fabsl (long double x)
+long double fabsl(long double x)
 {
     return (long double) fabs((double) x);
 }
