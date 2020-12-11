@@ -51,7 +51,7 @@ double nearbyint(double x)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double nearbyintl (long double x)
+long double nearbyintl(long double x)
 {
     return (long double) nearbyint((double) x);
 }

@@ -41,15 +41,20 @@ ANSI C, POSIX.
 
 double fdim(double x, double y)
 {
-  if (__fpclassifyd(x) == FP_NAN)  return(x);
-  if (__fpclassifyd(y) == FP_NAN)  return(y);
+    if (__fpclassifyd(x) == FP_NAN) {
+        return (x);
+    }
 
-  return x > y ? x - y : 0.0;
+    if (__fpclassifyd(y) == FP_NAN) {
+        return (y);
+    }
+
+    return x > y ? x - y : 0.0;
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double fdiml (long double x, long double y)
+long double fdiml(long double x, long double y)
 {
     return (long double) fdim((double) x, (double) y);
 }
