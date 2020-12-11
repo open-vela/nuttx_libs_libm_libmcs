@@ -6,6 +6,7 @@ The LibmCS library has been developed by re-engineering the ``libm`` included in
 The following pages in this documentation try to give a xenodochial introduction into LibmCS.
 
 .. toctree::
+   :numbered:
    :maxdepth: 2
    :caption: Software User Manual
 
