@@ -6,14 +6,14 @@
 
 float nearbyintf(float x)
 {
-  return rintf(x);
+    return rintf(x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
 double nearbyint(double x)
 {
-  return (double) nearbyintf((float) x);
+    return (double) nearbyintf((float) x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

@@ -5,37 +5,34 @@
 
 float truncf(float x)
 {
-  __int32_t signbit, w, exponent_less_127;
+    __int32_t signbit, w, exponent_less_127;
 
-  GET_FLOAT_WORD(w,x);
+    GET_FLOAT_WORD(w, x);
 
-  /* Extract sign bit. */
-  signbit = w & 0x80000000;
+    /* Extract sign bit. */
+    signbit = w & 0x80000000;
 
-  /* Extract exponent field. */
-  exponent_less_127 = ((w & 0x7f800000) >> 23) - 127;
+    /* Extract exponent field. */
+    exponent_less_127 = ((w & 0x7f800000) >> 23) - 127;
 
-  if (exponent_less_127 < 23)
-    {
-      if (exponent_less_127 < 0)
-        {
-          /* -1 < x < 1, so result is +0 or -0. */
-          SET_FLOAT_WORD(x, signbit);
+    if (exponent_less_127 < 23) {
+        if (exponent_less_127 < 0) {
+            /* -1 < x < 1, so result is +0 or -0. */
+            SET_FLOAT_WORD(x, signbit);
+        } else {
+            SET_FLOAT_WORD(x, signbit | (w & ~(0x007fffff >> exponent_less_127)));
         }
-      else
+    } else {
+        if (exponent_less_127 == 128)
+            /* x is NaN or infinite. */
         {
-          SET_FLOAT_WORD(x, signbit | (w & ~(0x007fffff >> exponent_less_127)));
+            return x + x;
         }
-    }
-  else
-    {
-      if (exponent_less_127 == 128)
-        /* x is NaN or infinite. */
-        return x + x;
 
-      /* All bits in the fraction field are relevant. */
+        /* All bits in the fraction field are relevant. */
     }
-  return x;
+
+    return x;
 }
 
 #ifdef _DOUBLE_IS_32BITS
