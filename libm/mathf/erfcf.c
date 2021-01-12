@@ -5,17 +5,17 @@
 #include "fdlibm.h"
 
 static const float
-tiny        = 1e-30,
-half=  5.0000000000e-01, /* 0x3F000000 */
-one =  1.0000000000e+00, /* 0x3F800000 */
-two =  2.0000000000e+00, /* 0x40000000 */
-    /* c = (subfloat)0.84506291151 */
-erx =  8.4506291151e-01, /* 0x3f58560b */
+tiny =  1e-30,
+half =  5.0000000000e-01, /* 0x3F000000 */
+one  =  1.0000000000e+00, /* 0x3F800000 */
+two  =  2.0000000000e+00, /* 0x40000000 */
+/* c = (subfloat)0.84506291151 */
+erx  =  8.4506291151e-01, /* 0x3f58560b */
 /*
  * Coefficients for approximation to  erf on [0,0.84375]
  */
-efx =  1.2837916613e-01, /* 0x3e0375d4 */
-efx8=  1.0270333290e+00, /* 0x3f8375d4 */
+efx  =  1.2837916613e-01, /* 0x3e0375d4 */
+efx8 =  1.0270333290e+00, /* 0x3f8375d4 */
 pp0  =  1.2837916613e-01, /* 0x3e0375d4 */
 pp1  = -3.2504209876e-01, /* 0xbea66beb */
 pp2  = -2.8481749818e-02, /* 0xbce9528f */
@@ -27,7 +27,7 @@ qq3  =  5.0813062117e-03, /* 0x3ba68116 */
 qq4  =  1.3249473704e-04, /* 0x390aee49 */
 qq5  = -3.9602282413e-06, /* 0xb684e21a */
 /*
- * Coefficients for approximation to  erf  in [0.84375,1.25] 
+ * Coefficients for approximation to  erf  in [0.84375,1.25]
  */
 pa0  = -2.3621185683e-03, /* 0xbb1acdc6 */
 pa1  =  4.1485610604e-01, /* 0x3ed46805 */
@@ -81,62 +81,85 @@ sb7  = -2.2440952301e+01; /* 0xc1b38712 */
 
 float erfcf(float x)
 {
-    __int32_t hx,ix;
-    float R,S,P,Q,s,y,z,r;
-    GET_FLOAT_WORD(hx,x);
-    ix = hx&0x7fffffff;
-    if(!FLT_UWORD_IS_FINITE(ix)) {            /* erfc(nan)=nan */
-                        /* erfc(+-inf)=0,2 */
-        return (float)(((__uint32_t)hx>>31)<<1)+one/x;
+    __int32_t hx, ix;
+    float R, S, P, Q, s, y, z, r;
+    GET_FLOAT_WORD(hx, x);
+    ix = hx & 0x7fffffff;
+
+    if (!FLT_UWORD_IS_FINITE(ix)) {           /* erfc(nan)=nan */
+        /* erfc(+-inf)=0,2 */
+        return (float)(((__uint32_t)hx >> 31) << 1) + one / x;
     }
 
-    if(ix < 0x3f580000) {        /* |x|<0.84375 */
-        if(ix < 0x23800000)      /* |x|<2**-56 */
-        return one-x;
-        z = x*x;
-        r = pp0+z*(pp1+z*(pp2+z*(pp3+z*pp4)));
-        s = one+z*(qq1+z*(qq2+z*(qq3+z*(qq4+z*qq5))));
-        y = r/s;
-        if(hx < 0x3e800000) {      /* x<1/4 */
-        return one-(x+x*y);
+    if (ix < 0x3f580000) {       /* |x|<0.84375 */
+        if (ix < 0x23800000) {   /* |x|<2**-56 */
+            return one - x;
+        }
+
+        z = x * x;
+        r = pp0 + z * (pp1 + z * (pp2 + z * (pp3 + z * pp4)));
+        s = one + z * (qq1 + z * (qq2 + z * (qq3 + z * (qq4 + z * qq5))));
+        y = r / s;
+
+        if (hx < 0x3e800000) {     /* x<1/4 */
+            return one - (x + x * y);
         } else {
-        r = x*y;
-        r += (x-half);
+            r = x * y;
+            r += (x - half);
             return half - r ;
         }
     }
-    if(ix < 0x3fa00000) {        /* 0.84375 <= |x| < 1.25 */
-        s = fabsf(x)-one;
-        P = pa0+s*(pa1+s*(pa2+s*(pa3+s*(pa4+s*(pa5+s*pa6)))));
-        Q = one+s*(qa1+s*(qa2+s*(qa3+s*(qa4+s*(qa5+s*qa6)))));
-        if(hx>=0) {
-            z  = one-erx; return z - P/Q; 
+
+    if (ix < 0x3fa00000) {       /* 0.84375 <= |x| < 1.25 */
+        s = fabsf(x) - one;
+        P = pa0 + s * (pa1 + s * (pa2 + s * (pa3 + s * (pa4 + s * (pa5 + s * pa6)))));
+        Q = one + s * (qa1 + s * (qa2 + s * (qa3 + s * (qa4 + s * (qa5 + s * qa6)))));
+
+        if (hx >= 0) {
+            z  = one - erx;
+            return z - P / Q;
         } else {
-        z = erx+P/Q; return one+z;
+            z = erx + P / Q;
+            return one + z;
         }
     }
+
     if (ix < 0x41e00000) {        /* |x|<28 */
         x = fabsf(x);
-         s = one/(x*x);
-        if(ix< 0x4036DB6D) {    /* |x| < 1/.35 ~ 2.857143*/
-            R=ra0+s*(ra1+s*(ra2+s*(ra3+s*(ra4+s*(
-                ra5+s*(ra6+s*ra7))))));
-            S=one+s*(sa1+s*(sa2+s*(sa3+s*(sa4+s*(
-                sa5+s*(sa6+s*(sa7+s*sa8)))))));
+        s = one / (x * x);
+
+        if (ix < 0x4036DB6D) {  /* |x| < 1/.35 ~ 2.857143*/
+            R = ra0 + s * (ra1 + s * (ra2 + s * (ra3 + s * (ra4 + s * (
+                    ra5 + s * (ra6 + s * ra7))))));
+            S = one + s * (sa1 + s * (sa2 + s * (sa3 + s * (sa4 + s * (
+                    sa5 + s * (sa6 + s * (sa7 + s * sa8)))))));
         } else {            /* |x| >= 1/.35 ~ 2.857143 */
-        if(hx<0&&ix>=0x40c00000) return two-tiny;/* x < -6 */
-            R=rb0+s*(rb1+s*(rb2+s*(rb3+s*(rb4+s*(
-                rb5+s*rb6)))));
-            S=one+s*(sb1+s*(sb2+s*(sb3+s*(sb4+s*(
-                sb5+s*(sb6+s*sb7))))));
+            if (hx < 0 && ix >= 0x40c00000) {
+                return two - tiny;    /* x < -6 */
+            }
+
+            R = rb0 + s * (rb1 + s * (rb2 + s * (rb3 + s * (rb4 + s * (
+                    rb5 + s * rb6)))));
+            S = one + s * (sb1 + s * (sb2 + s * (sb3 + s * (sb4 + s * (
+                    sb5 + s * (sb6 + s * sb7))))));
         }
-        GET_FLOAT_WORD(ix,x);
-        SET_FLOAT_WORD(z,ix&0xfffff000);
-        r  =  __ieee754_expf(-z*z-(float)0.5625)*
-            __ieee754_expf((z-x)*(z+x)+R/S);
-        if(hx>0) return r/x; else return two-r/x;
+
+        GET_FLOAT_WORD(ix, x);
+        SET_FLOAT_WORD(z, ix & 0xfffff000);
+        r  =  __ieee754_expf(-z * z - (float)0.5625) *
+              __ieee754_expf((z - x) * (z + x) + R / S);
+
+        if (hx > 0) {
+            return r / x;
+        } else {
+            return two - r / x;
+        }
     } else {
-        if(hx>0) return __math_uflow(0); else return two-tiny;
+        if (hx > 0) {
+            return __math_uflow(0);
+        } else {
+            return two - tiny;
+        }
     }
 }
 

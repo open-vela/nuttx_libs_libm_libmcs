@@ -14,8 +14,11 @@ float tgammaf(float x)
 {
     int signgam_local;
     float y = __ieee754_expf(__lgammaf(x, &signgam_local));
-    if (signgam_local < 0)
+
+    if (signgam_local < 0) {
         y = -y;
+    }
+
     return y;
 }
 
