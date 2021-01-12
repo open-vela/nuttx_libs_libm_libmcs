@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GTDGmbH
 // Copyright 2020-2021 by GTD GmbH.
 
-float nanf (const char * payload)
+float nanf(const char *payload)
 {
-    return 0.0f/0.0f;
+    return 0.0f / 0.0f;
 }
 
 #ifdef _DOUBLE_IS_32BITS
 
-double nan (const char * payload)
+double nan(const char *payload)
 {
     return (double) nanf(payload);
 }

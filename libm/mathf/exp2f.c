@@ -7,7 +7,7 @@
 
 float exp2f(float x)
 {
-  return powf(2.0, x);
+    return powf(2.0, x);
 }
 
 #ifdef _DOUBLE_IS_32BITS
