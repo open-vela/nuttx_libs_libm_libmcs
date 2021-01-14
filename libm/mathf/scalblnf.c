@@ -12,7 +12,7 @@ tiny    =  1.0e-30;
 
 float scalblnf(float x, long int n)
 {
-    __int32_t k, ix;
+    int32_t k, ix;
     GET_FLOAT_WORD(ix, x);
     k = (ix & 0x7f800000) >> 23;    /* extract exponent */
 

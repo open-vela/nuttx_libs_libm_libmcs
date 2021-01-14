@@ -11,7 +11,7 @@ ln2    = 6.9314718246e-01;  /* 0x3f317218 */
 float acoshf(float x)
 {
     float t;
-    __int32_t hx;
+    int32_t hx;
     GET_FLOAT_WORD(hx, x);
 
     if (hx < 0x3f800000) {     /* x < 1 */

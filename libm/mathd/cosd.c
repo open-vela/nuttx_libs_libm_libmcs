@@ -39,7 +39,7 @@
 double cos(double x)
 {
     double y[2], z = 0.0;
-    __int32_t n, ix;
+    int32_t n, ix;
 
     /* High word of x. */
     GET_HIGH_WORD(ix, x);

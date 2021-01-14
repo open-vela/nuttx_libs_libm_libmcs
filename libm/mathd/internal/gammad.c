@@ -145,7 +145,7 @@ static const double zero =  0.00000000000000000000e+00;
 static double __sin_pi(double x)
 {
     double y, z;
-    __int32_t n, ix;
+    int32_t n, ix;
 
     GET_HIGH_WORD(ix, x);
     ix &= 0x7fffffff;
@@ -165,7 +165,7 @@ static double __sin_pi(double x)
     if (z != y) {                   /* inexact anyway */
         y  *= 0.5;
         y   = 2.0 * (y - floor(y)); /* y = |x| mod 2.0 */
-        n   = (__int32_t)(y * 4.0);
+        n   = (int32_t)(y * 4.0);
     } else {
         if (ix >= 0x43400000) {
             y = zero;
@@ -213,7 +213,7 @@ static double __sin_pi(double x)
 double __lgamma(double x, int *signgamp)
 {
     double t, y, z, nadj = 0.0, p, p1, p2, p3, q, r, w;
-    __int32_t i, hx, lx, ix;
+    int32_t i, hx, lx, ix;
 
     EXTRACT_WORDS(hx, lx, x);
 
@@ -317,7 +317,7 @@ double __lgamma(double x, int *signgamp)
             r += (-0.5 * y + p1 / p2);
         }
     } else if (ix < 0x40200000) {        /* x < 8.0 */
-        i = (__int32_t)x;
+        i = (int32_t)x;
         t = zero;
         y = x - (double)i;
         p = y * (s0 + y * (s1 + y * (s2 + y * (s3 + y * (s4 + y * (s5 + y * s6))))));

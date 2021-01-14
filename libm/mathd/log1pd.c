@@ -123,7 +123,7 @@ static const double zero = 0.0;
 double log1p(double x)
 {
     double hfsq, f, c, s, z, R, u;
-    __int32_t k, hx, hu, ax;
+    int32_t k, hx, hu, ax;
 
     GET_HIGH_WORD(hx, x);
     ax = hx & 0x7fffffff;
@@ -148,7 +148,7 @@ double log1p(double x)
             }
         }
 
-        if (hx > 0 || hx <= ((__int32_t)0xbfd2bec3)) {
+        if (hx > 0 || hx <= ((int32_t)0xbfd2bec3)) {
             k = 0;
             f = x;
             hu = 1;

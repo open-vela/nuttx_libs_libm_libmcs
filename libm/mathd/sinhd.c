@@ -71,8 +71,8 @@ static const double one = 1.0, shuge = 1.0e307;
 double sinh(double x)
 {
     double t, w, h;
-    __int32_t ix, jx;
-    __uint32_t lx;
+    int32_t ix, jx;
+    uint32_t lx;
 
     /* High word of |x|. */
     GET_HIGH_WORD(jx, x);
@@ -113,7 +113,7 @@ double sinh(double x)
     /* |x| in [log(maxdouble), overflowthresold] */
     GET_LOW_WORD(lx, x);
 
-    if (ix < 0x408633CE || (ix == 0x408633ce && lx <= (__uint32_t)0x8fb9f87d)) {
+    if (ix < 0x408633CE || (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87d)) {
         w = __ieee754_exp(0.5 * fabs(x));
         t = h * w;
         return t * w;

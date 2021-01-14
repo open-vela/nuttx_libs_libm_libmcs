@@ -68,7 +68,7 @@ frexp, ilogb
 
 double logb(double x)
 {
-    __int32_t hx, lx, ix;
+    int32_t hx, lx, ix;
 
     EXTRACT_WORDS(hx, lx, x);
     hx &= 0x7fffffff;        /* high |x| */

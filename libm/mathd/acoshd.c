@@ -80,8 +80,8 @@ ln2    = 6.93147180559945286227e-01;  /* 0x3FE62E42, 0xFEFA39EF */
 double acosh(double x)
 {
     double t;
-    __int32_t hx;
-    __uint32_t lx;
+    int32_t hx;
+    uint32_t lx;
     EXTRACT_WORDS(hx, lx, x);
 
     if (hx < 0x3ff00000) {     /* x < 1 */

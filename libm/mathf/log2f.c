@@ -7,7 +7,7 @@
 
 float log2f(float x)
 {
-    return (logf(x) / (float_t) M_LN2);
+    return (logf(x) / (float) M_LN2);
 }
 
 #ifdef _DOUBLE_IS_32BITS

@@ -72,8 +72,8 @@ static const double Zero[] = {0.0, -0.0,};
 double
 remquo(double x, double y, int *quo)
 {
-    __int32_t n, hx, hy, hz, ix, iy, sx, i;
-    __uint32_t lx, ly, lz, q, sxy;
+    int32_t n, hx, hy, hz, ix, iy, sx, i;
+    uint32_t lx, ly, lz, q, sxy;
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
@@ -97,7 +97,7 @@ remquo(double x, double y, int *quo)
 
         if (lx == ly) {
             *quo = (sxy ? -1 : 1);
-            return Zero[(__uint32_t)sx >> 31];        /* |x|=|y| return x*0 */
+            return Zero[(uint32_t)sx >> 31];        /* |x|=|y| return x*0 */
         }
     }
 
@@ -201,7 +201,7 @@ remquo(double x, double y, int *quo)
     if ((hx | lx) == 0) {         /* return sign(x)*0 */
         q &= QUO_MASK;
         *quo = (sxy ? -q : q);
-        return Zero[(__uint32_t)sx >> 31];
+        return Zero[(uint32_t)sx >> 31];
     }
 
     while (hx < 0x00100000) {     /* normalize x */
@@ -216,7 +216,7 @@ remquo(double x, double y, int *quo)
         n = -1022 - iy;
 
         if (n <= 20) {
-            lx = (lx >> n) | ((__uint32_t)hx << (32 - n));
+            lx = (lx >> n) | ((uint32_t)hx << (32 - n));
             hx >>= n;
         } else if (n <= 31) {
             lx = (hx << (32 - n)) | (lx >> n);

@@ -23,7 +23,7 @@ qS4     =  7.7038154006e-02; /* 0x3d9dc62e */
 float acosf(float x)
 {
     float z, p, q, r, w, s, c, df;
-    __int32_t hx, ix;
+    int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
@@ -56,7 +56,7 @@ float acosf(float x)
         w = r * s - pio2_lo;
         return pi - (float)2.0 * (s + w);
     } else {            /* x > 0.5 */
-        __int32_t idf;
+        int32_t idf;
         z = (one - x) * (float)0.5;
         s = __ieee754_sqrtf(z);
         df = s;

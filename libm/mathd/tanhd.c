@@ -67,7 +67,7 @@ static const double one = 1.0, two = 2.0, tiny = 1.0e-300;
 double tanh(double x)
 {
     double t, z;
-    __int32_t jx, ix;
+    int32_t jx, ix;
 
     /* High word of |x|. */
     GET_HIGH_WORD(jx, x);

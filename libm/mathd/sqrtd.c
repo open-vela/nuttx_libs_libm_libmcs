@@ -107,9 +107,9 @@ static const double one = 1.0, tiny = 1.0e-300;
 double sqrt(double x)
 {
     double z;
-    __int32_t sign = 0x80000000;
-    __uint32_t r, t1, s1, ix1, q1;
-    __int32_t ix0, s0, q, m, t, i;
+    int32_t sign = 0x80000000;
+    uint32_t r, t1, s1, ix1, q1;
+    int32_t ix0, s0, q, m, t, i;
 
     EXTRACT_WORDS(ix0, ix1, x);
 
@@ -211,11 +211,11 @@ double sqrt(double x)
         if (z >= one) {
             z = one + tiny;
 
-            if (q1 == (__uint32_t)0xffffffff) {
+            if (q1 == (uint32_t)0xffffffff) {
                 q1 = 0;
                 q += 1;
             } else if (z > one) {
-                if (q1 == (__uint32_t)0xfffffffe) {
+                if (q1 == (uint32_t)0xfffffffe) {
                     q += 1;
                 }
 

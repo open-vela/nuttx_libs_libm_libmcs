@@ -44,8 +44,8 @@ PORTABILITY
 
 double nextafter(double x, double y)
 {
-    __int32_t  hx, hy, ix, iy;
-    __uint32_t lx, ly;
+    int32_t  hx, hy, ix, iy;
+    uint32_t lx, ly;
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);

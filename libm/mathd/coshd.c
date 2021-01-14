@@ -70,8 +70,8 @@ static const double one = 1.0, half = 0.5;
 double cosh(double x)
 {
     double t, w;
-    __int32_t ix;
-    __uint32_t lx;
+    int32_t ix;
+    uint32_t lx;
 
     /* High word of |x|. */
     GET_HIGH_WORD(ix, x);
@@ -109,7 +109,7 @@ double cosh(double x)
     GET_LOW_WORD(lx, x);
 
     if (ix < 0x408633CE ||
-        (ix == 0x408633ce && lx <= (__uint32_t)0x8fb9f87d)) {
+        (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87d)) {
         w = __ieee754_exp(half * fabs(x));
         t = half * w;
         return t * w;

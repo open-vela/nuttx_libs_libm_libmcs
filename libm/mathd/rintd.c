@@ -67,8 +67,8 @@ static const double TWO52[2] = {
 
 double rint(double x)
 {
-    __int32_t i0, j0, sx;
-    __uint32_t i, i1;
+    int32_t i0, j0, sx;
+    uint32_t i, i1;
     double t;
     volatile double w;
     EXTRACT_WORDS(i0, i1, x);
@@ -117,7 +117,7 @@ double rint(double x)
             return x;                  /* x is integral */
         }
     } else {
-        i = ((__uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
 
         if ((i1 & i) == 0) {
             return x;                  /* x is integral */

@@ -73,7 +73,7 @@ PORTABILITY
 double hypot(double x, double y)
 {
     double a = x, b = y, t1, t2, y1, y2, w;
-    __int32_t j, k, ha, hb;
+    int32_t j, k, ha, hb;
 
     GET_HIGH_WORD(ha, x);
     ha &= 0x7fffffff;
@@ -102,7 +102,7 @@ double hypot(double x, double y)
 
     if (ha > 0x5f300000) {        /* a>2**500 */
         if (ha >= 0x7ff00000) {   /* Inf or NaN */
-            __uint32_t low;
+            uint32_t low;
             w = a + b;            /* for sNaN */
             GET_LOW_WORD(low, a);
 
@@ -129,7 +129,7 @@ double hypot(double x, double y)
 
     if (hb < 0x20b00000) {        /* b < 2**-500 */
         if (hb <= 0x000fffff) {   /* subnormal b or 0 */
-            __uint32_t low;
+            uint32_t low;
             GET_LOW_WORD(low, b);
 
             if ((hb | low) == 0) {
@@ -170,7 +170,7 @@ double hypot(double x, double y)
     }
 
     if (k != 0) {
-        __uint32_t high;
+        uint32_t high;
         t1 = 1.0;
         GET_HIGH_WORD(high, t1);
         SET_HIGH_WORD(t1, high + (k << 20));

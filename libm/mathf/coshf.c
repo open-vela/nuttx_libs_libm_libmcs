@@ -9,7 +9,7 @@ static const float one = 1.0, half = 0.5;
 float coshf(float x)
 {
     float t, w;
-    __int32_t ix;
+    int32_t ix;
 
     GET_FLOAT_WORD(ix, x);
     ix &= 0x7fffffff;

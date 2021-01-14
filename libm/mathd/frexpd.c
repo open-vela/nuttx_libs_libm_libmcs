@@ -64,7 +64,7 @@ two54 =  1.80143985094819840000e+16; /* 0x43500000, 0x00000000 */
 
 double frexp(double x, int *eptr)
 {
-    __int32_t hx, ix, lx;
+    int32_t hx, ix, lx;
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;
     *eptr = 0;

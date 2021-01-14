@@ -12,7 +12,7 @@ huge =  1.0000000000e+30;
 float asinhf(float x)
 {
     float t, w;
-    __int32_t hx, ix;
+    int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 

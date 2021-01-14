@@ -29,7 +29,7 @@ PORTABILITY
 
 #ifndef _DOUBLE_IS_32BITS
 
-static const __uint32_t
+static const uint32_t
 B1 = 715094163, /* B1 = (682-0.03306235651)*2**20 */
 B2 = 696219795; /* B2 = (664-0.03306235651)*2**20 */
 
@@ -42,10 +42,10 @@ G  =  3.57142857142857150787e-01; /* 5/14      = 0x3FD6DB6D, 0xB6DB6DB7 */
 
 double cbrt(double x)
 {
-    __int32_t    hx;
+    int32_t    hx;
     double r, s, t = 0.0, w;
-    __uint32_t sign;
-    __uint32_t high, low;
+    uint32_t sign;
+    uint32_t high, low;
 
     GET_HIGH_WORD(hx, x);
     sign = hx & 0x80000000;     /* sign= sign(x) */

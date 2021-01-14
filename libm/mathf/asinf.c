@@ -25,7 +25,7 @@ qS4     =  7.7038154006e-02; /* 0x3d9dc62e */
 float asinf(float x)
 {
     float t, w, p, q, c, r, s;
-    __int32_t hx, ix;
+    int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
@@ -58,7 +58,7 @@ float asinf(float x)
         w = p / q;
         t = pio2_hi - ((float)2.0 * (s + s * w) - pio2_lo);
     } else {
-        __int32_t iw;
+        int32_t iw;
         w  = s;
         GET_FLOAT_WORD(iw, w);
         SET_FLOAT_WORD(w, iw & 0xfffff000);

@@ -86,8 +86,8 @@ pi_lo   = 1.2246467991473531772E-16; /* 0x3CA1A626, 0x33145C07 */
 double atan2(double y, double x)
 {
     double z;
-    __int32_t k, m, hx, hy, ix, iy;
-    __uint32_t lx, ly;
+    int32_t k, m, hx, hy, ix, iy;
+    uint32_t lx, ly;
 
     EXTRACT_WORDS(hx, lx, x);
     ix = hx & 0x7fffffff;
@@ -179,7 +179,7 @@ double atan2(double y, double x)
         return  z;                 /* atan(+,+) */
 
     case 1: {
-        __uint32_t zh;
+        uint32_t zh;
         GET_HIGH_WORD(zh, z);
         SET_HIGH_WORD(z, zh ^ 0x80000000);
     }

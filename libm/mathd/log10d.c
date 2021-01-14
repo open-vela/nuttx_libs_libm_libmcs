@@ -79,8 +79,8 @@ static const double zero  =  0.0;
 double log10(double x)
 {
     double y, z;
-    __int32_t i, k, hx;
-    __uint32_t lx;
+    int32_t i, k, hx;
+    uint32_t lx;
 
     EXTRACT_WORDS(hx, lx, x);
 
@@ -105,7 +105,7 @@ double log10(double x)
     }
 
     k += (hx >> 20) - 1023;
-    i  = ((__uint32_t)k & 0x80000000) >> 31;
+    i  = ((uint32_t)k & 0x80000000) >> 31;
     hx = (hx & 0x000fffff) | ((0x3ff - i) << 20);
     y  = (double)(k + i);
     SET_HIGH_WORD(x, hx);

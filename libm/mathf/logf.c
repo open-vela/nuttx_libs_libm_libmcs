@@ -21,7 +21,7 @@ static const float zero   =  0.0;
 float logf(float x)
 {
     float hfsq, f, s, z, R, w, t1, t2, dk;
-    __int32_t k, ix, i, j;
+    int32_t k, ix, i, j;
 
     GET_FLOAT_WORD(ix, x);
 

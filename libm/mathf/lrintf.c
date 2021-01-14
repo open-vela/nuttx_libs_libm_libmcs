@@ -25,8 +25,8 @@ TWO23[2] = {
 
 long int lrintf(float x)
 {
-    __int32_t j0, sx;
-    __uint32_t i0;
+    int32_t j0, sx;
+    uint32_t i0;
     float t;
     volatile float w;
     long int result;

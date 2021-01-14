@@ -21,7 +21,7 @@ static const float zero = 0.0;
 float log1pf(float x)
 {
     float hfsq, f, c, s, z, R, u;
-    __int32_t k, hx, hu, ax;
+    int32_t k, hx, hu, ax;
 
     GET_FLOAT_WORD(hx, x);
     ax = hx & 0x7fffffff;
@@ -50,7 +50,7 @@ float log1pf(float x)
             }
         }
 
-        if (hx > 0 || hx <= ((__int32_t)0xbe95f61f)) {
+        if (hx > 0 || hx <= ((int32_t)0xbe95f61f)) {
             k = 0;
             f = x;
             hu = 1;

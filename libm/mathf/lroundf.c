@@ -5,10 +5,10 @@
 
 long int lroundf(float x)
 {
-    __int32_t exponent_less_127;
-    __uint32_t w;
+    int32_t exponent_less_127;
+    uint32_t w;
     long int result;
-    __int32_t sign;
+    int32_t sign;
 
     GET_FLOAT_WORD(w, x);
     exponent_less_127 = ((w & 0x7f800000) >> 23) - 127;

@@ -11,8 +11,8 @@ TWO23[2] = {
 
 float rintf(float x)
 {
-    __int32_t i0, j0, sx;
-    __uint32_t i, i1, ix;
+    int32_t i0, j0, sx;
+    uint32_t i, i1, ix;
     float t;
     volatile float w;
     GET_FLOAT_WORD(i0, x);

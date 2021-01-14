@@ -27,7 +27,7 @@ T[]    =  {
 float __tanf(float x, float y, int iy)
 {
     float z, r, v, w, s;
-    __int32_t ix, hx;
+    int32_t ix, hx;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;  /* high word of |x| */
 
@@ -78,7 +78,7 @@ float __tanf(float x, float y, int iy)
         /* if allow error up to 2 ulp, simply return -1.0/(x+r) here */
         /*  compute -1.0/(x+r) accurately */
         float a, t;
-        __int32_t i;
+        int32_t i;
         z  = w;
         GET_FLOAT_WORD(i, z);
         SET_FLOAT_WORD(z, i & 0xfffff000);
@@ -96,7 +96,7 @@ float __tanf(float x, float y, int iy)
 float tanf(float x)
 {
     float y[2], z = 0.0;
-    __int32_t n, ix;
+    int32_t n, ix;
 
     GET_FLOAT_WORD(ix, x);
 

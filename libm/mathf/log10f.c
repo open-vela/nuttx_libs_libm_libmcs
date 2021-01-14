@@ -15,7 +15,7 @@ static const float zero   =  0.0;
 float log10f(float x)
 {
     float y, z;
-    __int32_t i, k, hx;
+    int32_t i, k, hx;
 
     GET_FLOAT_WORD(hx, x);
 
@@ -40,7 +40,7 @@ float log10f(float x)
     }
 
     k += (hx >> 23) - 127;
-    i  = ((__uint32_t)k & 0x80000000) >> 31;
+    i  = ((uint32_t)k & 0x80000000) >> 31;
     hx = (hx & 0x007fffff) | ((0x7f - i) << 23);
     y  = (float)(k + i);
     SET_FLOAT_WORD(x, hx);

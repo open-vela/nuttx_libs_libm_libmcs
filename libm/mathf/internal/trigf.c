@@ -29,9 +29,9 @@ one    = 1.0,
 two8   =  2.5600000000e+02, /* 0x43800000 */
 twon8  =  3.9062500000e-03; /* 0x3b800000 */
 
-int __rem_pio2f_internal(float *x, float *y, int e0, int nx, int prec, const __int32_t *ipio2)
+int __rem_pio2f_internal(float *x, float *y, int e0, int nx, int prec, const int32_t *ipio2)
 {
-    __int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
+    int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
     float z, fw, f[20], fq[20], q[20];
 
     /* initialize jk*/
@@ -70,15 +70,15 @@ recompute:
 
     /* distill q[] into iq[] reversingly */
     for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
-        fw    = (float)((__int32_t)(twon8 * z));
-        iq[i] = (__int32_t)(z - two8 * fw);
+        fw    = (float)((int32_t)(twon8 * z));
+        iq[i] = (int32_t)(z - two8 * fw);
         z     =  q[j - 1] + fw;
     }
 
     /* compute n */
     z  = scalbnf(z, (int)q0);   /* actual value of z */
     z -= (float)8.0 * floorf(z * (float)0.125); /* trim off integer >= 8 */
-    n  = (__int32_t) z;
+    n  = (int32_t) z;
     z -= (float)n;
     ih = 0;
 
@@ -170,13 +170,13 @@ recompute:
         z = scalbnf(z, -(int)q0);
 
         if (z >= two8) {
-            fw = (float)((__int32_t)(twon8 * z));
-            iq[jz] = (__int32_t)(z - two8 * fw);
+            fw = (float)((int32_t)(twon8 * z));
+            iq[jz] = (int32_t)(z - two8 * fw);
             jz += 1;
             q0 += 8;
-            iq[jz] = (__int32_t) fw;
+            iq[jz] = (int32_t) fw;
         } else {
-            iq[jz] = (__int32_t) z ;
+            iq[jz] = (int32_t) z ;
         }
     }
 
@@ -267,7 +267,7 @@ recompute:
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi
  */
-static const __int32_t two_over_pi[] = {
+static const int32_t two_over_pi[] = {
     0xA2, 0xF9, 0x83, 0x6E, 0x4E, 0x44, 0x15, 0x29, 0xFC,
     0x27, 0x57, 0xD1, 0xF5, 0x34, 0xDD, 0xC0, 0xDB, 0x62,
     0x95, 0x99, 0x3C, 0x43, 0x90, 0x41, 0xFE, 0x51, 0x63,
@@ -294,7 +294,7 @@ static const __int32_t two_over_pi[] = {
 
 /* This array is like the one in e_rem_pio2.c, but the numbers are
    single precision and the last 8 bits are forced to 0.  */
-static const __int32_t npio2_hw[] = {
+static const int32_t npio2_hw[] = {
     0x3fc90f00, 0x40490f00, 0x4096cb00, 0x40c90f00, 0x40fb5300, 0x4116cb00,
     0x412fed00, 0x41490f00, 0x41623100, 0x417b5300, 0x418a3a00, 0x4196cb00,
     0x41a35c00, 0x41afed00, 0x41bc7e00, 0x41c90f00, 0x41d5a000, 0x41e23100,
@@ -325,11 +325,11 @@ pio2_2t =  6.0770999344e-11, /* 0x2e85a308 */
 pio2_3  =  6.0770943833e-11, /* 0x2e85a300 */
 pio2_3t =  6.1232342629e-17; /* 0x248d3132 */
 
-__int32_t __rem_pio2f(float x, float *y)
+int32_t __rem_pio2f(float x, float *y)
 {
     float z, w, t, r, fn;
     float tx[3];
-    __int32_t i, j, n, ix, hx;
+    int32_t i, j, n, ix, hx;
     int e0, nx;
 
     GET_FLOAT_WORD(hx, x);
@@ -373,7 +373,7 @@ __int32_t __rem_pio2f(float x, float *y)
 
     if (ix <= 0x43490f80) { /* |x| ~<= 2^7*(pi/2), medium size */
         t  = fabsf(x);
-        n  = (__int32_t)(t * invpio2 + half);
+        n  = (int32_t)(t * invpio2 + half);
         fn = (float)n;
         r  = t - fn * pio2_1;
         w  = fn * pio2_1t;  /* 1st round good to 40 bit */
@@ -381,7 +381,7 @@ __int32_t __rem_pio2f(float x, float *y)
         if (n < 32 && (ix & 0xffffff00) != npio2_hw[n - 1]) {
             y[0] = r - w;  /* quick check no cancellation */
         } else {
-            __uint32_t high;
+            uint32_t high;
             j  = ix >> 23;
             y[0] = r - w;
             GET_FLOAT_WORD(high, y[0]);
@@ -427,10 +427,10 @@ __int32_t __rem_pio2f(float x, float *y)
 
     /* set z = scalbn(|x|,ilogb(x)-7) */
     e0     = (int)((ix >> 23) - 134); /* e0 = ilogb(z)-7; */
-    SET_FLOAT_WORD(z, ix - ((__int32_t)e0 << 23));
+    SET_FLOAT_WORD(z, ix - ((int32_t)e0 << 23));
 
     for (i = 0; i < 2; i++) {
-        tx[i] = (float)((__int32_t)(z));
+        tx[i] = (float)((int32_t)(z));
         z     = (z - tx[i]) * two8;
     }
 
@@ -464,7 +464,7 @@ C6  = -1.1359647598e-11; /* 0xad47d74e */
 float __cosf(float x, float y)
 {
     float a, hz, z, r, qx;
-    __int32_t ix;
+    int32_t ix;
     GET_FLOAT_WORD(ix, x);
     ix &= 0x7fffffff;            /* ix = |x|'s high word*/
 
@@ -504,7 +504,7 @@ S6  =  1.5896910177e-10; /* 0x2f2ec9d3 */
 float __sinf(float x, float y, int iy)
 {
     float z, r, v;
-    __int32_t ix;
+    int32_t ix;
     GET_FLOAT_WORD(ix, x);
     ix &= 0x7fffffff;            /* high word of x */
 

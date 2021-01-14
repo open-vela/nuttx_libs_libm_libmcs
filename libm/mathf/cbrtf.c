@@ -7,7 +7,7 @@
 /* cbrtf(x)
  * Return cube root of x
  */
-static const __uint32_t
+static const uint32_t
 B1 = 709958130, /* B1 = (84+2/3-0.03306235651)*2**23 */
 B2 = 642849266; /* B2 = (76+2/3-0.03306235651)*2**23 */
 
@@ -20,10 +20,10 @@ G  =  3.5714286566e-01; /* 5/14      = 0x3eb6db6e */
 
 float cbrtf(float x)
 {
-    __int32_t    hx;
+    int32_t    hx;
     float r, s, t;
-    __uint32_t sign;
-    __uint32_t high;
+    uint32_t sign;
+    uint32_t high;
 
     GET_FLOAT_WORD(hx, x);
     sign = hx & 0x80000000;     /* sign= sign(x) */

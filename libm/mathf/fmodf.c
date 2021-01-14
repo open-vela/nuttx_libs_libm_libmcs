@@ -14,7 +14,7 @@ static const float one = 1.0, Zero[] = {0.0, -0.0,};
 
 float fmodf(float x, float y)
 {
-    __int32_t n, hx, hy, hz, ix, iy, sx, i;
+    int32_t n, hx, hy, hz, ix, iy, sx, i;
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
@@ -34,7 +34,7 @@ float fmodf(float x, float y)
     }
 
     if (hx == hy) {
-        return Zero[(__uint32_t)sx >> 31];    /* |x|=|y| return x*0*/
+        return Zero[(uint32_t)sx >> 31];    /* |x|=|y| return x*0*/
     }
 
     /* Note: y cannot be zero if we reach here. */
@@ -82,7 +82,7 @@ float fmodf(float x, float y)
             hx = hx + hx;
         } else {
             if (hz == 0) {    /* return sign(x)*0 */
-                return Zero[(__uint32_t)sx >> 31];
+                return Zero[(uint32_t)sx >> 31];
             }
 
             hx = hz + hz;
@@ -97,7 +97,7 @@ float fmodf(float x, float y)
 
     /* convert back to floating value and restore the sign */
     if (hx == 0) {        /* return sign(x)*0 */
-        return Zero[(__uint32_t)sx >> 31];
+        return Zero[(uint32_t)sx >> 31];
     }
 
     while (hx < 0x00800000) {     /* normalize x */

@@ -8,9 +8,9 @@
 
 long long int llround(double x)
 {
-    __int32_t sign, exponent_less_1023;
+    int32_t sign, exponent_less_1023;
     /* Most significant word, least significant word. */
-    __uint32_t msw, lsw;
+    uint32_t msw, lsw;
     long long int result;
 
     EXTRACT_WORDS(msw, lsw, x);

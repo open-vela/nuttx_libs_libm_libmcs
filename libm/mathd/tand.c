@@ -120,13 +120,13 @@ T[] =  {
 double __tan(double x, double y, int iy)
 {
     double z, r, v, w, s;
-    __int32_t ix, hx;
+    int32_t ix, hx;
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;  /* high word of |x| */
 
     if (ix < 0x3e300000) {         /* x < 2**-28 */
         if ((int)x == 0) {         /* generate inexact */
-            __uint32_t low;
+            uint32_t low;
             GET_LOW_WORD(low, x);
 
             if (((ix | low) | (iy + 1)) == 0) {
@@ -197,7 +197,7 @@ double __tan(double x, double y, int iy)
 double tan(double x)
 {
     double y[2], z = 0.0;
-    __int32_t n, ix;
+    int32_t n, ix;
 
     /* High word of x. */
     GET_HIGH_WORD(ix, x);

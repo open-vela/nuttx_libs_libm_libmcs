@@ -9,7 +9,7 @@ static const float one = 1.0, shuge = 1.0e37;
 float sinhf(float x)
 {
     float t, w, h;
-    __int32_t ix, jx;
+    int32_t ix, jx;
 
     GET_FLOAT_WORD(jx, x);
     ix = jx & 0x7fffffff;

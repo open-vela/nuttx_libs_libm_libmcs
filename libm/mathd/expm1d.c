@@ -153,8 +153,8 @@ Q5          = -2.01099218183624371326e-07; /* BE8AFDB7 6E09C32D */
 double expm1(double x)
 {
     double y, hi, lo, c, t, e, hxs, hfx, r1;
-    __int32_t k, xsb;
-    __uint32_t hx;
+    int32_t k, xsb;
+    uint32_t hx;
 
     GET_HIGH_WORD(hx, x);
     xsb = hx & 0x80000000;      /* sign bit of x */
@@ -171,7 +171,7 @@ double expm1(double x)
     if (hx >= 0x4043687A) {           /* if |x|>=56*ln2 */
         if (hx >= 0x40862E42) {       /* if |x|>=709.78... */
             if (hx >= 0x7ff00000) {
-                __uint32_t low;
+                uint32_t low;
                 GET_LOW_WORD(low, x);
 
                 if (((hx & 0xfffff) | low) != 0) {
@@ -247,7 +247,7 @@ double expm1(double x)
         }
 
         if (k <= -2 || k > 56) { /* suffice to return exp(x)-1 */
-            __uint32_t high;
+            uint32_t high;
             y = one - (e - x);
             GET_HIGH_WORD(high, y);
             SET_HIGH_WORD(y, high + (k << 20)); /* add k to y's exponent */
@@ -257,13 +257,13 @@ double expm1(double x)
         t = one;
 
         if (k < 20) {
-            __uint32_t high;
+            uint32_t high;
             SET_HIGH_WORD(t, 0x3ff00000 - (0x200000 >> k)); /* t=1-2^-k */
             y = t - (e - x);
             GET_HIGH_WORD(high, y);
             SET_HIGH_WORD(y, high + (k << 20)); /* add k to y's exponent */
         } else {
-            __uint32_t high;
+            uint32_t high;
             SET_HIGH_WORD(t, ((0x3ff - k) << 20)); /* 2^-k */
             y = x - (e + t);
             y += one;

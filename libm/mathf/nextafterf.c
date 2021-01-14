@@ -6,7 +6,7 @@
 
 float nextafterf(float x, float y)
 {
-    __int32_t hx, hy, ix, iy;
+    int32_t hx, hy, ix, iy;
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);

@@ -5,7 +5,7 @@
 
 int __fpclassifyd(double x)
 {
-    __uint32_t msw, lsw;
+    uint32_t msw, lsw;
 
     EXTRACT_WORDS(msw, lsw, x);
 

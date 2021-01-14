@@ -5,7 +5,7 @@
 
 float truncf(float x)
 {
-    __int32_t signbit, w, exponent_less_127;
+    int32_t signbit, w, exponent_less_127;
 
     GET_FLOAT_WORD(w, x);
 

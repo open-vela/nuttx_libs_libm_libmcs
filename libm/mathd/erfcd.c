@@ -221,13 +221,13 @@ sb7  = -2.24409524465858183362e+01; /* 0xC03670E2, 0x42712D62 */
 
 double erfc(double x)
 {
-    __int32_t hx, ix;
+    int32_t hx, ix;
     double R, S, P, Q, s, y, z, r;
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
     if (ix >= 0x7ff00000) {        /* erfc(nan)=nan, erfc(+-inf)=0,2 */
-        return (double)(((__uint32_t)hx >> 31) << 1) + one / x;
+        return (double)(((uint32_t)hx >> 31) << 1) + one / x;
     }
 
     if (ix < 0x3feb0000) {         /* |x|<0.84375 */

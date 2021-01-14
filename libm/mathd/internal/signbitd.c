@@ -35,7 +35,7 @@ C99, POSIX.
 
 int __signbitd(double x)
 {
-    __uint32_t msw;
+    uint32_t msw;
 
     GET_HIGH_WORD(msw, x);
 

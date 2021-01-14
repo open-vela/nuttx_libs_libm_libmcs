@@ -102,8 +102,8 @@ static const double zero  =  0.0;
 double log(double x)
 {
     double hfsq, f, s, z, R, w, t1, t2, dk;
-    __int32_t k, hx, i, j;
-    __uint32_t lx;
+    int32_t k, hx, i, j;
+    uint32_t lx;
 
     EXTRACT_WORDS(hx, lx, x);
 
