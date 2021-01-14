@@ -14,7 +14,7 @@
 
 float logbf(float x)
 {
-    __int32_t hx, ix;
+    int32_t hx, ix;
 
     GET_FLOAT_WORD(hx, x);
     hx &= 0x7fffffff;

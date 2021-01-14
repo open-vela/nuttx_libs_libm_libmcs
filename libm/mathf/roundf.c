@@ -5,7 +5,7 @@
 
 float roundf(float x)
 {
-    __uint32_t w;
+    uint32_t w;
     /* Most significant word, least significant word. */
     int exponent_less_127;
 
@@ -21,7 +21,7 @@ float roundf(float x)
             if (exponent_less_127 == -1)
                 /* Result is +1.0 or -1.0. */
             {
-                w |= ((__uint32_t)127 << 23);
+                w |= ((uint32_t)127 << 23);
             }
         } else {
             unsigned int exponent_mask = 0x007fffff >> exponent_less_127;

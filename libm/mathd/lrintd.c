@@ -65,8 +65,8 @@ static const double TWO52[2] = {
 
 long int lrint(double x)
 {
-    __int32_t i0, j0, sx;
-    __uint32_t i1;
+    int32_t i0, j0, sx;
+    uint32_t i1;
     double t;
     volatile double w;
     long int result;

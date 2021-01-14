@@ -9,7 +9,7 @@ static const float one = 1.0, two = 2.0, tiny = 1.0e-30;
 float tanhf(float x)
 {
     float t, z;
-    __int32_t jx, ix;
+    int32_t jx, ix;
 
     GET_FLOAT_WORD(jx, x);
     ix = jx & 0x7fffffff;

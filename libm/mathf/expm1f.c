@@ -21,8 +21,8 @@ Q5     = -2.0109921195e-07; /* 0xb457edbb */
 float expm1f(float x)
 {
     float y, hi, lo, c, t, e, hxs, hfx, r1;
-    __int32_t k, xsb;
-    __uint32_t hx;
+    int32_t k, xsb;
+    uint32_t hx;
 
     GET_FLOAT_WORD(hx, x);
     xsb = hx & 0x80000000;      /* sign bit of x */
@@ -110,7 +110,7 @@ float expm1f(float x)
         }
 
         if (k <= -2 || k > 56) { /* suffice to return exp(x)-1 */
-            __int32_t i;
+            int32_t i;
             y = one - (e - x);
             GET_FLOAT_WORD(i, y);
             SET_FLOAT_WORD(y, i + (k << 23)); /* add k to y's exponent */
@@ -120,13 +120,13 @@ float expm1f(float x)
         t = one;
 
         if (k < 23) {
-            __int32_t i;
+            int32_t i;
             SET_FLOAT_WORD(t, 0x3f800000 - (0x1000000 >> k)); /* t=1-2^-k */
             y = t - (e - x);
             GET_FLOAT_WORD(i, y);
             SET_FLOAT_WORD(y, i + (k << 23)); /* add k to y's exponent */
         } else {
-            __int32_t i;
+            int32_t i;
             SET_FLOAT_WORD(t, ((0x7f - k) << 23)); /* 2^-k */
             y = x - (e + t);
             y += one;

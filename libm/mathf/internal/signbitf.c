@@ -35,7 +35,7 @@ C99, POSIX.
 
 int __signbitf(float x)
 {
-    __uint32_t w;
+    uint32_t w;
 
     GET_FLOAT_WORD(w, x);
 

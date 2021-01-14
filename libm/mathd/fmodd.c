@@ -51,8 +51,8 @@ static const double one = 1.0, Zero[] = {0.0, -0.0,};
 
 double fmod(double x, double y)
 {
-    __int32_t n, hx, hy, hz, ix, iy, sx, i;
-    __uint32_t lx, ly, lz;
+    int32_t n, hx, hy, hz, ix, iy, sx, i;
+    uint32_t lx, ly, lz;
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
@@ -72,7 +72,7 @@ double fmod(double x, double y)
         }
 
         if (lx == ly) {
-            return Zero[(__uint32_t)sx >> 31];    /* |x|=|y| return x*0*/
+            return Zero[(uint32_t)sx >> 31];    /* |x|=|y| return x*0*/
         }
     }
 
@@ -151,7 +151,7 @@ double fmod(double x, double y)
             lx = lx + lx;
         } else {
             if ((hz | lz) == 0) {  /* return sign(x)*0 */
-                return Zero[(__uint32_t)sx >> 31];
+                return Zero[(uint32_t)sx >> 31];
             }
 
             hx = hz + hz + (lz >> 31);
@@ -173,7 +173,7 @@ double fmod(double x, double y)
 
     /* convert back to floating value and restore the sign */
     if ((hx | lx) == 0) {      /* return sign(x)*0 */
-        return Zero[(__uint32_t)sx >> 31];
+        return Zero[(uint32_t)sx >> 31];
     }
 
     while (hx < 0x00100000) {     /* normalize x */
@@ -189,7 +189,7 @@ double fmod(double x, double y)
         n = -1022 - iy;
 
         if (n <= 20) {
-            lx = (lx >> n) | ((__uint32_t)hx << (32 - n));
+            lx = (lx >> n) | ((uint32_t)hx << (32 - n));
             hx >>= n;
         } else if (n <= 31) {
             lx = (hx << (32 - n)) | (lx >> n);

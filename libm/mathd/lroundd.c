@@ -46,9 +46,9 @@ ANSI C, POSIX
 
 long int lround(double x)
 {
-    __int32_t sign, exponent_less_1023;
+    int32_t sign, exponent_less_1023;
     /* Most significant word, least significant word. */
-    __uint32_t msw, lsw;
+    uint32_t msw, lsw;
     long int result;
 
     EXTRACT_WORDS(msw, lsw, x);

@@ -39,8 +39,8 @@ float powf(float x, float y)
 {
     float z, ax, z_h, z_l, p_h, p_l;
     float y1, t1, t2, r, s, t, u, v, w;
-    __int32_t i, j, k, yisint, n;
-    __int32_t hx, hy, ix, iy, is;
+    int32_t i, j, k, yisint, n;
+    int32_t hx, hy, ix, iy, is;
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
@@ -137,7 +137,7 @@ float powf(float x, float y)
     }
 
     /* (x<0)**(non-int) is NaN */
-    if (((((__uint32_t)hx >> 31) - 1) | yisint) == 0) {
+    if (((((uint32_t)hx >> 31) - 1) | yisint) == 0) {
         return (x - x) / (x - x);
     }
 
@@ -230,7 +230,7 @@ float powf(float x, float y)
 
     s = one; /* s (sign of result -ve**odd) = -1 else = 1 */
 
-    if (((((__uint32_t)hx >> 31) - 1) | (yisint - 1)) == 0) {
+    if (((((uint32_t)hx >> 31) - 1) | (yisint - 1)) == 0) {
         s = -one;    /* (-ve)**(odd int) */
     }
 

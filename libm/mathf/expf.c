@@ -25,8 +25,8 @@ P5        =   4.1381369442e-08; /* 0x3331bb4c */
 float expf(float x)    /* default IEEE double exp */
 {
     float y, hi, lo, c, t;
-    __int32_t k = 0, xsb, sx;
-    __uint32_t hx;
+    int32_t k = 0, xsb, sx;
+    uint32_t hx;
 
     GET_FLOAT_WORD(sx, x);
     xsb = (sx >> 31) & 1;    /* sign bit of x */
@@ -80,12 +80,12 @@ float expf(float x)    /* default IEEE double exp */
     }
 
     if (k >= -125) {
-        __uint32_t hy;
+        uint32_t hy;
         GET_FLOAT_WORD(hy, y);
         SET_FLOAT_WORD(y, hy + (k << 23)); /* add k to y's exponent */
         return y;
     } else {
-        __uint32_t hy;
+        uint32_t hy;
         GET_FLOAT_WORD(hy, y);
         SET_FLOAT_WORD(y, hy + ((k + 100) << 23)); /* add k to y's exponent */
         return y * twom100;

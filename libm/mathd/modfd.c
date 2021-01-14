@@ -55,8 +55,8 @@ QUICKREF
 
 double modf(double x, double *iptr)
 {
-    __int32_t i0, i1, j0;
-    __uint32_t i;
+    int32_t i0, i1, j0;
+    uint32_t i;
     EXTRACT_WORDS(i0, i1, x);
     j0 = ((i0 >> 20) & 0x7ff) - 0x3ff;               /* exponent of x */
 
@@ -86,7 +86,7 @@ double modf(double x, double *iptr)
         INSERT_WORDS(x, i0 & 0x80000000, 0);         /* return +-0 */
         return x;
     } else {                                         /* fraction part in low x */
-        i = ((__uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
 
         if ((i1 & i) == 0) {                         /* x is integral */
             *iptr = x;

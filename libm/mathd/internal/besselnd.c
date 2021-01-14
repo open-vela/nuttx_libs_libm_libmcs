@@ -40,7 +40,7 @@ static const double zero  =  0.00000000000000000000e+00;
 
 double __jn(int n, double x)
 {
-    __int32_t i, hx, ix, lx, sgn;
+    int32_t i, hx, ix, lx, sgn;
     double a, b, temp, di;
     double z, w;
 
@@ -51,7 +51,7 @@ double __jn(int n, double x)
     ix = 0x7fffffff & hx;
 
     /* if J(n,NaN) is NaN */
-    if ((ix | ((__uint32_t)(lx | -lx)) >> 31) > 0x7ff00000) {
+    if ((ix | ((uint32_t)(lx | -lx)) >> 31) > 0x7ff00000) {
         return x + x;
     }
 
@@ -169,7 +169,7 @@ double __jn(int n, double x)
             /* determine k */
             double t, v;
             double q0, q1, h, tmp;
-            __int32_t k, m;
+            int32_t k, m;
             w  = (n + n) / (double)x;
             h = 2.0 / (double)x;
             q0 = w;
@@ -243,15 +243,15 @@ double __jn(int n, double x)
 
 double __yn(int n, double x)
 {
-    __int32_t i, hx, ix, lx;
-    __int32_t sign;
+    int32_t i, hx, ix, lx;
+    int32_t sign;
     double a, b, temp;
 
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;
 
     /* if Y(n,NaN) is NaN */
-    if ((ix | ((__uint32_t)(lx | -lx)) >> 31) > 0x7ff00000) {
+    if ((ix | ((uint32_t)(lx | -lx)) >> 31) > 0x7ff00000) {
         return x + x;
     }
 
@@ -316,7 +316,7 @@ double __yn(int n, double x)
 
         b = invsqrtpi * temp / __ieee754_sqrt(x);
     } else {
-        __uint32_t high;
+        uint32_t high;
         a = __ieee754_y0(x);
         b = __ieee754_y1(x);
         /* quit if b is -inf */

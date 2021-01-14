@@ -140,9 +140,9 @@ one     =  1.0,
 two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
 twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
 
-int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const __int32_t *ipio2)
+int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const int32_t *ipio2)
 {
-    __int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
+    int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
     double z, fw, f[20], fq[20], q[20];
 
     /* initialize jk*/
@@ -181,15 +181,15 @@ recompute:
 
     /* distill q[] into iq[] reversingly */
     for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
-        fw    = (double)((__int32_t)(twon24 * z));
-        iq[i] = (__int32_t)(z - two24 * fw);
+        fw    = (double)((int32_t)(twon24 * z));
+        iq[i] = (int32_t)(z - two24 * fw);
         z     =  q[j - 1] + fw;
     }
 
     /* compute n */
     z  = scalbn(z, (int)q0);       /* actual value of z */
     z -= 8.0 * floor(z * 0.125);    /* trim off integer >= 8 */
-    n  = (__int32_t) z;
+    n  = (int32_t) z;
     z -= (double)n;
     ih = 0;
 
@@ -281,13 +281,13 @@ recompute:
         z = scalbn(z, -(int)q0);
 
         if (z >= two24) {
-            fw = (double)((__int32_t)(twon24 * z));
-            iq[jz] = (__int32_t)(z - two24 * fw);
+            fw = (double)((int32_t)(twon24 * z));
+            iq[jz] = (int32_t)(z - two24 * fw);
             jz += 1;
             q0 += 24;
-            iq[jz] = (__int32_t) fw;
+            iq[jz] = (int32_t) fw;
         } else {
-            iq[jz] = (__int32_t) z ;
+            iq[jz] = (int32_t) z ;
         }
     }
 
@@ -378,7 +378,7 @@ recompute:
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi
  */
-static const __int32_t two_over_pi[] = {
+static const int32_t two_over_pi[] = {
     0xA2F983, 0x6E4E44, 0x1529FC, 0x2757D1, 0xF534DD, 0xC0DB62, 0x95993C, 0x439041, 0xFE5163,
     0xABDEBB, 0xC561B7, 0x246E3A, 0x424DD2, 0xE00649, 0x2EEA09, 0xD1921C, 0xFE1DEB, 0x1CB129,
     0xA73EE8, 0x8235F5, 0x2EBB44, 0x84E99C, 0x7026B4, 0x5F7E41, 0x3991D6, 0x398353, 0x39F49C,
@@ -389,7 +389,7 @@ static const __int32_t two_over_pi[] = {
     0x73A8C9, 0x60E27B, 0xC08C6B,
 };
 
-static const __int32_t npio2_hw[] = {
+static const int32_t npio2_hw[] = {
     0x3FF921FB, 0x400921FB, 0x4012D97C, 0x401921FB, 0x401F6A7A, 0x4022D97C, 0x4025FDBB, 0x402921FB,
     0x402C463A, 0x402F6A7A, 0x4031475C, 0x4032D97C, 0x40346B9C, 0x4035FDBB, 0x40378FDB, 0x403921FB,
     0x403AB41B, 0x403C463A, 0x403DD85A, 0x403F6A7A, 0x40407E4C, 0x4041475C, 0x4042106C, 0x4042D97C,
@@ -417,13 +417,13 @@ pio2_2t  =  2.02226624879595063154e-21, /* 0x3BA3198A, 0x2E037073 */
 pio2_3   =  2.02226624871116645580e-21, /* 0x3BA3198A, 0x2E000000 */
 pio2_3t  =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 
-__int32_t __rem_pio2(double x, double *y)
+int32_t __rem_pio2(double x, double *y)
 {
     double z = 0.0, w, t, r, fn;
     double tx[3];
-    __int32_t i, j, n, ix, hx;
+    int32_t i, j, n, ix, hx;
     int e0, nx;
-    __uint32_t low;
+    uint32_t low;
 
     GET_HIGH_WORD(hx, x);       /* high word of x */
     ix = hx & 0x7fffffff;
@@ -466,7 +466,7 @@ __int32_t __rem_pio2(double x, double *y)
 
     if (ix <= 0x413921fb) { /* |x| ~<= 2^19*(pi/2), medium size */
         t  = fabs(x);
-        n  = (__int32_t)(t * invpio2 + half);
+        n  = (int32_t)(t * invpio2 + half);
         fn = (double)n;
         r  = t - fn * pio2_1;
         w  = fn * pio2_1t;  /* 1st round good to 85 bit */
@@ -474,7 +474,7 @@ __int32_t __rem_pio2(double x, double *y)
         if (n < 32 && ix != npio2_hw[n - 1]) {
             y[0] = r - w;  /* quick check no cancellation */
         } else {
-            __uint32_t high;
+            uint32_t high;
             j  = ix >> 20;
             y[0] = r - w;
             GET_HIGH_WORD(high, y[0]);
@@ -522,10 +522,10 @@ __int32_t __rem_pio2(double x, double *y)
     GET_LOW_WORD(low, x);
     SET_LOW_WORD(z, low);
     e0 = (int)((ix >> 20) - 1046); /* e0 = ilogb(z)-23; */
-    SET_HIGH_WORD(z, ix - ((__int32_t)e0 << 20));
+    SET_HIGH_WORD(z, ix - ((int32_t)e0 << 20));
 
     for (i = 0; i < 2; i++) {
-        tx[i] = (double)((__int32_t)(z));
+        tx[i] = (double)((int32_t)(z));
         z     = (z - tx[i]) * two24;
     }
 
@@ -594,7 +594,7 @@ C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 double __cos(double x, double y)
 {
     double a, hz, z, r, qx;
-    __int32_t ix;
+    int32_t ix;
     GET_HIGH_WORD(ix, x);
     ix &= 0x7fffffff;            /* ix = |x|'s high word*/
 
@@ -662,7 +662,7 @@ S6   =  1.58969099521155010221e-10; /* 0x3DE5D93A, 0x5ACFD57C */
 double __sin(double x, double y, int iy)
 {
     double z, r, v;
-    __int32_t ix;
+    int32_t ix;
     GET_HIGH_WORD(ix, x);
     ix &= 0x7fffffff;            /* high word of x */
 

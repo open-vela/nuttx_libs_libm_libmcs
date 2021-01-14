@@ -6,8 +6,8 @@
 
 float modff(float x, float *iptr)
 {
-    __int32_t i0, j0;
-    __uint32_t i;
+    int32_t i0, j0;
+    uint32_t i;
     GET_FLOAT_WORD(i0, x);
     j0 = ((i0 >> 23) & 0xff) - 0x7f; /* exponent of x */
 

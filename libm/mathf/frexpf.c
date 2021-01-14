@@ -9,7 +9,7 @@ two25 =  3.3554432000e+07; /* 0x4c000000 */
 
 float frexpf(float x, int *eptr)
 {
-    __int32_t hx, ix;
+    int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);
     ix = 0x7fffffff & hx;
     *eptr = 0;

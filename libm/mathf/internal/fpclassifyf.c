@@ -5,7 +5,7 @@
 
 int __fpclassifyf(float x)
 {
-    __uint32_t w;
+    uint32_t w;
 
     GET_FLOAT_WORD(w, x);
 

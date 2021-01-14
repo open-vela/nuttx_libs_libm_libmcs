@@ -221,13 +221,13 @@ sb7  = -2.24409524465858183362e+01; /* 0xC03670E2, 0x42712D62 */
 
 double erf(double x)
 {
-    __int32_t hx, ix, i;
+    int32_t hx, ix, i;
     double R, S, P, Q, s, y, z, r;
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
     if (ix >= 0x7ff00000) {               /* erf(nan)=nan */
-        i = ((__uint32_t)hx >> 31) << 1;
+        i = ((uint32_t)hx >> 31) << 1;
         return (double)(1 - i) + one / x; /* erf(+-inf)=+-1 */
     }
 

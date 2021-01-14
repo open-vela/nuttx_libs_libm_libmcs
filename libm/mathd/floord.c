@@ -60,8 +60,8 @@ static const double huge = 1.0e300;
 
 double floor(double x)
 {
-    __int32_t i0, i1, j0;
-    __uint32_t i, j;
+    int32_t i0, i1, j0;
+    uint32_t i, j;
     EXTRACT_WORDS(i0, i1, x);
     j0 = ((i0 >> 20) & 0x7ff) - 0x3ff;
 
@@ -98,7 +98,7 @@ double floor(double x)
             return x;    /* x is integral */
         }
     } else {
-        i = ((__uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
 
         if ((i1 & i) == 0) {
             return x;    /* x is integral */

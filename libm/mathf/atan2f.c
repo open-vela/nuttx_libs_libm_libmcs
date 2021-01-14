@@ -15,7 +15,7 @@ pi_lo   = -8.7422776573e-08; /* 0xb3bbbd2e */
 float atan2f(float y, float x)
 {
     float z;
-    __int32_t k, m, hx, hy, ix, iy;
+    int32_t k, m, hx, hy, ix, iy;
 
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
@@ -107,7 +107,7 @@ float atan2f(float y, float x)
         return       z  ;         /* atan(+,+) */
 
     case 1:
-        __uint32_t zh;
+        uint32_t zh;
         GET_FLOAT_WORD(zh, z);
         SET_FLOAT_WORD(z, zh ^ 0x80000000);
         return       z  ;         /* atan(-,+) */

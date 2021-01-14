@@ -26,8 +26,8 @@ TWO23[2] = {
 
 long long int llrintf(float x)
 {
-    __int32_t j0, sx;
-    __uint32_t i0;
+    int32_t j0, sx;
+    uint32_t i0;
     float t;
     volatile float w;
     long long int result;
@@ -52,7 +52,7 @@ long long int llrintf(float x)
 
             /* Detect the all-zeros representation of plus and
                minus zero, which fails the calculation below. */
-            if ((i0 & ~((__uint32_t)1 << 31)) == 0) {
+            if ((i0 & ~((uint32_t)1 << 31)) == 0) {
                 return 0;
             }
 

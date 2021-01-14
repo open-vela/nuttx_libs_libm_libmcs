@@ -81,13 +81,13 @@ sb7  = -2.2440952301e+01; /* 0xc1b38712 */
 
 float erff(float x)
 {
-    __int32_t hx, ix, i;
+    int32_t hx, ix, i;
     float R, S, P, Q, s, y, z, r;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
     if (!FLT_UWORD_IS_FINITE(ix)) {       /* erf(nan)=nan */
-        i = ((__uint32_t)hx >> 31) << 1;
+        i = ((uint32_t)hx >> 31) << 1;
         return (float)(1 - i) + one / x; /* erf(+-inf)=+-1 */
     }
 

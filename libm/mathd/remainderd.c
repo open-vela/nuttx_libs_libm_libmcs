@@ -44,8 +44,8 @@ static const double zero = 0.0;
 
 double remainder(double x, double p)
 {
-    __int32_t hx, hp;
-    __uint32_t sx, lx, lp;
+    int32_t hx, hp;
+    uint32_t sx, lx, lp;
     double p_half;
 
     EXTRACT_WORDS(hx, lx, x);
