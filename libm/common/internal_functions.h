@@ -6,12 +6,12 @@
 /* Double internal trigonometric functions */
 extern double __sin(double x, double y, int iy);
 extern double __cos(double x, double y);
-extern __int32_t __rem_pio2(double x, double *y);
+extern int32_t __rem_pio2(double x, double *y);
 
 /* Float internal trigonometric functions */
 extern float __sinf(float x, float y, int iy);
 extern float __cosf(float x, float y);
-extern __int32_t __rem_pio2f(float x, float *y);
+extern int32_t __rem_pio2f(float x, float *y);
 
 /* Double internal Bessel functions */
 extern double __j0(double x);

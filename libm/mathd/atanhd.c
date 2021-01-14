@@ -80,8 +80,8 @@ static const double one = 1.0, huge = 1e300, zero = 0.0;
 double atanh(double x)
 {
     double t;
-    __int32_t hx, ix;
-    __uint32_t lx;
+    int32_t hx, ix;
+    uint32_t lx;
     EXTRACT_WORDS(hx, lx, x);
     ix = hx & 0x7fffffff;
 

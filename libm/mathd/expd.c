@@ -127,8 +127,8 @@ P5          =  4.13813679705723846039e-08;  /* 0x3E663769, 0x72BEA4D0 */
 double exp(double x)    /* default IEEE double exp */
 {
     double y, hi, lo, c, t;
-    __int32_t k = 0, xsb;
-    __uint32_t hx;
+    int32_t k = 0, xsb;
+    uint32_t hx;
 
     GET_HIGH_WORD(hx, x);
     xsb = (hx >> 31) & 1;    /* sign bit of x */
@@ -137,7 +137,7 @@ double exp(double x)    /* default IEEE double exp */
     /* filter out non-finite argument */
     if (hx >= 0x40862E42) {           /* if |x|>=709.78... */
         if (hx >= 0x7ff00000) {
-            __uint32_t lx;
+            uint32_t lx;
             GET_LOW_WORD(lx, x);
 
             if (((hx & 0xfffff) | lx) != 0) {
@@ -187,12 +187,12 @@ double exp(double x)    /* default IEEE double exp */
     }
 
     if (k >= -1021) {
-        __uint32_t hy;
+        uint32_t hy;
         GET_HIGH_WORD(hy, y);
         SET_HIGH_WORD(y, hy + (k << 20)); /* add k to y's exponent */
         return y;
     } else {
-        __uint32_t hy;
+        uint32_t hy;
         GET_HIGH_WORD(hy, y);
         SET_HIGH_WORD(y, hy + ((k + 1000) << 20)); /* add k to y's exponent */
         return y * twom1000;

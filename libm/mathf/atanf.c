@@ -39,7 +39,7 @@ huge   = 1.0e30;
 float atanf(float x)
 {
     float w, s1, s2, z;
-    __int32_t ix, hx, id;
+    int32_t ix, hx, id;
 
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;

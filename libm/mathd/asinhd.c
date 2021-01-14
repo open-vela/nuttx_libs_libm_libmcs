@@ -58,7 +58,7 @@ huge =  1.00000000000000000000e+300;
 double asinh(double x)
 {
     double t, w;
-    __int32_t hx, ix;
+    int32_t hx, ix;
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
 

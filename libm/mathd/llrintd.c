@@ -27,8 +27,8 @@ static const double TWO52[2] = {
 
 long long int llrint(double x)
 {
-    __int32_t i0, j0, sx;
-    __uint32_t i1;
+    int32_t i0, j0, sx;
+    uint32_t i1;
     double t;
     volatile double w;
     long long int result;
@@ -55,7 +55,7 @@ long long int llrint(double x)
 
             /* Detect the all-zeros representation of plus and
                minus zero, which fails the calculation below. */
-            if ((i0 & ~((__int32_t)1 << 31)) == 0) {
+            if ((i0 & ~((int32_t)1 << 31)) == 0) {
                 return 0;
             }
 

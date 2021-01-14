@@ -20,8 +20,8 @@ tiny    =  1.0e-30;
 
 float scalbnf(float x, int n)
 {
-    __int32_t  k, ix;
-    __uint32_t hx;
+    int32_t  k, ix;
+    uint32_t hx;
 
     GET_FLOAT_WORD(ix, x);
     hx = ix & 0x7fffffff;

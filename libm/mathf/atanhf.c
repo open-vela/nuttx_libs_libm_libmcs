@@ -9,7 +9,7 @@ static const float one = 1.0, huge = 1e30, zero = 0.0;
 float atanhf(float x)
 {
     float t;
-    __int32_t hx, ix;
+    int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 

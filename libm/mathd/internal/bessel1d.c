@@ -128,7 +128,7 @@ static double __pone(double x)
 {
     const double *p, *q;
     double z, r, s;
-    __int32_t ix;
+    int32_t ix;
     GET_HIGH_WORD(ix, x);
     ix &= 0x7fffffff;
 
@@ -237,7 +237,7 @@ static double __qone(double x)
 {
     const double *p, *q;
     double  s, r, z;
-    __int32_t ix;
+    int32_t ix;
     GET_HIGH_WORD(ix, x);
     ix &= 0x7fffffff;
 
@@ -284,7 +284,7 @@ static const double zero    = 0.0;
 double __j1(double x)
 {
     double z, s, c, ss, cc, r, u, v, y;
-    __int32_t hx, ix;
+    int32_t hx, ix;
 
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
@@ -361,7 +361,7 @@ static const double V0[5] = {
 double __y1(double x)
 {
     double z, s, c, ss, cc, u, v;
-    __int32_t hx, ix, lx;
+    int32_t hx, ix, lx;
 
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;

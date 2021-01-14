@@ -9,8 +9,8 @@ static const float one = 1.0, tiny = 1.0e-30;
 float sqrtf(float x)
 {
     float z;
-    __uint32_t r, hx;
-    __int32_t ix, s, q, m, t, i;
+    uint32_t r, hx;
+    int32_t ix, s, q, m, t, i;
 
     GET_FLOAT_WORD(ix, x);
     hx = ix & 0x7fffffff;

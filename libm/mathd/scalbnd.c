@@ -63,7 +63,7 @@ tiny    =  1.0e-300;
 
 double scalbn(double x, int n)
 {
-    __int32_t  k, hx, lx;
+    int32_t  k, hx, lx;
     EXTRACT_WORDS(hx, lx, x);
     k = (hx & 0x7ff00000) >> 20;  /* extract exponent */
 

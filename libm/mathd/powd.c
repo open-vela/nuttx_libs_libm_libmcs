@@ -119,9 +119,9 @@ double pow(double x, double y)
 {
     double z, ax, z_h, z_l, p_h, p_l;
     double y1, t1, t2, r, s, t, u, v, w;
-    __int32_t i, j, k, yisint, n;
-    __int32_t hx, hy, ix, iy;
-    __uint32_t lx, ly;
+    int32_t i, j, k, yisint, n;
+    int32_t hx, hy, ix, iy;
+    uint32_t lx, ly;
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
@@ -235,7 +235,7 @@ double pow(double x, double y)
     if((((hx>>31)+1)|yisint)==0) return (x-x)/(x-x);
        but ANSI C says a right shift of a signed negative quantity is
        implementation defined.  */
-    if (((((__uint32_t)hx >> 31) - 1) | yisint) == 0) {
+    if (((((uint32_t)hx >> 31) - 1) | yisint) == 0) {
         return (x - x) / (x - x);
     }
 
@@ -334,7 +334,7 @@ double pow(double x, double y)
 
     s = one; /* s (sign of result -ve**odd) = -1 else = 1 */
 
-    if (((((__uint32_t)hx >> 31) - 1) | (yisint - 1)) == 0) {
+    if (((((uint32_t)hx >> 31) - 1) | (yisint - 1)) == 0) {
         s = -one;    /* (-ve)**(odd int) */
     }
 

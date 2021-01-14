@@ -77,7 +77,7 @@ static const float zero =  0.0000000000e+00;
 static float __sin_pif(float x)
 {
     float y, z;
-    __int32_t n, ix;
+    int32_t n, ix;
 
     GET_FLOAT_WORD(ix, x);
     ix &= 0x7fffffff;
@@ -97,7 +97,7 @@ static float __sin_pif(float x)
     if (z != y) {             /* inexact anyway */
         y  *= (float)0.5;
         y   = (float)2.0 * (y - floorf(y));  /* y = |x| mod 2.0 */
-        n   = (__int32_t)(y * (float)4.0);
+        n   = (int32_t)(y * (float)4.0);
     } else {
         if (ix >= 0x4b800000) {
             y = zero;
@@ -145,7 +145,7 @@ static float __sin_pif(float x)
 float __lgammaf(float x, int *signgamp)
 {
     float t, y, z, nadj = 0.0, p, p1, p2, p3, q, r, w;
-    __int32_t i, hx, ix;
+    int32_t i, hx, ix;
 
     GET_FLOAT_WORD(hx, x);
 
@@ -249,7 +249,7 @@ float __lgammaf(float x, int *signgamp)
             r += (-(float)0.5 * y + p1 / p2);
         }
     } else if (ix < 0x41000000) {        /* x < 8.0 */
-        i = (__int32_t)x;
+        i = (int32_t)x;
         t = zero;
         y = x - (float)i;
         p = y * (s0 + y * (s1 + y * (s2 + y * (s3 + y * (s4 + y * (s5 + y * s6))))));
