@@ -50,7 +50,7 @@ ANSI C, POSIX
  *    Inexact flag raised if x not equal to lrint(x).
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

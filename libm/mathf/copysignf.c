@@ -8,7 +8,7 @@
  * with the sign bit of y.
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 float copysignf(float x, float y)
 {
