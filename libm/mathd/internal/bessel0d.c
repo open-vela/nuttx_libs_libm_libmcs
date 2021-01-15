@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_j0(x), __ieee754_y0(x)
+/* __j0(x), __y0(x)
  * Bessel function of the first and second kinds of order zero.
  * Method -- j0(x):
  *    1. For tiny x, we use j0(x) = 1 - x^2/4 + x^4/64 - ...
@@ -313,11 +313,11 @@ double __j0(double x)
          * y0(x) = 1/sqrt(pi) * (P(0,x)*ss + Q(0,x)*cc) / sqrt(x)
          */
         if (ix > 0x48000000) {
-            z = (invsqrtpi * cc) / __ieee754_sqrt(x);
+            z = (invsqrtpi * cc) / __sqrt(x);
         } else {
             u = __pzero(x);
             v = __qzero(x);
-            z = invsqrtpi * (u * cc - v * ss) / __ieee754_sqrt(x);
+            z = invsqrtpi * (u * cc - v * ss) / __sqrt(x);
         }
 
         return z;
@@ -411,24 +411,24 @@ double __y0(double x)
         }
 
         if (ix > 0x48000000) {
-            z = (invsqrtpi * ss) / __ieee754_sqrt(x);
+            z = (invsqrtpi * ss) / __sqrt(x);
         } else {
             u = __pzero(x);
             v = __qzero(x);
-            z = invsqrtpi * (u * ss + v * cc) / __ieee754_sqrt(x);
+            z = invsqrtpi * (u * ss + v * cc) / __sqrt(x);
         }
 
         return z;
     }
 
     if (ix <= 0x3e400000) { /* x < 2**-27 */
-        return (u00 + tpi * __ieee754_log(x));
+        return (u00 + tpi * __log(x));
     }
 
     z = x * x;
     u = u00 + z * (u01 + z * (u02 + z * (u03 + z * (u04 + z * (u05 + z * u06)))));
     v = one + z * (v01 + z * (v02 + z * (v03 + z * v04)));
-    return (u / v + tpi * (__ieee754_j0(x) * __ieee754_log(x)));
+    return (u / v + tpi * (__j0(x) * __log(x)));
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

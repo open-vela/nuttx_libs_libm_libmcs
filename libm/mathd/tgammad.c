@@ -1,10 +1,10 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_tgamma(x)
+/* __tgamma(x)
  * Gamma function. Returns gamma(x)
  *
- * Method: See __ieee754_lgamma_r
+ * Method: See __lgamma_r
  */
 
 /* double gamma(double x)
@@ -19,7 +19,7 @@
 double tgamma(double x)
 {
     int signgam_local;
-    double y = __ieee754_exp(__lgamma(x, &signgam_local));
+    double y = __exp(__lgamma(x, &signgam_local));
 
     if (signgam_local < 0) {
         y = -y;

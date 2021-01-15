@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_acosh(x)
+/* __acosh(x)
  * Method :
  *    Based on
  *        acosh(x) = log [ x + sqrt(x*x-1) ]
@@ -90,16 +90,16 @@ double acosh(double x)
         if (hx >= 0x7ff00000) {  /* x is inf of NaN */
             return x + x;
         } else {
-            return __ieee754_log(x) + ln2;    /* acosh(huge)=log(2x) */
+            return __log(x) + ln2;    /* acosh(huge)=log(2x) */
         }
     } else if (((hx - 0x3ff00000) | lx) == 0) {
         return 0.0;            /* acosh(1) = 0 */
     } else if (hx > 0x40000000) {    /* 2**28 > x > 2 */
         t = x * x;
-        return __ieee754_log(2.0 * x - one / (x + __ieee754_sqrt(t - one)));
+        return __log(2.0 * x - one / (x + __sqrt(t - one)));
     } else {            /* 1<x<2 */
         t = x - one;
-        return log1p(t + __ieee754_sqrt(2.0 * t + t * t));
+        return log1p(t + __sqrt(2.0 * t + t * t));
     }
 }
 

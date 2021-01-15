@@ -33,7 +33,7 @@
 
 double yn(int n, double x)
 {
-    return __ieee754_yn(n, x);
+    return __yn(n, x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

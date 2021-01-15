@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_log10(x)
+/* __log10(x)
  * Return the base 10 logarithm of x
  *
  * Method :
@@ -109,7 +109,7 @@ double log10(double x)
     hx = (hx & 0x000fffff) | ((0x3ff - i) << 20);
     y  = (double)(k + i);
     SET_HIGH_WORD(x, hx);
-    z  = y * log10_2lo + ivln10 * __ieee754_log(x);
+    z  = y * log10_2lo + ivln10 * __log(x);
     return  z + y * log10_2hi;
 }
 
