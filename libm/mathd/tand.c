@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: SunMicrosystems
-// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+/* SPDX-License-Identifier: SunMicrosystems */
+/* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 /* __kernel_tan( x, y, k )
  * kernel tan function on [-pi/4, pi/4], pi/4 ~ 0.7854

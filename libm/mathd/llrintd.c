@@ -1,6 +1,6 @@
-// SPDX-License-Identifier: SunMicrosystems
-// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
-// lrint adapted to be llrint for Newlib, 2009 by Craig Howland.
+/* SPDX-License-Identifier: SunMicrosystems */
+/* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
+/* lrint adapted to be llrint for Newlib, 2009 by Craig Howland. */
 
 /*
  * llrint(x)
