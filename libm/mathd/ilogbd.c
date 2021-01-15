@@ -50,7 +50,7 @@ C99, POSIX
  * ilogb(inf/NaN) = 0x7fffffff (no signal is raised)
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

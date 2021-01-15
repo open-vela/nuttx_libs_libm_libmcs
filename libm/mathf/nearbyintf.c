@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 #include <math.h>
-#include "fdlibm.h"
+#include "tools.h"
 
 float nearbyintf(float x)
 {

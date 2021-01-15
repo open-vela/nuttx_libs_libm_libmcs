@@ -27,7 +27,7 @@
  *
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

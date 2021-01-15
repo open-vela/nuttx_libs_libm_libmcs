@@ -51,7 +51,7 @@ SEEALSO
  * exponentiation or a multiplication.
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

@@ -140,7 +140,7 @@ PORTABILITY
  *           erfc/erf(NaN) is NaN
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

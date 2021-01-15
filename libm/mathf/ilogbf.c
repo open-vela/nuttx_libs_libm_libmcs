@@ -3,7 +3,7 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #include <limits.h>
-#include "fdlibm.h"
+#include "tools.h"
 
 int ilogbf(float x)
 {
