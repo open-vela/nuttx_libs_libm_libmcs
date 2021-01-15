@@ -47,7 +47,6 @@ C99, POSIX.
 
 */
 
-#include <limits.h>
 #include <math.h>
 #include "tools.h"
 
