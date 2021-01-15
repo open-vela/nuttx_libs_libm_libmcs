@@ -10,7 +10,7 @@
  * Per C99 recommendation, a NaN argument is returned unchanged.
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 float logbf(float x)
 {

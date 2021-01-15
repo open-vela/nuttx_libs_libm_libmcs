@@ -8,7 +8,7 @@
  * Method: See __lgammaf
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 float tgammaf(float x)
 {

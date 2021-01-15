@@ -55,7 +55,7 @@ PORTABILITY
  * with *exp=0.
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
