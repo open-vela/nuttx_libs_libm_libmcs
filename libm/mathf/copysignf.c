@@ -8,7 +8,7 @@
  * with the sign bit of y.
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 float copysignf(float x, float y)
 {

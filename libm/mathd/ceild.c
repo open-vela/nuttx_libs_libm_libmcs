@@ -10,7 +10,7 @@
  *    Inexact flag raised if x not equal to ceil(x).
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

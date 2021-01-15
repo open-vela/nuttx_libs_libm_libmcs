@@ -6,7 +6,7 @@
  * fabsf(x) returns the absolute value of x.
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 float fabsf(float x)
 {

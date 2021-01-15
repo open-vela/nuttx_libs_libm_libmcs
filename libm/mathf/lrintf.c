@@ -11,7 +11,7 @@
  *    Inexact flag raised if x not equal to lrintf(x).
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 static const float
 /* Adding a float, x, to 2^23 will cause the result to be rounded based on

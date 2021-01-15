@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 static const float
 one    =  1.0000000000e+00, /* 0x3f800000 */
@@ -91,7 +91,7 @@ float __tanf(float x, float y, int iy)
     }
 }
 
-#include "fdlibm.h"
+#include "tools.h"
 
 float tanf(float x)
 {

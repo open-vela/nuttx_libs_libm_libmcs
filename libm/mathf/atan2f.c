@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 static const float
 tiny    =  1.0e-30,
