@@ -25,7 +25,7 @@ float sinf(float x)
 
     /* argument reduction needed */
     else {
-        n = __ieee754_rem_pio2f(x, y);
+        n = __rem_pio2f(x, y);
 
         switch (n & 3) {
         case 0:

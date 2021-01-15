@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_j1(x), __ieee754_y1(x)
+/* __j1(x), __y1(x)
  * Bessel function of the first and second kinds of order zero.
  * Method -- j1(x):
  *    1. For tiny x, we use j1(x) = x/2 - x^3/16 + x^5/384 - ...
@@ -312,15 +312,15 @@ double __j1(double x)
         }
 
         /*
-         * j1(x) = 1/__ieee754_sqrt(pi) * (P(1,x)*cc - Q(1,x)*ss) / __ieee754_sqrt(x)
-         * y1(x) = 1/__ieee754_sqrt(pi) * (P(1,x)*ss + Q(1,x)*cc) / __ieee754_sqrt(x)
+         * j1(x) = 1/__sqrt(pi) * (P(1,x)*cc - Q(1,x)*ss) / __sqrt(x)
+         * y1(x) = 1/__sqrt(pi) * (P(1,x)*ss + Q(1,x)*cc) / __sqrt(x)
          */
         if (ix > 0x48000000) {
-            z = (invsqrtpi * cc) / __ieee754_sqrt(y);
+            z = (invsqrtpi * cc) / __sqrt(y);
         } else {
             u = __pone(y);
             v = __qone(y);
-            z = invsqrtpi * (u * cc - v * ss) / __ieee754_sqrt(y);
+            z = invsqrtpi * (u * cc - v * ss) / __sqrt(y);
         }
 
         if (hx < 0) {
@@ -407,11 +407,11 @@ double __y1(double x)
          * to compute the worse one.
          */
         if (ix > 0x48000000) {
-            z = (invsqrtpi * ss) / __ieee754_sqrt(x);
+            z = (invsqrtpi * ss) / __sqrt(x);
         } else {
             u = __pone(x);
             v = __qone(x);
-            z = invsqrtpi * (u * ss + v * cc) / __ieee754_sqrt(x);
+            z = invsqrtpi * (u * ss + v * cc) / __sqrt(x);
         }
 
         return z;
@@ -424,7 +424,7 @@ double __y1(double x)
     z = x * x;
     u = U0[0] + z * (U0[1] + z * (U0[2] + z * (U0[3] + z * U0[4])));
     v = one + z * (V0[0] + z * (V0[1] + z * (V0[2] + z * (V0[3] + z * V0[4]))));
-    return (x * (u / v) + tpi * (__ieee754_j1(x) * __ieee754_log(x) - one / x));
+    return (x * (u / v) + tpi * (__j1(x) * __log(x) - one / x));
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

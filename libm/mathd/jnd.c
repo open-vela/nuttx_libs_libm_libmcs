@@ -33,7 +33,7 @@
 
 double jn(int n, double x)
 {
-    return __ieee754_jn(n, x);
+    return __jn(n, x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

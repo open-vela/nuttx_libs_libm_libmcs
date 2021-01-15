@@ -85,7 +85,7 @@ None of the Bessel functions are in ANSI C.
 
 double j0(double x)
 {
-    return __ieee754_j0(x);
+    return __j0(x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

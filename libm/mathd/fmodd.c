@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 /*
- * __ieee754_fmod(x,y)
+ * __fmod(x,y)
  * Return x mod y in exact arithmetic
  * Method: shift and subtract
  */

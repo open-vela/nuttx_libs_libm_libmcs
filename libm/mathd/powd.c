@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_pow(x,y) return x**y
+/* __pow(x,y) return x**y
  *
  *              n
  * Method:  Let x =  2   * (1+f)
@@ -202,7 +202,7 @@ double pow(double x, double y)
 
         if (hy == 0x3fe00000) {            /* y is  0.5 */
             if (hx >= 0) {                 /* x >= +0 */
-                return __ieee754_sqrt(x);
+                return __sqrt(x);
             }
         }
     }

@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_remainder(x,p)
+/* __remainder(x,p)
  * Return :
  *     returns  x REM p  =  x - [x/p]*p as if in infinite
  *     precise arithmetic, where [x/p] is the (infinite bit)
@@ -66,7 +66,7 @@ double remainder(double x, double p)
 
 
     if (hp <= 0x7fdfffff) {
-        x = __ieee754_fmod(x, p + p);                               /* now x < 2p */
+        x = __fmod(x, p + p);                               /* now x < 2p */
     }
 
     if (((hx - hp) | (lx - lp)) == 0) {

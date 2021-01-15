@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_atanh(x)
+/* __atanh(x)
  * Method :
  *    1.Reduced x to positive by atanh(-x) = -atanh(x)
  *    2.For x>=0.5

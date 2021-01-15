@@ -11,7 +11,7 @@
 
 double y1(double x)
 {
-    return __ieee754_y1(x);
+    return __y1(x);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

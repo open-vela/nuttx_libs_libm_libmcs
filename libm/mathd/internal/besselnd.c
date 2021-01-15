@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 /*
- * __ieee754_jn(n, x), __ieee754_yn(n, x)
+ * __jn(n, x), __yn(n, x)
  * floating point Bessel's function of the 1st and 2nd kind
  * of order n
  *
@@ -62,11 +62,11 @@ double __jn(int n, double x)
     }
 
     if (n == 0) {
-        return (__ieee754_j0(x));
+        return (__j0(x));
     }
 
     if (n == 1) {
-        return (__ieee754_j1(x));
+        return (__j1(x));
     }
 
     sgn = (n & 1) & (hx >> 31); /* even n -- 0, odd n -- sign(x) */
@@ -108,10 +108,10 @@ double __jn(int n, double x)
                 break;
             }
 
-            b = invsqrtpi * temp / __ieee754_sqrt(x);
+            b = invsqrtpi * temp / __sqrt(x);
         } else {
-            a = __ieee754_j0(x);
-            b = __ieee754_j1(x);
+            a = __j0(x);
+            b = __j1(x);
 
             for (i = 1; i < n; i++) {
                 temp = b;
@@ -203,7 +203,7 @@ double __jn(int n, double x)
              */
             tmp = n;
             v = two / x;
-            tmp = tmp * __ieee754_log(fabs(v * tmp));
+            tmp = tmp * __log(fabs(v * tmp));
 
             if (tmp < 7.09782712893383973096e+02) {
                 for (i = n - 1, di = (double)(i + i); i > 0; i--) {
@@ -230,7 +230,7 @@ double __jn(int n, double x)
                 }
             }
 
-            b = (t * __ieee754_j0(x) / b);
+            b = (t * __j0(x) / b);
         }
     }
 
@@ -271,11 +271,11 @@ double __yn(int n, double x)
     }
 
     if (n == 0) {
-        return (__ieee754_y0(x));
+        return (__y0(x));
     }
 
     if (n == 1) {
-        return (sign * __ieee754_y1(x));
+        return (sign * __y1(x));
     }
 
     if (ix == 0x7ff00000) {
@@ -314,11 +314,11 @@ double __yn(int n, double x)
             break;
         }
 
-        b = invsqrtpi * temp / __ieee754_sqrt(x);
+        b = invsqrtpi * temp / __sqrt(x);
     } else {
         uint32_t high;
-        a = __ieee754_y0(x);
-        b = __ieee754_y1(x);
+        a = __y0(x);
+        b = __y1(x);
         /* quit if b is -inf */
         GET_HIGH_WORD(high, b);
 

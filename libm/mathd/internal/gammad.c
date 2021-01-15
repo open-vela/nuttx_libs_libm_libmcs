@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_lgamma_r(x, signgamp)
+/* __lgamma_r(x, signgamp)
  * Reentrant version of the logarithm of the Gamma function
  * with user provide pointer for the sign of Gamma(x).
  *
@@ -232,9 +232,9 @@ double __lgamma(double x, int *signgamp)
     if (ix < 0x3b900000) { /* |x|<2**-70, return -log(|x|) */
         if (hx < 0) {
             *signgamp = -1;
-            return -__ieee754_log(-x);
+            return -__log(-x);
         } else {
-            return -__ieee754_log(x);
+            return -__log(x);
         }
     }
 
@@ -249,7 +249,7 @@ double __lgamma(double x, int *signgamp)
             return one / zero;
         }
 
-        nadj = __ieee754_log(pi / fabs(t * x));
+        nadj = __log(pi / fabs(t * x));
 
         if (t < zero) {
             *signgamp = -1;
@@ -265,7 +265,7 @@ double __lgamma(double x, int *signgamp)
     /* for x < 2.0 */
     else if (ix < 0x40000000) {
         if (ix <= 0x3feccccc) {  /* lgamma(x) = lgamma(x+1)-log(x) */
-            r = -__ieee754_log(x);
+            r = -__log(x);
 
             if (ix >= 0x3FE76944) {
                 y = one - x;
@@ -340,18 +340,18 @@ double __lgamma(double x, int *signgamp)
 
         case 3:
             z *= (y + 2.0);  /* FALLTHRU */
-            r += __ieee754_log(z);
+            r += __log(z);
             break;
         }
 
     } else if (ix < 0x43900000) {    /* 8.0 <= x < 2**58 */
-        t = __ieee754_log(x);
+        t = __log(x);
         z = one / x;
         y = z * z;
         w = w0 + z * (w1 + y * (w2 + y * (w3 + y * (w4 + y * (w5 + y * w6)))));
         r = (x - half) * (t - one) + w;
     } else {    /* 2**58 <= x <= inf */
-        r =  x * (__ieee754_log(x) - one);
+        r =  x * (__log(x) - one);
     }
 
     if (hx < 0) {
