@@ -3,8 +3,6 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #include "tools.h"
-#include <limits.h>
-#include <float.h>
 
 #if INT_MAX > 50000
     #define OVERFLOW_INT 50000

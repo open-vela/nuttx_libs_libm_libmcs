@@ -7,8 +7,6 @@
 #define _Complex_I 1.0fi
 #define I _Complex_I
 
-#include <sys/cdefs.h>
-
 /* 7.3.5 Trigonometric functions */
 /* 7.3.5.1 The cacos functions */
 double complex cacos(double complex);

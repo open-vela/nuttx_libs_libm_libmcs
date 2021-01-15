@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
-#include <fenv.h>
+#include "fenv.h"
 
 #error TBD add error message that fenv.h/fenv.c shall not be used as is.
 

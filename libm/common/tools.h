@@ -3,8 +3,6 @@
 
 /* REDHAT LOCAL: Include files.  */
 #include <math.h>
-#include <sys/types.h>
-#include <machine/ieeefp.h>
 
 /* A union which permits us to convert between a double and two 32 bit
    ints.  */

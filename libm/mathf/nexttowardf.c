@@ -2,8 +2,6 @@
 /* Copyright © 2005-2014 Rich Felker, et al. */
 
 #include <math.h>
-#include <inttypes.h>
-#include "local.h"
 
 union fshape {
     float value;

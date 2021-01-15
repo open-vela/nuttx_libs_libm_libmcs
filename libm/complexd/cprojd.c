@@ -39,8 +39,6 @@ QUICKREF
 
 */
 
-#include <sys/cdefs.h>
-
 #include <complex.h>
 #include <math.h>
 
