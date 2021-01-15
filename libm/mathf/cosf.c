@@ -15,7 +15,7 @@ float cosf(float x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3f490fd8) {
-        return __kernel_cosf(x, z);
+        return __cosf(x, z);
     }
 
     /* cos(Inf or NaN) is NaN */
@@ -29,16 +29,16 @@ float cosf(float x)
 
         switch (n & 3) {
         case 0:
-            return  __kernel_cosf(y[0], y[1]);
+            return  __cosf(y[0], y[1]);
 
         case 1:
-            return -__kernel_sinf(y[0], y[1], 1);
+            return -__sinf(y[0], y[1], 1);
 
         case 2:
-            return -__kernel_cosf(y[0], y[1]);
+            return -__cosf(y[0], y[1]);
 
         default:
-            return  __kernel_sinf(y[0], y[1], 1);
+            return  __sinf(y[0], y[1], 1);
         }
     }
 }
