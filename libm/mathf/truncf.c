@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 float truncf(float x)
 {

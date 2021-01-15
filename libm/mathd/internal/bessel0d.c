@@ -46,7 +46,7 @@
  *    3. Special cases: y0(0)=-inf, y0(x<0)=NaN, y0(inf)=0.
  */
 
-#include "tools.h"
+#include "../../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

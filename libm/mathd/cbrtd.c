@@ -25,7 +25,7 @@ PORTABILITY
     <<cbrt>> is in System V release 4.  <<cbrtf>> is an extension.
 */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

@@ -73,7 +73,7 @@ MATHREF
 
 */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

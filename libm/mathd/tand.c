@@ -93,7 +93,7 @@ PORTABILITY
  *    TRIG(x) returns trig(x) nearly rounded
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

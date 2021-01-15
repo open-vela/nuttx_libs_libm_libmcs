@@ -11,7 +11,7 @@
  *    Inexact flag raised if x not equal to lrintf(x).
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 static const float
 /* Adding a float, x, to 2^23 will cause the result to be rounded based on

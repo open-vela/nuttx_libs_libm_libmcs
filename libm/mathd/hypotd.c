@@ -66,7 +66,7 @@ RETURNS
 PORTABILITY
     <<hypot>> and <<hypotf>> are not ANSI C.  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

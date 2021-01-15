@@ -58,7 +58,7 @@ PORTABILITY
  *    only tanh(0)=0 is exact for finite argument.
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

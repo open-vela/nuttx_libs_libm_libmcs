@@ -49,7 +49,7 @@ C99, POSIX, System V Interface Definition (Issue 6).
  * wrapper log2(x)
  */
 
-#include "tools.h"
+#include "../common/tools.h"
 #include <math.h>
 
 #ifndef _DOUBLE_IS_32BITS

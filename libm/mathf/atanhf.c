@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
-#include "tools.h"
+#include "../common/tools.h"
 
 static const float one = 1.0, huge = 1e30, zero = 0.0;
 
