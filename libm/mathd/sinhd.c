@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_sinh(x)
+/* __sinh(x)
  * Method :
  * mathematically sinh(x) if defined to be (exp(x)-exp(-x))/2
  *    1. Replace x by |x| (sinh(-x) = -sinh(x)).
@@ -107,14 +107,14 @@ double sinh(double x)
 
     /* |x| in [22, log(maxdouble)] return 0.5*exp(|x|) */
     if (ix < 0x40862E42) {
-        return h * __ieee754_exp(fabs(x));
+        return h * __exp(fabs(x));
     }
 
     /* |x| in [log(maxdouble), overflowthresold] */
     GET_LOW_WORD(lx, x);
 
     if (ix < 0x408633CE || (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87d)) {
-        w = __ieee754_exp(0.5 * fabs(x));
+        w = __exp(0.5 * fabs(x));
         t = h * w;
         return t * w;
     }

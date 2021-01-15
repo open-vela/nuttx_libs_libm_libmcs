@@ -111,7 +111,7 @@ float powf(float x, float y)
 
     if (hy == 0x3f000000) { /* y is  0.5 */
         if (hx >= 0) { /* x >= +0 */
-            return __ieee754_sqrtf(x);
+            return __sqrtf(x);
         }
     }
 

@@ -44,7 +44,7 @@ float log10f(float x)
     hx = (hx & 0x007fffff) | ((0x7f - i) << 23);
     y  = (float)(k + i);
     SET_FLOAT_WORD(x, hx);
-    z  = y * log10_2lo + ivln10 * __ieee754_logf(x);
+    z  = y * log10_2lo + ivln10 * __logf(x);
     return  z + y * log10_2hi;
 }
 

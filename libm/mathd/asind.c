@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_asin(x)
+/* __asin(x)
  * Method :
  *    Since  asin(x) = x + x^3/6 + x^5*3/40 + x^7*15/336 + ...
  *    we approximate asin(x) on [0,0.5] by
@@ -138,7 +138,7 @@ double asin(double x)
     t = w * 0.5;
     p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));
     q = one + t * (qS1 + t * (qS2 + t * (qS3 + t * qS4)));
-    s = __ieee754_sqrt(t);
+    s = __sqrt(t);
 
     if (ix >= 0x3FEF3333) {  /* if |x| > 0.975 */
         w = p / q;

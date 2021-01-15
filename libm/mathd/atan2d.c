@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __ieee754_atan2(y,x)
+/* __atan2(y,x)
  * Method :
  *    1. Reduce y to positive by atan2(y,x)=-atan2(-y,x).
  *    2. Reduce x to positive by (if x and y are unexceptional):

@@ -164,9 +164,9 @@ float __lgammaf(float x, int *signgamp)
     if (ix < 0x1c800000) { /* |x|<2**-70, return -log(|x|) */
         if (hx < 0) {
             *signgamp = -1;
-            return -__ieee754_logf(-x);
+            return -__logf(-x);
         } else {
-            return -__ieee754_logf(x);
+            return -__logf(x);
         }
     }
 
@@ -181,7 +181,7 @@ float __lgammaf(float x, int *signgamp)
             return one / zero;    /* -integer */
         }
 
-        nadj = __ieee754_logf(pi / fabsf(t * x));
+        nadj = __logf(pi / fabsf(t * x));
 
         if (t < zero) {
             *signgamp = -1;
@@ -197,7 +197,7 @@ float __lgammaf(float x, int *signgamp)
     /* for x < 2.0 */
     else if (ix < 0x40000000) {
         if (ix <= 0x3f666666) {  /* lgamma(x) = lgamma(x+1)-log(x) */
-            r = -__ieee754_logf(x);
+            r = -__logf(x);
 
             if (ix >= 0x3f3b4a20) {
                 y = one - x;
@@ -272,13 +272,13 @@ float __lgammaf(float x, int *signgamp)
 
         case 3:
             z *= (y + (float)2.0);  /* FALLTHRU */
-            r += __ieee754_logf(z);
+            r += __logf(z);
             break;
         }
 
         /* 8.0 <= x < 2**58 */
     } else if (ix < 0x5c800000) {
-        t = __ieee754_logf(x);
+        t = __logf(x);
         z = one / x;
         y = z * z;
         w = w0 + z * (w1 + y * (w2 + y * (w3 + y * (w4 + y * (w5 + y * w6)))));
@@ -286,7 +286,7 @@ float __lgammaf(float x, int *signgamp)
     } else
         /* 2**58 <= x <= inf */
     {
-        r =  x * (__ieee754_logf(x) - one);
+        r =  x * (__logf(x) - one);
     }
 
     if (hx < 0) {
