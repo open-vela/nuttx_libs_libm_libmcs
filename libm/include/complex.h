@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: NetBSD
-// Written by Matthias Drochner.
+/* SPDX-License-Identifier: NetBSD */
+/* Written by Matthias Drochner. */
 
 #pragma once
 
@@ -133,4 +133,4 @@ float crealf(float complex);
     
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 
-#define CMPLX () // TODO
+#define CMPLX () /* TODO */

@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: PublicDomain
-// Written by Matthias Drochner <drochner@NetBSD.org>.
+/* SPDX-License-Identifier: PublicDomain */
+/* Written by Matthias Drochner <drochner@NetBSD.org>. */
 
 #include <complex.h>
 #include "../common/fdlibm.h"

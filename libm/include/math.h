@@ -1,9 +1,9 @@
 
 #pragma once
 
-// These macros define the errno and exception behaviour of the library. This library enforces the
-// use of math_errhandling as MATH_ERREXCEPT.
-// See ISO C18 standard §7.12 wrt. math_errhandling.
+/* These macros define the errno and exception behaviour of the library. This library enforces the */
+/* use of math_errhandling as MATH_ERREXCEPT. */
+/* See ISO C18 standard §7.12 wrt. math_errhandling. */
 #ifndef MATH_ERRNO
     #define MATH_ERRNO      1
 #endif
@@ -71,7 +71,7 @@ typedef double double_t;
 #endif
 
 
-// Double trigonometric functions
+/* Double trigonometric functions */
 extern double acos(double);
 extern double asin(double);
 extern double atan(double);
@@ -80,7 +80,7 @@ extern double cos(double);
 extern double sin(double);
 extern double tan(double);
 
-// Double hyperbolic functions
+/* Double hyperbolic functions */
 extern double acosh(double);
 extern double asinh(double);
 extern double atanh(double);
@@ -88,7 +88,7 @@ extern double cosh(double);
 extern double sinh(double);
 extern double tanh(double);
 
-// Double exponential and logarithmic functions
+/* Double exponential and logarithmic functions */
 extern double exp(double);
 extern double exp2(double);
 extern double expm1(double);
@@ -104,20 +104,20 @@ extern double modf(double, double *);
 extern double scalbn(double, int);
 extern double scalbln(double, long int);
 
-// Double power and absolute-value functions
+/* Double power and absolute-value functions */
 extern double cbrt(double);
 extern double fabs(double);
 extern double hypot(double, double);
 extern double pow(double, double);
 extern double sqrt(double);
 
-// Double error and gamma functions
+/* Double error and gamma functions */
 extern double erf(double);
 extern double erfc(double);
 extern double lgamma(double);
 extern double tgamma(double);
 
-// Double nearest integer functions
+/* Double nearest integer functions */
 extern double ceil(double);
 extern double floor(double);
 extern double nearbyint(double);
@@ -129,25 +129,25 @@ extern long int lround(double);
 extern long long int llround(double);
 extern double trunc(double);
 
-// Double remainder functions
+/* Double remainder functions */
 extern double fmod(double, double);
 extern double remainder(double, double);
 extern double remquo(double, double, int *);
 
-// Double manipulation functions
+/* Double manipulation functions */
 extern double copysign(double, double);
 extern double nan(const char *);
 extern double nextafter(double, double);
 
-// Double maximum, minimum and positive difference functions
+/* Double maximum, minimum and positive difference functions */
 extern double fdim(double, double);
 extern double fmax(double, double);
 extern double fmin(double, double);
 
-// Double float-multiply-add function
+/* Double float-multiply-add function */
 extern double fma(double, double, double);
 
-// Double Bessel functions
+/* Double Bessel functions */
 extern double y0(double);
 extern double y1(double);
 extern double yn(int, double);
@@ -156,7 +156,7 @@ extern double j1(double);
 extern double jn(int, double);
 
 
-// Float trigonometric functions
+/* Float trigonometric functions */
 extern float acosf(float);
 extern float asinf(float);
 extern float atanf(float);
@@ -165,7 +165,7 @@ extern float cosf(float);
 extern float sinf(float);
 extern float tanf(float);
 
-// Float hyperbolic functions
+/* Float hyperbolic functions */
 extern float acoshf(float);
 extern float asinhf(float);
 extern float atanhf(float);
@@ -173,7 +173,7 @@ extern float coshf(float);
 extern float sinhf(float);
 extern float tanhf(float);
 
-// Float exponential and logarithmic functions
+/* Float exponential and logarithmic functions */
 extern float expf(float);
 extern float exp2f(float);
 extern float expm1f(float);
@@ -189,20 +189,20 @@ extern float modff(float, float *);
 extern float scalbnf(float, int);
 extern float scalblnf(float, long int);
 
-// Float power and absolute-value functions
+/* Float power and absolute-value functions */
 extern float cbrtf(float);
 extern float fabsf(float);
 extern float hypotf(float, float);
 extern float powf(float, float);
 extern float sqrtf(float);
 
-// Float error and gamma functions
+/* Float error and gamma functions */
 extern float erff(float);
 extern float erfcf(float);
 extern float lgammaf(float);
 extern float tgammaf(float);
 
-// Float nearest integer functions
+/* Float nearest integer functions */
 extern float ceilf(float);
 extern float floorf(float);
 extern float nearbyintf(float);
@@ -214,28 +214,28 @@ extern long int lroundf(float);
 extern long long int llroundf(float);
 extern float truncf(float);
 
-// Float remainder functions
+/* Float remainder functions */
 extern float fmodf(float, float);
 extern float remainderf(float, float);
 extern float remquof(float, float, int *);
 
-// Float manipulation functions
+/* Float manipulation functions */
 extern float copysignf(float, float);
 extern float nanf(const char *);
 extern float nextafterf(float, float);
 
-// Float maximum, minimum and positive difference functions
+/* Float maximum, minimum and positive difference functions */
 extern float fdimf(float, float);
 extern float fmaxf(float, float);
 extern float fminf(float, float);
 
-// Float float-multiply-add function
+/* Float float-multiply-add function */
 extern float fmaf(float, float, float);
 
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-    // Long double trigonometric functions
+    /* Long double trigonometric functions */
     extern long double acosl(long double);
     extern long double asinl(long double);
     extern long double atanl(long double);
@@ -244,7 +244,7 @@ extern float fmaf(float, float, float);
     extern long double sinl(long double);
     extern long double tanl(long double);
 
-    // Long double hyperbolic functions
+    /* Long double hyperbolic functions */
     extern long double acoshl(long double);
     extern long double asinhl(long double);
     extern long double atanhl(long double);
@@ -252,7 +252,7 @@ extern float fmaf(float, float, float);
     extern long double sinhl(long double);
     extern long double tanhl(long double);
 
-    // Long double exponential and logarithmic functions
+    /* Long double exponential and logarithmic functions */
     extern long double expl(long double);
     extern long double exp2l(long double);
     extern long double expm1l(long double);
@@ -268,20 +268,20 @@ extern float fmaf(float, float, float);
     extern long double scalbnl(long double, int);
     extern long double scalblnl(long double, long);
 
-    // Long double power and absolute-value functions
+    /* Long double power and absolute-value functions */
     extern long double cbrtl(long double);
     extern long double fabsl(long double);
     extern long double hypotl(long double, long double);
     extern long double powl(long double, long double);
     extern long double sqrtl(long double);
 
-    // Long double error and gamma functions
+    /* Long double error and gamma functions */
     extern long double erfl(long double);
     extern long double erfcl(long double);
     extern long double lgammal(long double);
     extern long double tgammal(long double);
 
-    // Long double nearest integer functions
+    /* Long double nearest integer functions */
     extern long double ceill(long double);
     extern long double floorl(long double);
     extern long double nearbyintl(long double);
@@ -293,43 +293,43 @@ extern float fmaf(float, float, float);
     extern long long int llroundl(long double);
     extern long double truncl(long double);
 
-    // Long double remainder functions
+    /* Long double remainder functions */
     extern long double fmodl(long double, long double);
     extern long double remainderl(long double, long double);
     extern long double remquol(long double, long double, int *);
 
-    // Long double manipulation functions
+    /* Long double manipulation functions */
     extern long double copysignl(long double, long double);
     extern long double nanl(const char *);
     extern long double nextafterl(long double, long double);
 
-    // Long double maximum, minimum and positive difference functions
+    /* Long double maximum, minimum and positive difference functions */
     extern long double fdiml(long double, long double);
     extern long double fmaxl(long double, long double);
     extern long double fminl(long double, long double);
 
-    // Long double float-multiply-add function
+    /* Long double float-multiply-add function */
     extern long double fmal(long double, long double, long double);
 
-    // nexttoward procedures, they're seperated from the manipulation functions due to containing long
-    // double inputs for all procedures
+    /* nexttoward procedures, they're seperated from the manipulation functions due to containing long */
+    /* double inputs for all procedures */
     extern float nexttowardf(float, long double);
     extern double nexttoward(double, long double);
     extern long double nexttowardl(long double, long double);
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 
-// signgam global variable used by the lgamma procedures to return the sign of gamma
+/* signgam global variable used by the lgamma procedures to return the sign of gamma */
 #define signgam (__signgam)
 extern int __signgam;
 
-// Internal procedures used by the classification macros
+/* Internal procedures used by the classification macros */
 extern int __fpclassifyf(float);
 extern int __fpclassifyd(double);
 extern int __signbitf(float);
 extern int __signbitd(double);
 
-// Classification macros
+/* Classification macros */
 #define fpclassify(__x) \
     ((sizeof(__x) == sizeof(float))  ? __fpclassifyf(__x) : __fpclassifyd(__x))
 #define isfinite(__y) \
@@ -341,7 +341,7 @@ extern int __signbitd(double);
 
 #define signbit(__x) ((sizeof(__x) == sizeof(float))  ?  __signbitf(__x) : __signbitd(__x))
 
-// Comparison macros
+/* Comparison macros */
 #define isgreater(x,y) \
     (__extension__ ({__typeof__(x) __x = (x); __typeof__(y) __y = (y); \
         !isunordered(__x,__y) && (__x > __y);}))

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: NetBSD
+/* SPDX-License-Identifier: NetBSD */
 
 #include <sys/cdefs.h>
 

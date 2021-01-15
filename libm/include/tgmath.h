@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: NetBSD
-// Copyright (c) 2004 Stefan Farfeleder.
+/* SPDX-License-Identifier: NetBSD */
+/* Copyright (c) 2004 Stefan Farfeleder. */
 
 #pragma once
 

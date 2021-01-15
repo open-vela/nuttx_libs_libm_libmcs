@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: PublicDomain
-// Written by Matthias Drochner <drochner@NetBSD.org>.
+/* SPDX-License-Identifier: PublicDomain */
+/* Written by Matthias Drochner <drochner@NetBSD.org>. */
 
 /*
 FUNCTION
