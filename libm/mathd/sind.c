@@ -42,9 +42,9 @@ QUICKREF
 /* sin(x)
  * Return sine function of x.
  *
- * kernel function:
- *    __kernel_sin        ... sine function on [-pi/4,pi/4]
- *    __kernel_cos        ... cose function on [-pi/4,pi/4]
+ * internal function:
+ *    __sin        ... sine function on [-pi/4,pi/4]
+ *    __cos        ... cose function on [-pi/4,pi/4]
  *    __rem_pio2    ... argument reduction routine
  *
  * Method.
@@ -86,7 +86,7 @@ double sin(double x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3fe921fb) {
-        return __kernel_sin(x, z, 0);
+        return __sin(x, z, 0);
     }
 
     /* sin(Inf or NaN) is NaN */
@@ -100,16 +100,16 @@ double sin(double x)
 
         switch (n & 3) {
         case 0:
-            return  __kernel_sin(y[0], y[1], 1);
+            return  __sin(y[0], y[1], 1);
 
         case 1:
-            return  __kernel_cos(y[0], y[1]);
+            return  __cos(y[0], y[1]);
 
         case 2:
-            return -__kernel_sin(y[0], y[1], 1);
+            return -__sin(y[0], y[1], 1);
 
         default:
-            return -__kernel_cos(y[0], y[1]);
+            return -__cos(y[0], y[1]);
         }
     }
 }

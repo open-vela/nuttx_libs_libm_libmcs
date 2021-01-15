@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __kernel_tan( x, y, k )
- * kernel tan function on [-pi/4, pi/4], pi/4 ~ 0.7854
+/* __tan( x, y, k )
+ * internal tan function on [-pi/4, pi/4], pi/4 ~ 0.7854
  * Input x is assumed to be bounded by ~pi/4 in magnitude.
  * Input y is the tail of x.
  * Input k indicates whether tan (if k=1) or
@@ -66,8 +66,8 @@ PORTABILITY
 /* tan(x)
  * Return tangent function of x.
  *
- * kernel function:
- *    __kernel_tan        ... tangent function on [-pi/4,pi/4]
+ * internal function:
+ *    __tan        ... tangent function on [-pi/4,pi/4]
  *    __rem_pio2    ... argument reduction routine
  *
  * Method.

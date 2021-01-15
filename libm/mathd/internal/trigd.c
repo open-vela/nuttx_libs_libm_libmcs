@@ -548,8 +548,8 @@ int32_t __rem_pio2(double x, double *y)
 }
 
 /*
- * __kernel_cos( x,  y )
- * kernel cos function on [-pi/4, pi/4], pi/4 ~ 0.785398164
+ * __cos( x,  y )
+ * internal cos function on [-pi/4, pi/4], pi/4 ~ 0.785398164
  * Input x is assumed to be bounded by ~pi/4 in magnitude.
  * Input y is the tail of x.
  *
@@ -622,8 +622,8 @@ double __cos(double x, double y)
     }
 }
 
-/* __kernel_sin( x, y, iy)
- * kernel sin function on [-pi/4, pi/4], pi/4 ~ 0.7854
+/* __sin( x, y, iy)
+ * internal sin function on [-pi/4, pi/4], pi/4 ~ 0.7854
  * Input x is assumed to be bounded by ~pi/4 in magnitude.
  * Input y is the tail of x.
  * Input iy indicates whether y is 0. (if iy=0, y assume to be 0).
