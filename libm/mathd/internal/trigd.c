@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: SunMicrosystems
-// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+/* SPDX-License-Identifier: SunMicrosystems */
+/* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 /*
  * __rem_pio2_internal(x,y,e0,nx,prec,ipio2)

@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: SunMicrosystems
-// Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+/* SPDX-License-Identifier: SunMicrosystems */
+/* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 /* __ieee754_log10(x)
  * Return the base 10 logarithm of x

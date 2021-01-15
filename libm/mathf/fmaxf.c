@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: RedHat
-// Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved.
+/* SPDX-License-Identifier: RedHat */
+/* Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved. */
 
 #include "fdlibm.h"
 

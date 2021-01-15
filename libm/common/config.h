@@ -1,6 +1,6 @@
-// SPDX-License-Identifier: GTDGmbH
-// Copyright 2020-2021 by GTD GmbH.
-// TBD Check if license/copyright should be SunMicrosystems
+/* SPDX-License-Identifier: GTDGmbH */
+/* Copyright 2020-2021 by GTD GmbH. */
+/* TBD Check if license/copyright should be SunMicrosystems */
 
 #pragma once
 

@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: RichFelker
-// Copyright © 2005-2014 Rich Felker, et al.
+/* SPDX-License-Identifier: RichFelker */
+/* Copyright © 2005-2014 Rich Felker, et al. */
 
 #include <math.h>
 #include <inttypes.h>
@@ -10,9 +10,9 @@ union fshape {
     uint32_t bits;
 };
 
-// This is only necessary because the implementation of isnan only works
-// properly when long double == double.
-// See: https://sourceware.org/ml/newlib/2014/msg00684.html
+/* This is only necessary because the implementation of isnan only works */
+/* properly when long double == double. */
+/* See: https://sourceware.org/ml/newlib/2014/msg00684.html */
 #ifdef _LDBL_EQ_DBL
 
 float
@@ -68,4 +68,4 @@ nexttowardf(float x, long double y)
     return ux.value;
 }
 
-#endif // _LDBL_EQ_DBL
+#endif /* _LDBL_EQ_DBL */

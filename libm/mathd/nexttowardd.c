@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: GTDGmbH
-// Copyright 2020-2021 by GTD GmbH.
+/* SPDX-License-Identifier: GTDGmbH */
+/* Copyright 2020-2021 by GTD GmbH. */
 
 #ifndef _DOUBLE_IS_32BITS
 
