@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: RedHat */
 /* Copyright (C) 2002,2007 by  Red Hat, Incorporated. All rights reserved. */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 int __fpclassifyf(float x)
 {

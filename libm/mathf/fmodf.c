@@ -8,7 +8,7 @@
  * Method: shift and subtract
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 static const float one = 1.0, Zero[] = {0.0, -0.0,};
 

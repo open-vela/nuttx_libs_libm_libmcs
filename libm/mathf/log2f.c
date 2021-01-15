@@ -2,12 +2,12 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
-#include "fdlibm.h"
+#include "tools.h"
 #include <math.h>
 
 float log2f(float x)
 {
-    return (logf(x) / (float) M_LN2);
+    return (logf(x) / (float_t) M_LN2);
 }
 
 #ifdef _DOUBLE_IS_32BITS

@@ -62,7 +62,7 @@ frexp, ilogb
  * Per C99 recommendation, a NaN argument is returned unchanged.
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

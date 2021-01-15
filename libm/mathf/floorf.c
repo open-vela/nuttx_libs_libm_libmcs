@@ -11,7 +11,7 @@
  *    Inexact flag raised if x not equal to floorf(x).
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 static const float huge = 1.0e30;
 

@@ -5,7 +5,7 @@
 #include <complex.h>
 #include <math.h>
 
-#include "../common/fdlibm.h"
+#include "../common/tools.h"
 
 /*
  * cprojf(float complex z)

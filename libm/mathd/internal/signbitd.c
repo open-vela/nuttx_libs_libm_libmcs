@@ -31,7 +31,7 @@ C99, POSIX.
 
 */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 int __signbitd(double x)
 {

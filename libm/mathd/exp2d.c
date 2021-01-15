@@ -34,7 +34,7 @@ PORTABILITY
 
 */
 
-#include "fdlibm.h"
+#include "tools.h"
 #include <math.h>
 
 #ifndef _DOUBLE_IS_32BITS

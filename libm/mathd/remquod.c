@@ -49,7 +49,7 @@ C99, POSIX.
 
 #include <limits.h>
 #include <math.h>
-#include "fdlibm.h"
+#include "tools.h"
 
 /* For quotient, return either all 31 bits that can from calculation (using
  * int32_t), or as many as can fit into an int that is smaller than 32 bits.  */

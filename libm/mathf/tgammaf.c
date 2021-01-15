@@ -8,7 +8,7 @@
  * Method: See __lgammaf
  */
 
-#include "fdlibm.h"
+#include "tools.h"
 
 float tgammaf(float x)
 {
