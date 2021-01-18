@@ -124,6 +124,8 @@ static const double ps2[5] = {
     8.36463893371618283368e+00, /* 0x4020BAB1, 0xF44E5192 */
 };
 
+static const double one =  1.0;
+
 static double __pone(double x)
 {
     const double *p, *q;
@@ -265,7 +267,6 @@ static double __qone(double x)
 
 static const double
 huge      =  1e300,
-one       =  1.0,
 invsqrtpi =  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
 tpi       =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
 /* R0/S0 on [0,2] */
