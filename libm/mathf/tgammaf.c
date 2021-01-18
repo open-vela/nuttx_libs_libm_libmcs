@@ -9,6 +9,7 @@
  */
 
 #include "../common/tools.h"
+#include "internal/gammaf.h"
 
 float tgammaf(float x)
 {

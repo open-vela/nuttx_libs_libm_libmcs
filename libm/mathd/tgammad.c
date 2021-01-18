@@ -13,6 +13,7 @@
  */
 
 #include "../common/tools.h"
+#include "internal/gammad.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

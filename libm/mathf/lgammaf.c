@@ -2,6 +2,8 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
+#include "internal/gammaf.h"
+
 float lgammaf(float x)
 {
     return __lgammaf(x, &(_REENT_SIGNGAM(_REENT)));

@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+#include "internal/gammad.h"
+
 double lgamma(double x)
 {
     return __lgamma(x, &(_REENT_SIGNGAM(_REENT)));
