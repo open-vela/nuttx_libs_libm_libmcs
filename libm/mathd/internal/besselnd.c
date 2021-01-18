@@ -62,11 +62,11 @@ double __jn(int n, double x)
     }
 
     if (n == 0) {
-        return (__j0(x));
+        return (j0(x));
     }
 
     if (n == 1) {
-        return (__j1(x));
+        return (j1(x));
     }
 
     sgn = (n & 1) & (hx >> 31); /* even n -- 0, odd n -- sign(x) */
@@ -110,8 +110,8 @@ double __jn(int n, double x)
 
             b = invsqrtpi * temp / sqrt(x);
         } else {
-            a = __j0(x);
-            b = __j1(x);
+            a = j0(x);
+            b = j1(x);
 
             for (i = 1; i < n; i++) {
                 temp = b;
@@ -230,7 +230,7 @@ double __jn(int n, double x)
                 }
             }
 
-            b = (t * __j0(x) / b);
+            b = (t * j0(x) / b);
         }
     }
 
@@ -271,11 +271,11 @@ double __yn(int n, double x)
     }
 
     if (n == 0) {
-        return (__y0(x));
+        return (y0(x));
     }
 
     if (n == 1) {
-        return (sign * __y1(x));
+        return (sign * y1(x));
     }
 
     if (ix == 0x7ff00000) {
@@ -317,8 +317,8 @@ double __yn(int n, double x)
         b = invsqrtpi * temp / sqrt(x);
     } else {
         uint32_t high;
-        a = __y0(x);
-        b = __y1(x);
+        a = y0(x);
+        b = y1(x);
         /* quit if b is -inf */
         GET_HIGH_WORD(high, b);
 
