@@ -313,11 +313,11 @@ double __j0(double x)
          * y0(x) = 1/sqrt(pi) * (P(0,x)*ss + Q(0,x)*cc) / sqrt(x)
          */
         if (ix > 0x48000000) {
-            z = (invsqrtpi * cc) / __sqrt(x);
+            z = (invsqrtpi * cc) / sqrt(x);
         } else {
             u = __pzero(x);
             v = __qzero(x);
-            z = invsqrtpi * (u * cc - v * ss) / __sqrt(x);
+            z = invsqrtpi * (u * cc - v * ss) / sqrt(x);
         }
 
         return z;
@@ -411,11 +411,11 @@ double __y0(double x)
         }
 
         if (ix > 0x48000000) {
-            z = (invsqrtpi * ss) / __sqrt(x);
+            z = (invsqrtpi * ss) / sqrt(x);
         } else {
             u = __pzero(x);
             v = __qzero(x);
-            z = invsqrtpi * (u * ss + v * cc) / __sqrt(x);
+            z = invsqrtpi * (u * ss + v * cc) / sqrt(x);
         }
 
         return z;

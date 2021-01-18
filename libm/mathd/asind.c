@@ -138,7 +138,7 @@ double asin(double x)
     t = w * 0.5;
     p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));
     q = one + t * (qS1 + t * (qS2 + t * (qS3 + t * qS4)));
-    s = __sqrt(t);
+    s = sqrt(t);
 
     if (ix >= 0x3FEF3333) {  /* if |x| > 0.975 */
         w = p / q;
