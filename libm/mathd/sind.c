@@ -71,6 +71,7 @@ QUICKREF
  */
 
 #include "../common/tools.h"
+#include "internal/trigd.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
