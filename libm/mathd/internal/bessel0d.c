@@ -422,13 +422,13 @@ double __y0(double x)
     }
 
     if (ix <= 0x3e400000) { /* x < 2**-27 */
-        return (u00 + tpi * __log(x));
+        return (u00 + tpi * log(x));
     }
 
     z = x * x;
     u = u00 + z * (u01 + z * (u02 + z * (u03 + z * (u04 + z * (u05 + z * u06)))));
     v = one + z * (v01 + z * (v02 + z * (v03 + z * v04)));
-    return (u / v + tpi * (__j0(x) * __log(x)));
+    return (u / v + tpi * (__j0(x) * log(x)));
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

@@ -203,7 +203,7 @@ double __jn(int n, double x)
              */
             tmp = n;
             v = two / x;
-            tmp = tmp * __log(fabs(v * tmp));
+            tmp = tmp * log(fabs(v * tmp));
 
             if (tmp < 7.09782712893383973096e+02) {
                 for (i = n - 1, di = (double)(i + i); i > 0; i--) {
