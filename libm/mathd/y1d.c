@@ -6,6 +6,7 @@
  */
 
 #include "../common/tools.h"
+#include "internal/besseld.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
