@@ -44,7 +44,7 @@ PORTABILITY
 
 double ldexp(double value, int exp)
 {
-    if (!finite(value) || value == 0.0) {
+    if (!isfinite(value) || value == 0.0) {
         return value;
     }
 
