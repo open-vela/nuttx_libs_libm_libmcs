@@ -27,7 +27,6 @@ void __ccoshsinhf(float x, float *c, float *s)
 static const double DP1 =  3.140625;
 static const double DP2 =  9.67502593994140625E-4;
 static const double DP3 =  1.509957990978376432E-7;
-#define MACHEPF 3.0e-8
 
 float __redupif(float x)
 {
