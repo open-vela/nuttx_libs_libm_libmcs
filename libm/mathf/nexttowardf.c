@@ -2,6 +2,7 @@
 /* Copyright © 2005-2014 Rich Felker, et al. */
 
 #include <math.h>
+#include "../common/tools.h"
 
 union fshape {
     float value;
