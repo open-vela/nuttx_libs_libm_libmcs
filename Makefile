@@ -22,8 +22,7 @@ RM = rm -rf
 
 INCLUDE = -Ilibm/include -Ilibm/common -Ilibm/mathd/internal -Ilibm/mathf/internal
 
-SRC=libm/common/fenv.c \
-    libm/common/isgreater.c \
+SRC=libm/common/isgreater.c \
     libm/common/isnan.c \
     libm/common/tools.c \
     libm/complexd/cabsd.c \
