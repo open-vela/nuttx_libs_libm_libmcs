@@ -19,7 +19,7 @@
 double tgamma(double x)
 {
     int signgam_local;
-    double y = __exp(__lgamma(x, &signgam_local));
+    double y = exp(__lgamma(x, &signgam_local));
 
     if (signgam_local < 0) {
         y = -y;
