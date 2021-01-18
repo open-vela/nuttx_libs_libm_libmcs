@@ -108,7 +108,7 @@ double __jn(int n, double x)
                 break;
             }
 
-            b = invsqrtpi * temp / __sqrt(x);
+            b = invsqrtpi * temp / sqrt(x);
         } else {
             a = __j0(x);
             b = __j1(x);
@@ -314,7 +314,7 @@ double __yn(int n, double x)
             break;
         }
 
-        b = invsqrtpi * temp / __sqrt(x);
+        b = invsqrtpi * temp / sqrt(x);
     } else {
         uint32_t high;
         a = __y0(x);

@@ -202,7 +202,7 @@ double pow(double x, double y)
 
         if (hy == 0x3fe00000) {            /* y is  0.5 */
             if (hx >= 0) {                 /* x >= +0 */
-                return __sqrt(x);
+                return sqrt(x);
             }
         }
     }

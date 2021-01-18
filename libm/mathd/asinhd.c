@@ -76,10 +76,10 @@ double asinh(double x)
         w = __log(fabs(x)) + ln2;
     } else if (ix > 0x40000000) {  /* 2**28 > |x| > 2.0 */
         t = fabs(x);
-        w = __log(2.0 * t + one / (__sqrt(x * x + one) + t));
+        w = __log(2.0 * t + one / (sqrt(x * x + one) + t));
     } else {        /* 2.0 > |x| > 2**-28 */
         t = x * x;
-        w = log1p(fabs(x) + t / (one + __sqrt(one + t)));
+        w = log1p(fabs(x) + t / (one + sqrt(one + t)));
     }
 
     if (hx > 0) {

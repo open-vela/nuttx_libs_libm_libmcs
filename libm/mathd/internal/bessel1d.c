@@ -312,15 +312,15 @@ double __j1(double x)
         }
 
         /*
-         * j1(x) = 1/__sqrt(pi) * (P(1,x)*cc - Q(1,x)*ss) / __sqrt(x)
-         * y1(x) = 1/__sqrt(pi) * (P(1,x)*ss + Q(1,x)*cc) / __sqrt(x)
+         * j1(x) = 1/sqrt(pi) * (P(1,x)*cc - Q(1,x)*ss) / sqrt(x)
+         * y1(x) = 1/sqrt(pi) * (P(1,x)*ss + Q(1,x)*cc) / sqrt(x)
          */
         if (ix > 0x48000000) {
-            z = (invsqrtpi * cc) / __sqrt(y);
+            z = (invsqrtpi * cc) / sqrt(y);
         } else {
             u = __pone(y);
             v = __qone(y);
-            z = invsqrtpi * (u * cc - v * ss) / __sqrt(y);
+            z = invsqrtpi * (u * cc - v * ss) / sqrt(y);
         }
 
         if (hx < 0) {
@@ -407,11 +407,11 @@ double __y1(double x)
          * to compute the worse one.
          */
         if (ix > 0x48000000) {
-            z = (invsqrtpi * ss) / __sqrt(x);
+            z = (invsqrtpi * ss) / sqrt(x);
         } else {
             u = __pone(x);
             v = __qone(x);
-            z = invsqrtpi * (u * ss + v * cc) / __sqrt(x);
+            z = invsqrtpi * (u * ss + v * cc) / sqrt(x);
         }
 
         return z;

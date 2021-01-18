@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __sqrt(x)
+/* sqrt(x)
  * Return correctly rounded sqrt.
  *           ------------------------------------------
  *         |  Use the hardware sqrt if you have one |
