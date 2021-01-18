@@ -107,14 +107,14 @@ double sinh(double x)
 
     /* |x| in [22, log(maxdouble)] return 0.5*exp(|x|) */
     if (ix < 0x40862E42) {
-        return h * __exp(fabs(x));
+        return h * exp(fabs(x));
     }
 
     /* |x| in [log(maxdouble), overflowthresold] */
     GET_LOW_WORD(lx, x);
 
     if (ix < 0x408633CE || (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87d)) {
-        w = __exp(0.5 * fabs(x));
+        w = exp(0.5 * fabs(x));
         t = h * w;
         return t * w;
     }
