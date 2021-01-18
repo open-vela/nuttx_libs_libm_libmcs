@@ -3,6 +3,7 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #include "../common/tools.h"
+#include "internal/trigf.h"
 
 static const float
 one    =  1.0000000000e+00, /* 0x3f800000 */

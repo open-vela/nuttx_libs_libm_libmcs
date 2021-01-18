@@ -3,6 +3,7 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #include "../common/tools.h"
+#include "internal/trigf.h"
 
 float sinf(float x)
 {
