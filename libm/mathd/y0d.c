@@ -80,6 +80,7 @@ None of the Bessel functions are in ANSI C.
  */
 
 #include "../common/tools.h"
+#include "internal/besseld.h"
 
 #ifndef _DOUBLE_IS_32BITS
 
