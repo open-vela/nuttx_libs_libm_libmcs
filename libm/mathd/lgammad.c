@@ -3,11 +3,15 @@
 
 #include "internal/gammad.h"
 
+#ifndef __signgam
+    int __signgam;
+#endif
+
 #ifndef _DOUBLE_IS_32BITS
 
 double lgamma(double x)
 {
-    return __lgamma(x, &(_REENT_SIGNGAM(_REENT)));
+    return __lgamma(x, &__signgam);
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
