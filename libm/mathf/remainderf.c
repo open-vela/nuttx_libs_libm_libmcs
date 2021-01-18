@@ -27,7 +27,7 @@ float remainderf(float x, float p)
 
 
     if (hp <= FLT_UWORD_HALF_MAX) {
-        x = __fmodf(x, p + p);    /* now x < 2p */
+        x = fmodf(x, p + p);    /* now x < 2p */
     }
 
     if ((hx - hp) == 0) {
