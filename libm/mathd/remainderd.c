@@ -66,7 +66,7 @@ double remainder(double x, double p)
 
 
     if (hp <= 0x7fdfffff) {
-        x = __fmod(x, p + p);                               /* now x < 2p */
+        x = fmod(x, p + p);                               /* now x < 2p */
     }
 
     if (((hx - hp) | (lx - lp)) == 0) {
