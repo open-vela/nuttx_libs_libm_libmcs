@@ -123,6 +123,8 @@ static const double pS2[5] = {
     1.46576176948256193810e+01,  /* 0x402D50B3, 0x44391809 */
 };
 
+static const double one =  1.0;
+
 static double __pzero(double x)
 {
     const double *p, *q;
@@ -263,7 +265,6 @@ static double __qzero(double x)
 
 static const double
 huge      =  1e300,
-one       =  1.0,
 invsqrtpi =  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
 tpi       =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
 /* R0/S0 on [0, 2.00] */
