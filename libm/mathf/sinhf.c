@@ -43,12 +43,12 @@ float sinhf(float x)
 
     /* |x| in [22, log(maxdouble)] return 0.5*exp(|x|) */
     if (ix <= FLT_UWORD_LOG_MAX) {
-        return h * __expf(fabsf(x));
+        return h * expf(fabsf(x));
     }
 
     /* |x| in [log(maxdouble), overflowthresold] */
     if (ix <= FLT_UWORD_LOG_2MAX) {
-        w = __expf((float)0.5 * fabsf(x));
+        w = expf((float)0.5 * fabsf(x));
         t = h * w;
         return t * w;
     }

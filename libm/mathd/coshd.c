@@ -96,13 +96,13 @@ double cosh(double x)
 
     /* |x| in [0.5*ln2,22], return (exp(|x|)+1/exp(|x|)/2; */
     if (ix < 0x40360000) {
-        t = __exp(fabs(x));
+        t = exp(fabs(x));
         return half * t + half / t;
     }
 
     /* |x| in [22, log(maxdouble)] return half*exp(|x|) */
     if (ix < 0x40862E42) {
-        return half * __exp(fabs(x));
+        return half * exp(fabs(x));
     }
 
     /* |x| in [log(maxdouble), overflowthresold] */
@@ -110,7 +110,7 @@ double cosh(double x)
 
     if (ix < 0x408633CE ||
         (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87d)) {
-        w = __exp(half * fabs(x));
+        w = exp(half * fabs(x));
         t = half * w;
         return t * w;
     }

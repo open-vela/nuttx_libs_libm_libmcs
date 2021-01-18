@@ -13,7 +13,7 @@
 float tgammaf(float x)
 {
     int signgam_local;
-    float y = __expf(__lgammaf(x, &signgam_local));
+    float y = expf(__lgammaf(x, &signgam_local));
 
     if (signgam_local < 0) {
         y = -y;
