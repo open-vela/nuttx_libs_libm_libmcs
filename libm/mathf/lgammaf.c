@@ -4,9 +4,13 @@
 
 #include "internal/gammaf.h"
 
+#ifndef __signgam
+    int __signgam;
+#endif
+
 float lgammaf(float x)
 {
-    return __lgammaf(x, &(_REENT_SIGNGAM(_REENT)));
+    return __lgammaf(x, &__signgam);
 }
 
 #ifdef _DOUBLE_IS_32BITS
