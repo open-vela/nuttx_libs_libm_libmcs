@@ -3,5 +3,5 @@
 
 #pragma once
 
-extern void __cchshf(float x, float *c, float *s);
+extern void __ccoshsinhf(float x, float *c, float *s);
 extern float __redupif(float x);
