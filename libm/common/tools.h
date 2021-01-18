@@ -4,6 +4,9 @@
 /* REDHAT LOCAL: Include files.  */
 #include <math.h>
 
+#include <stdbool.h>
+#include <stdint.h>
+
 /* A union which permits us to convert between a double and two 32 bit
    ints.  */
 
@@ -94,7 +97,7 @@ typedef union {
 
 typedef union {
     float value;
-    uint32_t word;
+    __uint32_t word;
 } ieee_float_shape_type;
 
 /* Get a 32 bit int from a float.  */
@@ -124,8 +127,6 @@ typedef union {
 #define SAFE_RIGHT_SHIFT(op,amt)                        \
     (((amt) < 8 * sizeof(op)) ? ((op) >> (amt)) : 0)
 
-#ifdef  _COMPLEX_H
-
 /*
  * Quoting from ISO/IEC 9899:TC2:
  *
@@ -153,4 +154,3 @@ typedef union {
 #define REAL_PART(z)    ((z).parts[0])
 #define IMAG_PART(z)    ((z).parts[1])
 
-#endif  /* _COMPLEX_H */
