@@ -2,10 +2,17 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 /* REDHAT LOCAL: Include files.  */
+#include <complex.h>
 #include <math.h>
 
 #include <stdbool.h>
 #include <stdint.h>
+
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+    #define __IEEE_BIG_ENDIAN
+#elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    #define __IEEE_LITTLE_ENDIAN
+#endif
 
 /* A union which permits us to convert between a double and two 32 bit
    ints.  */
