@@ -178,12 +178,12 @@ double atan2(double y, double x)
     case 0:
         return  z;                 /* atan(+,+) */
 
-    case 1: {
-        uint32_t zh;
-        GET_HIGH_WORD(zh, z);
-        SET_HIGH_WORD(z, zh ^ 0x80000000);
-    }
-
+    case 1:
+        {
+            uint32_t zh;
+            GET_HIGH_WORD(zh, z);
+            SET_HIGH_WORD(z, zh ^ 0x80000000);
+        }
         return  z;                 /* atan(-,+) */
 
     case 2:

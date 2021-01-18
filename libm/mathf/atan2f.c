@@ -107,9 +107,11 @@ float atan2f(float y, float x)
         return       z  ;         /* atan(+,+) */
 
     case 1:
-        uint32_t zh;
-        GET_FLOAT_WORD(zh, z);
-        SET_FLOAT_WORD(z, zh ^ 0x80000000);
+        {
+            uint32_t zh;
+            GET_FLOAT_WORD(zh, z);
+            SET_FLOAT_WORD(z, zh ^ 0x80000000);
+        }
         return       z  ;         /* atan(-,+) */
 
     case 2:
