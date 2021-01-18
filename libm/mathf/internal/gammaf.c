@@ -3,6 +3,7 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #include "../../common/tools.h"
+#include "trigf.h"
 
 static const float
 two23 =  8.3886080000e+06, /* 0x4b000000 */
