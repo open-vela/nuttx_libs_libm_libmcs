@@ -424,7 +424,7 @@ double __y1(double x)
     z = x * x;
     u = U0[0] + z * (U0[1] + z * (U0[2] + z * (U0[3] + z * U0[4])));
     v = one + z * (V0[0] + z * (V0[1] + z * (V0[2] + z * (V0[3] + z * V0[4]))));
-    return (x * (u / v) + tpi * (__j1(x) * __log(x) - one / x));
+    return (x * (u / v) + tpi * (__j1(x) * log(x) - one / x));
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

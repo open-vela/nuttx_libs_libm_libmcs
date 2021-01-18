@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __log(x)
+/* log(x)
  * Return the logrithm of x
  *
  * Method :
