@@ -27,10 +27,10 @@ float asinhf(float x)
     }
 
     if (ix > 0x4d800000) { /* |x| > 2**28 */
-        w = __logf(fabsf(x)) + ln2;
+        w = logf(fabsf(x)) + ln2;
     } else if (ix > 0x40000000) {  /* 2**28 > |x| > 2.0 */
         t = fabsf(x);
-        w = __logf((float)2.0 * t + one / (sqrtf(x * x + one) + t));
+        w = logf((float)2.0 * t + one / (sqrtf(x * x + one) + t));
     } else {        /* 2.0 > |x| > 2**-28 */
         t = x * x;
         w = log1pf(fabsf(x) + t / (one + sqrtf(one + t)));
