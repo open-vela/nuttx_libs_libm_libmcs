@@ -6,7 +6,7 @@
 
 float ldexpf(float value, int exp)
 {
-    if (!isfinitef(value) || value == (float)0.0) {
+    if (!isfinite(value) || value == (float)0.0) {
         return value;
     }
 
