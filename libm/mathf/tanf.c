@@ -92,8 +92,6 @@ float __tanf(float x, float y, int iy)
     }
 }
 
-#include "../common/tools.h"
-
 float tanf(float x)
 {
     float y[2], z = 0.0;
