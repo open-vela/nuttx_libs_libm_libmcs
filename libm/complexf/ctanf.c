@@ -2,6 +2,7 @@
 
 #include <complex.h>
 #include <math.h>
+#include "internal/ctrigf.h"
 
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 

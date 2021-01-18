@@ -29,7 +29,6 @@ void __ccoshsinh(double x, double *c, double *s)
 static const double DP1 = 3.14159265160560607910E0;
 static const double DP2 = 1.98418714791870343106E-9;
 static const double DP3 = 1.14423774522196636802E-17;
-#define MACHEP 1.1e-16
 
 double __redupi(double x)
 {

@@ -3,5 +3,7 @@
 
 #pragma once
 
+#define MACHEP 1.1e-16
+
 extern void __ccoshsinh(double x, double *c, double *s);
 extern double __redupi(double x);
