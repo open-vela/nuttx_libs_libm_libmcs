@@ -127,7 +127,7 @@ fixup:
     SET_FLOAT_WORD(x, hx);
     y = fabsf(y);
 
-    if (y < 0x1p - 125f) {
+    if (y < 0x1p-125f) {
         if (x + x > y || (x + x == y && (q & 1))) {
             q++;
             x -= y;

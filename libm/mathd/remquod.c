@@ -232,7 +232,7 @@ fixup:
     INSERT_WORDS(x, hx, lx);
     y = fabs(y);
 
-    if (y < 0x1p - 1021) {
+    if (y < 0x1p-1021) {
         if (x + x > y || (x + x == y && (q & 1))) {
             q++;
             x -= y;
