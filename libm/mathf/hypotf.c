@@ -75,14 +75,14 @@ float hypotf(float x, float y)
     if (w > b) {
         SET_FLOAT_WORD(t1, ha & 0xfffff000L);
         t2 = a - t1;
-        w  = __sqrtf(t1 * t1 - (b * (-b) - t2 * (a + t1)));
+        w  = sqrtf(t1 * t1 - (b * (-b) - t2 * (a + t1)));
     } else {
         a  = a + a;
         SET_FLOAT_WORD(y1, hb & 0xfffff000L);
         y2 = b - y1;
         SET_FLOAT_WORD(t1, (ha + 0x00800000L) & 0xfffff000UL);
         t2 = a - t1;
-        w  = __sqrtf(t1 * y1 - (w * (-w) - (t1 * y2 + t2 * b)));
+        w  = sqrtf(t1 * y1 - (w * (-w) - (t1 * y2 + t2 * b)));
     }
 
     if (k != 0) {
