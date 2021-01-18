@@ -35,6 +35,7 @@ QUICKREF
 
 #include <complex.h>
 #include <math.h>
+#include "internal/ctrigd.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

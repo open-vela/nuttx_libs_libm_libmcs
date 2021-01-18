@@ -2,6 +2,7 @@
 
 #include <complex.h>
 #include <math.h>
+#include "internal/ctrigf.h"
 
 float complex ccosf(float complex z)
 {

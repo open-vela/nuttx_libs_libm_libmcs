@@ -3,5 +3,5 @@
 
 #pragma once
 
-extern void __cchsh(double x, double *c, double *s);
+extern void __ccoshsinh(double x, double *c, double *s);
 extern double __redupi(double x);
