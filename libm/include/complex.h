@@ -4,7 +4,7 @@
 #pragma once
 
 #define complex _Complex
-#define _Complex_I 1.0fi
+#define _Complex_I __extension__ 1.0fi
 #define I _Complex_I
 
 /* 7.3.5 Trigonometric functions */
