@@ -22,7 +22,7 @@ endif
 
 ifeq ($(V),2)
     Q =
-    CC = $(CROSS_COMPILE)gcc -v -Wl,-v
+    CC += -v -Wl,-v
 endif
 
 INCLUDE = -Ilibm/include -Ilibm/common -Ilibm/mathd/internal -Ilibm/mathf/internal
