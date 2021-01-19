@@ -7,18 +7,23 @@ ifndef ARCH
     ARCH = $(shell $(CROSS_COMPILE)gcc -v 2>&1 | grep Target | cut -d' ' -f 2)
 endif
 
-ifeq ($(V),1)
-	Q =
-else
-	Q = @
-endif
-
 CC = $(CROSS_COMPILE)gcc
 AR = $(CROSS_COMPILE)ar
 MKDIR = mkdir -p
 CP = cp
 MV = mv
 RM = rm -rf
+
+ifeq ($(V),1)
+    Q =
+else
+    Q = @
+endif
+
+ifeq ($(V),2)
+    Q =
+    CC = $(CROSS_COMPILE)gcc -v -Wl,-v
+endif
 
 INCLUDE = -Ilibm/include -Ilibm/common -Ilibm/mathd/internal -Ilibm/mathf/internal
 
@@ -215,7 +220,7 @@ BIN_DIR = $(BUILD_ROOT)/bin
 
 OUT = $(BIN_DIR)/libm.a
 
-CFLAGS = -c -Wall -std=gnu99 -pedantic -Wextra -frounding-math -fsignaling-nans -g -O2 -fno-builtin $(EXTRA_CFLAGS)
+CFLAGS = -c -Wall -std=gnu18 -pedantic -Wextra -frounding-math -fsignaling-nans -g -O2 -fno-builtin $(EXTRA_CFLAGS)
 
 ifndef COVERAGE
     COVERAGE=false
