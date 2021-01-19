@@ -220,7 +220,7 @@ BIN_DIR = $(BUILD_ROOT)/bin
 
 OUT = $(BIN_DIR)/libm.a
 
-CFLAGS = -c -Wall -std=gnu18 -pedantic -Wextra -frounding-math -fsignaling-nans -g -O2 -fno-builtin $(EXTRA_CFLAGS)
+CFLAGS = -c -Wall -std=gnu17 -pedantic -Wextra -frounding-math -fsignaling-nans -g -O2 -fno-builtin $(EXTRA_CFLAGS)
 
 ifndef COVERAGE
     COVERAGE=false
