@@ -1,13 +1,14 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* REDHAT LOCAL: Include files.  */
-#include <complex.h>
-#include <math.h>
-
 #include <limits.h>
 #include <stdbool.h>
 #include <stdint.h>
+
+/* REDHAT LOCAL: Include files.  */
+#include <complex.h>
+#include <math.h>
+#include "config.h"
 
 #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
     #define __IEEE_BIG_ENDIAN
