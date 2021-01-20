@@ -108,6 +108,12 @@
     #define FLT_SMALLEST_EXP -22
 #endif
 
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+    #define __IEEE_BIG_ENDIAN
+#elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    #define __IEEE_LITTLE_ENDIAN
+#endif
+
 /* The original code used statements like
     n0 = ((*(int*)&one)>>29)^1;        * index of high word *
     ix0 = *(n0+(int*)&x);            * high word of x *
