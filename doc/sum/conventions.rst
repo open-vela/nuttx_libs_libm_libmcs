@@ -5,7 +5,7 @@ This chapter lists the symbols, stylistic conventions, and command syntax used i
 explanation.
 
 .. table:: Notation conventions
-    :width: 100
+    :width: 100%
 
 +----------------+----------------+----------------------------------------------------------+
 | Convention     | Example        | Explanation                                              |
