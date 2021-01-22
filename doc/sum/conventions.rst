@@ -1,8 +1,11 @@
 Conventions
 ===========
 
-This chapter lists the symbols, stylistic conventions and command syntax used in this document. Each convention is identied by a name and described by an example and the additional
+This chapter lists the symbols, stylistic conventions, and command syntax used in this document. Each convention is identied by a name and described by an example and the additional
 explanation.
+
+.. table:: Notation conventions
+    :width: 100
 
 +----------------+----------------+----------------------------------------------------------+
 | Convention     | Example        | Explanation                                              |
