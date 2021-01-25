@@ -100,7 +100,7 @@ typedef union {
 
 typedef union {
     float value;
-    __uint32_t word;
+    uint32_t word;
 } ieee_float_shape_type;
 
 /* Get a 32 bit int from a float.  */
