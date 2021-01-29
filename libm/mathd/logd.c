@@ -184,9 +184,9 @@ double log(double x)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double log10l(long double x)
+long double logl(long double x)
 {
-    return (long double) log10((double) x);
+    return (long double) log((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
