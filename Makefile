@@ -224,10 +224,10 @@ OUT = $(BIN_DIR)/libm.a
 CFLAGS = -c -Wall -std=gnu17 -pedantic -Wextra -frounding-math -fsignaling-nans -g -O2 -fno-builtin $(EXTRA_CFLAGS)
 
 ifndef COVERAGE
-    COVERAGE=false
+    COVERAGE=0
 endif
 
-ifeq ('$(COVERAGE)', 'true')
+ifeq ($(COVERAGE),1)
     CFLAGS +=-O0 -fprofile-arcs -ftest-coverage
 endif
 
