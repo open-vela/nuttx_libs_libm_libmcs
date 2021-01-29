@@ -93,9 +93,9 @@ int ilogb(double x)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double ilogbl(long double x)
+int ilogbl(long double x)
 {
-    return (long double) ilogb((double) x);
+    return ilogb((double) x);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
