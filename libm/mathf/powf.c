@@ -12,6 +12,8 @@ zero     =  0.0,
 one      =  1.0,
 two      =  2.0,
 two24    =  16777216.0,       /* 0x4b800000 */
+huge	 =  1.0e30,
+tiny     =  1.0e-30,
 /* poly coefs for (3/2)*(log(x)-2s-2/3*s**3 */
 L1       =  6.0000002384e-01, /* 0x3f19999a */
 L2       =  4.2857143283e-01, /* 0x3edb6db7 */
@@ -49,9 +51,10 @@ float powf(float x, float y)
 
     /* y==zero: x**0 = 1 */
     if (FLT_UWORD_IS_ZERO(iy)) {
+        /* Removed
         if (issignalingf_inline(x)) {
             return x + y;
-        }
+        } */
 
         return one;
     }
@@ -59,9 +62,11 @@ float powf(float x, float y)
     /* x|y==NaN return NaN unless x==1 then return 1 */
     if (FLT_UWORD_IS_NAN(ix) ||
         FLT_UWORD_IS_NAN(iy)) {
-        if (hx == 0x3f800000 && !issignalingf_inline(y)) {
+        if (hx == 0x3f800000) {
+        /* Replaced if (hx == 0x3f800000 && !issignalingf_inline(y)) { */
             return one;
         } else {
+        /* Not replaced x+y with nanf("") as it was in newlib, research further. */
             return x + y;
         }
     }
@@ -145,11 +150,13 @@ float powf(float x, float y)
     if (iy > 0x4d000000) { /* if |y| > 2**27 */
         /* over/underflow if x is not close to one */
         if (ix < 0x3f7ffff8) {
-            return (hy < 0) ? __math_oflowf(0) : __math_uflowf(0);
+            /* Replaced return (hy < 0) ? __math_oflowf(0) : __math_uflowf(0); */
+            return (hy < 0) ? huge * huge : tiny * tiny;
         }
 
         if (ix > 0x3f800007) {
-            return (hy > 0) ? __math_oflowf(0) : __math_uflowf(0);
+            /* Replaced return (hy > 0) ? __math_oflowf(0) : __math_uflowf(0); */
+            return (hy > 0) ? huge * huge : tiny * tiny;
         }
 
         /* now |1-x| is tiny <= 2**-20, suffice to compute
@@ -245,17 +252,17 @@ float powf(float x, float y)
 
     if (j > 0) {
         if (i > FLT_UWORD_EXP_MAX) {
-            return __math_oflowf(s < 0);    /* overflow */
+            return s * huge * huge; /* Replaced __math_oflowf(s < 0); */     /* overflow */
         } else if (i == FLT_UWORD_EXP_MAX)
             if (p_l + ovt > z - p_h) {
-                return __math_oflowf(s < 0);    /* overflow */
+                return s * huge * huge; /* Replaced __math_oflowf(s < 0); */ /* overflow */
             }
     } else {
         if (i > FLT_UWORD_EXP_MIN) {
-            return __math_uflowf(s < 0);    /* underflow */
+            return s * tiny * tiny; /* Replaced __math_uflowf(s < 0); */     /* underflow */
         } else if (i == FLT_UWORD_EXP_MIN)
             if (p_l <= z - p_h) {
-                return __math_uflowf(s < 0);    /* underflow */
+                return s * tiny * tiny; /* Replaced __math_uflowf(s < 0); */ /* underflow */
             }
     }
 

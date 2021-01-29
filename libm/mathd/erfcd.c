@@ -293,7 +293,7 @@ double erfc(double x)
         }
     } else {
         if (hx > 0) {
-            return __math_uflow(0);
+            return tiny * tiny; /* Replaced __math_uflow(0); */
         } else {
             return two - tiny;
         }

@@ -46,7 +46,7 @@ float expm1f(float x)
         }/* exp(+-inf)={inf,-1} */
 
         if (xsb == 0 && hx > FLT_UWORD_LOG_MAX) { /* if x>=o_threshold */
-            return __math_oflowf(0);    /* overflow */
+            return huge * huge; /* Replaced __math_oflowf(0); */    /* overflow */
         }
 
         if (xsb != 0) { /* x < -27*ln2, return -1.0 with inexact */

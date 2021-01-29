@@ -133,9 +133,9 @@ double log1p(double x)
     if (hx < 0x3FDA827A) {                 /* x < 0.41422  */
         if (ax >= 0x3ff00000) {            /* x <= -1.0 */
             if (x == -1.0) {
-                return __math_divzero(1);  /* log1p(-1)=-inf */
+                return -two54/zero; /* Replaced __math_divzero(1); */ /* log1p(-1)=-inf */
             } else {
-                return __math_invalid(x);  /* log1p(x<-1)=NaN */
+                return (x-x)/(x-x); /* Replaced __math_invalid(x); */ /* log1p(x<-1)=NaN */
             }
         }
 

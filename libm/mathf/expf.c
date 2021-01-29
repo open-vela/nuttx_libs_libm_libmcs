@@ -42,11 +42,11 @@ float expf(float x)    /* default IEEE double exp */
     }        /* exp(+-inf)={inf,0} */
 
     if (sx > FLT_UWORD_LOG_MAX) {
-        return __math_oflowf(0);    /* overflow */
+        return huge * huge;       /* Replaced __math_oflowf(0); */    /* overflow */
     }
 
     if (sx < 0 && hx > FLT_UWORD_LOG_MIN) {
-        return __math_uflowf(0);    /* underflow */
+        return twom100 * twom100; /* Replaced __math_uflowf(0); */    /* underflow */
     }
 
     /* argument reduction */

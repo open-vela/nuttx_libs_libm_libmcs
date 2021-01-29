@@ -92,6 +92,8 @@ zero     =  0.0,
 one      =  1.0,
 two      =  2.0,
 two53    =  9007199254740992.0,          /* 0x43400000, 0x00000000 */
+huge	 =  1.0e300,
+tiny     =  1.0e-300,
 /* poly coefs for (3/2)*(log(x)-2s-2/3*s**3 */
 L1       =  5.99999999999994648725e-01,  /* 0x3FE33333, 0x33333303 */
 L2       =  4.28571428578550184252e-01,  /* 0x3FDB6DB6, 0xDB6FABFF */
@@ -130,9 +132,10 @@ double pow(double x, double y)
 
     /* y==zero: x**0 = 1 unless x is snan */
     if ((iy | ly) == 0) {
+        /* Removed
         if (issignaling_inline(x)) {
             return x + y;
-        }
+        } */
 
         return one;
     }
@@ -140,9 +143,11 @@ double pow(double x, double y)
     /* x|y==NaN return NaN unless x==1 then return 1 */
     if (ix > 0x7ff00000 || ((ix == 0x7ff00000) && (lx != 0)) ||
         iy > 0x7ff00000 || ((iy == 0x7ff00000) && (ly != 0))) {
-        if (((hx - 0x3ff00000) | lx) == 0 && !issignaling_inline(y)) {
+        if (((hx - 0x3ff00000) | lx) == 0) {
+        /* Replaced if (((hx - 0x3ff00000) | lx) == 0 && !issignaling_inline(y)) { */
             return one;
         } else {
+        /* Not replaced x+y with nan("") as it was in newlib, research further. */
             return x + y;
         }
     }
@@ -243,21 +248,25 @@ double pow(double x, double y)
     if (iy > 0x41e00000) {     /* if |y| > 2**31 */
         if (iy > 0x43f00000) { /* if |y| > 2**64, must o/uflow */
             if (ix <= 0x3fefffff) {
-                return (hy < 0) ? __math_oflow(0) : __math_uflow(0);
+                /* Replaced return (hy < 0) ? __math_oflow(0) : __math_uflow(0); */
+                return (hy < 0) ? huge * huge : tiny * tiny;
             }
 
             if (ix >= 0x3ff00000) {
-                return (hy > 0) ? __math_oflow(0) : __math_uflow(0);
+                /* Replaced return (hy > 0) ? __math_oflow(0) : __math_uflow(0); */
+                return (hy > 0) ? huge * huge : tiny * tiny;
             }
         }
 
         /* over/underflow if x is not close to one */
         if (ix < 0x3fefffff) {
-            return (hy < 0) ? __math_oflow(0) : __math_uflow(0);
+            /* Replaced return (hy < 0) ? __math_oflow(0) : __math_uflow(0); */
+            return (hy < 0) ? huge * huge : tiny * tiny;
         }
 
         if (ix > 0x3ff00000) {
-            return (hy > 0) ? __math_oflow(0) : __math_uflow(0);
+            /* Replaced return (hy > 0) ? __math_oflow(0) : __math_uflow(0); */
+            return (hy > 0) ? huge * huge : tiny * tiny;
         }
 
         /* now |1-x| is tiny <= 2**-20, suffice to compute
@@ -348,18 +357,18 @@ double pow(double x, double y)
 
     if (j >= 0x40900000) {                       /* z >= 1024 */
         if (((j - 0x40900000) | i) != 0) {       /* if z > 1024 */
-            return __math_oflow(s < 0);          /* overflow */
+            return s * huge * huge; /* Replaced __math_oflow(s < 0); */     /* overflow */
         } else {
             if (p_l + ovt > z - p_h) {
-                return __math_oflow(s < 0);      /* overflow */
+                return s * huge * huge; /* Replaced __math_oflow(s < 0); */ /* overflow */
             }
         }
     } else if ((j & 0x7fffffff) >= 0x4090cc00) { /* z <= -1075 */
         if (((j - 0xc090cc00) | i) != 0) {       /* z < -1075 */
-            return __math_uflow(s < 0);          /* underflow */
+            return s * tiny * tiny; /* Replaced __math_uflow(s < 0); */     /* underflow */
         } else {
             if (p_l <= z - p_h) {
-                return __math_uflow(s < 0);      /* underflow */
+                return s * tiny * tiny; /* Replaced __math_uflow(s < 0); */ /* underflow */
             }
         }
     }

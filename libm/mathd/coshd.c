@@ -65,7 +65,7 @@ QUICKREF
 
 #ifndef _DOUBLE_IS_32BITS
 
-static const double one = 1.0, half = 0.5;
+static const double one = 1.0, half = 0.5, huge = 1.0e300;
 
 double cosh(double x)
 {
@@ -116,7 +116,7 @@ double cosh(double x)
     }
 
     /* |x| > overflowthresold, cosh(x) overflow */
-    return __math_oflow(0);
+    return huge * huge; /* Replaced __math_oflow(0); */
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
