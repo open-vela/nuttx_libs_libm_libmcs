@@ -12,9 +12,9 @@ double nexttoward(double x, double y)
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double nexttowardl(long double x, long double y)
+long double nexttowardl(double x, long double y)
 {
-    return (long double) nexttoward((double) x, (double) y);
+    return (long double) nexttoward(x, (double) y);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
