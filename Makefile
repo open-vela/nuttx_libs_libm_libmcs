@@ -29,6 +29,7 @@ INCLUDE = -Ilibm/include -Ilibm/common -Ilibm/mathd/internal -Ilibm/mathf/intern
 
 SRC=libm/common/isgreater.c \
     libm/common/isnan.c \
+    libm/common/signgam.c \
     libm/common/tools.c \
     libm/complexd/cabsd.c \
     libm/complexd/cacosd.c \

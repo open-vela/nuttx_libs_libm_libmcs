@@ -1,11 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+#include <math.h>
 #include "internal/gammad.h"
-
-#ifndef __signgam
-    int __signgam;
-#endif
 
 #ifndef _DOUBLE_IS_32BITS
 

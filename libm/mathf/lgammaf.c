@@ -2,11 +2,8 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
+#include <math.h>
 #include "internal/gammaf.h"
-
-#ifndef __signgam
-    int __signgam;
-#endif
 
 float lgammaf(float x)
 {
