@@ -5,16 +5,16 @@
 
 #include <math.h>
 
-double nexttoward(double x, double y)
+double nexttoward(double x, long double y)
 {
-    return nextafter(x, y);
+    return nextafter(x, (double) y);
 }
 
 #ifdef _LONG_DOUBLE_IS_64BITS
 
-long double nexttowardl(double x, long double y)
+long double nexttowardl(long double x, long double y)
 {
-    return (long double) nexttoward(x, (double) y);
+    return (long double) nexttoward((double) x, y);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
