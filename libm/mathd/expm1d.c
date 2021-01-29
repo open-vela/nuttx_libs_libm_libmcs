@@ -182,7 +182,7 @@ double expm1(double x)
             }
 
             if (x > o_threshold) {
-                return __math_oflow(0);    /* overflow */
+                return huge * huge; /* Replaced __math_oflow(0); */    /* overflow */
             }
         }
 

@@ -148,11 +148,11 @@ double exp(double x)    /* default IEEE double exp */
         }
 
         if (x > o_threshold) {
-            return __math_oflow(0);    /* overflow */
+            return huge * huge;         /* Replaced __math_oflow(0); */    /* overflow */
         }
 
         if (x < u_threshold) {
-            return __math_uflow(0);    /* underflow */
+            return twom1000 * twom1000; /* Replaced __math_uflow(0); */    /* underflow */
         }
     }
 
