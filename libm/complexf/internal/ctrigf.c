@@ -3,6 +3,8 @@
 #include <complex.h>
 #include <math.h>
 
+#include "ctrigf.h"
+
 /* calculate cosh and sinh */
 
 void __ccoshsinhf(float x, float *c, float *s)

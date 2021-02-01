@@ -3,6 +3,8 @@
 #include <complex.h>
 #include <math.h>
 
+#include "ctrigd.h"
+
 #ifndef _DOUBLE_IS_32BITS
 
 /* calculate cosh and sinh */

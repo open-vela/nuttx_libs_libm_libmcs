@@ -1,7 +1,6 @@
 /* SPDX-License-Identifier: NetBSD */
 
 #include <complex.h>
-#include <math.h>
 
 float complex casinf(float complex z)
 {

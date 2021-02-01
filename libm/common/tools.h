@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+#pragma once
+
 #include <limits.h>
 #include <stdbool.h>
 #include <stdint.h>

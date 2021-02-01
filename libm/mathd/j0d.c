@@ -79,7 +79,7 @@ None of the Bessel functions are in ANSI C.
  * wrapper j0(double x), y0(double x)
  */
 
-#include "../common/tools.h"
+#include <math.h>
 #include "internal/besseld.h"
 
 #ifndef _DOUBLE_IS_32BITS

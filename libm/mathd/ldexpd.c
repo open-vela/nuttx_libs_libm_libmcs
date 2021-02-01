@@ -38,7 +38,7 @@ PORTABILITY
 
 */
 
-#include "../common/tools.h"
+#include <math.h>
 
 #ifndef _DOUBLE_IS_32BITS
 

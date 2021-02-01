@@ -12,6 +12,7 @@
  *    Inexact flag raised if x not equal to llrint(x).
  */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

@@ -80,6 +80,7 @@ RETURNS
 PORTABILITY
     <<pow>> is ANSI C. <<powf>> is an extension.  */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

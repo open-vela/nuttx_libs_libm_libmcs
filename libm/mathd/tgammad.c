@@ -12,6 +12,7 @@
  * depending on the library mode.
  */
 
+#include <math.h>
 #include "../common/tools.h"
 #include "internal/gammad.h"
 
