@@ -62,6 +62,7 @@ QUICKREF
     sinhf - pure
 */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

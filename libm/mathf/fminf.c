@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: RedHat */
 /* Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved. */
 
-#include "../common/tools.h"
+#include <math.h>
 
 float fminf(float x, float y)
 {

@@ -79,6 +79,7 @@ MATHREF
  asinf,  NAN,  arg,EDOM, DOMAIN
 */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

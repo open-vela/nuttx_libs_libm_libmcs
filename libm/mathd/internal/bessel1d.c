@@ -46,7 +46,9 @@
  *       by method mentioned above.
  */
 
+#include <math.h>
 #include "../../common/tools.h"
+#include "besseld.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

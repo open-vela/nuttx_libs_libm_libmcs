@@ -56,6 +56,7 @@ SEEALSO
  *    Inexact flag raised if x not equal to rint(x).
  */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

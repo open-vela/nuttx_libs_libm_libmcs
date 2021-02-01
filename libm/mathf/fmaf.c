@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
+#include <math.h>
+
 float fmaf(float x, float y, float z)
 {
     return x * y + z;

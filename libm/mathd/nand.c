@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
+#include <math.h>
+
 #ifndef _DOUBLE_IS_32BITS
 
 double nan(const char *payload)

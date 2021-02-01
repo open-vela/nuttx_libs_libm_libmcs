@@ -70,6 +70,7 @@ QUICKREF
  *    TRIG(x) returns trig(x) nearly rounded
  */
 
+#include <math.h>
 #include "../common/tools.h"
 #include "internal/trigd.h"
 

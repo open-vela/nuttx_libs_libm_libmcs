@@ -14,8 +14,7 @@ union fshape {
 /* See: https://sourceware.org/ml/newlib/2014/msg00684.html */
 #ifdef _LDBL_EQ_DBL
 
-float
-nexttowardf(float x, long double y)
+float nexttowardf(float x, long double y)
 {
     union fshape ux;
     uint32_t e;

@@ -31,6 +31,7 @@ C99, POSIX.
 
 */
 
+#include <math.h>
 #include "../../common/tools.h"
 
 int __signbitf(float x)

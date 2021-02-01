@@ -43,6 +43,7 @@ PORTABILITY
 <<fmod>> is ANSI C. <<fmodf>> is an extension.
 */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

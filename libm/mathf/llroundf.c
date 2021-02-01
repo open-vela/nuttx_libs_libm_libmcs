@@ -2,6 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* lrint adapted to be llrint for Newlib, 2009 by Craig Howland. */
 
+#include <math.h>
 #include "../common/tools.h"
 
 long long int llroundf(float x)
