@@ -3,6 +3,7 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #include "../../common/tools.h"
+#include "gammaf.h"
 #include "trigf.h"
 
 static const float

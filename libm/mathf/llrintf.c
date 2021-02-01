@@ -12,6 +12,7 @@
  *    Inexact flag raised if x not equal to llrintf(x).
  */
 
+#include <math.h>
 #include "../common/tools.h"
 
 static const float

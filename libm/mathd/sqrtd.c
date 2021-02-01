@@ -98,6 +98,7 @@ PORTABILITY
     <<sqrt>> is ANSI C.  <<sqrtf>> is an extension.
 */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS

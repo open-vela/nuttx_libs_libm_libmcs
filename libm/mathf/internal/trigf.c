@@ -2,7 +2,9 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
+#include <math.h>
 #include "../../common/tools.h"
+#include "trigf.h"
 
 /* In the float version, the input parameter x contains 8 bit
    integers, not 24 bit integers.  113 bit precision is not supported.  */

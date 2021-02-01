@@ -117,7 +117,9 @@
  * to produce the hexadecimal values shown.
  */
 
+#include <math.h>
 #include "../../common/tools.h"
+#include "trigd.h"
 
 #ifndef _DOUBLE_IS_32BITS
 

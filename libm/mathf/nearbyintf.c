@@ -2,7 +2,6 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 #include <math.h>
-#include "../common/tools.h"
 
 float nearbyintf(float x)
 {

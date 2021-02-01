@@ -46,6 +46,7 @@ Neither <<asinh>> nor <<asinhf>> are ANSI C.
  *             := sign(x)*log1p(|x| + x^2/(1 + sqrt(1+x^2)))
  */
 
+#include <math.h>
 #include "../common/tools.h"
 
 #ifndef _DOUBLE_IS_32BITS
