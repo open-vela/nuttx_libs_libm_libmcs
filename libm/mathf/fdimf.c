@@ -16,7 +16,7 @@ float fdimf(float x, float y)
     return x > y ? x - y : 0.0;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double fdim(double x, double y)
 {

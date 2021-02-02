@@ -16,7 +16,7 @@
 #include "../common/tools.h"
 #include "internal/gammad.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double tgamma(double x)
 {
@@ -30,7 +30,7 @@ double tgamma(double x)
     return y;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double tgammal(long double x)
 {

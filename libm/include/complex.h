@@ -100,7 +100,7 @@ float complex cprojf(float complex);
 double creal(double complex);
 float crealf(float complex);
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
     long double complex cacosl(long double complex);
     long double complex casinl(long double complex);

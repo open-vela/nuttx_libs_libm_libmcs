@@ -8,7 +8,7 @@ float fmaf(float x, float y, float z)
     return x * y + z;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double fma(double x, double y, double z)
 {

@@ -233,7 +233,7 @@ extern float fminf(float, float);
 extern float fmaf(float, float, float);
 
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
     /* Long double trigonometric functions */
     extern long double acosl(long double);

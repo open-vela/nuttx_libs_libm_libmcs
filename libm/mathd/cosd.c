@@ -36,7 +36,7 @@
 #include "../common/tools.h"
 #include "internal/trigd.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double cos(double x)
 {
@@ -78,7 +78,7 @@ double cos(double x)
     }
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double cosl(long double x)
 {

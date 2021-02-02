@@ -50,7 +50,7 @@
 #include "../../common/tools.h"
 #include "besseld.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /* For x >= 8, the asymptotic expansions of __pone is
  *    1 + 15/128 s^2 - 4725/2^15 s^4 - ...,    where s = 1/x.

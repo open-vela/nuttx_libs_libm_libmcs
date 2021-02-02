@@ -62,7 +62,7 @@ float rintf(float x)
     return w - TWO23[sx];
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double rint(double x)
 {

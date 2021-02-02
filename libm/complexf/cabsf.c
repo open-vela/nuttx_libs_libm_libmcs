@@ -9,7 +9,7 @@ float cabsf(float complex z)
     return hypotf(crealf(z), cimagf(z));
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double cabs(double complex z)
 {

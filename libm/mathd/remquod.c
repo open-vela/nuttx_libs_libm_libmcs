@@ -50,7 +50,7 @@ C99, POSIX.
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /* For quotient, return either all 31 bits that can from calculation (using
  * int32_t), or as many as can fit into an int that is smaller than 32 bits.  */
@@ -249,7 +249,7 @@ fixup:
     return x;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double remquol(long double x, long double y, int *quo)
 {

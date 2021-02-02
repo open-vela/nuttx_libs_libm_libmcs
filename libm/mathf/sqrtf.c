@@ -89,7 +89,7 @@ float sqrtf(float x)
     return z;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double sqrt(double x)
 {

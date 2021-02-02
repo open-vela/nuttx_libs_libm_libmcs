@@ -83,7 +83,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 bp[]     = {1.0, 1.5,},
@@ -417,7 +417,7 @@ double pow(double x, double y)
     return s * z;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double powl(long double x, long double y)
 {

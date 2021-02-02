@@ -94,7 +94,7 @@ float hypotf(float x, float y)
     }
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double hypot(double x, double y)
 {

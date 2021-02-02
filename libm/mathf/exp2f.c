@@ -9,7 +9,7 @@ float exp2f(float x)
     return powf(2.0, x);
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double exp2(double x)
 {

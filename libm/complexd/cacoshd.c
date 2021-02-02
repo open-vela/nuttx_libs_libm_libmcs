@@ -47,7 +47,7 @@ QUICKREF
 
 #include <complex.h>
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex cacosh(double complex z)
 {
@@ -58,7 +58,7 @@ double complex cacosh(double complex z)
     return w;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double complex cacoshl(long double complex z)
 {

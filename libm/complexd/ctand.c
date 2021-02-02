@@ -37,7 +37,7 @@ QUICKREF
 #include <math.h>
 #include "internal/ctrigd.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
@@ -104,7 +104,7 @@ double complex ctan(double complex z)
     return w;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double complex ctanl(long double complex z)
 {

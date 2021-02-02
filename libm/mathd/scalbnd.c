@@ -54,7 +54,7 @@ SEEALSO
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 two54   =  1.80143985094819840000e+16, /* 0x43500000, 0x00000000 */
@@ -110,7 +110,7 @@ double scalbn(double x, int n)
     return x * twom54;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double scalbnl(long double x, int n)
 {

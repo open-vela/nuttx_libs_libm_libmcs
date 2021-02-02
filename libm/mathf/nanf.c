@@ -8,7 +8,7 @@ float nanf(const char *payload)
     return 0.0f / 0.0f;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double nan(const char *payload)
 {

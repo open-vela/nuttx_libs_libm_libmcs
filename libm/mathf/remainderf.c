@@ -63,7 +63,7 @@ float remainderf(float x, float p)
     return x;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double remainder(double x, double y)
 {

@@ -46,7 +46,7 @@ float tanhf(float x)
     return (jx >= 0) ? z : -z;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double tanh(double x)
 {

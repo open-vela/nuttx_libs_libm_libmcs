@@ -29,7 +29,7 @@ ANSI C, POSIX.
 
 #include <math.h>
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double fmin(double x, double y)
 {
@@ -44,7 +44,7 @@ double fmin(double x, double y)
     return x < y ? x : y;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double fminl(long double x, long double y)
 {

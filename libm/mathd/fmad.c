@@ -3,14 +3,14 @@
 
 #include <math.h>
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double fma(double x, double y, double z)
 {
     return x * y + z;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double fmal(long double x, long double y, long double z)
 {
