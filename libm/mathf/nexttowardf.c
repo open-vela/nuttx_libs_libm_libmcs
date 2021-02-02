@@ -12,7 +12,7 @@ union fshape {
 /* This is only necessary because the implementation of isnan only works */
 /* properly when long double == double. */
 /* See: https://sourceware.org/ml/newlib/2014/msg00684.html */
-#ifdef _LDBL_EQ_DBL
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 float nexttowardf(float x, long double y)
 {
@@ -66,4 +66,4 @@ float nexttowardf(float x, long double y)
     return ux.value;
 }
 
-#endif /* _LDBL_EQ_DBL */
+#endif /* __LIBMCS_LONG_DOUBLE_IS_64BITS */

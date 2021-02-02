@@ -39,7 +39,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double zero = 0.0;
 
@@ -102,7 +102,7 @@ double remainder(double x, double p)
     return x;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double remainderl(long double x, long double y)
 {

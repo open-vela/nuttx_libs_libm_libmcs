@@ -37,7 +37,7 @@ ANSI C, POSIX.
 
 #include <math.h>
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double fdim(double x, double y)
 {
@@ -52,7 +52,7 @@ double fdim(double x, double y)
     return x > y ? x - y : 0.0;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double fdiml(long double x, long double y)
 {

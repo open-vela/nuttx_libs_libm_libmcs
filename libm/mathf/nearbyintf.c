@@ -8,7 +8,7 @@ float nearbyintf(float x)
     return rintf(x);
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double nearbyint(double x)
 {

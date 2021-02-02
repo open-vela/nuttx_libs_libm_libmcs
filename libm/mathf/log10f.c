@@ -49,7 +49,7 @@ float log10f(float x)
     return  z + y * log10_2hi;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double log10(double x)
 {

@@ -44,7 +44,7 @@ QUICKREF
 
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /*
  * cproj(double complex z)
@@ -70,7 +70,7 @@ double complex cproj(double complex z)
     return (w.z);
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double complex cprojl(long double complex z)
 {

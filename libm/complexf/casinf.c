@@ -28,7 +28,7 @@ float complex casinf(float complex z)
     return w;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex casin(double complex z)
 {

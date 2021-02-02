@@ -10,7 +10,7 @@ float complex casinhf(float complex z)
     return w;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex casinh(double complex z)
 {

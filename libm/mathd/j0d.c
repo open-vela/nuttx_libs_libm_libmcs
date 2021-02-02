@@ -82,7 +82,7 @@ None of the Bessel functions are in ANSI C.
 #include <math.h>
 #include "internal/besseld.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double j0(double x)
 {

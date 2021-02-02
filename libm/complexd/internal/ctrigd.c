@@ -5,7 +5,7 @@
 
 #include "ctrigd.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /* calculate cosh and sinh */
 

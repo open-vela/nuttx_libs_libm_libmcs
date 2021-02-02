@@ -54,7 +54,7 @@ float coshf(float x)
     return huge * huge; /* Replaced __math_oflowf(0); */
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double cosh(double x)
 {

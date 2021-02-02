@@ -105,7 +105,7 @@ Interface Definition (Issue 2).
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 ln2_hi  =  6.93147180369123816490e-01,  /* 3fe62e42 fee00000 */
@@ -219,7 +219,7 @@ double log1p(double x)
     }
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double log1pl(long double x)
 {

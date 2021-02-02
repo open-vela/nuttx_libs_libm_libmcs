@@ -40,7 +40,7 @@ PORTABILITY
 
 #include <math.h>
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double ldexp(double value, int exp)
 {
@@ -52,7 +52,7 @@ double ldexp(double value, int exp)
     return value;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double ldexpl(long double value, int exp)
 {

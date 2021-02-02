@@ -93,7 +93,7 @@ float expf(float x)    /* default IEEE double exp */
     }
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double exp(double x)
 {

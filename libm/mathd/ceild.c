@@ -13,7 +13,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double huge = 1.0e300;
 
@@ -87,7 +87,7 @@ double ceil(double x)
     return x;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double ceill(long double x)
 {

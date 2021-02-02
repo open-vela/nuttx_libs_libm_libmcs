@@ -102,7 +102,7 @@ float atanf(float x)
     }
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double atan(double x)
 {

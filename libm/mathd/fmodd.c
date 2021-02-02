@@ -46,7 +46,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double one = 1.0, Zero[] = {0.0, -0.0,};
 
@@ -207,7 +207,7 @@ double fmod(double x, double y)
     return x;        /* exact output */
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double fmodl(long double x, long double y)
 {

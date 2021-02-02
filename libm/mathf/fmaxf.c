@@ -16,7 +16,7 @@ float fmaxf(float x, float y)
     return x > y ? x : y;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double fmax(double x, double y)
 {

@@ -30,7 +30,7 @@ float complex cprojf(float complex z)
     return (w.z);
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex cproj(double complex z)
 {

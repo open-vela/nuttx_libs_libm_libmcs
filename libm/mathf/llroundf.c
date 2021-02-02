@@ -34,7 +34,7 @@ long long int llroundf(float x)
     return sign * result;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 long long int llround(double x)
 {

@@ -11,7 +11,7 @@ float crealf(float complex z)
     return (REAL_PART(w));
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double creal(double complex z)
 {

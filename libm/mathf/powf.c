@@ -309,7 +309,7 @@ float powf(float x, float y)
     return s * z;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double pow(double x, double y)
 {

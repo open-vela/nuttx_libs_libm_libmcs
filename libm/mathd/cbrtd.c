@@ -28,7 +28,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const uint32_t
 B1 = 715094163, /* B1 = (682-0.03306235651)*2**20 */
@@ -98,7 +98,7 @@ double cbrt(double x)
     return (t);
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double cbrtl(long double x)
 {

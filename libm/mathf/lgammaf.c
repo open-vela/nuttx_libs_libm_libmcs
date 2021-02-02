@@ -10,7 +10,7 @@ float lgammaf(float x)
     return __lgammaf(x, &__signgam);
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double lgamma(double x)
 {

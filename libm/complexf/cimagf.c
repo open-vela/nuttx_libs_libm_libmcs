@@ -11,7 +11,7 @@ float cimagf(float complex z)
     return (IMAG_PART(w));
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double cimag(double complex z)
 {

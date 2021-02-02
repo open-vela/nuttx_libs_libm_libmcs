@@ -52,7 +52,7 @@ QUICKREF
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double modf(double x, double *iptr)
 {
@@ -100,7 +100,7 @@ double modf(double x, double *iptr)
     }
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double modfl(long double x, long double *iptr)
 {

@@ -45,7 +45,7 @@ float sinf(float x)
     }
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double sin(double x)
 {

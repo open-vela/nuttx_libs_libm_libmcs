@@ -41,7 +41,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double nextafter(double x, double y)
 {
@@ -122,7 +122,7 @@ double nextafter(double x, double y)
     return x;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double nextafterl(long double x, long double y)
 {

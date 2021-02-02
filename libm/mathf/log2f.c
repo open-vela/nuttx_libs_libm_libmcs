@@ -9,7 +9,7 @@ float log2f(float x)
     return (logf(x) / (float_t) M_LN2);
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double log2(double x)
 {

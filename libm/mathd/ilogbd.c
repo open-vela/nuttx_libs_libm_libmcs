@@ -53,7 +53,7 @@ C99, POSIX
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 int ilogb(double x)
 {
@@ -92,7 +92,7 @@ int ilogb(double x)
     }
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 int ilogbl(long double x)
 {

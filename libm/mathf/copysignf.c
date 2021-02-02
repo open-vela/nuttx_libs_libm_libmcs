@@ -20,7 +20,7 @@ float copysignf(float x, float y)
     return x;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double copysign(double x, double y)
 {

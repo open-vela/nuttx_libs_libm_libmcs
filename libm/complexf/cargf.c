@@ -9,7 +9,7 @@ float cargf(float complex z)
     return atan2f(cimagf(z), crealf(z));
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double carg(double complex z)
 {

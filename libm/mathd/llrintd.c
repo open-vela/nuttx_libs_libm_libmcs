@@ -15,7 +15,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /* Adding a double, x, to 2^52 will cause the result to be rounded based on
    the fractional part of x, according to the implementation's current rounding
@@ -96,7 +96,7 @@ long long int llrint(double x)
     return sx ? -result : result;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long long int llrintl(long double x)
 {

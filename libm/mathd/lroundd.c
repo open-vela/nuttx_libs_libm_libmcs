@@ -43,7 +43,7 @@ ANSI C, POSIX
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 long int lround(double x)
 {
@@ -111,7 +111,7 @@ long int lround(double x)
     return sign * result;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long int lroundl(long double x)
 {

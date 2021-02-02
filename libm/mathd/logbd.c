@@ -65,7 +65,7 @@ frexp, ilogb
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double logb(double x)
 {
@@ -101,7 +101,7 @@ double logb(double x)
     }
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double logbl(long double x)
 {

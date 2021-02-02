@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 #include <math.h>
 
@@ -10,7 +10,7 @@ double nexttoward(double x, long double y)
     return nextafter(x, (double) y);
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double nexttowardl(long double x, long double y)
 {

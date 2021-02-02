@@ -76,7 +76,7 @@ MATHREF
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 one     =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
@@ -148,7 +148,7 @@ double acos(double x)
     }
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double acosl(long double x)
 {

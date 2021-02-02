@@ -13,7 +13,7 @@ float ldexpf(float value, int exp)
     return scalbnf(value, exp);
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double ldexp(double value, int exp)
 {

@@ -38,7 +38,7 @@ Definition (Issue 2).
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double copysign(double x, double y)
 {
@@ -49,7 +49,7 @@ double copysign(double x, double y)
     return x;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double copysignl(long double x, long double y)
 {
