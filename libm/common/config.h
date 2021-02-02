@@ -31,6 +31,9 @@
 #define LIBMCS_LONG_DOUBLE_IS_64BITS
 #ifdef LIBMCS_LONG_DOUBLE_IS_64BITS
     #define __LIBMCS_LONG_DOUBLE_IS_64BITS
+    #ifdef LIBMCS_DOUBLE_IS_32BITS
+        #error Cannot define both LIBMCS_DOUBLE_IS_32BITS and LIBMCS_LONG_DOUBLE_IS_64BITS at once.
+    #endif /* LIBMCS_DOUBLE_IS_32BITS */
 #endif /* LIBMCS_LONG_DOUBLE_IS_64BITS */
 
 /* Most routines need to check whether a float is finite, infinite, or not a
