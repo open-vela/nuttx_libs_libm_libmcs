@@ -61,7 +61,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double one = 1.0, two = 2.0, tiny = 1.0e-300;
 
@@ -105,7 +105,7 @@ double tanh(double x)
     return (jx >= 0) ? z : -z;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double tanhl(long double x)
 {

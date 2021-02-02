@@ -68,7 +68,7 @@ float scalbnf(float x, int n)
     return x * twom25;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double scalbn(double x, int n)
 {

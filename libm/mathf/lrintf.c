@@ -68,7 +68,7 @@ long int lrintf(float x)
     return sx ? -result : result;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 long int lrint(double x)
 {

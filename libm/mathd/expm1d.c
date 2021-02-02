@@ -134,7 +134,7 @@ PORTABILITY
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 one         =  1.0,
@@ -276,7 +276,7 @@ double expm1(double x)
     return y;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double expm1l(long double x)
 {

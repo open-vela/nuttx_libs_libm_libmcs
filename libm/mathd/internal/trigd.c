@@ -121,7 +121,7 @@
 #include "../../common/tools.h"
 #include "trigd.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const int init_jk[] = {2, 3, 4, 6}; /* initial value for jk */
 

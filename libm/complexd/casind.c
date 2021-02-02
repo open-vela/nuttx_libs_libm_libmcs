@@ -44,7 +44,7 @@ QUICKREF
 
 #include <complex.h>
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex casin(double complex z)
 {
@@ -72,7 +72,7 @@ double complex casin(double complex z)
     return w;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double complex casinl(long double complex z)
 {

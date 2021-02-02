@@ -58,7 +58,7 @@ float sinhf(float x)
     return x * shuge;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double sinh(double x)
 {

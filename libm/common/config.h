@@ -4,11 +4,38 @@
 
 #pragma once
 
+/* If an FPU is not standard compliant for subnormal values, use the define LIBMCS_FPU_DAZ to force 
+ * each procedure to first multiply the input value(s) by 1, therefore using the FPUs defined
+ * behaviour for subnormal values as follows:
+ * If the FPU is standard compliant for subnormals, the multiplication does not cause any
+ * difference in the behaviour of the procedure.
+ * If the FPU can not handle subnormals at all, it's very likely that a special FPU trap will be
+ * thrown. This trap can then be handled by the user if so inclined.
+ * If the FPU has an internal implementation for DAZ (denormals are zero), the input values will be
+ * reduced to zero and the procedures will then behave as if a zero was used as an input. Usually
+ * this will also generate an inexact exception. */
+// #define LIBMCS_FPU_DAZ
+#ifdef LIBMCS_FPU_DAZ
+    #define __LIBMCS_FPU_DAZ
+    static volatile double __volatile_one = 1.0;
+    static volatile float __volatile_onef = 1.0f;
+#endif /* LIBMCS_FPU_DAZ */
+
+/* Define to tell the libm to be built for 32bit doubles. */
+// #define LIBMCS_DOUBLE_IS_32BITS
+#ifdef LIBMCS_DOUBLE_IS_32BITS
+    #define __LIBMCS_DOUBLE_IS_32BITS
+#endif /* LIBMCS_DOUBLE_IS_32BITS */
+
+/* Define to tell the libm to be built for 64bit long doubles. */
+#define LIBMCS_LONG_DOUBLE_IS_64BITS
+#ifdef LIBMCS_LONG_DOUBLE_IS_64BITS
+    #define __LIBMCS_LONG_DOUBLE_IS_64BITS
+#endif /* LIBMCS_LONG_DOUBLE_IS_64BITS */
+
 /* Most routines need to check whether a float is finite, infinite, or not a
    number, and many need to know whether the result of an operation will
-   overflow.  These conditions depend on whether the largest exponent is
-   used for NaNs & infinities, or whether it's used for finite numbers.  The
-   macros below wrap up that kind of information:
+   overflow. The macros below wrap up that kind of information:
 
    FLT_UWORD_IS_FINITE(X)
     True if a positive float with bitmask X is finite.
@@ -43,25 +70,14 @@
     (255 if the largest exponent is used for finite numbers, 254
     otherwise) */
 
-#ifdef _FLT_LARGEST_EXPONENT_IS_NORMAL
-    #define FLT_UWORD_IS_FINITE(x) 1
-    #define FLT_UWORD_IS_NAN(x) 0
-    #define FLT_UWORD_IS_INFINITE(x) 0
-    #define FLT_UWORD_MAX 0x7fffffff
-    #define FLT_UWORD_EXP_MAX 0x43010000
-    #define FLT_UWORD_LOG_MAX 0x42b2d4fc
-    #define FLT_UWORD_LOG_2MAX 0x42b437e0
-    #define HUGE ((float)0X1.FFFFFEP128)
-#else
-    #define FLT_UWORD_IS_FINITE(x) ((x)<0x7f800000L)
-    #define FLT_UWORD_IS_NAN(x) ((x)>0x7f800000L)
-    #define FLT_UWORD_IS_INFINITE(x) ((x)==0x7f800000L)
-    #define FLT_UWORD_MAX 0x7f7fffffL
-    #define FLT_UWORD_EXP_MAX 0x43000000
-    #define FLT_UWORD_LOG_MAX 0x42b17217
-    #define FLT_UWORD_LOG_2MAX 0x42b2d4fc
-    #define HUGE ((float)3.40282346638528860e+38)
-#endif
+#define FLT_UWORD_IS_FINITE(x) ((x)<0x7f800000L)
+#define FLT_UWORD_IS_NAN(x) ((x)>0x7f800000L)
+#define FLT_UWORD_IS_INFINITE(x) ((x)==0x7f800000L)
+#define FLT_UWORD_MAX 0x7f7fffffL
+#define FLT_UWORD_EXP_MAX 0x43000000
+#define FLT_UWORD_LOG_MAX 0x42b17217
+#define FLT_UWORD_LOG_2MAX 0x42b2d4fc
+#define HUGE ((float)3.40282346638528860e+38)
 #define FLT_UWORD_HALF_MAX (FLT_UWORD_MAX-(1L<<23))
 #define FLT_LARGEST_EXP (FLT_UWORD_MAX>>23)
 
@@ -92,7 +108,7 @@
     -22 if they are).
 */
 
-#ifdef _FLT_NO_DENORMALS
+#ifdef __LIBMCS_FPU_DAZ
     #define FLT_UWORD_IS_ZERO(x) ((x)<0x00800000L)
     #define FLT_UWORD_IS_SUBNORMAL(x) 0
     #define FLT_UWORD_MIN 0x00800000

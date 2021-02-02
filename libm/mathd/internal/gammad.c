@@ -73,7 +73,7 @@
 #include "gammad.h"
 #include "trigd.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 two52 =  4.50359962737049600000e+15, /* 0x43300000, 0x00000000 */

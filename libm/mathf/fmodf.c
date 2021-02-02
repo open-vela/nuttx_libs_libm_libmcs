@@ -121,7 +121,7 @@ float fmodf(float x, float y)
     return x;        /* exact output */
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double fmod(double x, double y)
 {

@@ -68,7 +68,7 @@ float complex ctanf(float complex z)
     return w;
 }
 
-#ifdef _DOUBLE_IS_32BITS
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex ctan(double complex z)
 {

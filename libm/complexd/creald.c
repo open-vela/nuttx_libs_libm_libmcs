@@ -43,7 +43,7 @@ QUICKREF
 #include <complex.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double creal(double complex z)
 {
@@ -52,7 +52,7 @@ double creal(double complex z)
     return (REAL_PART(w));
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double creall(long double complex z)
 {

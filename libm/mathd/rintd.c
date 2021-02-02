@@ -59,7 +59,7 @@ SEEALSO
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double TWO52[2] = {
      4.50359962737049600000e+15, /* 0x43300000, 0x00000000 */
@@ -136,7 +136,7 @@ double rint(double x)
     return w - TWO52[sx];
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double rintl(long double x)
 {

@@ -50,7 +50,7 @@
 #include "../../common/tools.h"
 #include "besseld.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /* The asymptotic expansions of __pzero is
  *    1 - 9/128 s^2 + 11025/98304 s^4 - ...,    where s = 1/x.

@@ -37,7 +37,7 @@ QUICKREF
 #include <math.h>
 #include "internal/ctrigd.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double complex csin(double complex z)
 {
@@ -49,7 +49,7 @@ double complex csin(double complex z)
     return w;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double complex csinl(long double complex z)
 {

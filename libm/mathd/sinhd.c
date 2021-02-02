@@ -65,7 +65,7 @@ QUICKREF
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double one = 1.0, shuge = 1.0e307;
 
@@ -124,7 +124,7 @@ double sinh(double x)
     return x * shuge;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double sinhl(long double x)
 {

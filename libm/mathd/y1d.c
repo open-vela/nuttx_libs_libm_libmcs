@@ -8,7 +8,7 @@
 #include <math.h>
 #include "internal/besseld.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double y1(double x)
 {

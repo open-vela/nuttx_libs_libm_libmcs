@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef _DOUBLE_IS_32BITS
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 long long int llround(double x)
 {
@@ -68,7 +68,7 @@ long long int llround(double x)
     return sign * result;
 }
 
-#ifdef _LONG_DOUBLE_IS_64BITS
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long long int llroundl(long double x)
 {
