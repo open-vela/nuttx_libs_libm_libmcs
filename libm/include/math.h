@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "../common/config.h"
+
 /* These macros define the errno and exception behaviour of the library. This library enforces the */
 /* use of math_errhandling as MATH_ERREXCEPT. */
 /* See ISO C18 standard §7.12 wrt. math_errhandling. */

@@ -10,7 +10,6 @@
 /* REDHAT LOCAL: Include files.  */
 #include <complex.h>
 #include <math.h>
-#include "config.h"
 
 /* A union which permits us to convert between a double and two 32 bit
    ints.  */
