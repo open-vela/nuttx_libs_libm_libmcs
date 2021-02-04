@@ -1,0 +1,5 @@
+--i"../../../gcc/gcc/ginclude/"
+--i"../../include"
+--i"../libc/include"
+--i"../libm/math"
+--i"../libm/common"
