@@ -1,0 +1,6 @@
+//  Gnu C/C++ (version 2.95.3 or later), -si4 -sp4,
+//  Standard lint options
+
+au-misra3.lnt
+co-gcc.lnt
+options.lnt
