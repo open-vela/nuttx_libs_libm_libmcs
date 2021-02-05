@@ -112,3 +112,5 @@
 #define _GCC_LIMITS_H_
 #define _MATH_CONFIG_H
 #define _LDBL_EQ_DBL
+#define __ORDER_BIG_ENDIAN__ 1
+#define __BYTE_ORDER__ 1
