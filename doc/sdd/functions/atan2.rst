@@ -1,11 +1,5 @@
-References
-==========
-
-* :ref:`atan`
-* :ref:`fabs`
-
 Special cases
-=============
+^^^^^^^^^^^^^
 
 +------------------------+------------------------------+--------------------------+
 | y                      | x                            | Result                   |
@@ -18,9 +12,9 @@ Special cases
 +------------------------+------------------------------+--------------------------+
 | :math:`-0`             | :math:`+0`                   | :math:`+\pi`             |
 +------------------------+------------------------------+--------------------------+
-| :math:`±0`             | :math:`<0`                   | :math:`-\frac{\pi}{2}`   |
+| :math:`Â±0`             | :math:`<0`                   | :math:`-\frac{\pi}{2}`   |
 +------------------------+------------------------------+--------------------------+
-| :math:`±0`             | :math:`>0`                   | :math:`+\frac{\pi}{2}`   |
+| :math:`Â±0`             | :math:`>0`                   | :math:`+\frac{\pi}{2}`   |
 +------------------------+------------------------------+--------------------------+
 | :math:`+0`             | :math:`-0`                   | :math:`-0`               |
 +------------------------+------------------------------+--------------------------+
@@ -38,9 +32,9 @@ Special cases
 +------------------------+------------------------------+--------------------------+
 | :math:`+Inf`           | :math:`>0 \wedge \neq +Inf`  | :math:`+0`               |
 +------------------------+------------------------------+--------------------------+
-| :math:`\neq ±Inf`      | :math:`-Inf`                 | :math:`-\frac{\pi}{2}`   |
+| :math:`\neq Â±Inf`      | :math:`-Inf`                 | :math:`-\frac{\pi}{2}`   |
 +------------------------+------------------------------+--------------------------+
-| :math:`\neq ±Inf`      | :math:`+Inf`                 | :math:`+\frac{\pi}{2}`   |
+| :math:`\neq Â±Inf`      | :math:`+Inf`                 | :math:`+\frac{\pi}{2}`   |
 +------------------------+------------------------------+--------------------------+
 | :math:`-Inf`           | :math:`-Inf`                 | :math:`-\frac{3 \pi}{4}` |
 +------------------------+------------------------------+--------------------------+
@@ -56,7 +50,7 @@ Special cases
 +------------------------+------------------------------+--------------------------+
 
 Mathematical Approach
-=====================
+^^^^^^^^^^^^^^^^^^^^^
 
 The approach is to first work on special values and then use :ref:`atan` for the calculation.
 
@@ -106,7 +100,7 @@ Use the following constants as calculation/return values:
 .. [#] This is an optimization which omits the call to :ref:`atan` and :ref:`fabs` as the result is so much smaller than :math:`PI` that the result has no significance to the final result (as :math:`m` can only be :math:`2` or :math:`3` for negative :math:`x`).
 
 Requirements
-============
+^^^^^^^^^^^^
 
 * REQ-ML-0650
 * REQ-ML-0652
@@ -122,3 +116,9 @@ Requirements
 * REQ-ML-0684
 * REQ-ML-0685
 * REQ-ML-0686
+
+References
+^^^^^^^^^^
+
+* :ref:`atan`
+* :ref:`fabs`
