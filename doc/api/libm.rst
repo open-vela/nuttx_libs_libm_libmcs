@@ -7,7 +7,13 @@ of the procedures in the ISO C and POSIX standards. Each subsection starts with 
 procedure’s signature, followed by a short description of the evaluated mathematical function
 and its return value. Further the portability and the numerical approach are explained.
 
-acos
+atan
 ~~~~
 
-.. c:autodoc:: ../libm/mathd/acos.c
+atan2
+~~~~~
+
+.. c:autodoc:: ../libm/mathd/atan2d.c
+
+fabs
+~~~~
