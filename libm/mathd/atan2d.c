@@ -28,9 +28,9 @@
  * Exceptions
  * ==========
  *
- * Does not raise ``Divide by Zero`` exception even if argument :math:`x` is zero.
+ * Does not raise ``divide-by-zero`` exception even if argument :math:`x` is zero.
  *
- * .. May raise ``Underflow`` exception.
+ * .. May raise ``underflow`` exception.
  *
  * Output map
  * ==========

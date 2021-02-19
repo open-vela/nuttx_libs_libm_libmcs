@@ -1,3 +1,0 @@
-# Revisions {-}
-
-{change-log}

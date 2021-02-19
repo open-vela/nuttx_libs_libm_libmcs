@@ -1,0 +1,59 @@
+# Document identification
+title: Software Design Document
+document-id: ED-SDD.00-ML
+date: 2021-01-05
+issue: 1.0
+author: GTD GmbH
+
+# Project identification
+project-title: QLibmCS
+short-project-title: QLibmCS
+component: Mathematical Library
+project-id: E1356-20.00
+
+copyright-notice: European Space Agency
+copyright-explanation: |-
+    The ESA Contract No. 4000130278/20/NL/AS, "Validation of a Complete Mathematical Library",
+    will be referred to as "Qualification of a Mathematical Library for Critical Systems" or
+    QLibmCS in this document.
+
+    The copyright of this document is vested in the European Space Agency. This
+    document may only be reproduced in whole or in part, stored in a retrieval system,
+    transmitted in any form, or by any means electronically, mechanically, or by
+    photocopying, or otherwise, with the prior written permission of the Agency.
+
+change-log:
+    - revision: 1.0
+      description: Initial version
+      date: 2021-01-05
+
+applicable-docs:
+    - reference: AD01
+      identification: ECSS-E-ST-40
+      issue: C
+      title: Space Engineering - Software
+    - reference: AD02
+      identification: ECSS-Q-ST-80
+      issue: C Rev.1
+      title: Space Product Assurance -- Software Product Assurance
+
+
+reference-docs:
+    - reference: RD01
+      identification: ES-SRS.00-ML
+      issue: --
+      title: Software Requirements Specification
+    - reference: RD02
+      identification: ED-ICD.00-ML
+      issue: --
+      title: Interface Control Document
+    - reference: RD03
+      identification: ISO/IEC 9899
+      issue: 2018
+      title: Programming languages -- C
+
+doge:
+    template-branch: qlibmcs
+    output-formats:
+        - pdf-changebars
+        - pdf-diff
