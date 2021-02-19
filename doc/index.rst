@@ -19,6 +19,13 @@ The following pages in this documentation try to give a xenodochial introduction
    api/libm
    sum/tutorial
    
+.. toctree::
+   :numbered:
+   :maxdepth: 2
+   :caption: Software Design Document
+
+   sdd/design
+   
 
 Indices and tables
 ==================
