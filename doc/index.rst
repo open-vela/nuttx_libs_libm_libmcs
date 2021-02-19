@@ -24,18 +24,11 @@ The following pages in this documentation try to give a xenodochial introduction
    :maxdepth: 2
    :caption: Software Design Document
 
-   sdd/design
-   sdd/0_Revisions
    sdd/1_Introduction
    sdd/2_Applicable_and_Reference_Documents
    sdd/3_Abbreviations
    sdd/4_Software_Design_Overview
    sdd/5_Software_Design/0_Software_Design
-   sdd/5_Software_Design/1_General
-   sdd/5_Software_Design/2_Overall_Architecture
-   sdd/5_Software_Design/3_Software_Component_Design_General
-   sdd/5_Software_Design/4_Software_Component_Design_Aspects_Of_Each_Component/0000_Software_Component_Design_Aspects_Of_Each_Component
-   sdd/5_Software_Design/5_Internal_Interface_Design
    sdd/6_Requirements_to_Design_Components_Traceability
    
 
