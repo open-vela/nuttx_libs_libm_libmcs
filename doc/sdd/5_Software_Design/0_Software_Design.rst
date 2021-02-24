@@ -2,6 +2,7 @@ Software Design
 ===============
 
 .. toctree::
+   :maxdepth: 3
 
    1_General.rst
    2_Overall_Architecture.rst
