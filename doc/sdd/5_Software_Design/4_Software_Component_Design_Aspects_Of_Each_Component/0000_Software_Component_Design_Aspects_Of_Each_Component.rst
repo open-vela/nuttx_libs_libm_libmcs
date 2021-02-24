@@ -79,6 +79,41 @@ fpclassify
 
 .. include:: 0010_fpclassify.rst
 
+isfinite
+~~~~~~~~
+
+.. c:autodoc:: ../libm/common/isfinite.c
+
+.. include:: 0020_isfinite.rst
+
+isinf
+~~~~~
+
+.. c:autodoc:: ../libm/common/isinf.c
+
+.. include:: 0030_isinf.rst
+
+isnan
+~~~~~
+
+.. c:autodoc:: ../libm/common/isnan.c
+
+.. include:: 0040_isnan.rst
+
+isnormal
+~~~~~~~~
+
+.. c:autodoc:: ../libm/common/isnormal.c
+
+.. include:: 0050_isnormal.rst
+
+signbit
+~~~~~~~
+
+.. c:autodoc:: ../libm/mathd/internal/signbitd.c
+
+.. include:: 0060_signbit.rst
+
 Trigonometrical Functions
 """""""""""""""""""""""""
 
