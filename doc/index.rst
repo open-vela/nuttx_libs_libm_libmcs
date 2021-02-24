@@ -21,7 +21,7 @@ The following pages in this documentation try to give a xenodochial introduction
    
 .. toctree::
    :numbered:
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Software Design Document
 
    sdd/1_Introduction
