@@ -1,3 +1,8 @@
+isinf
+~~~~~
+
+.. c:autodoc:: ../libm/common/isinf.c
+
 Special cases
 ^^^^^^^^^^^^^
 

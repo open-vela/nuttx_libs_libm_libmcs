@@ -1,97 +1,60 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __tan( x, y, k )
- * internal tan function on [-pi/4, pi/4], pi/4 ~ 0.7854
- * Input x is assumed to be bounded by ~pi/4 in magnitude.
- * Input y is the tail of x.
- * Input k indicates whether tan (if k=1) or
- * -1/tan (if k= -1) is returned.
+/**
  *
- * Algorithm
- *    1. Since tan(-x) = -tan(x), we need only to consider positive x.
- *    2. if x < 2^-28 (hx<0x3e300000 0), return x with inexact if x!=0.
- *    3. tan(x) is approximated by a odd polynomial of degree 27 on
- *       [0,0.67434]
- *                       3             27
- *           tan(x) ~ x + T1*x + ... + T13*x
- *       where
+ * This family of functions implements the tangent of :math:`x`.
  *
- *             |tan(x)         2     4            26   |     -59.2
- *             |----- - (1+T1*x +T2*x +.... +T13*x    )| <= 2
- *             |  x                     |
+ * Synopsis
+ * ========
  *
- *       Note: tan(x+y) = tan(x) + tan'(x)*y
- *                  ~ tan(x) + (1+x*x)*y
- *       Therefore, for better accuracy in computing tan(x+y), let
- *             3      2      2       2       2
- *        r = x *(T2+x *(T3+x *(...+x *(T12+x *T13))))
- *       then
- *                     3    2
- *        tan(x+y) = x + (T1*x + (x *(r+y)+y))
+ * .. code-block:: c
  *
- *      4. For x in [0.67434,pi/4],  let y = pi/4 - x, then
- *        tan(x) = tan(pi/4-y) = (1-tan(y))/(1+tan(y))
- *               = 1 - 2*(tan(y) - (tan(y)^2)/(1+tan(y)))
- */
-
-/*
-
-FUNCTION
-        <<tan>>, <<tanf>>---tangent
-
-INDEX
-tan
-INDEX
-tanf
-
-SYNOPSIS
-        #include <math.h>
-        double tan(double <[x]>);
-        float tanf(float <[x]>);
-
-DESCRIPTION
-<<tan>> computes the tangent of the argument <[x]>.
-Angles are specified in radians.
-
-<<tanf>> is identical, save that it takes and returns <<float>> values.
-
-RETURNS
-The tangent of <[x]> is returned.
-
-PORTABILITY
-<<tan>> is ANSI. <<tanf>> is an extension.
-*/
-
-/* tan(x)
- * Return tangent function of x.
+ *     #include <math.h>
+ *     float tanf(float x);
+ *     double tan(double x);
+ *     long double tanl(long double x);
+ *     float __tanf(float x, float y, int k)
+ *     double __tan(double x, double y, int k)
  *
- * internal function:
- *    __tan        ... tangent function on [-pi/4,pi/4]
- *    __rem_pio2    ... argument reduction routine
+ * Description
+ * ===========
  *
- * Method.
- *      Let S,C and T denote the sin, cos and tan respectively on
- *    [-PI/4, +PI/4]. Reduce the argument x to y1+y2 = x-k*pi/2
- *    in [-pi/4 , +pi/4], and let n = k mod 4.
- *    We have
+ * ``tan`` computes the tangent of the input value.
  *
- *          n        sin(x)      cos(x)        tan(x)
- *     ----------------------------------------------------------
- *        0           S       C         T
- *        1           C      -S        -1/T
- *        2          -S      -C         T
- *        3          -C       S        -1/T
- *     ----------------------------------------------------------
+ * ``__tan`` is an internal function that computes the tangent of the input values. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision. If the additional input variable :math:`k` is :math:`-1`, the function shall return the negative inverse tangent of :math:`x`, if :math:`k` is :math:`1` return the tangent.
  *
- * Special cases:
- *      Let trig be any of sin, cos, or tan.
- *      trig(+-INF)  is NaN, with signals;
- *      trig(NaN)    is that NaN;
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
  *
- * Accuracy:
- *    TRIG(x) returns trig(x) nearly rounded
- */
+ *    tan(x) \approx tan(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``tan`` returns the tangent of the input value.
+ *
+ * ``__tan`` returns the tangent of the input value.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is infinite.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+ * | **x**               | :math:`-Inf`   | :math:`<0`     | :math:`-0`     | :math:`+0`     | :math:`>0`     | :math:`+Inf`   | :math:`NaN`    |
+ * +=====================+================+================+================+================+================+================+================+
+ * | **tan(x)**          | :math:`qNaN`   | :math:`tan(x)` | :math:`x`                       | :math:`tan(x)` | :math:`qNaN`   | :math:`qNaN`   |
+ * +---------------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

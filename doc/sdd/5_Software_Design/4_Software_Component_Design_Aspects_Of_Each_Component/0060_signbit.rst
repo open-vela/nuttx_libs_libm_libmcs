@@ -1,3 +1,8 @@
+signbit
+~~~~~~~
+
+.. c:autodoc:: ../libm/mathd/internal/signbitd.c
+
 Special cases
 ^^^^^^^^^^^^^
 

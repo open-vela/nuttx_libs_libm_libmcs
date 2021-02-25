@@ -1,74 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-        <<sin>>, <<sinf>>, <<cos>>, <<cosf>>---sine or cosine
-INDEX
-sin
-INDEX
-sinf
-INDEX
-cos
-INDEX
-cosf
-SYNOPSIS
-        #include <math.h>
-        double sin(double <[x]>);
-        float  sinf(float <[x]>);
-        double cos(double <[x]>);
-        float cosf(float <[x]>);
-
-DESCRIPTION
-    <<sin>> and <<cos>> compute (respectively) the sine and cosine
-    of the argument <[x]>.  Angles are specified in radians.
-
-    <<sinf>> and <<cosf>> are identical, save that they take and
-    return <<float>> values.
-
-
-RETURNS
-    The sine or cosine of <[x]> is returned.
-
-PORTABILITY
-    <<sin>> and <<cos>> are ANSI C.
-    <<sinf>> and <<cosf>> are extensions.
-
-QUICKREF
-    sin ansi pure
-    sinf - pure
-*/
-
-/* sin(x)
- * Return sine function of x.
+/**
  *
- * internal function:
- *    __sin        ... sine function on [-pi/4,pi/4]
- *    __cos        ... cose function on [-pi/4,pi/4]
- *    __rem_pio2    ... argument reduction routine
+ * This family of functions implements the sine of :math:`x`.
  *
- * Method.
- *      Let S,C and T denote the sin, cos and tan respectively on
- *    [-PI/4, +PI/4]. Reduce the argument x to y1+y2 = x-k*pi/2
- *    in [-pi/4 , +pi/4], and let n = k mod 4.
- *    We have
+ * Synopsis
+ * ========
  *
- *          n        sin(x)      cos(x)        tan(x)
- *     ----------------------------------------------------------
- *          0          S           C            T
- *          1          C          -S           -1/T
- *          2         -S          -C            T
- *          3         -C           S           -1/T
- *     ----------------------------------------------------------
+ * .. code-block:: c
  *
- * Special cases:
- *      Let trig be any of sin, cos, or tan.
- *      trig(+-INF)  is NaN, with signals;
- *      trig(NaN)    is that NaN;
+ *     #include <math.h>
+ *     float sinf(float x);
+ *     double sin(double x);
+ *     long double sinl(long double x);
  *
- * Accuracy:
- *    TRIG(x) returns trig(x) nearly rounded
- */
+ * Description
+ * ===========
+ *
+ * ``sin`` computes the sine of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    sin(x) \approx sin(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``sin`` returns the sine of the input value, in the range :math:`[-1, 1]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is infinite.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+ * | **x**               | :math:`-Inf`   | :math:`<0`     | :math:`-0`     | :math:`+0`     | :math:`>0`     | :math:`+Inf`   | :math:`NaN`    |
+ * +=====================+================+================+================+================+================+================+================+
+ * | **sin(x)**          | :math:`qNaN`   | :math:`sin(x)` | :math:`x`                       | :math:`sin(x)` | :math:`qNaN`   | :math:`qNaN`   |
+ * +---------------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

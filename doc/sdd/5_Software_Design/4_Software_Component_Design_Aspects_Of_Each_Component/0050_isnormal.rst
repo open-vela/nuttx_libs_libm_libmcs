@@ -1,3 +1,8 @@
+isnormal
+~~~~~~~~
+
+.. c:autodoc:: ../libm/common/isnormal.c
+
 Special cases
 ^^^^^^^^^^^^^
 
