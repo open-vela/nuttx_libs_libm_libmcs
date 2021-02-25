@@ -1,6 +1,75 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions is a set of functions used by multiple trigonometric procedures as internal functions. Except for the internal range reduction the other functions are accessible via ``trigd.h`` (``trigf.h``), but should not be accessed directly by a user.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float __cosf(float x, float y)
+ *     double __cos(double x, double y)
+ *     float __sinf(float x, float y, int iy)
+ *     double __sin(double x, double y, int iy)
+ *     int32_t __rem_pio2f(float x, float *y)
+ *     int32_t __rem_pio2(double x, double *y)
+ *     int __rem_pio2_internalf(float *x, float *y, int e0, int nx, int prec, const int32_t *ipio2)
+ *     int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const int32_t *ipio2)
+ *
+ * Description
+ * ===========
+ *
+ * ``__cos`` computes the cosine of the input value. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision.
+ *
+ * ``__sin`` computes the sine of the input value. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision. The third parameter :math:`iy` signals if the parameter :math:`y` is :math:`0`.
+ *
+ * ``__rem_pio2`` returns the quadrant the input angle lies in, and place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array :math:`*y` (which consists of two values, the remainder and its tail, hereafter called :math:`y_0` and :math:`y_1`). The return value can be converted to the angle quadrant by taking just its last two bits. If the last two bits are :math:`00`, the input value is represented in [:math:`-45^{\circ}`, :math:`45^{\circ}`], if they are :math:`01`, it is in [:math:`45^{\circ}`, :math:`135^{\circ}`], if they are :math:`10`, it is in [:math:`135^{\circ}`, :math:`225^{\circ}`], and if they are :math:`11`, it is in [:math:`225^{\circ}`, :math:`315^{\circ}`]. The last two bits of the return value are the only relevant part. In some cases the return value also equals the number of reductions (by :math:`\frac{\pi}{2}`) necessary to reduce the value - this is not always the case, as the return value would often overflow due to the limited size of ``int32_t``.
+ *
+ * ``__rem_pio2_internal`` returns the quadrant the input angle lies in (see ``__rem_pio2`` on how to convert the return value into the quadrant), and place the remainder of :math:`x` (scaled :math:`x` which consists of up to three values, hereafter called :math:`x_0`, :math:`x_1` and :math:`x_2`, original :math:`x = x_0 \cdot 2^{e0} + x_1 \cdot 2^{e0-24} + x_2 \cdot 2^{e0-48}`) divided by :math:`\frac{\pi}{4}` in the output array (which consists of two values, the remainder and its tail,  :math:`y_0` and :math:`y_1`). The variable :math:`nx` needs to be provided with the size of the array for :math:`x`.
+ *
+ * Although ``__rem_pio2`` and ``__rem_pio2_internal`` seem to do the same, they work on different ranges. ``__rem_pio2`` first checks if the input is rather close to the target interval, if it isn't it calls ``__rem_pio2_internal``.
+ *
+ * *Note:* The variables ``prec`` and ``*ipio2`` are to be removed during the rework and are therefore not part of the description.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    \_\_cos(x) &\approx cos(x)  \\
+ *    \_\_sin(x) &\approx sin(x)  \\
+ *    \_\_rem\_pio2_y(x) &\approx x - n \cdot \frac{\pi}{2} \wedge n \in \mathbb{Z} \wedge \_\_rem\_pio2_y(x) \in \left[-\frac{\pi}{4},\frac{\pi}{4}\right]  \\
+ *    \_\_rem\_pio2(x) &= n
+ *
+ * Returns
+ * =======
+ *
+ * ``__cos`` returns the cosine of :math:`x + y`.
+ *
+ * ``__sin`` returns the sine of :math:`x + y`.
+ *
+ * ``__rem_pio2`` returns the quadrant the input angle lies in, and place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array :math:`*y`. See description above.
+ *
+ * ``__rem_pio2_internal`` returns the quadrant the input angle lies in, and place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array :math:`*y`. See description above.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Do not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * The output maps are in the respective external functions :ref:`cos` and :ref:`sin`.
+ *
+ *///
+
 /*
  * __rem_pio2_internal(x,y,e0,nx,prec,ipio2)
  * double x[],y[]; int e0,nx,prec; int ipio2[];
@@ -520,41 +589,6 @@ int32_t __rem_pio2(double x, double *y)
     return n;
 }
 
-/*
- * __cos( x,  y )
- * internal cos function on [-pi/4, pi/4], pi/4 ~ 0.785398164
- * Input x is assumed to be bounded by ~pi/4 in magnitude.
- * Input y is the tail of x.
- *
- * Algorithm
- *    1. Since cos(-x) = cos(x), we need only to consider positive x.
- *    2. if x < 2^-27 (hx<0x3e400000 0), return 1 with inexact if x!=0.
- *    3. cos(x) is approximated by a polynomial of degree 14 on
- *       [0,pi/4]
- *                               4            14
- *           cos(x) ~ 1 - x*x/2 + C1*x + ... + C6*x
- *       where the remez error is
- *
- *     |              2     4     6     8     10    12     14 |     -58
- *     |cos(x)-(1-.5*x +C1*x +C2*x +C3*x +C4*x +C5*x  +C6*x  )| <= 2
- *     |                                       |
- *
- *                    4     6     8     10    12     14
- *    4. let r = C1*x +C2*x +C3*x +C4*x +C5*x  +C6*x  , then
- *           cos(x) = 1 - x*x/2 + r
- *       since cos(x+y) ~ cos(x) - sin(x)*y
- *              ~ cos(x) - x*y,
- *       a correction term is necessary in cos(x) and hence
- *        cos(x+y) = 1 - (x*x/2 - (r - x*y))
- *       For better accuracy when x > 0.3, let qx = |x|/4 with
- *       the last 32 bits mask off, and if x > 0.78125, let qx = 0.28125.
- *       Then
- *        cos(x+y) = (1-qx) - ((x*x/2-qx) - (r-x*y)).
- *       Note that 1-qx and (x*x/2-qx) is EXACT here, and the
- *       magnitude of the latter is at least a quarter of x*x/2,
- *       thus, reducing the rounding error in the subtraction.
- */
-
 static const double
 C1  =  4.16666666666666019037e-02, /* 0x3FA55555, 0x5555554C */
 C2  = -1.38888888888741095749e-03, /* 0xBF56C16C, 0x16C15177 */
@@ -573,34 +607,6 @@ double __cos(double x, double y)
     w  = one - hz;
     return w + (((one - w) - hz) + (z * r - x * y));
 }
-
-/* __sin( x, y, iy)
- * internal sin function on [-pi/4, pi/4], pi/4 ~ 0.7854
- * Input x is assumed to be bounded by ~pi/4 in magnitude.
- * Input y is the tail of x.
- * Input iy indicates whether y is 0. (if iy=0, y assume to be 0).
- *
- * Algorithm
- *    1. Since sin(-x) = -sin(x), we need only to consider positive x.
- *    2. if x < 2^-27 (hx<0x3e400000 0), return x with inexact if x!=0.
- *    3. sin(x) is approximated by a polynomial of degree 13 on
- *       [0,pi/4]
- *                       3            13
- *           sin(x) ~ x + S1*x + ... + S6*x
- *       where
- *
- *     |sin(x)         2     4     6     8     10     12  |     -58
- *     |----- - (1+S1*x +S2*x +S3*x +S4*x +S5*x  +S6*x   )| <= 2
- *     |  x                                |
- *
- *    4. sin(x+y) = sin(x) + sin'(x')*y
- *            ~ sin(x) + (1-x*x/2)*y
- *       For better accuracy, let
- *             3      2      2      2      2
- *        r = x *(S2+x *(S3+x *(S4+x *(S5+x *S6))))
- *       then                   3    2
- *        sin(x) = x + (S1*x + (x *(r-y/2)+y))
- */
 
 static const double
 S1   = -1.66666666666666324348e-01, /* 0xBFC55555, 0x55555549 */

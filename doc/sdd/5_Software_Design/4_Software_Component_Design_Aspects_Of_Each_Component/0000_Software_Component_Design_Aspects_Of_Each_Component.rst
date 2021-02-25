@@ -72,63 +72,155 @@ Software Components Design – Aspects of Each Component
 Classification Macros
 """""""""""""""""""""
 
-fpclassify
-~~~~~~~~~~
+.. toctree::
+   :maxdepth: 1
 
-.. c:autodoc:: ../libm/mathd/internal/fpclassifyd.c
+   0010_fpclassify.rst
+   0020_isfinite.rst
+   0030_isinf.rst
+   0040_isnan.rst
+   0050_isnormal.rst
+   0060_signbit.rst
 
-.. include:: 0010_fpclassify.rst
+Trigonometric Functions
+"""""""""""""""""""""""
 
-isfinite
-~~~~~~~~
+.. toctree::
+   :maxdepth: 1
 
-.. c:autodoc:: ../libm/common/isfinite.c
+   0100_acos.rst
+   0110_asin.rst
+   0120_atan.rst
+   0130_atan2.rst
+   0140_cos.rst
+   0150_sin.rst
+   0160_tan.rst
+   0170_trig.rst
 
-.. include:: 0020_isfinite.rst
+Hyperbolic Functions
+""""""""""""""""""""
 
-isinf
-~~~~~
+.. toctree::
+   :maxdepth: 1
 
-.. c:autodoc:: ../libm/common/isinf.c
+   0200_acosh.rst
 
-.. include:: 0030_isinf.rst
+Exponential and Logarithmic Functions
+"""""""""""""""""""""""""""""""""""""
 
-isnan
-~~~~~
+.. toctree::
+   :maxdepth: 1
 
-.. c:autodoc:: ../libm/common/isnan.c
+   0200_acosh.rst
 
-.. include:: 0040_isnan.rst
+Power and Absolute-value Functions
+""""""""""""""""""""""""""""""""""
 
-isnormal
-~~~~~~~~
+.. toctree::
+   :maxdepth: 1
 
-.. c:autodoc:: ../libm/common/isnormal.c
+   0200_acosh.rst
 
-.. include:: 0050_isnormal.rst
-
-signbit
-~~~~~~~
-
-.. c:autodoc:: ../libm/mathd/internal/signbitd.c
-
-.. include:: 0060_signbit.rst
-
-Trigonometrical Functions
+Error and Gamma Functions
 """""""""""""""""""""""""
 
-atan
-~~~~
+.. toctree::
+   :maxdepth: 1
 
-atan2
-~~~~~
+   0200_acosh.rst
 
-.. c:autodoc:: ../libm/mathd/atan2d.c
+Nearest Integer Functions
+"""""""""""""""""""""""""
 
-.. include:: 0130_atan2.rst
+.. toctree::
+   :maxdepth: 1
 
-fabs
-~~~~
+   0200_acosh.rst
 
-ilogb
-~~~~~
+Remainder Functions
+"""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Manipulation Functions
+""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Maximum, Minimum and Positive Difference Functions
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Floating Multiply-Add
+"""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Comparison Macros
+"""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Bessel Functions (POSIX)
+""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Complex Trigonometric Functions
+"""""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Complex Hyperbolic Functions
+""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Complex Exponential and Logarithmic Functions
+"""""""""""""""""""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Complex Power and Absolute-value Functions
+""""""""""""""""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst
+
+Complex Manipulation Functions
+""""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   0200_acosh.rst

@@ -1,3 +1,8 @@
+isfinite
+~~~~~~~~
+
+.. c:autodoc:: ../libm/common/isfinite.c
+
 Special cases
 ^^^^^^^^^^^^^
 
