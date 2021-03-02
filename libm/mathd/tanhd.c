@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the hyperbolic tangent of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float tanhf(float x);
+ *     double tanh(double x);
+ *     long double tanhl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``tanh`` computes the hyperbolic tangent of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    tanh(x) \approx tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}
+ *
+ * Returns
+ * =======
+ *
+ * ``tanh`` returns the hyperbolic tangent, in the range :math:`[-1, 1]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`      | :math:`-0`   | :math:`+0`   | :math:`>0`      | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=================+==============+==============+=================+==============+==============+
+ * | **tanh(x)**         | :math:`-1`   | :math:`tanh(x)` | :math:`x`                   | :math:`tanh(x)` | :math:`+1`   | :math:`qNaN` |
+ * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
+ * 
+ *///
+
 /*
 
 FUNCTION

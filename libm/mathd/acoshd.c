@@ -1,6 +1,53 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the hyperbolic arc cosine of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float acoshf(float x);
+ *     double acosh(double x);
+ *     long double acoshl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``acosh`` computes the hyperbolic inverse cosine (*hyperbolic arc cosine*) of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    acosh(x) \approx cosh^{-1}(x) = ln \left( x + \sqrt{x^2-1} \right)
+ *
+ * Returns
+ * =======
+ *
+ * ``acosh`` returns the hyperbolic inverse cosine, in the range :math:`\mathbb{F}^{+}`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is :math:`<1`.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+
+ * | **x**               | :math:`-Inf`         | :math:`<+1`          | :math:`+1`           | :math:`>+1`          | :math:`+Inf`         | :math:`NaN`          |
+ * +=====================+======================+======================+======================+======================+======================+======================+
+ * | **acosh(x)**        | :math:`qNaN`         | :math:`qNaN`         | :math:`+0`           | :math:`cosh^{-1}(x)` | :math:`+Inf`         | :math:`qNaN`         |
+ * +---------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+
+ * 
+ *///
+
 /* __acosh(x)
  * Method :
  *    Based on
