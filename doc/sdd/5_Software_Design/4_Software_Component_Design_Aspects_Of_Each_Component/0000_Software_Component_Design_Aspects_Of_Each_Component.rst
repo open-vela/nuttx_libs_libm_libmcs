@@ -104,6 +104,11 @@ Hyperbolic Functions
    :maxdepth: 1
 
    0200_acosh.rst
+   0210_asinh.rst
+   0220_atanh.rst
+   0230_cosh.rst
+   0240_sinh.rst
+   0250_tanh.rst
 
 Exponential and Logarithmic Functions
 """""""""""""""""""""""""""""""""""""

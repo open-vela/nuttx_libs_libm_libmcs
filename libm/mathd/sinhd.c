@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the hyperbolic sine of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float sinhf(float x);
+ *     double sinh(double x);
+ *     long double sinhl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``sinh`` computes the hyperbolic sine of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    sinh(x) \approx sinh(x) = \frac{e^x-e^{-x}}{2}
+ *
+ * Returns
+ * =======
+ *
+ * ``sinh`` returns the hyperbolic sine.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`      | :math:`-0`   | :math:`+0`   | :math:`>0`      | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=================+==============+==============+=================+==============+==============+
+ * | **sinh(x)**         | :math:`-Inf` | :math:`sinh(x)` | :math:`x`                   | :math:`sinh(x)` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
+ * 
+ *///
+
 /* __sinh(x)
  * Method :
  * mathematically sinh(x) if defined to be (exp(x)-exp(-x))/2
