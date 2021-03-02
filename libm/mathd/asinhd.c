@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the hyperbolic arc sine of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float asinhf(float x);
+ *     double asinh(double x);
+ *     long double asinhl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``asinh`` computes the hyperbolic inverse sine (*hyperbolic arc sine*) of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    asinh(x) \approx sinh^{-1}(x) = ln \left( x + \sqrt{x^2+1} \right)
+ *
+ * Returns
+ * =======
+ *
+ * ``asinh`` returns the hyperbolic inverse sine.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+----------------------+----------------------+--------------+--------------+----------------------+----------------------+----------------------+
+ * | **x**               | :math:`-Inf`         | :math:`<0`           | :math:`-0`   | :math:`+0`   | :math:`>0`           | :math:`+Inf`         | :math:`NaN`          |
+ * +=====================+======================+======================+==============+==============+======================+======================+======================+
+ * | **asinh(x)**        | :math:`-Inf`         | :math:`sinh^{-1}(x)` | :math:`x`                   | :math:`sinh^{-1}(x)` | :math:`+Inf`         | :math:`qNaN`         |
+ * +---------------------+----------------------+----------------------+--------------+--------------+----------------------+----------------------+----------------------+
+ * 
+ *///
+
 /*
 FUNCTION
     <<asinh>>, <<asinhf>>---inverse hyperbolic sine
