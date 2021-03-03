@@ -1,49 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-    <<log2>>, <<log2f>>---base 2 logarithm
-INDEX
-    log2
-INDEX
-    log2f
-
-SYNOPSIS
-    #include <math.h>
-    double log2(double <[x]>);
-    float log2f(float <[x]>);
-
-DESCRIPTION
-The <<log2>> functions compute the base-2 logarithm of <[x]>.  A domain error
-occurs if the argument is less than zero.  A range error occurs if the
-argument is zero.
-
-The Newlib implementations are not full, intrinisic calculations, but
-rather are derivatives based on <<log>>.  (Accuracy might be slightly off from
-a direct calculation.)  In addition to functions, they are also implemented as
-macros defined in math.h:
-. #define log2(x) (log (x) / _M_LN2)
-. #define log2f(x) (logf (x) / (float) _M_LN2)
-To use the functions instead, just undefine the macros first.
-
-RETURNS
-The <<log2>> functions return
-@ifnottex
-<<log base-2(<[x]>)>>
-@end ifnottex
-@tex
-$log_2(x)$
-@end tex
-on success.
-When <[x]> is zero, the
-returned value is <<-HUGE_VAL>> and <<errno>> is set to <<ERANGE>>.
-When <[x]> is negative, the returned value is NaN (not a number) and
-<<errno>> is set to <<EDOM>>.
-
-PORTABILITY
-C99, POSIX, System V Interface Definition (Issue 6).
-*/
+/**
+ *
+ * This family of functions implements the base :math:`2` logarithm.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float log2f(float x);
+ *     double log2(double x);
+ *     long double logl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``log2`` computes the base :math:`2` logarithm of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    log2(x) \approx log_{2}(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``log2`` returns the base :math:`2` logarithm of :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is negative.
+ *
+ * Raise ``divide by zero`` exception when the input value is zero.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+---------------+---------------+---------------+---------------+---------------------+---------------+---------------------+---------------+---------------+
+ * | **x**               | :math:`-Inf`  | :math:`<0`    | :math:`-0`    | :math:`+0`    | :math:`]0,1[`       | :math:`1`     | :math:`>1`          | :math:`+Inf`  | :math:`NaN`   |
+ * +=====================+===============+===============+===============+===============+=====================+===============+=====================+===============+===============+
+ * | **log2(x)**         | :math:`qNaN`  | :math:`qNaN`  | :math:`-Inf`                  | :math:`log_{2}(x)`  | :math:`+0`    | :math:`log_{2}(x)`  | :math:`+Inf`  | :math:`qNaN`  |
+ * +---------------------+---------------+---------------+---------------+---------------+---------------------+---------------+---------------------+---------------+---------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

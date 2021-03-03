@@ -130,6 +130,7 @@ Exponential and Logarithmic Functions
    0410_modf.rst
    0420_scalbn.rst
    0430_scalbln.rst
+   0440_log_internal.rst
 
 Power and Absolute-value Functions
 """"""""""""""""""""""""""""""""""
