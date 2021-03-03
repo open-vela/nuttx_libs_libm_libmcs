@@ -1,12 +1,70 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
- * scalbn (double x, int n)
- * scalbn(x,n) returns x* 2**n  computed by  exponent
- * manipulation rather than by actually performing an
- * exponentiation or a multiplication.
- */
+/**
+ *
+ * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float scalblnf(float x, int n);
+ *     double scalbln(double x, int n);
+ *     long double scalblnl(long double x, int n);
+ *
+ * Description
+ * ===========
+ *
+ * ``scalbln`` multiplies the input value :math:`x` by an integral power of :math:`2`.
+ *
+ * ``scalbln`` and :ref:`scalbn` have the same functionality. The difference is that :ref:`scalbn` uses an ``int`` for :math:`n`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    scalbln(x, n) \approx x \cdot 2^{n}
+ *
+ * Returns
+ * =======
+ *
+ * ``scalbln`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`n`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception if the result overflows.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | scalbln(x,n)        | n                                                                           |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | x                   | :math:`<0`              | :math:`0`               | :math:`>0`              |
+ * +=====================+=========================+=========================+=========================+
+ * | :math:`-Inf`        | :math:`x`               | :math:`x`               | :math:`x`               |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`<0`          | :math:`x \cdot 2^{n}`   |                         | :math:`x \cdot 2^{n}`   |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`-0`          | :math:`x`               |                         | :math:`x`               |
+ * +---------------------+                         +                         +                         +
+ * | :math:`+0`          |                         |                         |                         |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`>0`          | :math:`x \cdot 2^{n}`   |                         | :math:`x \cdot 2^{n}`   |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`+Inf`        | :math:`x`               |                         | :math:`x`               |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | :math:`NaN`         | :math:`qNaN`                                                                |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

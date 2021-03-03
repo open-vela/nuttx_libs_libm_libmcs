@@ -4,24 +4,24 @@
 
 #include <math.h>
 
-float ldexpf(float value, int exponent)
+float ldexpf(float x, int exp)
 {
 #ifdef __LIBMCS_FPU_DAZ
-    value *= __volatile_onef;
+    x *= __volatile_onef;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    if ((isfinite(value) == 0) || value == 0.0f) {
-        return value;
+    if ((isfinite(x) == 0) || x == 0.0f) {
+        return x;
     }
 
-    return scalbnf(value, exponent);
+    return scalbnf(x, exp);
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS
 
-double ldexp(double value, int exponent)
+double ldexp(double x, int exp)
 {
-    return (double) ldexpf((float) value, exponent);
+    return (double) ldexpf((float) x, exp);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

@@ -1,55 +1,72 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<scalbn>>, <<scalbnf>>, <<scalbln>>, <<scalblnf>>---scale by power of FLT_RADIX (=2)
-INDEX
-    scalbn
-INDEX
-    scalbnf
-INDEX
-    scalbln
-INDEX
-    scalblnf
-
-SYNOPSIS
-    #include <math.h>
-    double scalbn(double <[x]>, int <[n]>);
-    float scalbnf(float <[x]>, int <[n]>);
-    double scalbln(double <[x]>, long int <[n]>);
-    float scalblnf(float <[x]>, long int <[n]>);
-
-DESCRIPTION
-The <<scalbn>> and <<scalbln>> functions compute
-    @ifnottex
-    <[x]> times FLT_RADIX to the power <[n]>.
-    @end ifnottex
-    @tex
-    $x \cdot FLT\_RADIX^n$.
-    @end tex
-efficiently.  The result is computed by manipulating the exponent, rather than
-by actually performing an exponentiation or multiplication.  In this
-floating-point implementation FLT_RADIX=2, which makes the <<scalbn>>
-functions equivalent to the <<ldexp>> functions.
-
-RETURNS
-<[x]> times 2 to the power <[n]>.  A range error may occur.
-
-PORTABILITY
-ANSI C, POSIX
-
-SEEALSO
-<<ldexp>>
-
-*/
-
-/*
- * scalbn (double x, int n)
- * scalbn(x,n) returns x* 2**n  computed by  exponent
- * manipulation rather than by actually performing an
- * exponentiation or a multiplication.
- */
+/**
+ *
+ * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float scalbnf(float x, int n);
+ *     double scalbn(double x, int n);
+ *     long double scalbnl(long double x, int n);
+ *
+ * Description
+ * ===========
+ *
+ * ``scalbn`` multiplies the input value :math:`x` by an integral power of :math:`2`.
+ *
+ * ``scalbn`` and :ref:`ldexp` have the same functionality. In theory their definition could be different, but this only applies to architectures which do not use a binary system, which by now are assumed to be an obscurity.
+ *
+ * ``scalbn`` and :ref:`scalbln` have the same functionality. The difference is that :ref:`scalbln` uses a ``long int`` for :math:`n`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    scalbn(x, n) \approx x \cdot 2^{n}
+ *
+ * Returns
+ * =======
+ *
+ * ``scalbn`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`n`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception if the result overflows.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | scalbn(x,n)         | n                                                                           |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | x                   | :math:`<0`              | :math:`0`               | :math:`>0`              |
+ * +=====================+=========================+=========================+=========================+
+ * | :math:`-Inf`        | :math:`x`               | :math:`x`               | :math:`x`               |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`<0`          | :math:`x \cdot 2^{n}`   |                         | :math:`x \cdot 2^{n}`   |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`-0`          | :math:`x`               |                         | :math:`x`               |
+ * +---------------------+                         +                         +                         +
+ * | :math:`+0`          |                         |                         |                         |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`>0`          | :math:`x \cdot 2^{n}`   |                         | :math:`x \cdot 2^{n}`   |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`+Inf`        | :math:`x`               |                         | :math:`x`               |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | :math:`NaN`         | :math:`qNaN`                                                                |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
