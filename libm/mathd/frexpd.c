@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions splits the input value into mantissa and exponent.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float frexpf(float x, int *eptr);
+ *     double frexp(double x, int *eptr);
+ *     long double frexpl(long double x, int *eptr);
+ *
+ * Description
+ * ===========
+ *
+ * ``frexp`` splits the input value into the normalized fraction of :math:`x` and its integral power of :math:`2`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    frexp(x) = \frac{x}{2^{eptr}} \wedge frexp(x) \in [0.5,1[
+ *
+ * Returns
+ * =======
+ *
+ * ``frexp`` returns the normalized fraction of :math:`x` in the range :math:`[0.5,1[` and puts the integral power of :math:`2` into the output pointer :math:`*eptr`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                       | :math:`-0`   | :math:`+0`   | :math:`>0`                       | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==================================+==============+==============+==================================+==============+==============+
+ * | **frexp(x)**        | :math:`qNaN` | :math:`\frac{x}{2^{eptr}}`       | :math:`x`                   | :math:`\frac{x}{2^{eptr}}`       | :math:`qNaN` | :math:`qNaN` |
+ * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+--------------+
+ * | :math:`*eptr`       | :math:`0`    | :math:`log_2 \frac{x}{frexp(x)}` | :math:`0`                   | :math:`log_2 \frac{x}{frexp(x)}` | :math:`0`    | :math:`0`    |
+ * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+--------------+
+ *
+ *///
+
 /*
 FUNCTION
        <<frexp>>, <<frexpf>>---split floating-point number

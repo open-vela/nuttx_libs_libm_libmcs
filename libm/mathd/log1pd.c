@@ -1,6 +1,57 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the natural logarithm of :math:`1 + x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float log1pf(float x);
+ *     double log1p(double x);
+ *     long double logl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``log1p`` computes the natural logarithm of :math:`1 + x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    log1p(x) \approx ln(1 + x)
+ *
+ * Returns
+ * =======
+ *
+ * ``log1p`` returns the natural logarithm of :math:`1 + x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is less than :math:`-1`.
+ *
+ * Raise ``divide by zero`` exception when the input value is :math:`-1`.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+---------------+---------------+---------------+-------------------+---------------+---------------+-------------------+---------------+---------------+
+ * | **x**               | :math:`-Inf`  | :math:`<-1`   | :math:`-1`    | :math:`]-1,0[`    | :math:`-0`    | :math:`+0`    | :math:`>0`        | :math:`+Inf`  | :math:`NaN`   |
+ * +=====================+===============+===============+===============+===================+===============+===============+===================+===============+===============+
+ * | **log1p(x)**        | :math:`qNaN`  | :math:`qNaN`  | :math:`-Inf`  | :math:`ln(1 + x)` | :math:`x`                     | :math:`ln(1 + x)` | :math:`+Inf`  | :math:`qNaN`  |
+ * +---------------------+---------------+---------------+---------------+-------------------+---------------+---------------+-------------------+---------------+---------------+
+ * 
+ *///
+
 /*
 FUNCTION
 <<log1p>>, <<log1pf>>---log of <<1 + <[x]>>>

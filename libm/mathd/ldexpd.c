@@ -1,65 +1,93 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-       <<ldexp>>, <<ldexpf>>---load exponent
-
-INDEX
-    ldexp
-INDEX
-    ldexpf
-
-SYNOPSIS
-       #include <math.h>
-       double ldexp(double <[val]>, int <[exp]>);
-       float ldexpf(float <[val]>, int <[exp]>);
-
-DESCRIPTION
-<<ldexp>> calculates the value
-@ifnottex
-<[val]> times 2 to the power <[exp]>.
-@end ifnottex
-@tex
-$val\times 2^{exp}$.
-@end tex
-<<ldexpf>> is identical, save that it takes and returns <<float>>
-rather than <<double>> values.
-
-RETURNS
-<<ldexp>> returns the calculated value.
-
-Underflow and overflow both set <<errno>> to <<ERANGE>>.
-On underflow, <<ldexp>> and <<ldexpf>> return 0.0.
-On overflow, <<ldexp>> returns plus or minus <<HUGE_VAL>>.
-
-PORTABILITY
-<<ldexp>> is ANSI. <<ldexpf>> is an extension.
-
-*/
+/**
+ *
+ * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float ldexpf(float x, int exp);
+ *     double ldexp(double x, int exp);
+ *     long double ldexpl(long double x, int exp);
+ *
+ * Description
+ * ===========
+ *
+ * ``ldexp`` multiplies the input value :math:`x` by an integral power of :math:`2`.
+ *
+ * ``ldexp`` and :ref:`scalbn` have the same functionality. In theory their definition could be different, but this only applies to architectures which do not use a binary system, which by now are assumed to be an obscurity.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    ldexp(x, exp) \approx x \cdot 2^{exp}
+ *
+ * Returns
+ * =======
+ *
+ * ``ldexp`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`exp`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception if the result overflows.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | ldexp(x,exp)        | exp                                                                         |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | x                   | :math:`<0`              | :math:`0`               | :math:`>0`              |
+ * +=====================+=========================+=========================+=========================+
+ * | :math:`-Inf`        | :math:`x`               | :math:`x`               | :math:`x`               |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`<0`          | :math:`x \cdot 2^{exp}` |                         | :math:`x \cdot 2^{exp}` |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`-0`          | :math:`x`               |                         | :math:`x`               |
+ * +---------------------+                         +                         +                         +
+ * | :math:`+0`          |                         |                         |                         |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`>0`          | :math:`x \cdot 2^{exp}` |                         | :math:`x \cdot 2^{exp}` |
+ * +---------------------+-------------------------+                         +-------------------------+
+ * | :math:`+Inf`        | :math:`x`               |                         | :math:`x`               |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ * | :math:`NaN`         | :math:`qNaN`                                                                |
+ * +---------------------+-------------------------+-------------------------+-------------------------+
+ *
+ *///
 
 #include <math.h>
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-double ldexp(double value, int exponent)
+double ldexp(double x, int exp)
 {
 #ifdef __LIBMCS_FPU_DAZ
-    value *= __volatile_one;
+    x *= __volatile_one;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    if ((isfinite(value) == 0) || (value == 0.0)) {
-        return value;
+    if ((isfinite(x) == 0) || (x == 0.0)) {
+        return x;
     }
 
-    return scalbn(value, exponent);
+    return scalbn(x, exp);
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
-long double ldexpl(long double value, int exponent)
+long double ldexpl(long double x, int exp)
 {
-    return (long double) ldexp((double) value, exponent);
+    return (long double) ldexp((double) x, exp);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

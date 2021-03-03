@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions computes the binary exponent of the input value.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float logbf(float x);
+ *     double logb(double x);
+ *     long double logbl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``logb`` computes the binary exponent of the input value.
+ *
+ * ``logb`` and :ref:`ilogb` have the same functionality, but ``logb`` returns the binary exponent as a floating-point value while :ref:`ilogb` returns a signed integer.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    logb(x) \approx \lfloor {\log_2 |x|} \rfloor
+ *
+ * Returns
+ * =======
+ *
+ * ``logb`` returns the binary exponent of the input value.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``divide by zero`` exception when the input value is zero.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------------------------------+--------------+--------------+--------------------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                           | :math:`-0`   | :math:`+0`   | :math:`>0`                           | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+======================================+==============+==============+======================================+==============+==============+
+ * | **logb(x)**         | :math:`+Inf` | :math:`\lfloor {\log_2 |x|} \rfloor` | :math:`-Inf`                | :math:`\lfloor {\log_2 |x|} \rfloor` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+--------------------------------------+--------------+--------------+--------------------------------------+--------------+--------------+
+ *
+ *///
+
 /*
 FUNCTION
        <<logb>>, <<logbf>>---get exponent of floating-point number

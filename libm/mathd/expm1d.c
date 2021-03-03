@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the exponential function minus :math:`1`, that is :math:`e` powered by :math:`x` before subtracting :math:`1`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float expm1f(float x);
+ *     double expm1(double x);
+ *     long double expm1l(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``expm1`` computes :math:`e` powered by the input value subtracted by :math:`1`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    expm1(x) \approx e^x - 1
+ *
+ * Returns
+ * =======
+ *
+ * ``expm1`` returns :math:`e` powered by :math:`x` subtracted by :math:`1`, in the range :math:`\mathbb{F}_{>=-1}`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+ * | **x**               | :math:`-Inf`  | :math:`<0`    | :math:`-0`    | :math:`+0`    | :math:`>0`    | :math:`+Inf`  | :math:`NaN`   |
+ * +=====================+===============+===============+===============+===============+===============+===============+===============+
+ * | **expm1(x)**        | :math:`-1`    | :math:`e^x-1` | :math:`+0`                    | :math:`e^x-1` | :math:`+Inf`  | :math:`qNaN`  |
+ * +---------------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
+ * 
+ *///
+
 /*
 FUNCTION
     <<expm1>>, <<expm1f>>---exponential minus 1

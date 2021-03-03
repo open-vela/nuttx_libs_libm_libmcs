@@ -1,53 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-       <<modf>>, <<modff>>---split fractional and integer parts
-
-INDEX
-    modf
-INDEX
-    modff
-
-SYNOPSIS
-    #include <math.h>
-    double modf(double <[val]>, double *<[ipart]>);
-        float modff(float <[val]>, float *<[ipart]>);
-
-DESCRIPTION
-    <<modf>> splits the double <[val]> apart into an integer part
-    and a fractional part, returning the fractional part and
-    storing the integer part in <<*<[ipart]>>>.  No rounding
-    whatsoever is done; the sum of the integer and fractional
-    parts is guaranteed to be exactly  equal to <[val]>.   That
-    is, if <[realpart]> = modf(<[val]>, &<[intpart]>); then
-    `<<<[realpart]>+<[intpart]>>>' is the same as <[val]>.
-    <<modff>> is identical, save that it takes and returns
-    <<float>> rather than <<double>> values.
-
-RETURNS
-    The fractional part is returned.  Each result has the same
-    sign as the supplied argument <[val]>.
-
-PORTABILITY
-    <<modf>> is ANSI C. <<modff>> is an extension.
-
-QUICKREF
-    modf  ansi pure
-    modff - pure
-
-*/
-
-/*
- * modf(double x, double *iptr)
- * return fraction part of x, and return x's integral part in *iptr.
- * Method:
- *    Bit twiddling.
+/**
  *
- * Exception:
- *    No exception.
- */
+ * This family of functions splits the input value into integral and fractional part.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float modff(float x, float *iptr);
+ *     double modf(double x, double *iptr);
+ *     long double modfl(long double x, long double *iptr);
+ *
+ * Description
+ * ===========
+ *
+ * ``modf`` splits the input value into integral and fractional part, each of which have the same sign.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    modf(x) = x - iptr \wedge \left\{\begin{array}{ll} iptr = \lfloor x \rfloor, & x \geq 0  \\ iptr = \lceil x \rceil, & otherwise \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``modf`` returns the fractional part of :math:`x` in the range :math:`]-1.0,1.0[` and puts the integral part into the output pointer :math:`*iptr`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                       | :math:`-0`   | :math:`+0`   | :math:`>0`                       | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==================================+==============+==============+==================================+==============+==============+
+ * | **modf(x)**         | :math:`-0`   | :math:`x - \lceil x \rceil`      | :math:`x`                   | :math:`x - \lfloor x \rfloor`    | :math:`+0`   | :math:`qNaN` |
+ * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+              +
+ * | :math:`*iptr`       | :math:`-Inf` | :math:`\lceil x \rceil`          | :math:`x`                   | :math:`\lfloor x \rfloor`        | :math:`+Inf` |              |
+ * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+--------------+
+ *
+ *///
 
 #include <assert.h>
 #include <math.h>
