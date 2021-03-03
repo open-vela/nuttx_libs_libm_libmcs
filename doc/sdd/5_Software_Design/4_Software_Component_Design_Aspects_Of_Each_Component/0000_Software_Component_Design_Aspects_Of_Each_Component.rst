@@ -116,7 +116,20 @@ Exponential and Logarithmic Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   0300_exp.rst
+   0310_exp2.rst
+   0320_expm1.rst
+   0330_frexp.rst
+   0340_ilogb.rst
+   0350_ldexp.rst
+   0360_log.rst
+   0370_log10.rst
+   0380_log1p.rst
+   0390_log2.rst
+   0400_logb.rst
+   0410_modf.rst
+   0420_scalbn.rst
+   0430_scalbln.rst
 
 Power and Absolute-value Functions
 """"""""""""""""""""""""""""""""""
@@ -124,7 +137,11 @@ Power and Absolute-value Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   0500_cbrt.rst
+   0510_fabs.rst
+   0520_hypot.rst
+   0530_pow.rst
+   0540_sqrt.rst
 
 Error and Gamma Functions
 """""""""""""""""""""""""
@@ -132,7 +149,10 @@ Error and Gamma Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   0600_erf.rst
+   0610_erfc.rst
+   0620_lgamma.rst
+   0630_tgamma.rst
 
 Nearest Integer Functions
 """""""""""""""""""""""""
@@ -140,7 +160,16 @@ Nearest Integer Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   0700_ceil.rst
+   0710_floor.rst
+   0720_nearbyint.rst
+   0730_rint.rst
+   0740_lrint.rst
+   0750_llrint.rst
+   0760_round.rst
+   0770_lround.rst
+   0780_llround.rst
+   0790_trunc.rst
 
 Remainder Functions
 """""""""""""""""""
@@ -148,7 +177,9 @@ Remainder Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   0900_fmod.rst
+   0910_remainder.rst
+   0920_remquo.rst
 
 Manipulation Functions
 """"""""""""""""""""""
@@ -156,7 +187,10 @@ Manipulation Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1000_copysign.rst
+   1010_nan.rst
+   1020_nextafter.rst
+   1030_nexttoward.rst
 
 Maximum, Minimum and Positive Difference Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,7 +198,9 @@ Maximum, Minimum and Positive Difference Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1100_fdim.rst
+   1110_fmax.rst
+   1120_fmin.rst
 
 Floating Multiply-Add
 """""""""""""""""""""
@@ -172,7 +208,7 @@ Floating Multiply-Add
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1200_fma.rst
 
 Comparison Macros
 """""""""""""""""
@@ -180,7 +216,12 @@ Comparison Macros
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1300_isgreater.rst
+   1310_isgreaterequal.rst
+   1320_isless.rst
+   1330_islessequal.rst
+   1340_islessgreater.rst
+   1350_isunordered.rst
 
 Bessel Functions (POSIX)
 """"""""""""""""""""""""
@@ -188,7 +229,12 @@ Bessel Functions (POSIX)
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1400_j0.rst
+   1410_j1.rst
+   1420_jn.rst
+   1430_y0.rst
+   1440_y1.rst
+   1450_yn.rst
 
 Complex Trigonometric Functions
 """""""""""""""""""""""""""""""
@@ -196,7 +242,12 @@ Complex Trigonometric Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1500_cacos.rst
+   1510_casin.rst
+   1520_catan.rst
+   1530_ccos.rst
+   1540_csin.rst
+   1550_ctan.rst
 
 Complex Hyperbolic Functions
 """"""""""""""""""""""""""""
@@ -204,7 +255,12 @@ Complex Hyperbolic Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1600_cacosh.rst
+   1610_casinh.rst
+   1620_catanh.rst
+   1630_ccosh.rst
+   1640_csinh.rst
+   1650_ctanh.rst
 
 Complex Exponential and Logarithmic Functions
 """""""""""""""""""""""""""""""""""""""""""""
@@ -212,7 +268,8 @@ Complex Exponential and Logarithmic Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1700_cexp.rst
+   1710_clog.rst
 
 Complex Power and Absolute-value Functions
 """"""""""""""""""""""""""""""""""""""""""
@@ -220,7 +277,9 @@ Complex Power and Absolute-value Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1800_cabs.rst
+   1810_cpow.rst
+   1820_csqrt.rst
 
 Complex Manipulation Functions
 """"""""""""""""""""""""""""""
@@ -228,4 +287,9 @@ Complex Manipulation Functions
 .. toctree::
    :maxdepth: 1
 
-   0200_acosh.rst
+   1900_carg.rst
+   1910_cimag.rst
+   1920_cmplx.rst
+   1930_conj.rst
+   1940_cproj.rst
+   1950_creal.rst
