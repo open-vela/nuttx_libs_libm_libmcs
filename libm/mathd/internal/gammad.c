@@ -229,7 +229,10 @@ double __lgamma(double x, int *signgamp)
     }
 
     if ((ix | lx) == 0) {
-        return one / zero;
+        if(hx < 0) {
+            *signgamp = -1;
+        }
+        return one / (x-x);
     }
 
     if (ix < 0x3b900000) { /* |x|<2**-70, return -log(|x|) */
@@ -243,13 +246,13 @@ double __lgamma(double x, int *signgamp)
 
     if (hx < 0) {
         if (ix >= 0x43300000) { /* |x|>=2**52, must be -integer */
-            return one / zero;
+            return one / (x-x);
         }
 
         t = __sin_pi(x);
 
         if (t == zero) {    /* -integer */
-            return one / zero;
+            return one / (x-x);
         }
 
         nadj = log(pi / fabs(t * x));
