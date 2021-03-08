@@ -160,7 +160,10 @@ float __lgammaf(float x, int *signgamp)
     }
 
     if (ix == 0) {
-        return one / zero;
+        if(hx < 0) {
+            *signgamp = -1;
+        }
+        return one / (x-x);
     }
 
     if (ix < 0x1c800000) { /* |x|<2**-70, return -log(|x|) */
@@ -174,13 +177,13 @@ float __lgammaf(float x, int *signgamp)
 
     if (hx < 0) {
         if (ix >= 0x4b000000) { /* |x|>=2**23, must be -integer */
-            return one / zero;
+            return one / (x-x);
         }
 
         t = __sin_pif(x);
 
         if (t == zero) {
-            return one / zero;    /* -integer */
+            return one / (x-x);    /* -integer */
         }
 
         nadj = logf(pi / fabsf(t * x));
