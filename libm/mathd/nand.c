@@ -2,12 +2,17 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #include <math.h>
+#include "../common/tools.h"
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double nan(const char *payload)
 {
-    return 0.0 / 0.0;
+    (void)payload;
+
+    double x;
+    INSERT_WORDS(x,0x7FF80000,0x00000000);
+    return x;
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
