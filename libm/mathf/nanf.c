@@ -2,10 +2,15 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #include <math.h>
+#include "../common/tools.h"
 
 float nanf(const char *payload)
 {
-    return 0.0f / 0.0f;
+    (void)payload;
+    
+    float x;
+    SET_FLOAT_WORD(x,0x7FC00000);
+    return x;
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS
