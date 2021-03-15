@@ -1,0 +1,54 @@
+fabs
+~~~~
+
+.. c:autodoc:: ../libm/mathd/fabsd.c
+
+Special cases
+^^^^^^^^^^^^^
+
++--------------------------+--------------------------+
+| x                        | Result                   |
++==========================+==========================+
+| :math:`±0`               | :math:`+0`               |
++--------------------------+--------------------------+
+| :math:`±Inf`             | :math:`+Inf`             |
++--------------------------+--------------------------+
+| :math:`qNaN`             | :math:`qNaN`             |
++--------------------------+--------------------------+
+| :math:`sNaN`             | :math:`sNaN`             |
++--------------------------+--------------------------+
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+The approach is to mask off the signbit of :math:`x` and return :math:`x`.
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-1000
+* REQ-ML-1010
+* REQ-ML-1011
+* REQ-ML-1012
+
+References
+^^^^^^^^^^
+
+* :ref:`__ccoshsinh <internal_ctrig>`
+* :ref:`__j0, __j1, __jn <internal_bessel>`
+* :ref:`__lgamma <internal_gamma>`
+* :ref:`__rem_pio2 <internal_trig>`
+* :ref:`csqrt`
+* :ref:`ctan`
+* :ref:`asin`
+* :ref:`asinh`
+* :ref:`atan`
+* :ref:`atan2`
+* :ref:`cosh`
+* :ref:`erf`
+* :ref:`erfc`
+* :ref:`pow`
+* :ref:`remainder`
+* :ref:`remquo`
+* :ref:`sinh`
+* :ref:`tanh`

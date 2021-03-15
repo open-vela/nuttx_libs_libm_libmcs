@@ -1,84 +1,80 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __pow(x,y) return x**y
+/**
  *
- *              n
- * Method:  Let x =  2   * (1+f)
- *    1. Compute and return log2(x) in two pieces:
- *        log2(x) = w1 + w2,
- *       where w1 has 53-24 = 29 bit trailing zeros.
- *    2. Perform y*log2(x) = n+y' by simulating multi-precision
- *       arithmetic, where |y'|<=0.5.
- *    3. Return x**y = 2**n*exp(y'*log2)
+ * This family of functions implements the value of :math:`x` raised to the power of :math:`y`.
  *
- * Special cases:
- *    1.  (anything) ** 0  is 1
- *    2.  (anything) ** 1  is itself
- *    3a. (anything) ** NAN is NAN except
- *    3b. +1         ** NAN is 1
- *    4.  NAN ** (anything except 0) is NAN
- *    5.  +-(|x| > 1) **  +INF is +INF
- *    6.  +-(|x| > 1) **  -INF is +0
- *    7.  +-(|x| < 1) **  +INF is +0
- *    8.  +-(|x| < 1) **  -INF is +INF
- *    9.  +-1         ** +-INF is 1
- *    10. +0 ** (+anything except 0, NAN)               is +0
- *    11. -0 ** (+anything except 0, NAN, odd integer)  is +0
- *    12. +0 ** (-anything except 0, NAN)               is +INF
- *    13. -0 ** (-anything except 0, NAN, odd integer)  is +INF
- *    14. -0 ** (odd integer) = -( +0 ** (odd integer) )
- *    15. +INF ** (+anything except 0,NAN) is +INF
- *    16. +INF ** (-anything except 0,NAN) is +0
- *    17. -INF ** (anything)  = -0 ** (-anything)
- *    18. (-anything) ** (integer) is (-1)**(integer)*(+anything**integer)
- *    19. (-anything except 0 and inf) ** (non-integer) is NAN
+ * Synopsis
+ * ========
  *
- * Accuracy:
- *    pow(x,y) returns x**y nearly rounded. In particular
- *            pow(integer,integer)
- *    always returns the correct integer provided it is
- *    representable.
+ * .. code-block:: c
  *
- * Constants :
- * The hexadecimal values are the intended ones for the following
- * constants. The decimal values may be used, provided that the
- * compiler will convert from decimal to binary accurately enough
- * to produce the hexadecimal values shown.
- */
-
-/*
-FUNCTION
-    <<pow>>, <<powf>>---x to the power y
-INDEX
-    pow
-INDEX
-    powf
-
-
-SYNOPSIS
-    #include <math.h>
-    double pow(double <[x]>, double <[y]>);
-    float powf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-    <<pow>> and <<powf>> calculate <[x]> raised to the exponent <[y]>.
-    @tex
-    (That is, $x^y$.)
-    @end tex
-
-RETURNS
-    On success, <<pow>> and <<powf>> return the value calculated.
-
-    When the argument values would produce overflow, <<pow>>
-    returns <<HUGE_VAL>> and set <<errno>> to <<ERANGE>>.  If the
-    argument <[x]> passed to <<pow>> or <<powf>> is a negative
-    noninteger, and <[y]> is also not an integer, then <<errno>>
-    is set to <<EDOM>>.  If <[x]> and <[y]> are both 0, then
-    <<pow>> and <<powf>> return <<1>>.
-
-PORTABILITY
-    <<pow>> is ANSI C. <<powf>> is an extension.  */
+ *     #include <math.h>
+ *     float powf(float x, float y);
+ *     double pow(double x, double y);
+ *     long double powl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``pow`` computes the value of :math:`x` raised to the power of :math:`y`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    pow(x, y) \approx x^y
+ *
+ * Returns
+ * =======
+ *
+ * ``pow`` returns the value of :math:`x` raised to the power of :math:`y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when :math:`x` is finite and negative and :math:`y` is finite and not an integer value.
+ *
+ * Raise ``divide by zero`` exception when :math:`x` is zero and :math:`y` is a negative odd integer value.
+ *
+ * Raise ``overflow`` exception when the magnitude of the result is too large.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | pow(x,y)                                   | x                                                                                                                                                                                                                                                                                                      |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                                          | :math:`-Inf`             | :math:`< -1`             | :math:`-1`               | :math:`]-1,-0[`          | :math:`-0`               | :math:`+0`               | :math:`]+0,+1[`          | :math:`+1`               | :math:`> +1`             | :math:`+Inf`             | :math:`NaN`              |
+ * +============================================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`                               | :math:`+0`                                          | :math:`+1`               | :math:`+Inf`                                                                                              | :math:`+1`               | :math:`+0`                                          | :math:`qNaN`             |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +--------------------------+--------------------------+                          +
+ * | :math:`\{2k + 1 : k \in \mathbb{Z}_{<0}\}` | :math:`-0`               | :math:`x^y`                                                                    | :math:`-Inf`             | :math:`+Inf`             | :math:`x^y`              |                          | :math:`x^y`              | :math:`+0`               |                          |
+ * +--------------------------------------------+--------------------------+                                                                                +--------------------------+--------------------------+                          +                          +                          +                          +                          +
+ * | :math:`\{2k : k \in \mathbb{Z}_{<0}\}`     | :math:`+0`               |                                                                                | :math:`+Inf`                                        |                          |                          |                          |                          |                          |
+ * +--------------------------------------------+                          +--------------------------+--------------------------+--------------------------+                                                     +                          +                          +                          +                          +                          +
+ * | :math:`< 0\ \wedge \notin \mathbb{Z}`      |                          | :math:`qNaN`                                                                   |                                                     |                          |                          |                          |                          |                          |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | :math:`-0`                                 | :math:`+1`                                                                                                                                                                                                                                                                                             |
+ * +--------------------------------------------+                                                                                                                                                                                                                                                                                                        +
+ * | :math:`+0`                                 |                                                                                                                                                                                                                                                                                                        |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | :math:`> 0\ \wedge \notin \mathbb{Z}`      | :math:`+Inf`             | :math:`qNaN`                                                                   | :math:`+0`                                          | :math:`x^y`              | :math:`+1`               | :math:`x^y`              | :math:`+Inf`             | :math:`qNaN`             |
+ * +--------------------------------------------+                          +--------------------------+--------------------------+--------------------------+                                                     +                          +                          +                          +                          +                          +
+ * | :math:`\{2k : k \in \mathbb{Z}_{>0}\}`     |                          | :math:`x^y`                                                                    |                                                     |                          |                          |                          |                          |                          |
+ * +--------------------------------------------+--------------------------+                                                                                +--------------------------+--------------------------+                          +                          +                          +                          +                          +
+ * | :math:`\{2k - 1 : k \in \mathbb{Z}_{>0}\}` | :math:`-Inf`             |                                                                                | :math:`-0`               | :math:`+0`               |                          |                          |                          |                          |                          |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +--------------------------+--------------------------+                          +
+ * | :math:`+Inf`                               | :math:`+Inf`                                        | :math:`+1`               | :math:`+0`                                                                                                |                          | :math:`+Inf`                                        |                          |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +--------------------------+--------------------------+--------------------------+
+ * | :math:`NaN`                                | :math:`qNaN`                                                                                                                                                                               |                          | :math:`qNaN`                                                                   |
+ * +--------------------------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
