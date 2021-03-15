@@ -1,102 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* sqrt(x)
- * Return correctly rounded sqrt.
- *           ------------------------------------------
- *         |  Use the hardware sqrt if you have one |
- *           ------------------------------------------
- * Method:
- *   Bit by bit method using integer arithmetic. (Slow, but portable)
- *   1. Normalization
- *    Scale x to y in [1,4) with even powers of 2:
- *    find an integer k such that  1 <= (y=x*2^(2k)) < 4, then
- *        sqrt(x) = 2^k * sqrt(y)
- *   2. Bit by bit computation
- *    Let q  = sqrt(y) truncated to i bit after binary point (q = 1),
- *         i                             0
- *                                     i+1         2
- *        s  = 2*q , and    y  =  2   * ( y - q  ).        (1)
- *         i      i            i                 i
+/**
  *
- *    To compute q    from q , one checks whether
- *            i+1       i
+ * This family of functions implements the square root of :math:`x`.
  *
- *                  -(i+1) 2
- *            (q + 2      ) <= y.            (2)
- *                   i
- *                                  -(i+1)
- *    If (2) is false, then q   = q ; otherwise q   = q  + 2      .
- *                    i+1   i             i+1   i
+ * Synopsis
+ * ========
  *
- *    With some algebric manipulation, it is not difficult to see
- *    that (2) is equivalent to
- *                             -(i+1)
- *            s  +  2       <= y            (3)
- *             i                i
+ * .. code-block:: c
  *
- *    The advantage of (3) is that s  and y  can be computed by
- *                      i      i
- *    the following recurrence formula:
- *        if (3) is false
+ *     #include <math.h>
+ *     float sqrtf(float x);
+ *     double sqrt(double x);
+ *     long double sqrtl(long double x);
  *
- *        s     =  s  ,    y    = y   ;            (4)
- *         i+1      i         i+1    i
+ * Description
+ * ===========
  *
- *        otherwise,
- *                         -i                     -(i+1)
- *        s      =  s  + 2  ,  y    = y  -  s  - 2          (5)
- *           i+1      i          i+1    i     i
+ * ``sqrt`` computes the square root of the input value.
  *
- *    One may easily use induction to prove (4) and (5).
- *    Note. Since the left hand side of (3) contain only i+2 bits,
- *          it does not necessary to do a full (53-bit) comparison
- *          in (3).
- *   3. Final rounding
- *    After generating the 53 bits result, we compute one more bit.
- *    Together with the remainder, we can decide whether the
- *    result is exact, bigger than 1/2ulp, or less than 1/2ulp
- *    (it will never equal to 1/2ulp).
- *    The rounding mode can be detected by checking whether
- *    huge + tiny is equal to huge, and whether huge - tiny is
- *    equal to huge for some floating point number "huge" and "tiny".
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
  *
- * Special cases:
- *    sqrt(+-0) = +-0     ... exact
- *    sqrt(inf) = inf
- *    sqrt(-ve) = NaN     ... with invalid signal
- *    sqrt(NaN) = NaN     ... with invalid signal for signaling NaN
+ *    sqrt(x) \approx \sqrt{x}
  *
- * Other methods : see the appended file at the end of the program below.
- *---------------
- */
-
-/*
-FUNCTION
-    <<sqrt>>, <<sqrtf>>---positive square root
-
-INDEX
-    sqrt
-INDEX
-    sqrtf
-
-SYNOPSIS
-    #include <math.h>
-    double sqrt(double <[x]>);
-    float  sqrtf(float <[x]>);
-
-DESCRIPTION
-    <<sqrt>> computes the positive square root of the argument.
-
-RETURNS
-    On success, the square root is returned. If <[x]> is real and
-    positive, then the result is positive.  If <[x]> is real and
-    negative, the global value <<errno>> is set to <<EDOM>> (domain error).
-
-
-PORTABILITY
-    <<sqrt>> is ANSI C.  <<sqrtf>> is an extension.
-*/
+ * Returns
+ * =======
+ *
+ * ``sqrt`` returns the square root of the input value.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when :math:`x` is negative.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+------------------+--------------+--------------+------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`       | :math:`-0`   | :math:`+0`   | :math:`>0`       | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==================+==============+==============+==================+==============+==============+
+ * | **sqrt(x)**         | :math:`qNaN` | :math:`qNaN`     | :math:`x`                   | :math:`\sqrt{x}` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+------------------+--------------+--------------+------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
