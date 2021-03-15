@@ -1,29 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-    <<cbrt>>, <<cbrtf>>---cube root
-
-INDEX
-    cbrt
-INDEX
-    cbrtf
-
-SYNOPSIS
-    #include <math.h>
-    double cbrt(double <[x]>);
-    float  cbrtf(float <[x]>);
-
-DESCRIPTION
-    <<cbrt>> computes the cube root of the argument.
-
-RETURNS
-    The cube root is returned.
-
-PORTABILITY
-    <<cbrt>> is in System V release 4.  <<cbrtf>> is an extension.
-*/
+/**
+ *
+ * This family of functions implements the cubic root of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float cbrtf(float x);
+ *     double cbrt(double x);
+ *     long double cbrtl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``cbrt`` computes the cubic root of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    cbrt(x) \approx \sqrt[3]{x}
+ *
+ * Returns
+ * =======
+ *
+ * ``cbrt`` returns the cubic root of the input value.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`          | :math:`-0`   | :math:`+0`   | :math:`>0`          | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=====================+==============+==============+=====================+==============+==============+
+ * | **cbrt(x)**         | :math:`-Inf` | :math:`\sqrt[3]{x}` | :math:`x`                   | :math:`\sqrt[3]{x}` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
