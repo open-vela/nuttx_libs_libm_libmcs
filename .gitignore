@@ -17,12 +17,13 @@
 *.swp
 *.tmp
 
+build*
+
 .deps
 .libs
 
 autom4te.cache
 config.cache
-config.h
 config.intl
 config.log
 config.status
@@ -42,3 +43,4 @@ core
 !core/
 
 lost+found
+html/

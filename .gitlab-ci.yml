@@ -1,0 +1,27 @@
+stages:
+    - setup
+    - doc
+
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+image: $CI_REGISTRY_IMAGE
+
+setup:
+    stage: setup
+    image: docker:stable
+    before_script:
+        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    script:
+        - docker build -t $CI_REGISTRY_IMAGE -f Dockerfile .
+        - docker push $CI_REGISTRY_IMAGE
+
+doc:
+    stage: doc
+    script:
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc html
+    artifacts:
+        paths:
+            - html/
+        expire_in: 30 days
+    needs: ["setup"]
