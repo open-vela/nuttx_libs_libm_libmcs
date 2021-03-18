@@ -147,7 +147,6 @@ PORTABILITY
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
-tiny =  1e-300,
 half =  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
 two  =  2.00000000000000000000e+00, /* 0x40000000, 0x00000000 */
 erx  =  8.45062911510467529297e-01; /* 0x3FEB0AC1, 0x60000000 */
@@ -159,13 +158,19 @@ double erfc(double x)
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
-    if (ix >= 0x7ff00000) {        /* erfc(nan)=nan, erfc(+-inf)=0,2 */
-        return (double)(((uint32_t)hx >> 31) << 1) + one / x;
+    if (ix >= 0x7ff00000) {
+        if (isnan(x)) {         /* erfc(nan) = nan */
+            return x + x;
+        } else if (hx > 0) {    /* erfc(+inf) = 0 */
+            return 0.0;
+        } else {                /* erfc(-inf) = 2 */
+            return two;
+        }
     }
 
     if (ix < 0x3feb0000) {         /* |x|<0.84375 */
         if (ix < 0x3c700000) {     /* |x|<2**-56 */
-            return one - x;
+            return __raise_inexact(one);
         }
 
         y = __erf_y(x);
@@ -202,7 +207,7 @@ double erfc(double x)
             S = __erf_Sa(s);
         } else {                   /* |x| >= 1/.35 ~ 2.857143 */
             if (hx < 0 && ix >= 0x40180000) {
-                return two - tiny; /* x < -6 */
+                return __raise_inexact(two); /* x < -6 */
             }
 
             R = __erf_Rb(s);
@@ -220,9 +225,9 @@ double erfc(double x)
         }
     } else {
         if (hx > 0) {
-            return tiny * tiny; /* Replaced __math_uflow(0); */
+            return __raise_underflow(0.0);
         } else {
-            return two - tiny;
+            return __raise_inexact(two);
         }
     }
 }

@@ -82,6 +82,7 @@ remquo(double x, double y, int *quo)
 	if(quo == (void*)0) {
 	    quo = &_quo;
 	}
+    *quo = 0;
     
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
@@ -91,16 +92,20 @@ remquo(double x, double y, int *quo)
     hy &= 0x7fffffff;          /* |y| */
 
     /* purge off exception values */
-    if ((hy | ly) == 0 || (hx >= 0x7ff00000) ||       /* y=0,or x not finite */
-        ((hy | ((ly | -ly) >> 31)) > 0x7ff00000))  {  /* or y is NaN */
-        *quo = 0;    /* Not necessary, but return consistent value */
-        return (x * y) / (x * y);
+    if ((hx >= 0x7ff00000) || (hy >= 0x7ff00000)) { /* x or y not finite */
+        if (isnan(x) || isnan(y)) {                 /* x or y is NaN */
+            return x + y;
+        } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
+            return __raise_invalid();
+        }
+    } else if ((hy | ly) == 0) {                    /* y = 0 */
+        return __raise_invalid();
     }
 
     if (hx <= hy) {
         if ((hx < hy) || (lx < ly)) {
             q = 0;
-            goto fixup;                               /* |x|<|y| return x or x-y */
+            goto fixup;                             /* |x|<|y| return x or x-y */
         }
 
         if (lx == ly) {

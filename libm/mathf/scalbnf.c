@@ -13,9 +13,7 @@
 
 static const float
 two25   =  3.355443200e+07,     /* 0x4c000000 */
-twom25  =  2.9802322388e-08,    /* 0x33000000 */
-huge    =  1.0e+30,
-tiny    =  1.0e-30;
+twom25  =  2.9802322388e-08;    /* 0x33000000 */
 
 float scalbnf(float x, int n)
 {
@@ -40,14 +38,14 @@ float scalbnf(float x, int n)
         k = ((ix & 0x7f800000) >> 23) - 25;
 
         if (n < -50000) {
-            return tiny * x;    /*underflow*/
+            return __raise_underflowf(x);    /*underflow*/
         }
     }
 
     k = k + n;
 
     if (k > FLT_LARGEST_EXP) {
-        return huge * copysignf(huge, x);    /* overflow  */
+        return __raise_overflowf(x);         /*overflow */
     }
 
     if (k > 0) {               /* normal result */
@@ -57,9 +55,9 @@ float scalbnf(float x, int n)
 
     if (k < FLT_SMALLEST_EXP) {
         if (n > OVERFLOW_INT) {   /* in case integer overflow in n+k */
-            return huge * copysignf(huge, x);    /*overflow*/
+            return __raise_overflowf(x);     /*overflow */
         } else {
-            return tiny * copysignf(tiny, x);    /*underflow*/
+            return __raise_underflowf(x);    /*underflow*/
         }
     }
 

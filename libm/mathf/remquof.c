@@ -33,6 +33,7 @@ float remquof(float x, float y, int *quo)
 	if(quo == (void*)0) {
 	    quo = &_quo;
 	}
+    *quo = 0;
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
@@ -42,9 +43,10 @@ float remquof(float x, float y, int *quo)
     hy &= 0x7fffffff;    /* |y| */
 
     /* purge off exception values */
-    if (hy == 0 || hx >= 0x7f800000 || hy > 0x7f800000) { /* y=0,NaN;or x not finite */
-        *quo = 0;    /* Not necessary, but return consistent value */
-        return (x * y) / (x * y);
+    if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hy)) {                 /* x or y is NaN */
+        return x + y;
+    } else if (FLT_UWORD_IS_ZERO(hy) || FLT_UWORD_IS_INFINITE(hx)) {    /* y is 0 or x is inf */
+        return __raise_invalidf();
     }
 
     if (hx < hy) {

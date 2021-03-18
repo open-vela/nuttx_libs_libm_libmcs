@@ -13,8 +13,6 @@ zero     =  0.0,
 one      =  1.0,
 two      =  2.0,
 two24    =  16777216.0,       /* 0x4b800000 */
-huge	 =  1.0e30,
-tiny     =  1.0e-30,
 /* poly coefs for (3/2)*(log(x)-2s-2/3*s**3 */
 L1       =  6.0000002384e-01, /* 0x3f19999a */
 L2       =  4.2857143283e-01, /* 0x3edb6db7 */
@@ -52,22 +50,18 @@ float powf(float x, float y)
 
     /* y==zero: x**0 = 1 */
     if (FLT_UWORD_IS_ZERO(iy)) {
-        /* Removed
-        if (issignalingf_inline(x)) {
+        if (FLT_UWORD_IS_NAN(ix) && (ix & 0x00400000) == 0) {
             return x + y;
-        } */
+        }
 
         return one;
     }
 
     /* x|y==NaN return NaN unless x==1 then return 1 */
-    if (FLT_UWORD_IS_NAN(ix) ||
-        FLT_UWORD_IS_NAN(iy)) {
-        if (hx == 0x3f800000) {
-        /* Replaced if (hx == 0x3f800000 && !issignalingf_inline(y)) { */
+    if (FLT_UWORD_IS_NAN(ix) || FLT_UWORD_IS_NAN(iy)) {
+        if (hx == 0x3f800000 && (iy & 0x00400000) != 0) {
             return one;
         } else {
-        /* Not replaced x+y with nanf("") as it was in newlib, research further. */
             return x + y;
         }
     }
@@ -125,17 +119,21 @@ float powf(float x, float y)
 
     /* special value of x */
     if (FLT_UWORD_IS_INFINITE(ix) || FLT_UWORD_IS_ZERO(ix) || ix == 0x3f800000) {
-        z = ax;            /*x is +-0,+-inf,+-1*/
+        z = ax;                         /*x is +-0,+-inf,+-1*/
 
-        if (hy < 0) {
-            z = one / z;    /* z = (1/|x|) */
+        if (hy < 0) {                   /* z = (1/|x|) */
+            if (FLT_UWORD_IS_INFINITE(ix)) {
+                z = zero;
+            } else if (FLT_UWORD_IS_ZERO(ix)) {
+                z = __raise_div_by_zerof(z);
+            }
         }
 
         if (hx < 0) {
             if (((ix - 0x3f800000) | yisint) == 0) {
-                z = (z - z) / (z - z); /* (-1)**non-int is NaN */
+                z = __raise_invalidf(); /* (-1)**non-int is NaN */
             } else if (yisint == 1) {
-                z = -z;    /* (x<0)**odd = -(|x|**odd) */
+                z = -z;                 /* (x<0)**odd = -(|x|**odd) */
             }
         }
 
@@ -144,20 +142,18 @@ float powf(float x, float y)
 
     /* (x<0)**(non-int) is NaN */
     if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)yisint) == 0) {
-        return (x - x) / (x - x);
+        return __raise_invalidf();
     }
 
     /* |y| is huge */
     if (iy > 0x4d000000) { /* if |y| > 2**27 */
         /* over/underflow if x is not close to one */
         if (ix < 0x3f7ffff4) {
-            /* Replaced return (hy < 0) ? __math_oflowf(0) : __math_uflowf(0); */
-            return (hy < 0) ? huge * huge : tiny * tiny;
+            return (hy < 0) ? __raise_overflowf(one) : __raise_underflowf(one);
         }
 
         if (ix > 0x3f800007) {
-            /* Replaced return (hy > 0) ? __math_oflowf(0) : __math_uflowf(0); */
-            return (hy > 0) ? huge * huge : tiny * tiny;
+            return (hy > 0) ? __raise_overflowf(one) : __raise_underflowf(one);
         }
 
         /* now |1-x| is tiny <= 2**-20, suffice to compute
@@ -253,18 +249,20 @@ float powf(float x, float y)
 
     if (j > 0) {
         if (i > FLT_UWORD_EXP_MAX) {
-            return s * huge * huge; /* Replaced __math_oflowf(s < 0); */     /* overflow */
-        } else if (i == FLT_UWORD_EXP_MAX)
+            return __raise_overflowf(s);      /* overflow */
+        } else if (i == FLT_UWORD_EXP_MAX) {
             if (p_l + ovt > z - p_h) {
-                return s * huge * huge; /* Replaced __math_oflowf(s < 0); */ /* overflow */
+                return __raise_overflowf(s);  /* overflow */
             }
+        }
     } else {
         if (i > FLT_UWORD_EXP_MIN) {
-            return s * tiny * tiny; /* Replaced __math_uflowf(s < 0); */     /* underflow */
-        } else if (i == FLT_UWORD_EXP_MIN)
+            return __raise_underflowf(s);      /* underflow */
+        } else if (i == FLT_UWORD_EXP_MIN) {
             if (p_l <= z - p_h) {
-                return s * tiny * tiny; /* Replaced __math_uflowf(s < 0); */ /* underflow */
+                return __raise_underflowf(s);  /* underflow */
             }
+        }
     }
 
     /*

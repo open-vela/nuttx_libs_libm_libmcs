@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, huge = 1e30, zero = 0.0;
+static const float one = 1.0;
 
 float atanhf(float x)
 {
@@ -15,15 +15,19 @@ float atanhf(float x)
     ix = hx & 0x7fffffff;
 
     if (ix > 0x3f800000) {     /* |x|>1 */
-        return (x - x) / (x - x);
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalidf();
+        }
     }
 
     if (ix == 0x3f800000) {
-        return x / zero;
+        return __raise_div_by_zerof(x);
     }
 
-    if (ix < 0x31800000 && (huge + x) > zero) {    /* x<2**-28 */
-        return x;
+    if (ix < 0x31800000) {    /* x<2**-28 */
+        return __raise_inexactf(x);
     }
 
     SET_FLOAT_WORD(x, ix);

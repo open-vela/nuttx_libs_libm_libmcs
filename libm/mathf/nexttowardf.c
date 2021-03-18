@@ -57,14 +57,12 @@ float nexttowardf(float x, long double y)
 
     /* raise overflow if ux.value is infinite and x is finite */
     if (e == 0x7f800000) {
-        volatile float force_eval;
-        force_eval = x + x;
+        return __raise_overflowf(x);
     }
 
     /* raise underflow if ux.value is subnormal or zero */
     if (e == 0) {
-        volatile float force_eval;
-        force_eval = x * x + ux.value * ux.value;
+        (void) __raise_underflowf(x);
     }
 
     return ux.value;

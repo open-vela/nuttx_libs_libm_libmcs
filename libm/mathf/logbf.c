@@ -21,10 +21,7 @@ float logbf(float x)
     hx &= 0x7fffffff;
 
     if (FLT_UWORD_IS_ZERO(hx))  {
-        float  xx;
-        /* arg==0:  return -inf and raise divide-by-zero exception */
-        SET_FLOAT_WORD(xx, hx);   /* +0.0 */
-        return -1. / xx;  /* logbf(0) = -inf */
+        return __raise_div_by_zerof(-1.0f);  /* logbf(0) = -inf */
     }
 
     if (FLT_UWORD_IS_SUBNORMAL(hx)) {
@@ -33,10 +30,8 @@ float logbf(float x)
         }
 
         return (float) ix;
-    } else if (FLT_UWORD_IS_INFINITE(hx)) {    /* x==+|-inf */
-        return HUGE_VALF;
-    } else if (FLT_UWORD_IS_NAN(hx)) {
-        return x;
+    } else if (!FLT_UWORD_IS_FINITE(hx)) {   /* x = NaN/+-Inf */
+        return x * x;
     } else {
         return (float)((hx >> 23) - 127);
     }

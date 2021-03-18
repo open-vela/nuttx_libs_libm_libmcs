@@ -16,10 +16,14 @@ float acoshf(float x)
     GET_FLOAT_WORD(hx, x);
 
     if (hx < 0x3f800000) {     /* x < 1 */
-        return (x - x) / (x - x);
+        return __raise_invalidf();
     } else if (hx >= 0x4d800000) {  /* x > 2**28 */
         if (!FLT_UWORD_IS_FINITE(hx)) {   /* x is inf of NaN */
-            return x + x;
+            if (isnan(x)) {
+                return x + x;
+            } else {
+                return __raise_invalidf();
+            }
         } else {
             return logf(x) + ln2;    /* acosh(huge)=log(2x) */
         }

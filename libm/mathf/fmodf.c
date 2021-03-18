@@ -24,10 +24,14 @@ float fmodf(float x, float y)
     hy &= 0x7fffffff;    /* |y| */
 
     /* purge off exception values */
-    if (FLT_UWORD_IS_ZERO(hy) ||
-        !FLT_UWORD_IS_FINITE(hx) ||
-        FLT_UWORD_IS_NAN(hy)) {
-        return (x * y) / (x * y);
+    if (!FLT_UWORD_IS_FINITE(hx) || !FLT_UWORD_IS_FINITE(hy)) {     /* x or y is +-Inf/NaN */
+        if (FLT_UWORD_IS_INFINITE(hx)) {                            /* x is +-Inf */
+            return __raise_invalidf();
+        } else if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hy)) {  /* x or y is NaN */
+            return x + y;
+        }
+    } else if (FLT_UWORD_IS_ZERO(hy)) {                             /* y is +-0 */
+        return __raise_invalidf();
     }
 
     if (hx < hy) {

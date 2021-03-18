@@ -20,12 +20,11 @@ float remainderf(float x, float p)
     hx &= 0x7fffffff;
 
     /* purge off exception values */
-    if (FLT_UWORD_IS_ZERO(hp) ||
-        !FLT_UWORD_IS_FINITE(hx) ||
-        FLT_UWORD_IS_NAN(hp)) {
-        return (x * p) / (x * p);
+    if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hp)) {                 /* x or p is NaN */
+        return x + p;
+    } else if (FLT_UWORD_IS_ZERO(hp) || FLT_UWORD_IS_INFINITE(hx)) {    /* p is 0 or x is inf */
+        return __raise_invalidf();
     }
-
 
     if (hp <= FLT_UWORD_HALF_MAX) {
         x = fmodf(x, p + p);    /* now x < 2p */

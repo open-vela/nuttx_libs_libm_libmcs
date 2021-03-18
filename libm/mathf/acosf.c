@@ -35,7 +35,11 @@ float acosf(float x)
             return pi + (float)2.0 * pio2_lo;    /* acos(-1)= pi */
         }
     } else if (ix > 0x3f800000) { /* |x| >= 1 */
-        return (x - x) / (x - x);  /* acos(|x|>1) is NaN */
+        if (isnan(x)) {
+            return x + x;
+        }
+        
+        return __raise_invalidf();  /* acos(|x|>1) is NaN */
     }
 
     if (ix < 0x3f000000) { /* |x| < 0.5 */
