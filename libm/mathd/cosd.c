@@ -51,9 +51,7 @@ double cos(double x)
     
     if(ix <= 0x3fe921fb) {
         if(ix < 0x3e46a09e) {        /* if x < 2**-27 * sqrt(2) */
-            if(((int)x) == 0) {
-                return 1.0;          /* generate inexact */
-            }
+            return __raise_inexact(1.0);          /* generate inexact */
         }
         
         return __cos(x, z);
@@ -61,7 +59,11 @@ double cos(double x)
 
     /* cos(Inf or NaN) is NaN */
     else if (ix >= 0x7ff00000) {
-        return x - x;
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalid();
+        }
     }
 
     /* argument reduction needed */

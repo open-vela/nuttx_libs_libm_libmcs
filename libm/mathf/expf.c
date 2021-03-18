@@ -7,8 +7,8 @@
 
 static const float
 one       =   1.0f,
+zero      =   0.0f,
 halF[2]   = { 0.5f, -0.5f,},
-huge      =   1.0e+30f,
 twom100   =   7.8886090522e-31f, /* 2**-100=0x0d800000 */
 ln2HI[2]  = { 6.9314575195e-01f, /* 0x3f317200 */
              -6.9314575195e-01f, /* 0xbf317200 */
@@ -39,15 +39,15 @@ float expf(float x)    /* default IEEE double exp */
     }
 
     if (FLT_UWORD_IS_INFINITE(hx)) {
-        return (xsb == 0) ? x : 0.0f;
+        return (xsb == 0) ? x : zero;
     }        /* exp(+-inf)={inf,0} */
 
     if (sx > FLT_UWORD_LOG_MAX) {
-        return huge * huge;       /* Replaced __math_oflowf(0); */    /* overflow */
+        return __raise_overflowf(one);    /* overflow */
     }
 
     if (sx < 0 && hx > FLT_UWORD_LOG_MIN) {
-        return twom100 * twom100; /* Replaced __math_uflowf(0); */    /* underflow */
+        return __raise_underflowf(zero);    /* underflow */
     }
 
     /* argument reduction */
@@ -65,9 +65,7 @@ float expf(float x)    /* default IEEE double exp */
 
         x  = hi - lo;
     } else if (hx < 0x34000000)  { /* when |x|<2**-23 */
-        if (huge + x > one) {
-            return one + x;    /* trigger inexact */
-        }
+        return __raise_inexactf(one);    /* trigger inexact */
     }
 
     /* x is now in primary range */

@@ -7,7 +7,6 @@
 
 static const float
 one     =  1.0000000000e+00, /* 0x3F800000 */
-huge    =  1.000e+30,
 pio2_hi =  1.57079637050628662109375f,
 pio2_lo = -4.37113900018624283e-8f,
 pio4_hi =  0.785398185253143310546875f,
@@ -33,12 +32,14 @@ float asinf(float x)
     if (ix == 0x3f800000) { /* asin(1)=+-pi/2 with inexact */
         return x * pio2_hi + x * pio2_lo;
     } else if (ix > 0x3f800000) {  /* |x|>= 1 */
-        return (x - x) / (x - x);  /* asin(|x|>1) is NaN */
+        if (isnan(x)) {
+            return x + x;
+        }
+
+        return __raise_invalidf();  /* asin(|x|>1) is NaN */
     } else if (ix < 0x3f000000) {  /* |x|<0.5 */
         if (ix < 0x32000000) {     /* if |x| < 2**-27 */
-            if (huge + x > one) {
-                return x;    /* return x with inexact if x!=0*/
-            }
+            return __raise_inexactf(x);;    /* return x with inexact if x!=0*/
         } else {
             t = x * x;
             p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));

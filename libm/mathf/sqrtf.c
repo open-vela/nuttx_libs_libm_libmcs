@@ -18,7 +18,13 @@ float sqrtf(float x)
 
     /* take care of Inf and NaN */
     if (!FLT_UWORD_IS_FINITE(hx)) {
-        return x * x + x;            /* sqrt(NaN)=NaN, sqrt(+inf)=+inf, sqrt(-inf)=sNaN */
+        if (FLT_UWORD_IS_NAN(hx)) { /* sqrt(NaN)=NaN */
+            return x + x;
+        } else if (ix > 0) {        /* sqrt(+inf)=+inf */
+            return x;
+        } else {                    /* sqrt(-inf)=sNaN */
+            return __raise_invalidf();
+        }
     }
 
     /* take care of zero and -ves */
@@ -27,7 +33,7 @@ float sqrtf(float x)
     }
 
     if (ix < 0) {
-        return (x - x) / (x - x);    /* sqrt(-ve) = sNaN */
+        return __raise_invalidf();    /* sqrt(-ve) = sNaN */
     }
 
     /* normalize x */

@@ -68,25 +68,25 @@ double log2(double x)
 
     k = 0;
 
-    if (hx < 0x00100000) {            /* x < 2**-1022  */
+    if (hx < 0x00100000) {              /* x < 2**-1022  */
         if (((hx & 0x7fffffff) | lx) == 0) {
-            return -two54 / zero;     /* log(+-0)=-inf */
+            return __raise_div_by_zero(-1.0);     /* log(+-0)=-inf */
         }
 
         if (hx < 0) {
-            return (x - x) / zero;    /* log(-#) = NaN */
+            return __raise_invalid();   /* log(-#) = NaN */
         }
 
         k -= 54;
-        x *= two54;                   /* subnormal number, scale up x */
+        x *= two54;                     /* subnormal number, scale up x */
         GET_HIGH_WORD(hx, x);
     }
 
-    if (hx >= 0x7ff00000) {
+    if (hx >= 0x7ff00000) {             /* x = NaN/+-Inf */
         return x + x;
     }
 
-    if (hx == 0x3ff00000 && lx == 0) { /* log(1) = +0 */
+    if (hx == 0x3ff00000 && lx == 0) {  /* log(1) = +0 */
         return zero;
     }
 

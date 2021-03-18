@@ -158,3 +158,51 @@ typedef union {
 #define REAL_PART(z)    ((z).parts[0])
 #define IMAG_PART(z)    ((z).parts[1])
 
+static inline double __forced_calculation(double x) {
+    volatile double r = x;
+    return r;
+}
+static inline float __forced_calculationf(float x) {
+    volatile float r = x;
+    return r;
+}
+
+static inline double __raise_invalid() {
+    double r = __forced_calculation(0.0 / 0.0);
+    return r;
+}
+static inline double __raise_div_by_zero(double x) {
+    return signbit(x) ? __forced_calculation(-1.0 / 0.0) : __forced_calculation(1.0 / 0.0);
+}
+static inline double __raise_overflow(double x) {
+    volatile double huge = 1.0e300;
+    return signbit(x) ? -huge * huge : huge * huge;
+}
+static inline double __raise_underflow(double x) {
+    volatile double tiny = 1.0e-300;
+    return signbit(x) ? -tiny * tiny : tiny * tiny;
+}
+static inline double __raise_inexact(double x) {
+    volatile double huge = 1.0e300;
+    return (huge - 1.0e-300) ? x : 0.0;
+}
+
+static inline float __raise_invalidf() {
+    double r = __forced_calculationf(0.0f / 0.0f);
+    return r;
+}
+static inline float __raise_div_by_zerof(float x) {
+    return signbit(x) ? __forced_calculationf(-1.0f / 0.0f) : __forced_calculationf(1.0f / 0.0f);
+}
+static inline float __raise_overflowf(float x) {
+    volatile float huge = 1.0e30f;
+    return signbit(x) ? -huge * huge : huge * huge;
+}
+static inline float __raise_underflowf(float x) {
+    volatile float tiny = 1.0e-30f;
+    return signbit(x) ? -tiny * tiny : tiny * tiny;
+}
+static inline float __raise_inexactf(float x) {
+    volatile float huge = 1.0e30f;
+    return (huge - 1.0e-30f) ? x : 0.0f;
+}

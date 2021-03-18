@@ -7,8 +7,6 @@
 
 static const float
 one    =  1.0,
-huge   =  1.0e+30,
-tiny   =  1.0e-30,
 ln2_hi =  6.9313812256e-01, /* 0x3f317180 */
 ln2_lo =  9.0580006145e-06, /* 0x3717f7d1 */
 invln2 =  1.4426950216e+00, /* 0x3fb8aa3b */
@@ -37,17 +35,15 @@ float expm1f(float x)
         }
 
         if (FLT_UWORD_IS_INFINITE(hx)) {
-            return (xsb == 0) ? x : -1.0;
+            return (xsb == 0) ? x : -one;
         }/* exp(+-inf)={inf,-1} */
 
         if (xsb == 0 && hx > FLT_UWORD_LOG_MAX) { /* if x>=o_threshold */
-            return huge * huge; /* Replaced __math_oflowf(0); */    /* overflow */
+            return __raise_overflowf(one);    /* overflow */
         }
 
         if (xsb != 0) { /* x < -27*ln2, return -1.0 with inexact */
-            if (x + tiny < (float)0.0) { /* raise inexact */
-                return tiny - one;    /* return -1 */
-            }
+            return -__raise_inexactf(one);
         }
     }
 
@@ -73,8 +69,11 @@ float expm1f(float x)
         x  = hi - lo;
         c  = (hi - x) - lo;
     } else if (hx < 0x33000000) {   /* when |x|<2**-25, return x */
-        t = huge + x;  /* return x with inexact flags when x!=0 */
-        return x - (t - (huge + x));
+        if (x == 0.0f) {
+            return x;
+        } else { /* return x with inexact flags when x!=0 */
+            return __raise_inexactf(x);
+        }
     } else {
         k = 0;
     }

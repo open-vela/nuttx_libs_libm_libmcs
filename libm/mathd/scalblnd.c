@@ -15,9 +15,7 @@
 
 static const double
 two54   =  1.80143985094819840000e+16, /* 0x43500000, 0x00000000 */
-twom54  =  5.55111512312578270212e-17, /* 0x3C900000, 0x00000000 */
-huge    =  1.0e+300,
-tiny    =  1.0e-300;
+twom54  =  5.55111512312578270212e-17; /* 0x3C900000, 0x00000000 */
 
 double scalbln(double x, long int n)
 {
@@ -42,11 +40,11 @@ double scalbln(double x, long int n)
     k = k + n;
 
     if (n > 50000 || k >  0x7fe) {
-        return huge * copysign(huge, x);    /*overflow*/
+        return __raise_overflow(x);    /*overflow*/
     }
 
     if (n < -50000) {
-        return tiny * copysign(tiny, x);    /*underflow*/
+        return __raise_underflow(x);    /*underflow*/
     }
 
     if (k > 0) {                    /* normal result */
@@ -55,7 +53,7 @@ double scalbln(double x, long int n)
     }
 
     if (k <= -54) {
-        return tiny * copysign(tiny, x);    /*underflow*/
+        return __raise_underflow(x);    /*underflow*/
     }
 
     k += 54;                        /* subnormal result */

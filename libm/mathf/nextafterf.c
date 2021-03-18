@@ -14,8 +14,7 @@ float nextafterf(float x, float y)
     ix = hx & 0x7fffffff;      /* |x| */
     iy = hy & 0x7fffffff;      /* |y| */
 
-    if (FLT_UWORD_IS_NAN(ix) ||
-        FLT_UWORD_IS_NAN(iy)) {
+    if (FLT_UWORD_IS_NAN(ix) || FLT_UWORD_IS_NAN(iy)) {
         return x + y;
     }
 
@@ -51,7 +50,7 @@ float nextafterf(float x, float y)
     hy = hx & 0x7f800000;
 
     if (hy > FLT_UWORD_MAX) {
-        return x + x;    /* overflow  */
+        return __raise_overflowf(x); /* overflow if x is finite */
     }
 
     if (hy < 0x00800000) {     /* underflow */

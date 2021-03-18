@@ -45,16 +45,14 @@ PORTABILITY
 
 double nextafter(double x, double y)
 {
-    int32_t  hx, hy, ix, iy;
+    int32_t  hx, hy, ix;
     uint32_t lx, ly;
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
     ix = hx & 0x7fffffff;      /* |x| */
-    iy = hy & 0x7fffffff;      /* |y| */
 
-    if (((ix >= 0x7ff00000) && ((ix - 0x7ff00000) | lx) != 0) || /* x is nan */
-        ((iy >= 0x7ff00000) && ((iy - 0x7ff00000) | ly) != 0)) { /* y is nan */
+    if (isnan(x) || isnan(y)) { /* x or y is nan */
         return x + y;
     }
 
@@ -106,7 +104,7 @@ double nextafter(double x, double y)
     hy = hx & 0x7ff00000;
 
     if (hy >= 0x7ff00000) {
-        return x + x;          /* overflow  */
+        return __raise_overflow(x); /* overflow if x is finite */
     }
 
     if (hy < 0x00100000) {     /* underflow */

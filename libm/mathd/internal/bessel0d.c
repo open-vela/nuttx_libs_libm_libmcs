@@ -266,7 +266,6 @@ static double __qzero(double x)
 }
 
 static const double
-huge      =  1e300,
 invsqrtpi =  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
 tpi       =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
 /* R0/S0 on [0, 2.00] */
@@ -327,12 +326,13 @@ double __j0(double x)
     }
 
     if (ix < 0x3f200000) { /* |x| < 2**-13 */
-        if (huge + x > one) { /* raise inexact if x != 0 */
-            if (ix < 0x3e400000) {
-                return one;    /* |x|<2**-27 */
-            } else {
-                return one - 0.25 * x * x;
-            }
+        if (x != 0.0) {
+            (void)__raise_inexact(x); /* raise inexact if x != 0 */
+        }
+        if (ix < 0x3e400000) {
+            return one;    /* |x|<2**-27 */
+        } else {
+            return one - 0.25 * x * x;
         }
     }
 
@@ -369,17 +369,21 @@ double __y0(double x)
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;
 
-    /* Y0(NaN) is NaN, y0(-inf) is Nan, y0(inf) is 0  */
     if (ix >= 0x7ff00000) {
-        return  one / (x + x * x);
+        if (isnan(x)) {     /* y0(NaN) = NaN */
+            return x + x;
+        }
+        else if (hx > 0) {  /* y0(+Inf) = +0.0 */
+            return zero;
+        }
     }
 
-    if ((ix | lx) == 0) {
-        return -one / zero;
+    if ((ix | lx) == 0) {   /* y0(+-0) = +Inf */
+        return __raise_div_by_zero(-1.0);
     }
 
-    if (hx < 0) {
-        return zero / zero;
+    if (hx < 0) {           /* y0(<0) = NaN, y0(-Inf) = NaN */
+        return __raise_invalid();
     }
 
     if (ix >= 0x40000000) { /* |x| >= 2.0 */
