@@ -105,8 +105,8 @@ PORTABILITY
 
 static const double
 one         =  1.0,
+zero        =  0.0,
 halF[2]     =  {0.5, -0.5,},
-huge        =  1.0e+300,
 twom1000    =  9.33263618503218878990e-302, /* 2**-1000=0x01700000,0*/
 o_threshold =  7.09782712893383973096e+02,  /* 0x40862E42, 0xFEFA39EF */
 u_threshold = -7.45133219101941108420e+02,  /* 0xc0874910, 0xD52D3051 */
@@ -144,16 +144,16 @@ double exp(double x)    /* default IEEE double exp */
             if (((hx & 0xfffff) | lx) != 0) {
                 return x + x;    /* NaN */
             } else { /* exp(+-inf)={inf,0} */
-                return (xsb == 0) ? x : 0.0;
+                return (xsb == 0) ? x : zero;
             } 
         }
 
         if (x > o_threshold) {
-            return huge * huge;         /* Replaced __math_oflow(0); */    /* overflow */
+            return __raise_overflow(one);    /* overflow */
         }
 
         if (x < u_threshold) {
-            return twom1000 * twom1000; /* Replaced __math_uflow(0); */    /* underflow */
+            return __raise_underflow(zero);   /* underflow */
         }
     }
 
@@ -172,9 +172,7 @@ double exp(double x)    /* default IEEE double exp */
 
         x  = hi - lo;
     } else if (hx < 0x3df00000)  { /* when |x|<2**-32 */
-        if (huge + x > one) {
-            return one + x;    /* trigger inexact */
-        }
+        return __raise_inexact(one);
     }
 
     /* x is now in primary range */

@@ -86,7 +86,6 @@ MATHREF
 
 static const double
 one     =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
-huge    =  1.000e+300,
 pio2_hi =  1.57079632679489655800e+00, /* 0x3FF921FB, 0x54442D18 */
 pio2_lo =  6.12323399573676603587e-17, /* 0x3C91A626, 0x33145C07 */
 pio4_hi =  7.85398163397448278999e-01, /* 0x3FE921FB, 0x54442D18 */
@@ -118,13 +117,15 @@ double asin(double x)
         {
             return x * pio2_hi + x * pio2_lo;
         }
+        
+        if (isnan(x)) {
+            return x + x;
+        }
 
-        return (x - x) / (x - x);  /* asin(|x|>1) is NaN */
+        return __raise_invalid();  /* asin(|x|>1) is NaN */
     } else if (ix < 0x3fe00000) {  /* |x|<0.5 */
         if (ix < 0x3e500000) {     /* if |x| < 2**-26 */
-            if (huge + x > one) {
-                return x;    /* return x with inexact if x!=0*/
-            }
+            return __raise_inexact(x);    /* return x with inexact if x!=0*/
         } else {
             t = x * x;
             p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));

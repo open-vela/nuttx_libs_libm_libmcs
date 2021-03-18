@@ -110,8 +110,7 @@ Interface Definition (Issue 2).
 
 static const double
 ln2_hi  =  6.93147180369123816490e-01,  /* 3fe62e42 fee00000 */
-ln2_lo  =  1.90821492927058770002e-10,  /* 3dea39ef 35793c76 */
-two54   =  1.80143985094819840000e+16;  /* 43500000 00000000 */
+ln2_lo  =  1.90821492927058770002e-10;  /* 3dea39ef 35793c76 */
 
 static const double zero = 0.0;
 
@@ -128,18 +127,17 @@ double log1p(double x)
     if (hx < 0x3FDA827A) {                 /* x < 0.41422  */
         if (ax >= 0x3ff00000) {            /* x <= -1.0 */
             if (x == -1.0) {
-                return -two54/zero; /* Replaced __math_divzero(1); */ /* log1p(-1)=-inf */
+                return __raise_div_by_zero(-1.0); /* log1p(-1)=-inf */
             } else {
-                return (x-x)/(x-x); /* Replaced __math_invalid(x); */ /* log1p(x<-1)=NaN */
+                return __raise_invalid(); /* log1p(x<-1)=NaN */
             }
         }
 
         if (ax < 0x3e200000) {             /* |x| < 2**-29 */
-            if (two54 + x > zero           /* raise inexact */
-                && ax < 0x3c900000) {      /* |x| < 2**-54 */
-                return x;
+            if (ax < 0x3c900000) {         /* |x| < 2**-54 */
+                return __raise_inexact(x);
             } else {
-                return x - x * x * 0.5;
+                return __raise_inexact(x - x * x * 0.5);
             }
         }
 
@@ -150,7 +148,7 @@ double log1p(double x)
         }                                  /* -0.2929<x<0.41422 */
     }
 
-    if (hx >= 0x7ff00000) {
+    if (hx >= 0x7ff00000) {                /* x = NaN/+-Inf */
         return x + x;
     }
 

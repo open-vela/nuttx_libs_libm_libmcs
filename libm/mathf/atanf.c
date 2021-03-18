@@ -33,9 +33,7 @@ static const float aT[] = {
      1.6285819933e-02, /* 0x3c8569d7 */
 };
 
-static const float
-one   = 1.0,
-huge   = 1.0e30;
+static const float one = 1.0;
 
 float atanf(float x)
 {
@@ -59,9 +57,7 @@ float atanf(float x)
 
     if (ix < 0x3ee00000) {    /* |x| < 0.4375 */
         if (ix < 0x31000000) {    /* |x| < 2^-29 */
-            if (huge + x > one) {
-                return x;    /* raise inexact */
-            }
+            return __raise_inexactf(x);    /* raise inexact */
         }
 
         id = -1;

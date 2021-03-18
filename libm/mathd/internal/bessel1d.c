@@ -268,7 +268,6 @@ static double __qone(double x)
 }
 
 static const double
-huge      =  1e300,
 invsqrtpi =  5.64189583547756279280e-01, /* 0x3FE20DD7, 0x50429B6D */
 tpi       =  6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
 /* R0/S0 on [0,2] */
@@ -334,9 +333,10 @@ double __j1(double x)
     }
 
     if (ix < 0x3e400000) { /* |x|<2**-27 */
-        if (huge + x > one) {
-            return 0.5 * x;    /* inexact if x!=0 necessary */
+        if (x != 0.0) {
+            (void)__raise_inexact(x); /* raise inexact if x != 0 */
         }
+        return 0.5 * x;
     }
 
     z = x * x;
@@ -369,17 +369,21 @@ double __y1(double x)
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;
 
-    /* if Y1(NaN) is NaN, Y1(-inf) is NaN, Y1(inf) is 0 */
     if (ix >= 0x7ff00000) {
-        return  one / (x + x * x);
+        if (isnan(x)) {     /* y1(NaN) = NaN */
+            return x + x;
+        }
+        else if (hx > 0) {  /* y1(+Inf) = +0.0 */
+            return zero;
+        }
     }
 
-    if ((ix | lx) == 0) {
-        return -one / zero;
+    if ((ix | lx) == 0) {   /* y1(+-0) = +Inf */
+        return __raise_div_by_zero(-1.0);
     }
 
-    if (hx < 0) {
-        return zero / zero;
+    if (hx < 0) {           /* y1(<0) = NaN, y1(-Inf) = NaN */
+        return __raise_invalid();
     }
 
     if (ix >= 0x40000000) { /* |x| >= 2.0 */

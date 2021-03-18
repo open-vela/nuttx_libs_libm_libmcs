@@ -48,8 +48,7 @@ double ldexp(double value, int exp)
         return value;
     }
 
-    value = scalbn(value, exp);
-    return value;
+    return scalbn(value, exp);
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS

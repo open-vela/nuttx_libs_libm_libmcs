@@ -56,21 +56,21 @@ double remainder(double x, double p)
     hx &= 0x7fffffff;
 
     /* purge off exception values */
-    if ((hp | lp) == 0) {
-        return (x * p) / (x * p);                                   /* p = 0 */
+    if ((hx >= 0x7ff00000) || (hp >= 0x7ff00000)) { /* x or p not finite */
+        if (isnan(x) || isnan(p)) {                 /* x or p is NaN */
+            return x + p;
+        } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
+            return __raise_invalid();
+        }
+    } else if ((hp | lp) == 0) {                    /* p = 0 */
+        return __raise_invalid();
     }
-
-    if ((hx >= 0x7ff00000) ||                                       /* x not finite */
-        ((hp >= 0x7ff00000) && (((hp - 0x7ff00000) | lp) != 0))) {  /* p is NaN */
-        return (x * p) / (x * p);
-    }
-
 
     if (hp <= 0x7fdfffff) {
-        x = fmod(x, p + p);                               /* now x < 2p */
+        x = fmod(x, p + p);                         /* now x < 2p */
     }
 
-    if (((hx - hp) | (lx - lp)) == 0) {
+    if (((hx - hp) | (lx - lp)) == 0) {             /* x equals p */
         return zero * x;
     }
 

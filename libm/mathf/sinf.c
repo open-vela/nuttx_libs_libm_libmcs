@@ -18,16 +18,18 @@ float sinf(float x)
 
     if (ix <= 0x3f490fd8) {
         if(ix < 0x39800000) {        /* if x < 2**-12 */
-            if(((int)x) == 0) {
-                return x;            /* generate inexact */
-            }
+            return __raise_inexactf(x);            /* generate inexact */
         }
         return __sinf(x, z, 0);
     }
 
     /* sin(Inf or NaN) is NaN */
     else if (!FLT_UWORD_IS_FINITE(ix)) {
-        return x - x;
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalidf();
+        }
     }
 
     /* argument reduction needed */

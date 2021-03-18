@@ -7,21 +7,25 @@
 #include "internal/errorfunctionf.h"
 
 static const float
-tiny =  1e-30,
 erx  =  8.4506291151e-01, /* 0x3f58560b */
 efx  =  1.2837916613e-01, /* 0x3e0375d4 */
 efx8 =  1.0270333290e+00; /* 0x3f8375d4 */
 
 float erff(float x)
 {
-    int32_t hx, ix, i;
+    int32_t hx, ix;
     float R, S, P, Q, s, z, r;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
-    if (!FLT_UWORD_IS_FINITE(ix)) {       /* erf(nan)=nan */
-        i = ((uint32_t)hx >> 31) << 1;
-        return (float)(1 - i) + one / x; /* erf(+-inf)=+-1 */
+    if (!FLT_UWORD_IS_FINITE(ix)) {
+        if (isnan(x)) {         /* erf(nan) = nan */
+            return x + x;
+        } else if (hx > 0) {    /* erf(+inf) = +1 */
+            return 1.0f;
+        } else {                /* erf(-inf) = -1 */
+            return -1.0f;
+        }
     }
 
     if (ix < 0x3f580000) {       /* |x|<0.84375 */
@@ -52,9 +56,9 @@ float erff(float x)
 
     if (ix >= 0x40c00000) {        /* inf>|x|>=6 */
         if (hx >= 0) {
-            return one - tiny;
+            return __raise_inexactf(one);
         } else {
-            return tiny - one;
+            return -__raise_inexactf(one);
         }
     }
 

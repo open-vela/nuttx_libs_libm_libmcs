@@ -66,7 +66,7 @@ QUICKREF
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-static const double one = 1.0, half = 0.5, huge = 1.0e300;
+static const double one = 1.0, half = 0.5;
 
 double cosh(double x)
 {
@@ -117,7 +117,7 @@ double cosh(double x)
     }
 
     /* |x| > overflowthresold, cosh(x) overflow */
-    return huge * huge; /* Replaced __math_oflow(0); */
+    return __raise_overflow(1.0);
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS

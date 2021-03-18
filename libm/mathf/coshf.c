@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, half = 0.5, huge = 1.0e30;
+static const float one = 1.0, half = 0.5;
 
 float coshf(float x)
 {
@@ -51,7 +51,7 @@ float coshf(float x)
     }
 
     /* |x| > overflowthresold, cosh(x) overflow */
-    return huge * huge; /* Replaced __math_oflowf(0); */
+    return __raise_overflowf(1.0);
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS

@@ -112,8 +112,12 @@ double acos(double x)
                 return pi + 2.0 * pio2_lo;    /* acos(-1)= pi */
             }
         }
+        
+        if (isnan(x)) {
+            return x + x;
+        }
 
-        return (x - x) / (x - x);  /* acos(|x|>1) is NaN */
+        return __raise_invalid();  /* acos(|x|>1) is NaN */
     }
 
     if (ix < 0x3fe00000) { /* |x| < 0.5 */

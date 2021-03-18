@@ -138,8 +138,6 @@ PORTABILITY
 
 static const double
 one         =  1.0,
-huge        =  1.0e+300,
-tiny        =  1.0e-300,
 o_threshold =  7.09782712893383973096e+02, /* 0x40862E42, 0xFEFA39EF */
 ln2_hi      =  6.93147180369123816490e-01, /* 0x3fe62e42, 0xfee00000 */
 ln2_lo      =  1.90821492927058770002e-10, /* 0x3dea39ef, 0x35793c76 */
@@ -177,14 +175,12 @@ double expm1(double x)
             }
 
             if (x > o_threshold) {
-                return huge * huge; /* Replaced __math_oflow(0); */    /* overflow */
+                return __raise_overflow(one);    /* overflow */
             }
         }
 
         if (xsb != 0) { /* x < -56*ln2, return -1.0 with inexact */
-            if (x + tiny < 0.0) { /* raise inexact */
-                return tiny - one;    /* return -1 */
-            }
+            return -__raise_inexact(one);    /* return -1 */
         }
     }
 
@@ -210,8 +206,11 @@ double expm1(double x)
         x  = hi - lo;
         c  = (hi - x) - lo;
     } else if (hx < 0x3c900000) {   /* when |x|<2**-54, return x */
-        t = huge + x;  /* return x with inexact flags when x!=0 */
-        return x - (t - (huge + x));
+        if (x == 0.0) {
+            return x;
+        } else { /* return x with inexact flags when x!=0 */
+            return __raise_inexact(x);
+        }
     } else {
         k = 0;
     }

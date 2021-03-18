@@ -23,14 +23,14 @@ float log2f(float x)
     k = 0;
 
     if (FLT_UWORD_IS_ZERO(hx & 0x7fffffff)) {
-        return -two25 / zero;     /* log(+-0)=-inf */
+        return __raise_div_by_zerof(-1.0f); /* log(+-0)=-inf */
     }
 
     if (hx < 0) {
-        return (x - x) / zero;    /* log(-#) = NaN */
+        return __raise_invalidf();          /* log(-#) = NaN */
     }
 
-    if (!FLT_UWORD_IS_FINITE(hx)) {
+    if (!FLT_UWORD_IS_FINITE(hx)) {         /* x = NaN/+-Inf */
         return x + x;
     }
 
@@ -40,7 +40,7 @@ float log2f(float x)
         GET_FLOAT_WORD(hx, x);
     }
 
-    if (hx == 0x3f800000) { /* log(1) = +0 */
+    if (hx == 0x3f800000) {                 /* log(1) = +0 */
         return zero;
     }
 
