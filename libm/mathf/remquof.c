@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+#include <assert.h>
 #include <math.h>
 #include "../common/tools.h"
 
@@ -24,8 +25,14 @@ static const float Zero[] = {0.0, -0.0,};
  */
 float remquof(float x, float y, int *quo)
 {
+    int _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
+    
+	assert(quo != (void*)0);
+	if(quo == (void*)0) {
+	    quo = &_quo;
+	}
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);

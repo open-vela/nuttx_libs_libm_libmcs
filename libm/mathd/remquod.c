@@ -47,6 +47,7 @@ C99, POSIX.
 
 */
 
+#include <assert.h>
 #include <math.h>
 #include "../common/tools.h"
 
@@ -73,9 +74,15 @@ static const double Zero[] = {0.0, -0.0,};
 double
 remquo(double x, double y, int *quo)
 {
+    int _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz, q, sxy;
-
+    
+	assert(quo != (void*)0);
+	if(quo == (void*)0) {
+	    quo = &_quo;
+	}
+    
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
     sxy = (hx ^ hy) & 0x80000000;
