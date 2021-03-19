@@ -239,7 +239,7 @@ OBJ = $(addprefix $(OBJ_ROOT)/, $(SRC:.c=.o))
 # Include dependency info for *existing* .o files
 -include $(OBJ:.o=.d)
 
-.PHONY: all clean cleanall
+.PHONY: all debug release clean cleanall
 all: $(OUT)
 
 $(OUT): $(OBJ) | $(BIN_DIR)
@@ -253,6 +253,11 @@ $(OBJ_ROOT)/%.o: $(SRC_ROOT)/%.c | $(OBJ_DIRS)
 $(OBJ_DIRS) $(BIN_DIR):
 	@echo "[MKDIR] $@"
 	$(Q)$(MKDIR) $@
+
+debug: all
+
+release: CFLAGS += -DNDEBUG
+release: all
 
 clean:
 	@echo "[RM] $(BUILD_ROOT)"
