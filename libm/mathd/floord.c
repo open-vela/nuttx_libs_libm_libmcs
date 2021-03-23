@@ -72,7 +72,7 @@ double floor(double x)
                 if (i0 >= 0) {
                     i0 = i1 = 0;
                 } else if (((i0 & 0x7fffffff) | i1) != 0) {
-                    i0 = 0xbff00000;
+                    i0 = (int32_t)0xbff00000;
                     i1 = 0;
                 }
             }
@@ -112,7 +112,7 @@ double floor(double x)
                 } else {
                     j = i1 + (1 << (52 - j0));
 
-                    if (j < i1) {
+                    if (j < (uint32_t)i1) {
                         i0 += 1 ;    /* got a carry */
                     }
 

@@ -143,7 +143,7 @@ float powf(float x, float y)
     }
 
     /* (x<0)**(non-int) is NaN */
-    if (((((uint32_t)hx >> 31) - 1) | yisint) == 0) {
+    if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)yisint) == 0) {
         return (x - x) / (x - x);
     }
 
@@ -238,7 +238,7 @@ float powf(float x, float y)
 
     s = one; /* s (sign of result -ve**odd) = -1 else = 1 */
 
-    if (((((uint32_t)hx >> 31) - 1) | (yisint - 1)) == 0) {
+    if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)(yisint - 1)) == 0) {
         s = -one;    /* (-ve)**(odd int) */
     }
 
