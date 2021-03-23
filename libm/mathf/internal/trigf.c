@@ -9,8 +9,6 @@
 /* In the float version, the input parameter x contains 8 bit
    integers, not 24 bit integers.  113 bit precision is not supported.  */
 
-static const int init_jk[] = {4, 7, 9}; /* initial value for jk */
-
 static const float PIo2[] = {
     1.5703125000e+00, /* 0x3fc90000 */
     4.5776367188e-04, /* 0x39f00000 */
@@ -31,13 +29,13 @@ one    = 1.0,
 two8   =  2.5600000000e+02, /* 0x43800000 */
 twon8  =  3.9062500000e-03; /* 0x3b800000 */
 
-int __rem_pio2f_internal(float *x, float *y, int e0, int nx, int prec, const int32_t *ipio2)
+int __rem_pio2f_internal(float *x, float *y, int e0, int nx, const int32_t *ipio2)
 {
     int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
     float z, fw, f[20], fq[20], q[20];
 
     /* initialize jk*/
-    jk = init_jk[prec];
+    jk = 7;
     jp = jk;
 
     /* determine jx,jv,q0, note that 3>q0 */
@@ -200,62 +198,20 @@ recompute:
     }
 
     /* compress fq[] into y[] */
-    switch (prec) {
-    case 0:
-        fw = 0.0;
+    fw = 0.0;
 
-        for (i = jz; i >= 0; i--) {
-            fw += fq[i];
-        }
-
-        y[0] = (ih == 0) ? fw : -fw;
-        break;
-
-    case 1:
-    case 2:
-        fw = 0.0;
-
-        for (i = jz; i >= 0; i--) {
-            fw += fq[i];
-        }
-
-        y[0] = (ih == 0) ? fw : -fw;
-        fw = fq[0] - fw;
-
-        for (i = 1; i <= jz; i++) {
-            fw += fq[i];
-        }
-
-        y[1] = (ih == 0) ? fw : -fw;
-        break;
-
-    case 3:    /* painful */
-        for (i = jz; i > 0; i--) {
-            fw      = fq[i - 1] + fq[i];
-            fq[i]  += fq[i - 1] - fw;
-            fq[i - 1] = fw;
-        }
-
-        for (i = jz; i > 1; i--) {
-            fw      = fq[i - 1] + fq[i];
-            fq[i]  += fq[i - 1] - fw;
-            fq[i - 1] = fw;
-        }
-
-        for (fw = 0.0, i = jz; i >= 2; i--) {
-            fw += fq[i];
-        }
-
-        if (ih == 0) {
-            y[0] =  fq[0];
-            y[1] =  fq[1];
-            y[2] =  fw;
-        } else {
-            y[0] = -fq[0];
-            y[1] = -fq[1];
-            y[2] = -fw;
-        }
+    for (i = jz; i >= 0; i--) {
+        fw += fq[i];
     }
+
+    y[0] = (ih == 0) ? fw : -fw;
+    fw = fq[0] - fw;
+
+    for (i = 1; i <= jz; i++) {
+        fw += fq[i];
+    }
+
+    y[1] = (ih == 0) ? fw : -fw;
 
     return n & 7;
 }
@@ -441,7 +397,7 @@ int32_t __rem_pio2f(float x, float *y)
         nx--;    /* skip zero term */
     }
 
-    n  =  __rem_pio2f_internal(tx, y, e0, nx, 2, two_over_pi);
+    n  =  __rem_pio2f_internal(tx, y, e0, nx, two_over_pi);
 
     if (hx < 0) {
         y[0] = -y[0];
