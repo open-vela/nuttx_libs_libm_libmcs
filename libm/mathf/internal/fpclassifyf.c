@@ -15,7 +15,7 @@ int __fpclassifyf(float x)
     } else if ((w >= 0x00800000 && w <= 0x7f7fffff) ||
                (w >= 0x80800000 && w <= 0xff7fffff)) {
         return FP_NORMAL;
-    } else if ((w >= 0x00000001 && w <= 0x007fffff) ||
+    } else if ((w <= 0x007fffff) ||
                (w >= 0x80000001 && w <= 0x807fffff)) {
         return FP_SUBNORMAL;
     } else if (w == 0x7f800000 || w == 0xff800000) {
