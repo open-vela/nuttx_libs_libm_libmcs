@@ -30,7 +30,7 @@ float floorf(float x)
                 if (i0 >= 0) {
                     i0 = 0;
                 } else if (!FLT_UWORD_IS_ZERO(ix)) {
-                    i0 = 0xbf800000;
+                    i0 = (int32_t)0xbf800000;
                 }
             }
         } else {

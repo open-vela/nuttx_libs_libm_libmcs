@@ -151,14 +151,14 @@ double sqrt(double x)
     ix0 = (ix0 & 0x000fffff) | 0x00100000;
 
     if (m & 1) { /* odd m, double x to make it even */
-        ix0 += ix0 + ((ix1 & sign) >> 31);
+        ix0 += ix0 + (int32_t)((ix1 & (uint32_t)sign) >> 31U);
         ix1 += ix1;
     }
 
     m >>= 1;    /* m = [m/2] */
 
     /* generate sqrt(x) bit by bit */
-    ix0 += ix0 + ((ix1 & sign) >> 31);
+    ix0 += ix0 + (int32_t)((ix1 & (uint32_t)sign) >> 31U);
     ix1 += ix1;
     q = q1 = s0 = s1 = 0;    /* [q,q1] = sqrt(x) */
     r = 0x00200000;        /* r = moving bit from right to left */
@@ -172,7 +172,7 @@ double sqrt(double x)
             q   += r;
         }
 
-        ix0 += ix0 + ((ix1 & sign) >> 31);
+        ix0 += ix0 + (int32_t)((ix1 & (uint32_t)sign) >> 31U);
         ix1 += ix1;
         r >>= 1;
     }
@@ -186,7 +186,7 @@ double sqrt(double x)
         if ((t < ix0) || ((t == ix0) && (t1 <= ix1))) {
             s1  = t1 + r;
 
-            if (((t1 & sign) == sign) && (s1 & sign) == 0) {
+            if ((((int32_t)t1 & sign) == sign) && ((int32_t)s1 & sign) == 0) {
                 s0 += 1;
             }
 
@@ -200,7 +200,7 @@ double sqrt(double x)
             q1  += r;
         }
 
-        ix0 += ix0 + ((ix1 & sign) >> 31);
+        ix0 += ix0 + (int32_t)((ix1 & (uint32_t)sign) >> 31U);
         ix1 += ix1;
         r >>= 1;
     }
