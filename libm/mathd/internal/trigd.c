@@ -123,8 +123,6 @@
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-static const int init_jk[] = {2, 3, 4, 6}; /* initial value for jk */
-
 static const double PIo2[] = {
     1.57079625129699707031e+00, /* 0x3FF921FB, 0x40000000 */
     7.54978941586159635335e-08, /* 0x3E74442D, 0x00000000 */
@@ -142,13 +140,13 @@ one     =  1.0,
 two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
 twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
 
-int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const int32_t *ipio2)
+int __rem_pio2_internal(double *x, double *y, int e0, int nx, const int32_t *ipio2)
 {
     int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
     double z, fw, f[20], fq[20], q[20];
 
     /* initialize jk*/
-    jk = init_jk[prec];
+    jk = 4;
     jp = jk;
 
     /* determine jx,jv,q0, note that 3>q0 */
@@ -311,62 +309,20 @@ recompute:
     }
 
     /* compress fq[] into y[] */
-    switch (prec) {
-    case 0:
-        fw = 0.0;
+    fw = 0.0;
 
-        for (i = jz; i >= 0; i--) {
-            fw += fq[i];
-        }
-
-        y[0] = (ih == 0) ? fw : -fw;
-        break;
-
-    case 1:
-    case 2:
-        fw = 0.0;
-
-        for (i = jz; i >= 0; i--) {
-            fw += fq[i];
-        }
-
-        y[0] = (ih == 0) ? fw : -fw;
-        fw = fq[0] - fw;
-
-        for (i = 1; i <= jz; i++) {
-            fw += fq[i];
-        }
-
-        y[1] = (ih == 0) ? fw : -fw;
-        break;
-
-    case 3:    /* painful */
-        for (i = jz; i > 0; i--) {
-            fw      = fq[i - 1] + fq[i];
-            fq[i]  += fq[i - 1] - fw;
-            fq[i - 1] = fw;
-        }
-
-        for (i = jz; i > 1; i--) {
-            fw      = fq[i - 1] + fq[i];
-            fq[i]  += fq[i - 1] - fw;
-            fq[i - 1] = fw;
-        }
-
-        for (fw = 0.0, i = jz; i >= 2; i--) {
-            fw += fq[i];
-        }
-
-        if (ih == 0) {
-            y[0] =  fq[0];
-            y[1] =  fq[1];
-            y[2] =  fw;
-        } else {
-            y[0] = -fq[0];
-            y[1] = -fq[1];
-            y[2] = -fw;
-        }
+    for (i = jz; i >= 0; i--) {
+        fw += fq[i];
     }
+
+    y[0] = (ih == 0) ? fw : -fw;
+    fw = fq[0] - fw;
+
+    for (i = 1; i <= jz; i++) {
+        fw += fq[i];
+    }
+
+    y[1] = (ih == 0) ? fw : -fw;
 
     return n & 7;
 }
@@ -536,7 +492,7 @@ int32_t __rem_pio2(double x, double *y)
         nx--;    /* skip zero term */
     }
 
-    n  =  __rem_pio2_internal(tx, y, e0, nx, 2, two_over_pi);
+    n  =  __rem_pio2_internal(tx, y, e0, nx, two_over_pi);
 
     if (hx < 0) {
         y[0] = -y[0];
