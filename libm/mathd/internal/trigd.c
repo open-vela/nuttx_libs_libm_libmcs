@@ -284,11 +284,11 @@ recompute:
 
     /* chop off zero terms */
     if (z == 0.0) {
-        jz -= 1;
         q0 -= 24;
 
-        while (iq[jz] == 0) {
-            jz--;
+        for (jz -= 1; jz>=0; --jz)
+        {
+            if (iq[jz]!=0) break;
             q0 -= 24;
         }
     } else { /* break z into 24-bit if necessary */
@@ -486,11 +486,11 @@ int32_t __rem_pio2(double x, double *y)
     }
 
     tx[2] = z;
-    nx = 3;
-
-    while (tx[nx - 1] == zero) {
-        nx--;    /* skip zero term */
-    }
+    
+    for (nx = 3; nx>0; --nx) /* skip zero term */
+	{
+	    if (tx[nx-1]!=zero) break;
+	}
 
     n  =  __rem_pio2_internal(tx, y, e0, nx);
 
