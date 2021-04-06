@@ -6,22 +6,22 @@
 #include "../common/tools.h"
 
 static const float
-one       =   1.0,
-halF[2]   = { 0.5, -0.5,},
-huge      =   1.0e+30,
-twom100   =   7.8886090522e-31, /* 2**-100=0x0d800000 */
-ln2HI[2]  = { 6.9313812256e-01, /* 0x3f317180 */
-             -6.9313812256e-01, /* 0xbf317180 */
+one       =   1.0f,
+halF[2]   = { 0.5f, -0.5f,},
+huge      =   1.0e+30f,
+twom100   =   7.8886090522e-31f, /* 2**-100=0x0d800000 */
+ln2HI[2]  = { 6.9314575195e-01f, /* 0x3f317200 */
+             -6.9314575195e-01f, /* 0xbf317200 */
 },
-ln2LO[2]  = { 9.0580006145e-06, /* 0x3717f7d1 */
-             -9.0580006145e-06, /* 0xb717f7d1 */
+ln2LO[2]  = { 1.4286067653e-06f, /* 0x35bfbe8e */
+             -1.4286067653e-06f, /* 0xb5bfbe8e */
 },
-invln2    =   1.4426950216e+00, /* 0x3fb8aa3b */
-P1        =   1.6666667163e-01, /* 0x3e2aaaab */
-P2        =  -2.7777778450e-03, /* 0xbb360b61 */
-P3        =   6.6137559770e-05, /* 0x388ab355 */
-P4        =  -1.6533901999e-06, /* 0xb5ddea0e */
-P5        =   4.1381369442e-08; /* 0x3331bb4c */
+invln2    =   1.4426950216e+00f, /* 0x3fb8aa3b */
+P1        =   1.6666667163e-01f, /* 0x3e2aaaab */
+P2        =  -2.7777778450e-03f, /* 0xbb360b61 */
+P3        =   6.6137559770e-05f, /* 0x388ab355 */
+P4        =  -1.6533901999e-06f, /* 0xb5ddea0e */
+P5        =   4.1381369442e-08f; /* 0x3331bb4c */
 
 float expf(float x)    /* default IEEE double exp */
 {
@@ -39,7 +39,7 @@ float expf(float x)    /* default IEEE double exp */
     }
 
     if (FLT_UWORD_IS_INFINITE(hx)) {
-        return (xsb == 0) ? x : 0.0;
+        return (xsb == 0) ? x : 0.0f;
     }        /* exp(+-inf)={inf,0} */
 
     if (sx > FLT_UWORD_LOG_MAX) {
@@ -75,9 +75,9 @@ float expf(float x)    /* default IEEE double exp */
     c  = x - t * (P1 + t * (P2 + t * (P3 + t * (P4 + t * P5))));
 
     if (k == 0) {
-        return one - ((x * c) / (c - (float)2.0) - x);
+        return one - ((x * c) / (c - 2.0f) - x);
     } else {
-        y = one - ((lo - (x * c) / ((float)2.0 - c)) - hi);
+        y = one - ((lo - (x * c) / (2.0f - c)) - hi);
     }
 
     if (k >= -125) {
