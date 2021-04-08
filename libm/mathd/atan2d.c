@@ -169,8 +169,9 @@ double atan2(double y, double x)
 
     if (k > 60) {
         z = pi_o_2 + 0.5 * pi_lo;  /* |y/x| >  2**60 */
+        m &= 1;
     } else if (hx < 0 && k < -60) {
-        z = 0.0;                   /* |y|/x < -2**60 */
+        z = 0.0;                   /* 0 > |y|/x > -2**60 */
     } else {
         z = atan(fabs(y / x));     /* safe to do y/x */
     }
@@ -180,12 +181,7 @@ double atan2(double y, double x)
         return  z;                 /* atan(+,+) */
 
     case 1:
-        {
-            uint32_t zh;
-            GET_HIGH_WORD(zh, z);
-            SET_HIGH_WORD(z, zh ^ 0x80000000);
-        }
-        return  z;                 /* atan(-,+) */
+        return  -z;                /* atan(-,+) */
 
     case 2:
         return  pi - (z - pi_lo);  /* atan(+,-) */
