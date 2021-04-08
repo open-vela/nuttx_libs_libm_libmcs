@@ -250,17 +250,6 @@ recompute:
  * use __rem_pio2f_internal()
  */
 
-/* This array is like the one in e_rem_pio2.c, but the numbers are
-   single precision and the last 8 bits are forced to 0.  */
-static const int32_t npio2_hw[] = {
-    0x3fc90f00, 0x40490f00, 0x4096cb00, 0x40c90f00, 0x40fb5300, 0x4116cb00,
-    0x412fed00, 0x41490f00, 0x41623100, 0x417b5300, 0x418a3a00, 0x4196cb00,
-    0x41a35c00, 0x41afed00, 0x41bc7e00, 0x41c90f00, 0x41d5a000, 0x41e23100,
-    0x41eec200, 0x41fb5300, 0x4203f200, 0x420a3a00, 0x42108300, 0x4216cb00,
-    0x421d1400, 0x42235c00, 0x4229a500, 0x422fed00, 0x42363600, 0x423c7e00,
-    0x4242c700, 0x42490f00
-};
-
 /*
  * invpio2:  24 bits of 2/pi
  * pio2_1:   first  17 bit of pi/2
@@ -334,9 +323,7 @@ int32_t __rem_pio2f(float x, float *y)
         r  = t - fn * pio2_1;
         w  = fn * pio2_1t;  /* 1st round good to 40 bit */
 
-        if (n < 32 && (ix & 0xffffff00U) != npio2_hw[n - 1]) {
-            y[0] = r - w;  /* quick check no cancellation */
-        } else {
+        {
             uint32_t high;
             j  = ix >> 23;
             y[0] = r - w;
