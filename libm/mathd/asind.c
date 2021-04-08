@@ -121,7 +121,7 @@ double asin(double x)
 
         return (x - x) / (x - x);  /* asin(|x|>1) is NaN */
     } else if (ix < 0x3fe00000) {  /* |x|<0.5 */
-        if (ix < 0x3e400000) {     /* if |x| < 2**-27 */
+        if (ix < 0x3e500000) {     /* if |x| < 2**-26 */
             if (huge + x > one) {
                 return x;    /* return x with inexact if x!=0*/
             }

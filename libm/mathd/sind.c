@@ -88,6 +88,12 @@ double sin(double x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3fe921fb) {
+        if(ix < 0x3e500000) {      /* |x| < 2**-26 */
+           if(((int)x) == 0) {
+               return x;           /* generate inexact */
+           }
+        }
+        
         return __sin(x, z, 0);
     }
 

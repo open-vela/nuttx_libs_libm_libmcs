@@ -100,7 +100,6 @@ PORTABILITY
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
-one    =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
 pio4   =  7.85398163397448278999e-01, /* 0x3FE921FB, 0x54442D18 */
 pio4lo =  3.06161699786838301793e-17, /* 0x3C81A626, 0x33145C07 */
 T[] =  {
@@ -125,30 +124,6 @@ double __tan(double x, double y, int iy)
     int32_t ix, hx;
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;  /* high word of |x| */
-
-    if (ix < 0x3e300000) {         /* x < 2**-28 */
-        if ((int)x == 0) {         /* generate inexact */
-            uint32_t low;
-            GET_LOW_WORD(low, x);
-
-            if (((ix | low) | (iy + 1)) == 0) {
-                return one / fabs(x);
-            } else {
-                if (iy == 1) {
-                    return x;
-                } else {
-                    double a, t;
-                    z = w = x + y;
-                    SET_LOW_WORD(z, 0);
-                    v = y - (z - x);
-                    t = a = -one / w;
-                    SET_LOW_WORD(t, 0);
-                    s = one + t * z;
-                    return t + a * (s + t * v);
-                }
-            }
-        }
-    }
 
     if (ix >= 0x3FE59428) {          /* |x|>=0.6744 */
         if (hx < 0) {
@@ -208,6 +183,12 @@ double tan(double x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3fe921fb) {
+        if(ix < 0x3e400000) {      /* x < 2**-27 */
+            if(((int)x) == 0) {
+                return x;          /* generate inexact */
+            }
+        }
+        
         return __tan(x, z, 1);
     }
 

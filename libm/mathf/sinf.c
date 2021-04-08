@@ -17,6 +17,11 @@ float sinf(float x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3f490fd8) {
+        if(ix < 0x39800000) {        /* if x < 2**-12 */
+            if(((int)x) == 0) {
+                return x;            /* generate inexact */
+            }
+        }
         return __sinf(x, z, 0);
     }
 
