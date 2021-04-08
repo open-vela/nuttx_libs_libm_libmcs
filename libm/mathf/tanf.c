@@ -7,7 +7,6 @@
 #include "internal/trigf.h"
 
 static const float
-one    =  1.0000000000e+00, /* 0x3f800000 */
 pio4   =  7.8539812565e-01, /* 0x3f490fda */
 pio4lo =  3.7748947079e-08, /* 0x33222168 */
 T[]    =  {
@@ -32,17 +31,6 @@ float __tanf(float x, float y, int iy)
     int32_t ix, hx;
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;  /* high word of |x| */
-
-    if (ix < 0x31800000) {       /* x < 2**-28 */
-        if ((int)x == 0) {
-            /* generate inexact */
-            if ((ix | (iy + 1)) == 0) {
-                return one / fabsf(x);
-            } else {
-                return (iy == 1) ? x : -one / x;
-            }
-        }
-    }
 
     if (ix >= 0x3f2ca140) {          /* |x|>=0.6744 */
         if (hx < 0) {
@@ -104,6 +92,11 @@ float tanf(float x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3f490fda) {
+        if(ix < 0x39800000) {        /* |x| < 2**-12 */
+            if(((int)x) == 0) {
+                return x;            /* generate inexact */
+            }
+        }
         return __tanf(x, z, 1);
     }
 

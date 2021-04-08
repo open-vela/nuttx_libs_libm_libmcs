@@ -539,33 +539,13 @@ C6  = -1.13596475577881948265e-11; /* 0xBDA8FAE9, 0xBE8838D4 */
 
 double __cos(double x, double y)
 {
-    double a, hz, z, r, qx;
-    int32_t ix;
-    GET_HIGH_WORD(ix, x);
-    ix &= 0x7fffffff;            /* ix = |x|'s high word*/
-
-    if (ix < 0x3e400000) {         /* if x < 2**27 */
-        if (((int)x) == 0) {
-            return one;    /* generate inexact */
-        }
-    }
+    double hz, z, r, w;
 
     z  = x * x;
     r  = z * (C1 + z * (C2 + z * (C3 + z * (C4 + z * (C5 + z * C6)))));
-
-    if (ix < 0x3FD33333) {          /* if |x| < 0.3 */
-        return one - (0.5 * z - (z * r - x * y));
-    } else {
-        if (ix > 0x3fe90000) {       /* x > 0.78125 */
-            qx = 0.28125;
-        } else {
-            INSERT_WORDS(qx, ix - 0x00200000, 0); /* x/4 */
-        }
-
-        hz = 0.5 * z - qx;
-        a  = one - qx;
-        return a - (hz - (z * r - x * y));
-    }
+    hz = 0.5 * z;
+    w  = one - hz;
+    return w + (((one - w) - hz) + (z * r - x * y));
 }
 
 /* __sin( x, y, iy)
@@ -607,15 +587,6 @@ S6   =  1.58969099521155010221e-10; /* 0x3DE5D93A, 0x5ACFD57C */
 double __sin(double x, double y, int iy)
 {
     double z, r, v;
-    int32_t ix;
-    GET_HIGH_WORD(ix, x);
-    ix &= 0x7fffffff;            /* high word of x */
-
-    if (ix < 0x3e400000) {       /* |x| < 2**-27 */
-        if ((int)x == 0) {
-            return x;    /* generate inexact */
-        }
-    }
 
     z    =  x * x;
     v    =  z * x;
