@@ -104,26 +104,20 @@ Interface Definition (Issue 2).
 
 #include <math.h>
 #include "../common/tools.h"
+#include "internal/log1pmfd.h"
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 ln2_hi  =  6.93147180369123816490e-01,  /* 3fe62e42 fee00000 */
 ln2_lo  =  1.90821492927058770002e-10,  /* 3dea39ef 35793c76 */
-two54   =  1.80143985094819840000e+16,  /* 43500000 00000000 */
-Lp1     =  6.666666666666735130e-01,    /* 3FE55555 55555593 */
-Lp2     =  3.999999999940941908e-01,    /* 3FD99999 9997FA04 */
-Lp3     =  2.857142874366239149e-01,    /* 3FD24924 94229359 */
-Lp4     =  2.222219843214978396e-01,    /* 3FCC71C5 1D8E78AF */
-Lp5     =  1.818357216161805012e-01,    /* 3FC74664 96CB03DE */
-Lp6     =  1.531383769920937332e-01,    /* 3FC39A09 D078C69F */
-Lp7     =  1.479819860511658591e-01;    /* 3FC2F112 DF3E5244 */
+two54   =  1.80143985094819840000e+16;  /* 43500000 00000000 */
 
 static const double zero = 0.0;
 
 double log1p(double x)
 {
-    double hfsq, f, c, s, z, R, u;
+    double hfsq, f, c, R, u;
     int32_t k, hx, hu, ax;
 
     GET_HIGH_WORD(hx, x);
@@ -208,14 +202,10 @@ double log1p(double x)
         }
     }
 
-    s = f / (2.0 + f);
-    z = s * s;
-    R = z * (Lp1 + z * (Lp2 + z * (Lp3 + z * (Lp4 + z * (Lp5 + z * (Lp6 + z * Lp7))))));
-
     if (k == 0) {
-        return f - (hfsq - s * (hfsq + R));
+        return f - (hfsq - __log1pmf(f));
     } else {
-        return k * ln2_hi - ((hfsq - (s * (hfsq + R) + (k * ln2_lo + c))) - f);
+        return k * ln2_hi - ((hfsq - (__log1pmf(f) + (k * ln2_lo + c))) - f);
     }
 }
 

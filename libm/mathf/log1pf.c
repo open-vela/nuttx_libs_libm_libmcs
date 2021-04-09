@@ -4,24 +4,18 @@
 
 #include <math.h>
 #include "../common/tools.h"
+#include "internal/log1pmff.h"
 
 static const float
 ln2_hi = 6.9313812256e-01, /* 0x3f317180 */
 ln2_lo = 9.0580006145e-06, /* 0x3717f7d1 */
-two25  = 3.355443200e+07,  /* 0x4c000000 */
-Lp1    = 6.6666668653e-01, /* 3F2AAAAB */
-Lp2    = 4.0000000596e-01, /* 3ECCCCCD */
-Lp3    = 2.8571429849e-01, /* 3E924925 */
-Lp4    = 2.2222198546e-01, /* 3E638E29 */
-Lp5    = 1.8183572590e-01, /* 3E3A3325 */
-Lp6    = 1.5313838422e-01, /* 3E1CD04F */
-Lp7    = 1.4798198640e-01; /* 3E178897 */
+two25  = 3.355443200e+07;  /* 0x4c000000 */
 
 static const float zero = 0.0;
 
 float log1pf(float x)
 {
-    float hfsq, f, c, s, z, R, u;
+    float hfsq, f, c, R, u;
     int32_t k, hx, hu, ax;
 
     GET_FLOAT_WORD(hx, x);
@@ -107,14 +101,10 @@ float log1pf(float x)
         }
     }
 
-    s = f / ((float)2.0 + f);
-    z = s * s;
-    R = z * (Lp1 + z * (Lp2 + z * (Lp3 + z * (Lp4 + z * (Lp5 + z * (Lp6 + z * Lp7))))));
-
     if (k == 0) {
-        return f - (hfsq - s * (hfsq + R));
+        return f - (hfsq - __log1pmff(f));
     } else {
-        return k * ln2_hi - ((hfsq - (s * (hfsq + R) + (k * ln2_lo + c))) - f);
+        return k * ln2_hi - ((hfsq - (__log1pmff(f) + (k * ln2_lo + c))) - f);
     }
 }
 
