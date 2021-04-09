@@ -66,12 +66,14 @@ PORTABILITY
 
 #include <math.h>
 #include "../common/tools.h"
+#include "internal/log1pmfd.h"
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
 two54      =  1.80143985094819840000e+16, /* 0x43500000, 0x00000000 */
-ivln10     =  4.34294481903251816668e-01, /* 0x3FDBCB7B, 0x1526E50E */
+ivln10hi   =  4.34294481878168880939e-01, /* 0x3FDBCB7B, 0x15200000 */
+ivln10lo   =  2.50829467116452752298e-11, /* 0x3DBB9438, 0xCA9AADD5 */
 log10_2hi  =  3.01029995663611771306e-01, /* 0x3FD34413, 0x509F6000 */
 log10_2lo  =  3.69423907715893078616e-13; /* 0x3D59FEF3, 0x11F12B36 */
 
@@ -79,7 +81,7 @@ static const double zero  =  0.0;
 
 double log10(double x)
 {
-    double y, z;
+    double f, hfsq, hi, lo, r, val_hi, val_lo, w, y, y2;
     int32_t i, k, hx;
     uint32_t lx;
 
@@ -105,13 +107,38 @@ double log10(double x)
         return x + x;
     }
 
+    if (hx == 0x3ff00000 && lx == 0) { /* log(1) = +0 */
+        return zero;
+    }
+
     k += (hx >> 20) - 1023;
-    i  = ((uint32_t)k & 0x80000000) >> 31;
-    hx = (hx & 0x000fffff) | ((0x3ff - i) << 20);
-    y  = (double)(k + i);
-    SET_HIGH_WORD(x, hx);
-    z  = y * log10_2lo + ivln10 * log(x);
-    return  z + y * log10_2hi;
+    hx &= 0x000fffff;
+    i = (hx + 0x95f64) & 0x100000;
+    SET_HIGH_WORD(x, hx | (i ^ 0x3ff00000)); /* normalize x or x/2 */
+    k += (i >> 20);
+    y = (double)k;
+    f = x - 1.0;
+    hfsq = 0.5 * f * f;
+    r = __log1pmf(f);
+
+    hi = f - hfsq;
+    SET_LOW_WORD(hi, 0);
+    lo = (f - hi) - hfsq + r;
+    val_hi = hi * ivln10hi;
+    y2 = y * log10_2hi;
+    val_lo = y * log10_2lo + (lo + hi) * ivln10lo + lo * ivln10hi;
+
+    /*
+     * Extra precision in for adding y*log10_2hi is not strictly needed
+     * since there is no very large cancellation near x = sqrt(2) or
+     * x = 1/sqrt(2), but we do it anyway since it costs little on CPUs
+     * with some parallelism and it reduces the error for many args.
+     */
+    w = y2 + val_hi;
+    val_lo += (y2 - w) + val_hi;
+    val_hi = w;
+
+    return val_lo + val_hi;
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
