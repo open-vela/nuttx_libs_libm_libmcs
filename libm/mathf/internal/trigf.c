@@ -291,7 +291,7 @@ int32_t __rem_pio2f(float x, float *y)
         if (hx > 0) {
             z = x - pio2_1;
 
-            if ((ix & 0xfffffff0) != 0x3fc80000) { /* 17+24 bit pi OK */
+            if ((ix & 0xfffe0000U) != 0x3fc80000) { /* 17+24 bit pi OK */
                 y[0] = z - pio2_1t;
                 y[1] = (z - y[0]) - pio2_1t;
             } else {        /* near pi/2, use 17+17+24 bit pi */
@@ -304,7 +304,7 @@ int32_t __rem_pio2f(float x, float *y)
         } else {    /* negative x */
             z = x + pio2_1;
 
-            if ((ix & 0xfffffff0) != 0x3fc80000) { /* 17+24 bit pi OK */
+            if ((ix & 0xfffe0000U) != 0x3fc80000) { /* 17+24 bit pi OK */
                 y[0] = z + pio2_1t;
                 y[1] = (z - y[0]) + pio2_1t;
             } else {        /* near pi/2, use 17+17+24 bit pi */
