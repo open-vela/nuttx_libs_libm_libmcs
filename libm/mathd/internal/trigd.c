@@ -492,7 +492,7 @@ int32_t __rem_pio2(double x, double *y)
         nx--;    /* skip zero term */
     }
 
-    n  =  __rem_pio2_internal(tx, y, e0, nx, two_over_pi);
+    n  =  __rem_pio2_internal(tx, y, e0, nx);
 
     if (hx < 0) {
         y[0] = -y[0];
