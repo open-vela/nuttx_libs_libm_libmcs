@@ -95,10 +95,11 @@ float atan2f(float y, float x)
     /* compute y/x */
     k = (iy - ix) >> 23;
 
-    if (k > 60) {
-        z = pi_o_2 + (float)0.5 * pi_lo;    /* |y/x| >  2**60 */
-    } else if (hx < 0 && k < -60) {
-        z = 0.0;    /* |y|/x < -2**60 */
+    if (k > 26) {
+        z = pi_o_2 + 0.5f * pi_lo;    /* |y/x| >  2**26 */
+        m &= 1;
+    } else if (hx < 0 && k < -26) {
+        z = 0.0f;    /* 0 > |y|/x > -2**26 */
     } else {
         z = atanf(fabsf(y / x));    /* safe to do y/x */
     }
@@ -108,12 +109,7 @@ float atan2f(float y, float x)
         return       z  ;         /* atan(+,+) */
 
     case 1:
-        {
-            uint32_t zh;
-            GET_FLOAT_WORD(zh, z);
-            SET_FLOAT_WORD(z, zh ^ 0x80000000);
-        }
-        return       z  ;         /* atan(-,+) */
+        return      -z  ;         /* atan(-,+) */
 
     case 2:
         return  pi - (z - pi_lo); /* atan(+,-) */

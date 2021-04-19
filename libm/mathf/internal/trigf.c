@@ -250,17 +250,6 @@ recompute:
  * use __rem_pio2f_internal()
  */
 
-/* This array is like the one in e_rem_pio2.c, but the numbers are
-   single precision and the last 8 bits are forced to 0.  */
-static const int32_t npio2_hw[] = {
-    0x3fc90f00, 0x40490f00, 0x4096cb00, 0x40c90f00, 0x40fb5300, 0x4116cb00,
-    0x412fed00, 0x41490f00, 0x41623100, 0x417b5300, 0x418a3a00, 0x4196cb00,
-    0x41a35c00, 0x41afed00, 0x41bc7e00, 0x41c90f00, 0x41d5a000, 0x41e23100,
-    0x41eec200, 0x41fb5300, 0x4203f200, 0x420a3a00, 0x42108300, 0x4216cb00,
-    0x421d1400, 0x42235c00, 0x4229a500, 0x422fed00, 0x42363600, 0x423c7e00,
-    0x4242c700, 0x42490f00
-};
-
 /*
  * invpio2:  24 bits of 2/pi
  * pio2_1:   first  17 bit of pi/2
@@ -298,13 +287,14 @@ int32_t __rem_pio2f(float x, float *y)
     }
 
     if (ix < 0x4016cbe4) { /* |x| < 3pi/4, special case with n=+-1 */
+        /* 17+17+24 bit pi has sufficient precision and best efficiency */
         if (hx > 0) {
             z = x - pio2_1;
 
-            if ((ix & 0xfffffff0) != 0x3fc90fd0) { /* 24+24 bit pi OK */
+            if ((ix & 0xfffe0000U) != 0x3fc80000) { /* 17+24 bit pi OK */
                 y[0] = z - pio2_1t;
                 y[1] = (z - y[0]) - pio2_1t;
-            } else {        /* near pi/2, use 24+24+24 bit pi */
+            } else {        /* near pi/2, use 17+17+24 bit pi */
                 z -= pio2_2;
                 y[0] = z - pio2_2t;
                 y[1] = (z - y[0]) - pio2_2t;
@@ -314,10 +304,10 @@ int32_t __rem_pio2f(float x, float *y)
         } else {    /* negative x */
             z = x + pio2_1;
 
-            if ((ix & 0xfffffff0) != 0x3fc90fd0) { /* 24+24 bit pi OK */
+            if ((ix & 0xfffe0000U) != 0x3fc80000) { /* 17+24 bit pi OK */
                 y[0] = z + pio2_1t;
                 y[1] = (z - y[0]) + pio2_1t;
-            } else {        /* near pi/2, use 24+24+24 bit pi */
+            } else {        /* near pi/2, use 17+17+24 bit pi */
                 z += pio2_2;
                 y[0] = z + pio2_2t;
                 y[1] = (z - y[0]) + pio2_2t;
@@ -334,9 +324,7 @@ int32_t __rem_pio2f(float x, float *y)
         r  = t - fn * pio2_1;
         w  = fn * pio2_1t;  /* 1st round good to 40 bit */
 
-        if (n < 32 && (ix & 0xffffff00U) != npio2_hw[n - 1]) {
-            y[0] = r - w;  /* quick check no cancellation */
-        } else {
+        {
             uint32_t high;
             j  = ix >> 23;
             y[0] = r - w;
@@ -409,68 +397,35 @@ int32_t __rem_pio2f(float x, float *y)
 }
 
 static const float
-C1  =  4.1666667908e-02, /* 0x3d2aaaab */
-C2  = -1.3888889225e-03, /* 0xbab60b61 */
-C3  =  2.4801587642e-05, /* 0x37d00d01 */
-C4  = -2.7557314297e-07, /* 0xb493f27c */
-C5  =  2.0875723372e-09, /* 0x310f74f6 */
-C6  = -1.1359647598e-11; /* 0xad47d74e */
+C1  =  0xaaaaa5.0p-28f, /*  0.04166664555668830871582031250,    0x3D2AAAA5 */
+C2  = -0xb60615.0p-33f, /* -0.001388731063343584537506103516,   0xBAB60615 */
+C3  =  0xccf47d.0p-39f; /*  0.00002443254288664320483803749084, 0x37CCF47C */
 
 float __cosf(float x, float y)
 {
-    float a, hz, z, r, qx;
-    int32_t ix;
-    GET_FLOAT_WORD(ix, x);
-    ix &= 0x7fffffff;            /* ix = |x|'s high word*/
-
-    if (ix < 0x32000000) {         /* if x < 2**27 */
-        if (((int)x) == 0) {
-            return one;    /* generate inexact */
-        }
-    }
+    float hz, z, r, w;
 
     z  = x * x;
-    r  = z * (C1 + z * (C2 + z * (C3 + z * (C4 + z * (C5 + z * C6)))));
+    r  = z * (C1 + z * (C2 + z * C3));
 
-    if (ix < 0x3e99999a) {          /* if |x| < 0.3 */
-        return one - ((float)0.5 * z - (z * r - x * y));
-    } else {
-        if (ix > 0x3f480000) {       /* x > 0.78125 */
-            qx = (float)0.28125;
-        } else {
-            SET_FLOAT_WORD(qx, ix - 0x01000000); /* x/4 */
-        }
-
-        hz = (float)0.5 * z - qx;
-        a  = one - qx;
-        return a - (hz - (z * r - x * y));
-    }
+    hz = 0.5f * z;
+    w  = one - hz;
+    return w + (((one - w) - hz) + (z * r - x * y));
 }
 
 static const float
-S1  = -1.6666667163e-01, /* 0xbe2aaaab */
-S2  =  8.3333337680e-03, /* 0x3c088889 */
-S3  = -1.9841270114e-04, /* 0xb9500d01 */
-S4  =  2.7557314297e-06, /* 0x3638ef1b */
-S5  = -2.5050759689e-08, /* 0xb2d72f34 */
-S6  =  1.5896910177e-10; /* 0x2f2ec9d3 */
+S1  = -0xaaaaab.0p-26f, /* -0.16666667163,      0xBE2AAAAB */
+S2  =  0x8888bb.0p-30f, /*  0.0083333803341,    0x3C0888BB */
+S3  = -0xd02de1.0p-36f, /* -0.00019853517006,   0xB9502DE1 */
+S4  =  0xbe6dbe.0p-42f; /*  0.0000028376084629, 0x363E6DBE */
 
 float __sinf(float x, float y, int iy)
 {
     float z, r, v;
-    int32_t ix;
-    GET_FLOAT_WORD(ix, x);
-    ix &= 0x7fffffff;            /* high word of x */
-
-    if (ix < 0x32000000) {       /* |x| < 2**-27 */
-        if ((int)x == 0) {
-            return x;    /* generate inexact */
-        }
-    }
 
     z    =  x * x;
     v    =  z * x;
-    r    =  S2 + z * (S3 + z * (S4 + z * (S5 + z * S6)));
+    r    =  S2 + z * (S3 + z * S4);
 
     if (iy == 0) {
         return x + v * (S1 + z * r);

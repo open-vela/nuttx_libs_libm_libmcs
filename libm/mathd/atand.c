@@ -116,7 +116,7 @@ double atan(double x)
     }
 
     if (ix < 0x3fdc0000) {            /* |x| < 0.4375         */
-        if (ix < 0x3e200000) {        /* |x| < 2^-29          */
+        if (ix < 0x3e400000) {        /* |x| < 2^-27          */
             if (huge + x > one) {
                 return x;             /* raise inexact        */
             }

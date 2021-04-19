@@ -17,6 +17,11 @@ float cosf(float x)
     ix &= 0x7fffffff;
 
     if (ix <= 0x3f490fd8) {
+        if(ix < 0x39800000) {        /* if x < 2**-12 */
+            if(((int)x) == 0) {
+                return 1.0f;         /* generate inexact */
+            }
+        }
         return __cosf(x, z);
     }
 
