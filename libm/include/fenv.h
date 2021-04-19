@@ -5,6 +5,10 @@
 
 #error TBD add error message that fenv.h/fenv.c shall not be used as is.
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 /* Floating-point Exceptions */
 extern int feclearexcept(int);
 extern int feraiseexcept(int);
@@ -23,3 +27,7 @@ extern int feupdateenv(const fenv_t *);
 
 /* Other */
 extern int fetestexcept(int);
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,6 +1,10 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include "../common/config.h"
 
 /* These macros define the errno and exception behaviour of the library. This library enforces the */
@@ -362,3 +366,7 @@ extern int __signbitd(double);
 #define isunordered(a,b) \
     (__extension__ ({__typeof__(a) __a = (a); __typeof__(b) __b = (b); \
         fpclassify(__a) == FP_NAN || fpclassify(__b) == FP_NAN;}))
+
+#ifdef __cplusplus
+}
+#endif

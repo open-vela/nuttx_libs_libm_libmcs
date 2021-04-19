@@ -3,6 +3,10 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include "../common/config.h"
 
 #define complex _Complex
@@ -134,3 +138,9 @@ float crealf(float complex);
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 
 #define CMPLX () /* TODO */
+#define CMPLXF () /* TODO */
+#define CMPLXL () /* TODO */
+
+#ifdef __cplusplus
+}
+#endif
