@@ -378,7 +378,7 @@ int32_t __rem_pio2f(float x, float *y)
         r  = t - fn * pio2_1;
         w  = fn * pio2_1t;  /* 1st round good to 40 bit */
 
-        if (n < 32 && (ix & 0xffffff00) != npio2_hw[n - 1]) {
+        if (n < 32 && (ix & 0xffffff00U) != npio2_hw[n - 1]) {
             y[0] = r - w;  /* quick check no cancellation */
         } else {
             uint32_t high;

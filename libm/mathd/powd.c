@@ -169,7 +169,7 @@ double pow(double x, double y)
             if (k > 20) {
                 j = ly >> (52 - k);
 
-                if ((j << (52 - k)) == ly) {
+                if ((j << (52 - k)) == (int32_t)ly) {
                     yisint = 2 - (j & 1);
                 }
             } else if (ly == 0) {
@@ -241,7 +241,7 @@ double pow(double x, double y)
     if((((hx>>31)+1)|yisint)==0) return (x-x)/(x-x);
        but ANSI C says a right shift of a signed negative quantity is
        implementation defined.  */
-    if (((((uint32_t)hx >> 31) - 1) | yisint) == 0) {
+    if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)yisint) == 0) {
         return (x - x) / (x - x);
     }
 
@@ -344,7 +344,7 @@ double pow(double x, double y)
 
     s = one; /* s (sign of result -ve**odd) = -1 else = 1 */
 
-    if (((((uint32_t)hx >> 31) - 1) | (yisint - 1)) == 0) {
+    if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)(yisint - 1)) == 0) {
         s = -one;    /* (-ve)**(odd int) */
     }
 

@@ -28,7 +28,7 @@ double ceil(double x)
         if (j0 < 0) {  /* raise inexact if x != 0 */
             if (huge + x > 0.0) { /* return 0*sign(x) if |x|<1 */
                 if (i0 < 0) {
-                    i0 = 0x80000000;
+                    i0 = (int32_t)0x80000000;
                     i1 = 0;
                 } else if ((i0 | i1) != 0) {
                     i0 = 0x3ff00000;
@@ -71,7 +71,7 @@ double ceil(double x)
                 } else {
                     j = i1 + (1 << (52 - j0));
 
-                    if (j < i1) {
+                    if (j < (uint32_t)i1) {
                         i0 += 1;    /* got a carry */
                     }
 
