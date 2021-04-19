@@ -49,6 +49,7 @@ QUICKREF
  *    No exception.
  */
 
+#include <assert.h>
 #include <math.h>
 #include "../common/tools.h"
 
@@ -56,8 +57,15 @@ QUICKREF
 
 double modf(double x, double *iptr)
 {
+    double _xi = 0.0;
     int32_t i0, i1, j0;
     uint32_t i;
+    
+	assert(iptr != (void*)0);
+	if(iptr == (void*)0) {
+	    iptr = &_xi;
+	}
+    
     EXTRACT_WORDS(i0, i1, x);
     j0 = ((i0 >> 20) & 0x7ff) - 0x3ff;               /* exponent of x */
 
