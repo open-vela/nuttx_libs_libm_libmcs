@@ -36,3 +36,7 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`log`
+* :ref:`log1p`
+* :ref:`sqrt`

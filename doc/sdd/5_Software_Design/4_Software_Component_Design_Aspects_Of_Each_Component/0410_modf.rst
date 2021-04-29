@@ -57,3 +57,5 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`isnan`

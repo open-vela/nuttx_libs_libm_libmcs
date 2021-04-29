@@ -31,3 +31,12 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`__ccoshsinh <internal_ctrig>`
+* :ref:`ccosh`
+* :ref:`csinh`
+* :ref:`ctan`
+* :ref:`ctanh`
+* :ref:`exp`
+* :ref:`expm1`
+* :ref:`fabs`

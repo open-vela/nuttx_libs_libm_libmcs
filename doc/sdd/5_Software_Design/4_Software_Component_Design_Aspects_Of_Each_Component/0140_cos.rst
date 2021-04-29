@@ -61,4 +61,13 @@ References
 * :ref:`__cos <internal_trig>`
 * :ref:`__rem_pio2 <internal_trig>`
 * :ref:`__sin <internal_trig>`
+* :ref:`__j0, __j1, __jn, __y0, __y1, __yn <internal_bessel>`
+* :ref:`acos`
+* :ref:`ccos`
+* :ref:`ccosh`
+* :ref:`cexp`
+* :ref:`cpow`
+* :ref:`csinh`
+* :ref:`ctan`
+* :ref:`ctanh`
 * :ref:`sin`

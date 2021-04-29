@@ -78,4 +78,4 @@ Requirements
 References
 ^^^^^^^^^^
 
-* :ref:`__log1p <internal_log>`
+* :ref:`__log1pmf <internal_log>`

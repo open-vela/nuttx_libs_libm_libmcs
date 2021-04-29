@@ -132,4 +132,5 @@ Requirements
 References
 ^^^^^^^^^^
 
+* :ref:`atan2`
 * :ref:`fabs`

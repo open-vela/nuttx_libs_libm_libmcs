@@ -32,4 +32,5 @@ Requirements
 References
 ^^^^^^^^^^
 
+* :numref:`Tbl. %s <List of math constants>`
 * :ref:`logb`

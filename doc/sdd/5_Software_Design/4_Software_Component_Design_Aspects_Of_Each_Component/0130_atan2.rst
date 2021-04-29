@@ -126,4 +126,7 @@ References
 ^^^^^^^^^^
 
 * :ref:`atan`
+* :ref:`carg`
+* :ref:`catan`
+* :ref:`clog`
 * :ref:`fabs`
