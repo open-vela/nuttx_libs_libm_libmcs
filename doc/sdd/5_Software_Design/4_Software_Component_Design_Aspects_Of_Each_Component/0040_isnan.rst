@@ -25,3 +25,4 @@ References
 ^^^^^^^^^^
 
 * :ref:`fpclassify`
+* :ref:`nexttowardf <nexttoward>`

@@ -24,4 +24,5 @@ Requirements
 References
 ^^^^^^^^^^
 
+* :ref:`cproj`
 * :ref:`fpclassify`

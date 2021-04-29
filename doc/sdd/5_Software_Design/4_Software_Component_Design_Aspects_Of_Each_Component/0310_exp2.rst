@@ -34,3 +34,5 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`pow`

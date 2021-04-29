@@ -168,6 +168,8 @@ References
 ^^^^^^^^^^
 
 * :ref:`cos`
+* :ref:`fabs`
+* :ref:`floor`
+* :ref:`scalbn`
 * :ref:`sin`
 * :ref:`tan`
-* :ref:`fabs`

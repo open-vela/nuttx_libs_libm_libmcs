@@ -67,6 +67,8 @@ Requirements
 References
 ^^^^^^^^^^
 
+* :ref:`__rem_pio2_internal <internal_trig>`
 * :ref:`copysign`
 * :ref:`ldexp`
+* :ref:`pow`
 * :ref:`scalbln`

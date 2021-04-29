@@ -40,3 +40,8 @@ References
 ^^^^^^^^^^
 
 * :numref:`Tbl. %s <List of math constants>`
+* :ref:`isfinite`
+* :ref:`isinf`
+* :ref:`isnan`
+* :ref:`isnormal`
+* :ref:`isunordered`

@@ -31,3 +31,8 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`fabs`
+* :ref:`log`
+* :ref:`log1p`
+* :ref:`sqrt`
