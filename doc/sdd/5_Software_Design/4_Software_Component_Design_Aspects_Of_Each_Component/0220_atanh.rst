@@ -37,3 +37,5 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`log1p`

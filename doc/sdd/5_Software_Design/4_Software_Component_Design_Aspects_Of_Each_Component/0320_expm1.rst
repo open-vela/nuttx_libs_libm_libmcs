@@ -34,3 +34,7 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+* :ref:`cosh`
+* :ref:`sinh`
+* :ref:`tanh`

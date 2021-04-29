@@ -38,4 +38,5 @@ Requirements
 References
 ^^^^^^^^^^
 
+* :ref:`isfinite`
 * :ref:`scalbn`

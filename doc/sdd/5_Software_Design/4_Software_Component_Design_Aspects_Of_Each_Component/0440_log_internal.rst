@@ -3,7 +3,7 @@
 Internal Logarithm Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. c:autodoc:: ../libm/mathd/internal/log_internal.c
+.. c:autodoc:: ../libm/mathd/internal/log1pmfd.h
 
 TODO: Subsections belonging into the implementation file shall be added when the file exists.
 
@@ -19,7 +19,7 @@ The special cases are in the respective external functions :ref:`log2` and :ref:
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-``__log1p``: The approach is to use a polynomial approximation for the calculation.
+``__log1pmf``: The approach is to use a polynomial approximation for the calculation.
 
 The procedure shall be always inlined.
 
