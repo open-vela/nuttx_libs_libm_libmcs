@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the error function of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float erff(float x);
+ *     double erf(double x);
+ *     long double erfl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``erf`` computes the error function of :math:`x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    erf(x) \approx \frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt
+ *
+ * Returns
+ * =======
+ *
+ * ``erf`` returns the error function of :math:`x`, in the range :math:`[-1.0, +1.0]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+-----------------------------------------------------+--------------+--------------+-----------------------------------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                                          | :math:`-0`   | :math:`+0`   | :math:`>0`                                          | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=====================================================+==============+==============+=====================================================+==============+==============+
+ * | **erf(x)**          | :math:`-Inf` | :math:`\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt`  | :math:`x`                   | :math:`\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt`  | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+-----------------------------------------------------+--------------+--------------+-----------------------------------------------------+--------------+--------------+
+ * 
+ *///
+
 /*
 FUNCTION
         <<erf>>, <<erff>>, <<erfc>>, <<erfcf>>---error function
