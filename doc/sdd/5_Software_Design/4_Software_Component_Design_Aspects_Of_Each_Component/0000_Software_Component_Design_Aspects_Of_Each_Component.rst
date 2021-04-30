@@ -154,6 +154,8 @@ Error and Gamma Functions
    0610_erfc.rst
    0620_lgamma.rst
    0630_tgamma.rst
+   0640_gamma_internal.rst
+   0650_signgam.rst
 
 Nearest Integer Functions
 """""""""""""""""""""""""

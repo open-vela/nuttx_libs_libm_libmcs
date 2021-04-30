@@ -167,6 +167,7 @@ Internal functions do not directly implement requirements.
 References
 ^^^^^^^^^^
 
+* :ref:`__lgamma <internal_gamma>`
 * :ref:`cos`
 * :ref:`fabs`
 * :ref:`floor`
