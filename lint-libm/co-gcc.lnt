@@ -148,13 +148,15 @@ size-options.lnt // This .lnt file should be generated (preferrably
 // GNU statement-expressions wrapped in __extension__().
 ++d"__extension__=/*lint -e(160) */"
 
+++d"I=1.0f"
+
 ++d"__null=0"
 +rw(_to_semi)           // needed for the two macros above.
 +rw(__typeof__)         // activate __typeof__ keyword
 -d"__typeof=__typeof__"   // an alternative to using __typeof__
 
 -rw(__except)           // This MS reserved word is used as an identifier
-+rw( __complex__, __real__, __imag__ )  // reserved words that can be ignored.
++rw( __complex__, __real__, __imag__, _Complex )  // reserved words that can be ignored.
 ++d"__builtin_strchr=(char*)"     // permits the inline definition ...
 ++d"__builtin_strpbrk=(char*)"    // of these functions to be linted ...
 ++d"__builtin_strrchr=(char*)"    // without drawing a complaint
