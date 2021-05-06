@@ -60,7 +60,7 @@ typedef double double_t;
 #endif
 
 #if !defined(NAN)
-    #define NAN         (0.0F/0.0F)
+    #define NAN         (nanf(""))
 #endif
 
 #define FP_NAN          0
