@@ -5,11 +5,11 @@
 
 float fdimf(float x, float y)
 {
-    if (__fpclassifyf(x) == FP_NAN) {
+    if (isnan(x)) {
         return (x);
     }
 
-    if (__fpclassifyf(y) == FP_NAN) {
+    if (isnan(y)) {
         return (y);
     }
 

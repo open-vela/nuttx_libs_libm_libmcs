@@ -88,7 +88,7 @@ double modf(double x, double *iptr)
     } else if (j0 > 51) {                            /* no fraction part */
         *iptr = x;
 
-        if (__fpclassifyd(x) == FP_NAN) {
+        if (isnan(x)) {
             return *iptr = x + x;                    /* x is NaN, return NaN */
         }
 
