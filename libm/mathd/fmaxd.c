@@ -33,11 +33,11 @@ ANSI C, POSIX.
 
 double fmax(double x, double y)
 {
-    if (__fpclassifyd(x) == FP_NAN) {
+    if (isnan(x)) {
         return y;
     }
 
-    if (__fpclassifyd(y) == FP_NAN) {
+    if (isnan(y)) {
         return x;
     }
 

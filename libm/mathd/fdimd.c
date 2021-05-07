@@ -41,11 +41,11 @@ ANSI C, POSIX.
 
 double fdim(double x, double y)
 {
-    if (__fpclassifyd(x) == FP_NAN) {
+    if (isnan(x)) {
         return (x);
     }
 
-    if (__fpclassifyd(y) == FP_NAN) {
+    if (isnan(y)) {
         return (y);
     }
 

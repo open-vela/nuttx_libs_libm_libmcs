@@ -39,7 +39,7 @@ float modff(float x, float *iptr)
     } else {            /* no fraction part */
         *iptr = x;
 
-        if (__fpclassifyf(x) == FP_NAN) {
+        if (isnan(x)) {
             return *iptr = x + x;    /* x is NaN, return NaN */
         }
 
