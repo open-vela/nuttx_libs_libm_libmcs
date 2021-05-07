@@ -11,7 +11,7 @@ double nan(const char *payload)
     (void)payload;
 
     double x;
-    INSERT_WORDS(x,0x7FF80000,0x00000000);
+    INSERT_WORDS(x,0x7FF80000,0x000D067D);
     return x;
 }
 
