@@ -9,7 +9,7 @@ float nanf(const char *payload)
     (void)payload;
     
     float x;
-    SET_FLOAT_WORD(x,0x7FC00000);
+    SET_FLOAT_WORD(x,0x7FCF067D);
     return x;
 }
 
