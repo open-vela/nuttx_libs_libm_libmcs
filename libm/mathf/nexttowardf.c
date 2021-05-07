@@ -67,3 +67,12 @@ float nexttowardf(float x, long double y)
 }
 
 #endif /* __LIBMCS_LONG_DOUBLE_IS_64BITS */
+
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
+
+double nexttoward(double x, long double y)
+{
+    return (double) nexttowardf((float) x, y);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */
