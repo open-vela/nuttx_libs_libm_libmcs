@@ -8,7 +8,7 @@
 
 float modff(float x, float *iptr)
 {
-    double _xi = 0.0f;
+    float _xi = 0.0f;
     int32_t i0, j0;
     uint32_t i;
     
