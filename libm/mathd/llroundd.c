@@ -41,13 +41,13 @@ long long int llround(double x)
         }
     } else if (exponent_less_1023 < (8 * sizeof(long long int)) - 1) {
         /* 64bit longlong: exponent_less_1023 in [20,62] */
-        if (exponent_less_1023 >= 52)
+        if (exponent_less_1023 >= 52) {
             /* 64bit longlong: exponent_less_1023 in [52,62] */
             /* 64bit longlong: shift amt in [32,42] */
             result = ((long long int) msw << (exponent_less_1023 - 20))
                      /* 64bit longlong: shift amt in [0,10] */
-                     | (lsw << (exponent_less_1023 - 52));
-        else {
+                     | ((long long int) lsw << (exponent_less_1023 - 52));
+        } else {
             /* 64bit longlong: exponent_less_1023 in [20,51] */
             /* 64bit longlong: shift amt in [0,31] */
             unsigned int tmp = lsw + (0x80000000 >> (exponent_less_1023 - 20));
