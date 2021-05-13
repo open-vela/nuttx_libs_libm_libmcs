@@ -80,13 +80,13 @@ long int lround(double x)
     } else if (exponent_less_1023 < (8 * sizeof(long int)) - 1) {
         /* 32bit long: exponent_less_1023 in [20,30] */
         /* 64bit long: exponent_less_1023 in [20,62] */
-        if (exponent_less_1023 >= 52)
+        if (exponent_less_1023 >= 52) {
             /* 64bit long: exponent_less_1023 in [52,62] */
             /* 64bit long: shift amt in [32,42] */
             result = ((long int) msw << (exponent_less_1023 - 20))
                      /* 64bit long: shift amt in [0,10] */
-                     | (lsw << (exponent_less_1023 - 52));
-        else {
+                     | ((long int) lsw << (exponent_less_1023 - 52));
+        } else {
             /* 32bit long: exponent_less_1023 in [20,30] */
             /* 64bit long: exponent_less_1023 in [20,51] */
             /* 32bit long: shift amt in [0,10] */
