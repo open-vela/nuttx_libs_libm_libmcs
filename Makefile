@@ -107,6 +107,7 @@ SRC=libm/common/isgreater.c \
     libm/mathd/internal/bessel0d.c \
     libm/mathd/internal/bessel1d.c \
     libm/mathd/internal/besselnd.c \
+    libm/mathd/internal/errorfunctiond.c \
     libm/mathd/internal/fpclassifyd.c \
     libm/mathd/internal/gammad.c \
     libm/mathd/internal/signbitd.c \
@@ -174,6 +175,7 @@ SRC=libm/common/isgreater.c \
     libm/mathf/frexpf.c \
     libm/mathf/hypotf.c \
     libm/mathf/ilogbf.c \
+    libm/mathf/internal/errorfunctionf.c \
     libm/mathf/internal/fpclassifyf.c \
     libm/mathf/internal/gammaf.c \
     libm/mathf/internal/signbitf.c \
