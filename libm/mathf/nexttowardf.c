@@ -4,15 +4,19 @@
 #include <math.h>
 #include "../common/tools.h"
 
+#ifndef __LIBMCS_LONG_DOUBLE_IS_64BITS
+
+float nexttowardf(float x, long double y)
+{
+    return nextafterf(x, (float) y);
+}
+
+#else
+
 union fshape {
     float value;
     uint32_t bits;
 };
-
-/* This is only necessary because the implementation of isnan only works */
-/* properly when long double == double. */
-/* See: https://sourceware.org/ml/newlib/2014/msg00684.html */
-#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 float nexttowardf(float x, long double y)
 {
@@ -67,3 +71,12 @@ float nexttowardf(float x, long double y)
 }
 
 #endif /* __LIBMCS_LONG_DOUBLE_IS_64BITS */
+
+#ifdef __LIBMCS_DOUBLE_IS_32BITS
+
+double nexttoward(double x, long double y)
+{
+    return (double) nexttowardf((float) x, y);
+}
+
+#endif /* defined(_DOUBLE_IS_32BITS) */
