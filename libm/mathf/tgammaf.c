@@ -9,12 +9,21 @@
  */
 
 #include <math.h>
+#include "../common/tools.h"
 #include "internal/gammaf.h"
 
 float tgammaf(float x)
 {
-    int signgam_local;
-    float y = expf(__lgammaf(x, &signgam_local));
+    int signgam_local = 0;
+    float y = 0.0f;
+    
+    if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
+        return __raise_div_by_zerof(x);
+    } else if (floorf(x) == x && x < 0.0f) {    /* tgamma(negative integer, -Inf) = NaN */
+        return __raise_invalidf(x);
+    }
+    
+    y = expf(__lgammaf(x, &signgam_local));
 
     if (signgam_local < 0) {
         y = -y;
