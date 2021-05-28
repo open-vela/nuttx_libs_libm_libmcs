@@ -29,7 +29,11 @@ float tanhf(float x)
     /* |x| < 22 */
     if (ix < 0x41b00000) {        /* |x|<22 */
         if (ix < 0x24000000) {     /* |x|<2**-55 */
-            return x * __raise_inexactf(one);   /* tanh(small) = small */
+            if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexactf(x);
+            }
         }
 
         if (ix >= 0x3f800000) {  /* |x|>=1  */

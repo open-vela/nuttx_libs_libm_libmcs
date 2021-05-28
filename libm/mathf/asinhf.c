@@ -21,7 +21,11 @@ float asinhf(float x)
     }
 
     if (ix < 0x31800000) {  /* |x|<2**-28 */
-        return __raise_inexactf(x);    /* return x inexact except 0 */
+        if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+            return x;
+        } else {
+            return __raise_inexactf(x);
+        }
     }
 
     if (ix > 0x4d800000) { /* |x| > 2**28 */

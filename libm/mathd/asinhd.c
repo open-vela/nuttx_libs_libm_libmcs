@@ -67,7 +67,11 @@ double asinh(double x)
     }
 
     if (ix < 0x3e300000) {  /* |x|<2**-28 */
-        return __raise_inexact(x);    /* return x inexact except 0 */
+        if (x == 0.0) {     /* return x inexact except 0 */
+            return x;
+        } else {
+            return __raise_inexact(x);
+        }
     }
 
     if (ix > 0x41b00000) { /* |x| > 2**28 */

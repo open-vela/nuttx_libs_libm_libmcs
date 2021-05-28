@@ -18,7 +18,11 @@ float sinf(float x)
 
     if (ix <= 0x3f490fd8) {
         if(ix < 0x39800000) {        /* if x < 2**-12 */
-            return __raise_inexactf(x);            /* generate inexact */
+            if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexactf(x);
+            }
         }
         return __sinf(x, z, 0);
     }

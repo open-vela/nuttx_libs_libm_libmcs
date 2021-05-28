@@ -115,7 +115,11 @@ double atan(double x)
 
     if (ix < 0x3fdc0000) {             /* |x| < 0.4375         */
         if (ix < 0x3e400000) {         /* |x| < 2^-27          */
-            return __raise_inexact(x); /* raise inexact        */
+            if (x == 0.0) {            /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         }
 
         id = -1;

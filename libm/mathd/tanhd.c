@@ -86,12 +86,16 @@ double tanh(double x)
     }
 
     /* |x| < 22 */
-    if (ix < 0x40360000) {        /* |x|<22 */
-        if (ix < 0x3c800000) {     /* |x|<2**-55 */
-            return x * __raise_inexact(one);    /* tanh(small) = small */
+    if (ix < 0x40360000) {          /* |x|<22 */
+        if (ix < 0x3c800000) {      /* |x|<2**-55 */
+            if (x == 0.0) {         /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         }
 
-        if (ix >= 0x3ff00000) {  /* |x|>=1  */
+        if (ix >= 0x3ff00000) {     /* |x|>=1  */
             t = expm1(two * fabs(x));
             z = one - two / (t + two);
         } else {
