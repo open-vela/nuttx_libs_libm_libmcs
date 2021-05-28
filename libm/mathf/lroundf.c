@@ -27,7 +27,13 @@ long int lroundf(float x)
             result = w >> (23 - exponent_less_127);
         }
     } else {
-        return (long int) x;
+        (void) __raise_invalidf(x);
+        if (sign == -1) {
+            return __MIN_LONG;
+        }
+        else {
+            return __MAX_LONG;
+        }
     }
 
     return sign * result;
