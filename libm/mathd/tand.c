@@ -184,7 +184,11 @@ double tan(double x)
 
     if (ix <= 0x3fe921fb) {
         if(ix < 0x3e400000) {      /* x < 2**-27 */
-            return __raise_inexact(x);          /* generate inexact */
+            if (x == 0.0) {        /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         }
         
         return __tan(x, z, 1);

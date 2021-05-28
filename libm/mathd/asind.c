@@ -125,7 +125,11 @@ double asin(double x)
         return __raise_invalid();  /* asin(|x|>1) is NaN */
     } else if (ix < 0x3fe00000) {  /* |x|<0.5 */
         if (ix < 0x3e500000) {     /* if |x| < 2**-26 */
-            return __raise_inexact(x);    /* return x with inexact if x!=0*/
+            if (x == 0.0) {        /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         } else {
             t = x * x;
             p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));

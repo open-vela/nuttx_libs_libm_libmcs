@@ -57,7 +57,11 @@ float atanf(float x)
 
     if (ix < 0x3ee00000) {    /* |x| < 0.4375 */
         if (ix < 0x31000000) {    /* |x| < 2^-29 */
-            return __raise_inexactf(x);    /* raise inexact */
+            if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexactf(x);
+            }
         }
 
         id = -1;

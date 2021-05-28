@@ -91,9 +91,13 @@ double sinh(double x)
     }
 
     /* |x| in [0,22], return sign(x)*0.5*(E+E/(E+1))) */
-    if (ix < 0x40360000) {        /* |x|<22 */
-        if (ix < 0x3e300000) {       /* |x|<2**-28 */
-            return __raise_inexact(x);    /* sinh(tiny) = tiny with inexact */
+    if (ix < 0x40360000) {          /* |x|<22 */
+        if (ix < 0x3e300000) {      /* |x|<2**-28 */
+            if (x == 0.0) {         /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         }
 
         t = expm1(fabs(x));
