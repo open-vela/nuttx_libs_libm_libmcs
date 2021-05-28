@@ -39,7 +39,11 @@ float asinf(float x)
         return __raise_invalidf();  /* asin(|x|>1) is NaN */
     } else if (ix < 0x3f000000) {  /* |x|<0.5 */
         if (ix < 0x32000000) {     /* if |x| < 2**-27 */
-            return __raise_inexactf(x);;    /* return x with inexact if x!=0*/
+            if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexactf(x);
+            }
         } else {
             t = x * x;
             p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));

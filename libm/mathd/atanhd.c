@@ -98,8 +98,12 @@ double atanh(double x)
         return __raise_div_by_zero(x);
     }
 
-    if (ix < 0x3e300000) {
-        return __raise_inexact(x);    /* x<2**-28 */
+    if (ix < 0x3e300000) {     /* x<2**-28 */
+        if (x == 0.0) {        /* return x inexact except 0 */
+            return x;
+        } else {
+            return __raise_inexact(x);
+        }
     }
 
     SET_HIGH_WORD(x, ix);

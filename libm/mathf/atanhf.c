@@ -27,7 +27,11 @@ float atanhf(float x)
     }
 
     if (ix < 0x31800000) {    /* x<2**-28 */
-        return __raise_inexactf(x);
+        if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+            return x;
+        } else {
+            return __raise_inexactf(x);
+        }
     }
 
     SET_FLOAT_WORD(x, ix);
