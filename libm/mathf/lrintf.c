@@ -62,7 +62,13 @@ long int lrintf(float x)
             result = i0 >> (23 - j0);
         }
     } else {
-        return (long int) x;
+        (void) __raise_invalidf(x);
+        if (sx == 1) {
+            return __MIN_LONG;
+        }
+        else {
+            return __MAX_LONG;
+        }
     }
 
     return sx ? -result : result;

@@ -90,7 +90,13 @@ long long int llrint(double x)
             result = ((long long int) i0 << (j0 - 20)) | SAFE_RIGHT_SHIFT(i1, (52 - j0));
         }
     } else {
-        return (long long int) x;
+        (void) __raise_invalid(x);
+        if (sx == 1) {
+            return __MIN_LONG_LONG;
+        }
+        else {
+            return __MAX_LONG_LONG;
+        }
     }
 
     return sx ? -result : result;

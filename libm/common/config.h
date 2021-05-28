@@ -36,6 +36,19 @@
     #endif /* LIBMCS_DOUBLE_IS_32BITS */
 #endif /* LIBMCS_LONG_DOUBLE_IS_64BITS */
 
+/* Define to tell the libm to be built for 32bit long int. */
+// #define LIBMCS_LONG_IS_32BITS
+#define __MAX_LONG_LONG 0x7FFFFFFFFFFFFFFFLL
+#define __MIN_LONG_LONG 0x8000000000000000LL
+#ifdef LIBMCS_LONG_IS_32BITS
+    #define __LIBMCS_LONG_IS_32BITS
+    #define __MAX_LONG 0x7FFFFFFFL
+    #define __MIN_LONG 0x80000000L
+#else
+    #define __MAX_LONG 0x7FFFFFFFFFFFFFFFL
+    #define __MIN_LONG 0x8000000000000000L
+#endif /* LIBMCS_LONG_IS_32BITS */
+
 /* Most routines need to check whether a float is finite, infinite, or not a
    number, and many need to know whether the result of an operation will
    overflow. The macros below wrap up that kind of information:
