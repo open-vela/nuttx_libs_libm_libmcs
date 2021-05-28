@@ -368,7 +368,7 @@ int32_t __rem_pio2f(float x, float *y)
         if (isnan(x)) {
             y[0] = y[1] = x - x;
         } else {
-            y[0] = y[1] = __raise_invalid();
+            y[0] = y[1] = __raise_invalidf();
         }
         return 0;
     }

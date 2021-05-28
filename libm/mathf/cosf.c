@@ -18,7 +18,7 @@ float cosf(float x)
 
     if (ix <= 0x3f490fd8) {
         if(ix < 0x39800000) {        /* if x < 2**-12 */
-            return __raise_inexact(1.0f);         /* generate inexact */
+            return __raise_inexactf(1.0f);         /* generate inexact */
         }
         return __cosf(x, z);
     }
