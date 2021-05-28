@@ -24,12 +24,16 @@ double ceil(double x)
 
     if (j0 < 20) {
         if (j0 < 0) {  /* raise inexact if x != 0 */
+            if ((i0 | i1) == 0) {
+                return x;
+            }
+
             (void) __raise_inexact(x);
             
             if (i0 < 0) { /* return 0*sign(x) if |x|<1 */
                 i0 = (int32_t)0x80000000;
                 i1 = 0;
-            } else if ((i0 | i1) != 0) {
+            } else {
                 i0 = 0x3ff00000;
                 i1 = 0;
             }

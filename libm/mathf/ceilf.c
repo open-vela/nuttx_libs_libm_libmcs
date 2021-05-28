@@ -15,11 +15,15 @@ float ceilf(float x)
 
     if (j0 < 23) {
         if (j0 < 0) {  /* raise inexact if x != 0 */
+            if (FLT_UWORD_IS_ZERO(ix)) {
+                return x;
+            }
+
             (void) __raise_inexactf(x); /* raise inexact flag */
-            
+
             if (i0 < 0) {
                 i0 = (int32_t)0x80000000;
-            } else if (!FLT_UWORD_IS_ZERO(ix)) {
+            } else {
                 i0 = 0x3f800000;
             }
         } else {

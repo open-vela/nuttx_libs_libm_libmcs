@@ -24,11 +24,15 @@ float floorf(float x)
 
     if (j0 < 23) {
         if (j0 < 0) {  /* raise inexact if x != 0 */
+            if (FLT_UWORD_IS_ZERO(ix)) {
+                return x;
+            }
+
             (void) __raise_inexactf(x);
 
             if (i0 >= 0) {
                 i0 = 0;
-            } else if (!FLT_UWORD_IS_ZERO(ix)) {
+            } else {
                 i0 = (int32_t)0xbf800000;
             }
         } else {

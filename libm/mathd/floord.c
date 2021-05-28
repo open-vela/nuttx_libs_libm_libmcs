@@ -66,11 +66,15 @@ double floor(double x)
 
     if (j0 < 20) {
         if (j0 < 0) {  /* raise inexact if x != 0 */
+            if ((i0 | i1) == 0) {
+                return x;
+            }
+
             (void) __raise_inexact(x);
-            
+
             if (i0 >= 0) {
                 i0 = i1 = 0;
-            } else if (((i0 & 0x7fffffff) | i1) != 0) {
+            } else {
                 i0 = (int32_t)0xbff00000;
                 i1 = 0;
             }
