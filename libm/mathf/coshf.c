@@ -51,7 +51,7 @@ float coshf(float x)
     }
 
     /* |x| > overflowthresold, cosh(x) overflow */
-    return __raise_overflowf(1.0);
+    return __raise_overflowf(1.0f);
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS
