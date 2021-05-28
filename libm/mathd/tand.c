@@ -184,8 +184,10 @@ double tan(double x)
 
     if (ix <= 0x3fe921fb) {
         if(ix < 0x3e400000) {      /* x < 2**-27 */
-            if(((int)x) == 0) {
-                return x;          /* generate inexact */
+            if (x == 0.0) {        /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
             }
         }
         
@@ -194,7 +196,11 @@ double tan(double x)
 
     /* tan(Inf or NaN) is NaN */
     else if (ix >= 0x7ff00000) {
-        return x - x;    /* NaN */
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalid();
+        }
     }
 
     /* argument reduction needed */

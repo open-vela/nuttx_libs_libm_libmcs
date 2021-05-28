@@ -63,7 +63,7 @@ PORTABILITY
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-static const double one = 1.0, two = 2.0, tiny = 1.0e-300;
+static const double one = 1.0, two = 2.0;
 
 double tanh(double x)
 {
@@ -76,20 +76,26 @@ double tanh(double x)
 
     /* x is INF or NaN */
     if (ix >= 0x7ff00000) {
-        if (jx >= 0) {
-            return one / x + one;    /* tanh(+-inf)=+-1 */
+        if (isnan(x)) {                         /* tanh(NaN) = NaN */
+            return x + x;
+        } else if (jx >= 0) {
+            return __raise_inexact(one);        /* tanh(+inf)=+1 */
         } else {
-            return one / x - one;    /* tanh(NaN) = NaN */
+            return -__raise_inexact(one);       /* tanh(-inf)=-1 */
         }
     }
 
     /* |x| < 22 */
-    if (ix < 0x40360000) {        /* |x|<22 */
-        if (ix < 0x3c800000) {     /* |x|<2**-55 */
-            return x * (one + x);    /* tanh(small) = small */
+    if (ix < 0x40360000) {          /* |x|<22 */
+        if (ix < 0x3c800000) {      /* |x|<2**-55 */
+            if (x == 0.0) {         /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         }
 
-        if (ix >= 0x3ff00000) {  /* |x|>=1  */
+        if (ix >= 0x3ff00000) {     /* |x|>=1  */
             t = expm1(two * fabs(x));
             z = one - two / (t + two);
         } else {
@@ -99,7 +105,7 @@ double tanh(double x)
 
     /* |x| > 22, return +-1 */
     } else {
-        z = one - tiny;        /* raised inexact flag */
+        z = __raise_inexact(one);               /* raised inexact flag */
     }
 
     return (jx >= 0) ? z : -z;

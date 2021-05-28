@@ -76,11 +76,8 @@ double logb(double x)
 
     if (hx < 0x00100000) {     /* 0 or subnormal */
         if ((hx | lx) == 0)  {
-            double  xx;
-            /* arg==0:  return -inf and raise divide-by-zero exception */
-            INSERT_WORDS(xx, hx, lx);  /* +0.0 */
-            return -1. / xx;  /* logb(0) = -inf */
-        } else          /* subnormal x */
+            return __raise_div_by_zero(-1.0);  /* logb(0) = -inf */
+        } else {         /* subnormal x */
             if (hx == 0) {
                 for (ix = -1043; lx > 0; lx <<= 1) {
                     ix -= 1;
@@ -90,14 +87,13 @@ double logb(double x)
                     ix -= 1;
                 }
             }
+        }
 
         return (double) ix;
     } else if (hx < 0x7ff00000) {
         return (hx >> 20) - 1023;    /* normal # */
-    } else if (hx > 0x7ff00000 || lx) {
-        return x;    /* x==NaN */
     } else {
-        return HUGE_VAL;    /* x==inf (+ or -) */
+        return x * x;    /* x = NaN/+-Inf */
     }
 }
 

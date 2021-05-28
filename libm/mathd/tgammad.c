@@ -20,8 +20,16 @@
 
 double tgamma(double x)
 {
-    int signgam_local;
-    double y = exp(__lgamma(x, &signgam_local));
+    int signgam_local = 0;
+    double y = 0.0;
+    
+    if (x == 0.0) {                         /* tgamma(+-0) = +-Inf */
+        return __raise_div_by_zero(x);
+    } else if (floor(x) == x && x < 0.0) {  /* tgamma(negative integer, -Inf) = NaN */
+        return __raise_invalid(x);
+    }
+
+    y = exp(__lgamma(x, &signgam_local));
 
     if (signgam_local < 0) {
         y = -y;

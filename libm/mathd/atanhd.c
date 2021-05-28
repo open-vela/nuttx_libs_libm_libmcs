@@ -76,7 +76,7 @@ QUICKREF
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-static const double one = 1.0, huge = 1e300, zero = 0.0;
+static const double one = 1.0;
 
 double atanh(double x)
 {
@@ -87,15 +87,23 @@ double atanh(double x)
     ix = hx & 0x7fffffff;
 
     if ((ix | ((lx | (-lx)) >> 31)) > 0x3ff00000) { /* |x|>1 */
-        return (x - x) / (x - x);
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalid();
+        }
     }
 
     if (ix == 0x3ff00000) {
-        return x / zero;
+        return __raise_div_by_zero(x);
     }
 
-    if (ix < 0x3e300000 && (huge + x) > zero) {
-        return x;    /* x<2**-28 */
+    if (ix < 0x3e300000) {     /* x<2**-28 */
+        if (x == 0.0) {        /* return x inexact except 0 */
+            return x;
+        } else {
+            return __raise_inexact(x);
+        }
     }
 
     SET_HIGH_WORD(x, ix);

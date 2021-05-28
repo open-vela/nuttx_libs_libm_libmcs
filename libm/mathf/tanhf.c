@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, two = 2.0, tiny = 1.0e-30;
+static const float one = 1.0, two = 2.0;
 
 float tanhf(float x)
 {
@@ -17,17 +17,23 @@ float tanhf(float x)
 
     /* x is INF or NaN */
     if (!FLT_UWORD_IS_FINITE(ix)) {
-        if (jx >= 0) {
-            return one / x + one;    /* tanh(+-inf)=+-1 */
+        if (isnan(x)) {                         /* tanh(NaN) = NaN */
+            return x + x;
+        } else if (jx >= 0) {
+            return __raise_inexactf(one);       /* tanh(+inf)=+1 */
         } else {
-            return one / x - one;    /* tanh(NaN) = NaN */
+            return -__raise_inexactf(one);      /* tanh(-inf)=-1 */
         }
     }
 
     /* |x| < 22 */
     if (ix < 0x41b00000) {        /* |x|<22 */
         if (ix < 0x24000000) {     /* |x|<2**-55 */
-            return x * (one + x);    /* tanh(small) = small */
+            if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexactf(x);
+            }
         }
 
         if (ix >= 0x3f800000) {  /* |x|>=1  */
@@ -40,7 +46,7 @@ float tanhf(float x)
 
     /* |x| > 22, return +-1 */
     } else {
-        z = one - tiny;        /* raised inexact flag */
+        z = __raise_inexactf(one);              /* raised inexact flag */
     }
 
     return (jx >= 0) ? z : -z;

@@ -62,9 +62,14 @@ double fmod(double x, double y)
     hy &= 0x7fffffff;          /* |y| */
 
     /* purge off exception values */
-    if ((hy | ly) == 0 || (hx >= 0x7ff00000) || /* y=0,or x not finite */
-        ((hy | ((ly | -ly) >> 31)) > 0x7ff00000)) { /* or y is NaN */
-        return (x * y) / (x * y);
+    if (hx >= 0x7ff00000 || hy >= 0x7ff00000) { /* x or y is +-Inf/NaN */
+        if (hx == 0x7ff00000 && lx == 0) {      /* x is +-Inf */
+            return __raise_invalid();
+        } else if (isnan(x) || isnan(y)) {      /* x or y is NaN */
+            return x + y;
+        }
+    } else if ((hy | ly) == 0) {                /* y is +-0 */
+        return __raise_invalid();
     }
 
     if (hx <= hy) {

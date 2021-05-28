@@ -93,8 +93,10 @@ float tanf(float x)
 
     if (ix <= 0x3f490fda) {
         if(ix < 0x39800000) {        /* |x| < 2**-12 */
-            if(((int)x) == 0) {
-                return x;            /* generate inexact */
+            if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexactf(x);
             }
         }
         return __tanf(x, z, 1);
@@ -102,7 +104,11 @@ float tanf(float x)
 
     /* tan(Inf or NaN) is NaN */
     else if (!FLT_UWORD_IS_FINITE(ix)) {
-        return x - x;    /* NaN */
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalidf();
+        }
     }
 
     /* argument reduction needed */

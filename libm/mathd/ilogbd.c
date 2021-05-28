@@ -64,8 +64,9 @@ int ilogb(double x)
 
     if (hx < 0x00100000) {
         if ((hx | lx) == 0) {
+            (void) __raise_invalid();
             return FP_ILOGB0;    /* ilogb(0) = special case error */
-        } else          /* subnormal x */
+        } else {         /* subnormal x */
             if (hx == 0) {
                 for (ix = -1043; lx > 0; lx <<= 1) {
                     ix -= 1;
@@ -75,20 +76,17 @@ int ilogb(double x)
                     ix -= 1;
                 }
             }
+        }
 
         return ix;
     } else if (hx < 0x7ff00000) {
         return (hx >> 20) - 1023;
-    }
-
-#if FP_ILOGBNAN != INT_MAX
-    else if (hx > 0x7ff00000) {
-        return FP_ILOGBNAN;    /* NAN */
-    }
-
-#endif
-    else {
-        return INT_MAX;    /* infinite (or, possibly, NAN) */
+    } else if (hx > 0x7ff00000) {
+        (void) __raise_invalid();
+        return FP_ILOGBNAN;     /* NAN */
+    } else {
+        (void) __raise_invalid();
+        return INT_MAX;         /* infinite */
     }
 }
 

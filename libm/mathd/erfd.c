@@ -147,21 +147,25 @@ PORTABILITY
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
-tiny =  1e-300,
 erx  =  8.45062911510467529297e-01, /* 0x3FEB0AC1, 0x60000000 */
 efx  =  1.28379167095512586316e-01, /* 0x3FC06EBA, 0x8214DB69 */
 efx8 =  1.02703333676410069053e+00; /* 0x3FF06EBA, 0x8214DB69 */
 
 double erf(double x)
 {
-    int32_t hx, ix, i;
+    int32_t hx, ix;
     double R, S, P, Q, s, z, r;
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
-    if (ix >= 0x7ff00000) {               /* erf(nan)=nan */
-        i = ((uint32_t)hx >> 31) << 1;
-        return (double)(1 - i) + one / x; /* erf(+-inf)=+-1 */
+    if (ix >= 0x7ff00000) {
+        if (isnan(x)) {         /* erf(nan) = nan */
+            return x + x;
+        } else if (hx > 0) {    /* erf(+inf) = +1 */
+            return 1.0;
+        } else {                /* erf(-inf) = -1 */
+            return -1.0;
+        }
     }
 
     if (ix < 0x3feb0000) {                /* |x|<0.84375 */
@@ -190,9 +194,9 @@ double erf(double x)
 
     if (ix >= 0x40180000) {               /* inf>|x|>=6 */
         if (hx >= 0) {
-            return one - tiny;
+            return __raise_inexact(one);
         } else {
-            return tiny - one;
+            return -__raise_inexact(one);
         }
     }
 

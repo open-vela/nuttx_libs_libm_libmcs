@@ -7,7 +7,6 @@
 #include "internal/errorfunctionf.h"
 
 static const float
-tiny =  1e-30,
 half =  5.0000000000e-01, /* 0x3F000000 */
 two  =  2.0000000000e+00, /* 0x40000000 */
 erx  =  8.4506291151e-01; /* 0x3f58560b */
@@ -19,14 +18,19 @@ float erfcf(float x)
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
-    if (!FLT_UWORD_IS_FINITE(ix)) {           /* erfc(nan)=nan */
-        /* erfc(+-inf)=0,2 */
-        return (float)(((uint32_t)hx >> 31) << 1) + one / x;
+    if (!FLT_UWORD_IS_FINITE(ix)) {
+        if (isnan(x)) {         /* erfc(nan) = nan */
+            return x + x;
+        } else if (hx > 0) {    /* erfc(+inf) = 0 */
+            return 0.0f;
+        } else {                /* erfc(-inf) = 2 */
+            return two;
+        }
     }
 
     if (ix < 0x3f580000) {       /* |x|<0.84375 */
         if (ix < 0x23800000) {   /* |x|<2**-56 */
-            return one - x;
+            return __raise_inexactf(one);
         }
 
         y = __erff_y(x);
@@ -63,7 +67,7 @@ float erfcf(float x)
             S = __erff_Sa(s);
         } else {            /* |x| >= 1/.35 ~ 2.857143 */
             if (hx < 0 && ix >= 0x40c00000) {
-                return two - tiny;    /* x < -6 */
+                return __raise_inexactf(two);    /* x < -6 */
             }
 
             R = __erff_Rb(s);
@@ -81,9 +85,9 @@ float erfcf(float x)
         }
     } else {
         if (hx > 0) {
-            return tiny * tiny; /* Replaced __math_uflowf(0); */
+            return __raise_underflowf(0.0f);
         } else {
-            return two - tiny;
+            return __raise_inexactf(two);
         }
     }
 }

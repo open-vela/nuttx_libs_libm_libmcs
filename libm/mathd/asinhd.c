@@ -53,8 +53,7 @@ Neither <<asinh>> nor <<asinhf>> are ANSI C.
 
 static const double
 one  =  1.00000000000000000000e+00, /* 0x3FF00000, 0x00000000 */
-ln2  =  6.93147180559945286227e-01, /* 0x3FE62E42, 0xFEFA39EF */
-huge =  1.00000000000000000000e+300;
+ln2  =  6.93147180559945286227e-01; /* 0x3FE62E42, 0xFEFA39EF */
 
 double asinh(double x)
 {
@@ -68,8 +67,10 @@ double asinh(double x)
     }
 
     if (ix < 0x3e300000) {  /* |x|<2**-28 */
-        if (huge + x > one) {
-            return x;    /* return x inexact except 0 */
+        if (x == 0.0) {     /* return x inexact except 0 */
+            return x;
+        } else {
+            return __raise_inexact(x);
         }
     }
 

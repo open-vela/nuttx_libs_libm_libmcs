@@ -105,7 +105,13 @@ long int lround(double x)
                      | SAFE_RIGHT_SHIFT(tmp, (52 - exponent_less_1023));
         }
     } else {   /* Result is too large to be represented by a long int. */
-        return (long int)x;
+        (void) __raise_invalid(x);
+        if (sign == -1) {
+            return __MIN_LONG;
+        }
+        else {
+            return __MAX_LONG;
+        }
     }
 
     return sign * result;

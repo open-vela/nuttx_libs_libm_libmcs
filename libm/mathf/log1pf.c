@@ -8,8 +8,7 @@
 
 static const float
 ln2_hi = 6.9313812256e-01, /* 0x3f317180 */
-ln2_lo = 9.0580006145e-06, /* 0x3717f7d1 */
-two25  = 3.355443200e+07;  /* 0x4c000000 */
+ln2_lo = 9.0580006145e-06; /* 0x3717f7d1 */
 
 static const float zero = 0.0;
 
@@ -23,25 +22,24 @@ float log1pf(float x)
 
     k = 1;
 
-    if (!FLT_UWORD_IS_FINITE(hx)) {
+    if (!FLT_UWORD_IS_FINITE(hx)) { /* x = NaN/+-Inf */
         return x + x;
     }
 
     if (hx < 0x3ed413d7) {          /* x < 0.41422  */
         if (ax >= 0x3f800000) {     /* x <= -1.0 */
             if (x == (float) -1.0) {
-                return -two25/zero; /* Replaced __math_divzerof(1); */ /* log1p(-1)=-inf */
+                return __raise_div_by_zerof(-1.0f); /* log1p(-1)=-inf */
             } else {
-                return (x-x)/(x-x); /* Replaced __math_invalidf(x); */ /* log1p(x<-1)=NaN */
+                return __raise_invalidf();          /* log1p(x<-1)=NaN */
             }
         }
 
-        if (ax < 0x31000000) {         /* |x| < 2**-29 */
-            if (two25 + x > zero       /* raise inexact */
-                && ax < 0x24800000) {  /* |x| < 2**-54 */
-                return x;
+        if (ax < 0x31000000) {      /* |x| < 2**-29 */
+            if (ax < 0x24800000) {  /* |x| < 2**-54 */
+                return __raise_inexactf(x);
             } else {
-                return x - x * x * (float)0.5;
+                return __raise_inexactf(x - x * x * 0.5f);
             }
         }
 

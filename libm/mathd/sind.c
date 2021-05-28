@@ -89,9 +89,11 @@ double sin(double x)
 
     if (ix <= 0x3fe921fb) {
         if(ix < 0x3e500000) {      /* |x| < 2**-26 */
-           if(((int)x) == 0) {
-               return x;           /* generate inexact */
-           }
+            if (x == 0.0) {        /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
+            }
         }
         
         return __sin(x, z, 0);
@@ -99,7 +101,11 @@ double sin(double x)
 
     /* sin(Inf or NaN) is NaN */
     else if (ix >= 0x7ff00000) {
-        return x - x;
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalid();
+        }
     }
 
     /* argument reduction needed */

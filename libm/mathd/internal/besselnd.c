@@ -253,16 +253,16 @@ double __yn(int n, double x)
     ix = 0x7fffffff & hx;
 
     /* if Y(n,NaN) is NaN */
-    if ((ix | ((uint32_t)(lx | -lx)) >> 31) > 0x7ff00000) {
+    if (isnan(x)) {         /* yn(n,NaN) = NaN */
         return x + x;
     }
 
-    if ((ix | lx) == 0) {
-        return -one / zero;
+    if ((ix | lx) == 0) {   /* yn(n,+-0) = +Inf */
+        return __raise_div_by_zero(-1.0);
     }
 
-    if (hx < 0) {
-        return zero / zero;
+    if (hx < 0) {           /* yn(n,<0) = NaN, y1(n,-Inf) = NaN */
+        return __raise_invalid();
     }
 
     sign = 1;
@@ -280,7 +280,7 @@ double __yn(int n, double x)
         return (sign * y1(x));
     }
 
-    if (ix == 0x7ff00000) {
+    if (ix == 0x7ff00000) { /* yn(n,+Inf) = +0.0 */
         return zero;
     }
 

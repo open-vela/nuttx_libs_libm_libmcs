@@ -87,9 +87,7 @@ static const double aT[] = {
      1.62858201153657823623e-02, /* 0x3F90AD3A, 0xE322DA11 */
 };
 
-static const double
-one   = 1.0,
-huge   = 1.0e300;
+static const double one = 1.0;
 
 double atan(double x)
 {
@@ -99,13 +97,13 @@ double atan(double x)
     GET_HIGH_WORD(hx, x);
     ix = hx & 0x7fffffff;
 
-    if (ix >= 0x44100000) {           /* if |x| >= 2^66       */
+    if (ix >= 0x44100000) {            /* if |x| >= 2^66       */
         uint32_t low;
         GET_LOW_WORD(low, x);
 
         if (ix > 0x7ff00000 ||
             (ix == 0x7ff00000 && (low != 0))) {
-            return x + x;             /* NaN                  */
+            return x + x;              /* NaN                  */
         }
 
         if (hx > 0) {
@@ -115,10 +113,12 @@ double atan(double x)
         }
     }
 
-    if (ix < 0x3fdc0000) {            /* |x| < 0.4375         */
-        if (ix < 0x3e400000) {        /* |x| < 2^-27          */
-            if (huge + x > one) {
-                return x;             /* raise inexact        */
+    if (ix < 0x3fdc0000) {             /* |x| < 0.4375         */
+        if (ix < 0x3e400000) {         /* |x| < 2^-27          */
+            if (x == 0.0) {            /* return x inexact except 0 */
+                return x;
+            } else {
+                return __raise_inexact(x);
             }
         }
 
@@ -126,19 +126,19 @@ double atan(double x)
     } else {
         x = fabs(x);
 
-        if (ix < 0x3ff30000) {        /* |x| < 1.1875         */
-            if (ix < 0x3fe60000) {    /* 7/16 <=|x|<11/16     */
+        if (ix < 0x3ff30000) {         /* |x| < 1.1875         */
+            if (ix < 0x3fe60000) {     /* 7/16 <=|x|<11/16     */
                 id = 0;
                 x = (2.0 * x - one) / (2.0 + x);
-            } else {                  /* 11/16<=|x|< 19/16    */
+            } else {                   /* 11/16<=|x|< 19/16    */
                 id = 1;
                 x  = (x - one) / (x + one);
             }
         } else {
-            if (ix < 0x40038000) {    /* |x| < 2.4375         */
+            if (ix < 0x40038000) {     /* |x| < 2.4375         */
                 id = 2;
                 x  = (x - 1.5) / (one + 1.5 * x);
-            } else {                  /* 2.4375 <= |x| < 2^66 */
+            } else {                   /* 2.4375 <= |x| < 2^66 */
                 id = 3;
                 x  = -1.0 / x;
             }
