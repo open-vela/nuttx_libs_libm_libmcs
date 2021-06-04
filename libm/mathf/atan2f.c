@@ -37,6 +37,7 @@ float atan2f(float y, float x)
     /* when y = 0 */
     if (FLT_UWORD_IS_ZERO(iy)) {
         switch (m) {
+        default:
         case 0:
         case 1:
             return y;          /* atan(+-0,+anything)=+-0 */
@@ -58,6 +59,7 @@ float atan2f(float y, float x)
     if (FLT_UWORD_IS_INFINITE(ix)) {
         if (FLT_UWORD_IS_INFINITE(iy)) {
             switch (m) {
+            default:
             case 0:
                 return  pi_o_4 + tiny;               /* atan(+INF,+INF) */
 
@@ -72,6 +74,7 @@ float atan2f(float y, float x)
             }
         } else {
             switch (m) {
+            default:
             case 0:
                 return  zero  ;                      /* atan(+...,+INF) */
 

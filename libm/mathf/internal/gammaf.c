@@ -230,6 +230,7 @@ float __lgammaf(float x, int *signgamp)
         }
 
         switch (i) {
+        default:
         case 0:
             z = y * y;
             p1 = a0 + z * (a2 + z * (a4 + z * (a6 + z * (a8 + z * a10))));
@@ -262,6 +263,7 @@ float __lgammaf(float x, int *signgamp)
         z = one;    /* lgamma(1+s) = log(s) + lgamma(s) */
 
         switch (i) {
+        default:
         case 7:
             z *= (y + (float)6.0);  /* FALLTHRU */
 

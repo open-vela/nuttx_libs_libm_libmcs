@@ -142,6 +142,7 @@ int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
 
             if (q0 > 0) {     /* rare case: chance is 1 in 12 */
                 switch (q0) {
+                default:
                 case 1:
                     iq[jz - 1] &= 0x7f;
                     break;
