@@ -19,30 +19,30 @@ float nextafterf(float x, float y)
     }
 
     if (x == y) {
-        return x;    /* x=y, return x */
+        return x;                      /* x=y, return x */
     }
 
     if (FLT_UWORD_IS_ZERO(ix)) {       /* x == 0 */
-        SET_FLOAT_WORD(x, (hy & 0x80000000) | FLT_UWORD_MIN);
+        SET_FLOAT_WORD(x, (hy & 0x80000000U) | FLT_UWORD_MIN);
         y = x * x;
 
         if (y == x) {
             return y;
         } else {
-            return x;    /* raise underflow flag */
+            return x;                  /* raise underflow flag */
         }
     }
 
-    if (hx >= 0) {             /* x > 0 */
-        if (hx > hy) {             /* x > y, x -= ulp */
+    if (hx >= 0) {                     /* x > 0 */
+        if (hx > hy) {                 /* x > y, x -= ulp */
             hx -= 1;
-        } else {                /* x < y, x += ulp */
+        } else {                       /* x < y, x += ulp */
             hx += 1;
         }
-    } else {                /* x < 0 */
-        if (hy >= 0 || hx > hy) {    /* x < y, x -= ulp */
+    } else {                           /* x < 0 */
+        if (hy >= 0 || hx > hy) {      /* x < y, x -= ulp */
             hx -= 1;
-        } else {                /* x > y, x += ulp */
+        } else {                       /* x > y, x += ulp */
             hx += 1;
         }
     }
@@ -50,13 +50,13 @@ float nextafterf(float x, float y)
     hy = hx & 0x7f800000;
 
     if (hy > FLT_UWORD_MAX) {
-        return __raise_overflowf(x); /* overflow if x is finite */
+        return __raise_overflowf(x);  /* overflow if x is finite */
     }
 
-    if (hy < 0x00800000) {     /* underflow */
+    if (hy < 0x00800000) {            /* underflow */
         y = x * x;
 
-        if (y != x) {     /* raise underflow flag */
+        if (y != x) {                 /* raise underflow flag */
             SET_FLOAT_WORD(y, hx);
             return y;
         }

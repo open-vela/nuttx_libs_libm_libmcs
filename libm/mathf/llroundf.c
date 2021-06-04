@@ -14,7 +14,7 @@ long long int llroundf(float x)
 
     GET_FLOAT_WORD(w, x);
     exponent_less_127 = ((w & 0x7f800000) >> 23) - 127;
-    sign = (w & 0x80000000) != 0 ? -1 : 1;
+    sign = (w & 0x80000000U) != 0 ? -1 : 1;
     w &= 0x7fffff;
     w |= 0x800000;
 

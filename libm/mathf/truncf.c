@@ -13,7 +13,7 @@ float truncf(float x)
     GET_FLOAT_WORD(w, x);
 
     /* Extract sign bit. */
-    sb = w & 0x80000000;
+    sb = w & 0x80000000U;
 
     /* Extract exponent field. */
     exponent_less_127 = ((w & 0x7f800000) >> 23) - 127;

@@ -110,7 +110,7 @@ double cosh(double x)
     GET_LOW_WORD(lx, x);
 
     if (ix < 0x408633CE ||
-        (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87d)) {
+        (ix == 0x408633ce && lx <= (uint32_t)0x8fb9f87dU)) {
         w = exp(half * fabs(x));
         t = half * w;
         return t * w;

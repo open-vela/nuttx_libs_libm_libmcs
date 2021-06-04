@@ -67,7 +67,7 @@ float asinf(float x)
         int32_t iw;
         w  = s;
         GET_FLOAT_WORD(iw, w);
-        SET_FLOAT_WORD(w, iw & 0xfffff000);
+        SET_FLOAT_WORD(w, iw & 0xfffff000U);
         c  = (t - w * w) / (s + w);
         r  = p / q;
         p  = (float)2.0 * s * r - (pio2_lo - (float)2.0 * c);

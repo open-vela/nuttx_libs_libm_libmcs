@@ -60,7 +60,7 @@ double __jn(int n, double x)
     if (n < 0) {
         n = -n;
         x = -x;
-        hx ^= 0x80000000;
+        hx ^= 0x80000000U;
     }
 
     if (n == 0) {
@@ -324,7 +324,7 @@ double __yn(int n, double x)
         /* quit if b is -inf */
         GET_HIGH_WORD(high, b);
 
-        for (i = 1; i < n && high != 0xfff00000; i++) {
+        for (i = 1; i < n && high != 0xfff00000U; i++) {
             temp = b;
             b = ((double)(i + i) / x) * b - a;
             GET_HIGH_WORD(high, b);

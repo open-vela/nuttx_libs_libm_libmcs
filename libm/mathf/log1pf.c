@@ -43,7 +43,7 @@ float log1pf(float x)
             }
         }
 
-        if (hx > 0 || hx <= ((int32_t)0xbe95f61f)) {
+        if (hx > 0 || hx <= ((int32_t)0xbe95f61fU)) {
             k = 0;
             f = x;
             hu = 1;

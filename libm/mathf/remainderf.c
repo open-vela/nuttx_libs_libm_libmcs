@@ -15,7 +15,7 @@ float remainderf(float x, float p)
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hp, p);
-    sx = hx & 0x80000000;
+    sx = hx & 0x80000000U;
     hp &= 0x7fffffff;
     hx &= 0x7fffffff;
 

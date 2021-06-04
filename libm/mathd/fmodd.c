@@ -57,7 +57,7 @@ double fmod(double x, double y)
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
-    sx = hx & 0x80000000;      /* sign of x */
+    sx = hx & 0x80000000U;     /* sign of x */
     hx ^= sx;                  /* |x| */
     hy &= 0x7fffffff;          /* |y| */
 

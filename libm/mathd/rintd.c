@@ -83,7 +83,7 @@ double rint(double x)
             }
 
             i1 |= (i0 & 0x0fffff);
-            i0 &= 0xfffe0000;
+            i0 &= 0xfffe0000U;
             i0 |= ((i1 | -i1) >> 12) & 0x80000;
             SET_HIGH_WORD(x, i0);
             w = TWO52[sx] + x;
@@ -103,7 +103,7 @@ double rint(double x)
             if (((i0 & i) | i1) != 0) {
                 /* 2nd or any later bit after radix is set */
                 if (j0 == 19) {
-                    i1 = 0x80000000;
+                    i1 = 0x80000000U;
                 } else {
                     i1 = 0;
                 }
@@ -118,7 +118,7 @@ double rint(double x)
             return x;                  /* x is integral */
         }
     } else {
-        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)0xffffffffU) >> (j0 - 20);
 
         if ((i1 & i) == 0) {
             return x;                  /* x is integral */

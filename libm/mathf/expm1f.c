@@ -26,7 +26,7 @@ float expm1f(float x)
     GET_FLOAT_WORD(hx, x);
     xsb = hx & 0x80000000;      /* sign bit of x */
 
-    hx &= 0x7fffffff;        /* high word of |x| */
+    hx &= 0x7fffffffU;          /* high word of |x| */
 
     /* filter out huge and non-finite argument */
     if (hx >= 0x4195b844) {           /* if |x|>=27*ln2 */

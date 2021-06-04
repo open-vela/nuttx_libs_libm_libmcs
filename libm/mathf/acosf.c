@@ -38,7 +38,7 @@ float acosf(float x)
         if (isnan(x)) {
             return x + x;
         }
-        
+
         return __raise_invalidf();  /* acos(|x|>1) is NaN */
     }
 
@@ -66,7 +66,7 @@ float acosf(float x)
         s = sqrtf(z);
         df = s;
         GET_FLOAT_WORD(idf, df);
-        SET_FLOAT_WORD(df, idf & 0xfffff000);
+        SET_FLOAT_WORD(df, idf & 0xfffff000U);
         c  = (z - df * df) / (s + df);
         p = z * (pS0 + z * (pS1 + z * (pS2 + z * (pS3 + z * (pS4 + z * pS5)))));
         q = one + z * (qS1 + z * (qS2 + z * (qS3 + z * qS4)));

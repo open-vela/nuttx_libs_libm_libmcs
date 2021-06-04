@@ -13,12 +13,12 @@ float frexpf(float x, int *eptr)
 {
     int _xexp = 0;
     int32_t hx, ix;
-    
+
 	assert(eptr != (void*)0);
 	if(eptr == (void*)0) {
 	    eptr = &_xexp;
 	}
-    
+
     GET_FLOAT_WORD(hx, x);
     ix = 0x7fffffff & hx;
     *eptr = 0;
@@ -35,7 +35,7 @@ float frexpf(float x, int *eptr)
     }
 
     *eptr += (ix >> 23) - 126;
-    hx = (hx & 0x807fffff) | 0x3f000000;
+    hx = (hx & 0x807fffffU) | 0x3f000000U;
     SET_FLOAT_WORD(x, hx);
     return x;
 }

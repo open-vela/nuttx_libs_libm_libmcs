@@ -49,7 +49,7 @@ double cbrt(double x)
     uint32_t high, low;
 
     GET_HIGH_WORD(hx, x);
-    sign = hx & 0x80000000;     /* sign= sign(x) */
+    sign = hx & 0x80000000U;     /* sign= sign(x) */
     hx  ^= sign;
 
     if (hx >= 0x7ff00000) {

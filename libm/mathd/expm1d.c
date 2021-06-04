@@ -156,7 +156,7 @@ double expm1(double x)
     uint32_t hx;
 
     GET_HIGH_WORD(hx, x);
-    xsb = hx & 0x80000000;      /* sign bit of x */
+    xsb = hx & 0x80000000U;      /* sign bit of x */
 
     hx &= 0x7fffffff;        /* high word of |x| */
 

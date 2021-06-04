@@ -47,7 +47,7 @@ double trunc(double x)
     EXTRACT_WORDS(msw, lsw, x);
 
     /* Extract sign bit. */
-    sb = msw & 0x80000000;
+    sb = msw & 0x80000000U;
 
     /* Extract exponent field. */
     exponent_less_1023 = ((msw & 0x7ff00000) >> 20) - 1023;

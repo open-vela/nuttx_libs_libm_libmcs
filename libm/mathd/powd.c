@@ -360,7 +360,7 @@ double pow(double x, double y)
             }
         }
     } else if ((j & 0x7fffffff) >= 0x4090cc00) { /* z <= -1075 */
-        if (((j - 0xc090cc00) | i) != 0) {       /* z < -1075 */
+        if (((j - 0xc090cc00U) | i) != 0) {      /* z < -1075 */
             return __raise_underflow(s);
         } else {
             if (p_l <= z - p_h) {

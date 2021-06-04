@@ -164,7 +164,7 @@ float powf(float x, float y)
         v = t * ivln2_l - w * ivln2;
         t1 = u + v;
         GET_FLOAT_WORD(is, t1);
-        SET_FLOAT_WORD(t1, is & 0xfffff000);
+        SET_FLOAT_WORD(t1, is & 0xfffff000U);
         t2 = v - (t1 - u);
     } else {
         float s2, s_h, s_l, t_h, t_l;
@@ -200,7 +200,7 @@ float powf(float x, float y)
         s = u * v;
         s_h = s;
         GET_FLOAT_WORD(is, s_h);
-        SET_FLOAT_WORD(s_h, is & 0xfffff000);
+        SET_FLOAT_WORD(s_h, is & 0xfffff000U);
         /* t_h=ax+bp[k] High */
         SET_FLOAT_WORD(t_h, ((ix >> 1) | 0x20000000) + 0x0040000 + (k << 21));
         t_l = ax - (t_h - bp[k]);
@@ -212,7 +212,7 @@ float powf(float x, float y)
         s2  = s_h * s_h;
         t_h = (float)3.0 + s2 + r;
         GET_FLOAT_WORD(is, t_h);
-        SET_FLOAT_WORD(t_h, is & 0xfffff000);
+        SET_FLOAT_WORD(t_h, is & 0xfffff000U);
         t_l = r - ((t_h - (float)3.0) - s2);
         /* u+v = s*(1+...) */
         u = s_h * t_h;
@@ -220,7 +220,7 @@ float powf(float x, float y)
         /* 2/(3log2)*(s+...) */
         p_h = u + v;
         GET_FLOAT_WORD(is, p_h);
-        SET_FLOAT_WORD(p_h, is & 0xfffff000);
+        SET_FLOAT_WORD(p_h, is & 0xfffff000U);
         p_l = v - (p_h - u);
         z_h = cp_h * p_h;      /* cp_h+cp_l = 2/(3*log2) */
         z_l = cp_l * p_h + p_l * cp + dp_l[k];
@@ -228,7 +228,7 @@ float powf(float x, float y)
         t = (float)n;
         t1 = (((z_h + z_l) + dp_h[k]) + t);
         GET_FLOAT_WORD(is, t1);
-        SET_FLOAT_WORD(t1, is & 0xfffff000);
+        SET_FLOAT_WORD(t1, is & 0xfffff000U);
         t2 = z_l - (((t1 - t) - dp_h[k]) - z_h);
     }
 
@@ -240,7 +240,7 @@ float powf(float x, float y)
 
     /* split up y into y1+y2 and compute (y1+y2)*(t1+t2) */
     GET_FLOAT_WORD(is, y);
-    SET_FLOAT_WORD(y1, is & 0xfffff000);
+    SET_FLOAT_WORD(y1, is & 0xfffff000U);
     p_l = (y - y1) * t1 + y * t2;
     p_h = y1 * t1;
     z = p_l + p_h;
@@ -286,7 +286,7 @@ float powf(float x, float y)
 
     t = p_l + p_h;
     GET_FLOAT_WORD(is, t);
-    SET_FLOAT_WORD(t, is & 0xfffff000);
+    SET_FLOAT_WORD(t, is & 0xfffff000U);
     u = t * lg2_h;
     v = (p_l - (t - p_h)) * lg2 + t * lg2_l;
     z = u + v;
