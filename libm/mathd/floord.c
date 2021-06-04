@@ -75,7 +75,7 @@ double floor(double x)
             if (i0 >= 0) {
                 i0 = i1 = 0;
             } else {
-                i0 = (int32_t)0xbff00000;
+                i0 = (int32_t)0xbff00000U;
                 i1 = 0;
             }
         } else {
@@ -101,7 +101,7 @@ double floor(double x)
             return x;    /* x is integral */
         }
     } else {
-        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)0xffffffffU) >> (j0 - 20);
 
         if ((i1 & i) == 0) {
             return x;    /* x is integral */

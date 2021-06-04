@@ -52,7 +52,7 @@ double round(double x)
 
     if (exponent_less_1023 < 20) {
         if (exponent_less_1023 < 0) {
-            msw &= 0x80000000;
+            msw &= 0x80000000U;
 
             if (exponent_less_1023 == -1) {                 /* Result is +1.0 or -1.0. */
                 msw |= ((int32_t)1023 << 20);
@@ -77,7 +77,7 @@ double round(double x)
             return x;
         }
     } else {
-        uint32_t exponent_mask = 0xffffffff >> (exponent_less_1023 - 20);
+        uint32_t exponent_mask = 0xffffffffU >> (exponent_less_1023 - 20);
         uint32_t tmp;
 
         if ((lsw & exponent_mask) == 0) {                   /* x is an integral value. */

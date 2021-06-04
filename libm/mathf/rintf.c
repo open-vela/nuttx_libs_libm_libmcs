@@ -28,7 +28,7 @@ float rintf(float x)
 
         if (j0 < 0) {
             i1 = (i0 & 0x07fffff);
-            i0 &= 0xfff00000;
+            i0 &= 0xfff00000U;
             i0 |= ((i1 | -i1) >> 9) & 0x400000;
             SET_FLOAT_WORD(x, i0);
             w = TWO23[sx] + x;

@@ -19,9 +19,9 @@ float fmodf(float x, float y)
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
-    sx = hx & 0x80000000;      /* sign of x */
-    hx ^= sx;       /* |x| */
-    hy &= 0x7fffffff;    /* |y| */
+    sx = hx & 0x80000000U;      /* sign of x */
+    hx ^= sx;                   /* |x| */
+    hy &= 0x7fffffff;           /* |y| */
 
     /* purge off exception values */
     if (!FLT_UWORD_IS_FINITE(hx) || !FLT_UWORD_IS_FINITE(hy)) {     /* x or y is +-Inf/NaN */

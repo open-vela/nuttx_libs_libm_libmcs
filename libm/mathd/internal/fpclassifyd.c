@@ -10,19 +10,19 @@ int __fpclassifyd(double x)
 
     EXTRACT_WORDS(msw, lsw, x);
 
-    if ((msw == 0x00000000 && lsw == 0x00000000) ||
-        (msw == 0x80000000 && lsw == 0x00000000)) {
+    if ((msw == 0x00000000U && lsw == 0x00000000U) ||
+        (msw == 0x80000000U && lsw == 0x00000000U)) {
         return FP_ZERO;
-    } else if ((msw >= 0x00100000 && msw <= 0x7fefffff) ||
-               (msw >= 0x80100000 && msw <= 0xffefffff)) {
+    } else if ((msw >= 0x00100000U && msw <= 0x7fefffffU) ||
+               (msw >= 0x80100000U && msw <= 0xffefffffU)) {
         return FP_NORMAL;
-    } else if ((msw <= 0x000fffff) ||
-               (msw >= 0x80000000 && msw <= 0x800fffff))
+    } else if ((msw <= 0x000fffffU) ||
+               (msw >= 0x80000000U && msw <= 0x800fffffU))
         /* zero is already handled above */
     {
         return FP_SUBNORMAL;
-    } else if ((msw == 0x7ff00000 && lsw == 0x00000000) ||
-               (msw == 0xfff00000 && lsw == 0x00000000)) {
+    } else if ((msw == 0x7ff00000U && lsw == 0x00000000U) ||
+               (msw == 0xfff00000U && lsw == 0x00000000U)) {
         return FP_INFINITE;
     } else {
         return FP_NAN;

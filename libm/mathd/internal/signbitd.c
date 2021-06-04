@@ -40,5 +40,5 @@ int __signbitd(double x)
 
     GET_HIGH_WORD(msw, x);
 
-    return (msw & 0x80000000) != 0;
+    return (msw & 0x80000000U) != 0;
 }

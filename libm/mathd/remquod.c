@@ -77,17 +77,17 @@ remquo(double x, double y, int *quo)
     int _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz, q, sxy;
-    
+
 	assert(quo != (void*)0);
 	if(quo == (void*)0) {
 	    quo = &_quo;
 	}
     *quo = 0;
-    
+
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
-    sxy = (hx ^ hy) & 0x80000000;
-    sx = hx & 0x80000000;      /* sign of x */
+    sxy = (hx ^ hy) & 0x80000000U;
+    sx = hx & 0x80000000U;     /* sign of x */
     hx ^= sx;                  /* |x| */
     hy &= 0x7fffffff;          /* |y| */
 

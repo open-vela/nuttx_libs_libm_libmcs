@@ -27,7 +27,7 @@ float cbrtf(float x)
     uint32_t high;
 
     GET_FLOAT_WORD(hx, x);
-    sign = hx & 0x80000000;     /* sign= sign(x) */
+    sign = hx & 0x80000000U;     /* sign= sign(x) */
     hx  ^= sign;
 
     if (!FLT_UWORD_IS_FINITE(hx)) {

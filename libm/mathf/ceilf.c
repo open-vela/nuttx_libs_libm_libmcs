@@ -22,7 +22,7 @@ float ceilf(float x)
             (void) __raise_inexactf(x); /* raise inexact flag */
 
             if (i0 < 0) {
-                i0 = (int32_t)0x80000000;
+                i0 = (int32_t)0x80000000U;
             } else {
                 i0 = 0x3f800000;
             }
@@ -34,7 +34,7 @@ float ceilf(float x)
             }
 
             (void) __raise_inexactf(x); /* raise inexact flag */
-        
+
             if (i0 > 0) {
                 i0 += (0x00800000) >> j0;
             }

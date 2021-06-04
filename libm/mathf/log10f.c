@@ -57,7 +57,7 @@ float log10f(float x)
     r = __log1pmff(f);
     hi = f - hfsq;
     GET_FLOAT_WORD(hx, hi);
-    SET_FLOAT_WORD(hi, hx & 0xfffff000);
+    SET_FLOAT_WORD(hi, hx & 0xfffff000U);
     lo = (f - hi) - hfsq + r;
     return y * log10_2lo + (lo + hi) * ivln10lo + lo * ivln10hi + hi * ivln10hi + y * log10_2hi;
 }

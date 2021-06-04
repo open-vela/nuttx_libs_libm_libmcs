@@ -71,11 +71,11 @@ float __tanf(float x, float y, int iy)
         int32_t i;
         z  = w;
         GET_FLOAT_WORD(i, z);
-        SET_FLOAT_WORD(z, i & 0xfffff000);
+        SET_FLOAT_WORD(z, i & 0xfffff000U);
         v  = r - (z - x);   /* z+v = r+x */
         t = a  = -(float)1.0 / w;  /* a = -1.0/w */
         GET_FLOAT_WORD(i, t);
-        SET_FLOAT_WORD(t, i & 0xfffff000);
+        SET_FLOAT_WORD(t, i & 0xfffff000U);
         s  = (float)1.0 + t * z;
         return t + a * (s + t * v);
     }

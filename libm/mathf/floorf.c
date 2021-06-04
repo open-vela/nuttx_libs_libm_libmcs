@@ -33,7 +33,7 @@ float floorf(float x)
             if (i0 >= 0) {
                 i0 = 0;
             } else {
-                i0 = (int32_t)0xbf800000;
+                i0 = (int32_t)0xbf800000U;
             }
         } else {
             i = (0x007fffff) >> j0;
@@ -43,7 +43,7 @@ float floorf(float x)
             }
 
             (void) __raise_inexactf(x);
-            
+
             if (i0 < 0) {
                 i0 += (0x00800000) >> j0;
             }

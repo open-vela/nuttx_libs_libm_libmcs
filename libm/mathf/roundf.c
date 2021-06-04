@@ -17,7 +17,7 @@ float roundf(float x)
 
     if (exponent_less_127 < 23) {
         if (exponent_less_127 < 0) {
-            w &= 0x80000000;
+            w &= 0x80000000U;
 
             if (exponent_less_127 == -1)
                 /* Result is +1.0 or -1.0. */
