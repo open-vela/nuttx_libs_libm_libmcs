@@ -253,6 +253,7 @@ float __lgammaf(float x, int *signgamp)
             p1 = y * (u0 + y * (u1 + y * (u2 + y * (u3 + y * (u4 + y * u5)))));
             p2 = one + y * (v1 + y * (v2 + y * (v3 + y * (v4 + y * v5))));
             r += (-(float)0.5 * y + p1 / p2);
+            break;
         }
     } else if (ix < 0x41000000) {        /* x < 8.0 */
         i = (int32_t)x;
