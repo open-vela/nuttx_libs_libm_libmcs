@@ -38,7 +38,7 @@ ANSI C, POSIX
 
 double trunc(double x)
 {
-    int signbit;
+    int sb;
     /* Most significant word, least significant word. */
     int msw;
     unsigned int lsw;
@@ -47,7 +47,7 @@ double trunc(double x)
     EXTRACT_WORDS(msw, lsw, x);
 
     /* Extract sign bit. */
-    signbit = msw & 0x80000000;
+    sb = msw & 0x80000000;
 
     /* Extract exponent field. */
     exponent_less_1023 = ((msw & 0x7ff00000) >> 20) - 1023;
@@ -56,10 +56,10 @@ double trunc(double x)
         /* All significant digits are in msw. */
         if (exponent_less_1023 < 0) {
             /* -1 < x < 1, so result is +0 or -0. */
-            INSERT_WORDS(x, signbit, 0);
+            INSERT_WORDS(x, sb, 0);
         } else {
             /* All relevant fraction bits are in msw, so lsw of the result is 0. */
-            INSERT_WORDS(x, signbit | (msw & ~(0x000fffff >> exponent_less_1023)), 0);
+            INSERT_WORDS(x, sb | (msw & ~(0x000fffff >> exponent_less_1023)), 0);
         }
     } else if (exponent_less_1023 > 51) {
         if (exponent_less_1023 == 1024) {
