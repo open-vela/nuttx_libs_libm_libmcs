@@ -156,7 +156,7 @@ double sqrt(double x)
     m -= 1023;    /* unbias exponent */
     ix0 = (ix0 & 0x000fffff) | 0x00100000;
 
-    if (m & 1) { /* odd m, double x to make it even */
+    if (0 < (m & 1)) { /* odd m, double x to make it even */
         ix0 += ix0 + (int32_t)((ix1 & (uint32_t)sign) >> 31U);
         ix1 += ix1;
     }

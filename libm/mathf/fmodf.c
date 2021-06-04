@@ -80,7 +80,7 @@ float fmodf(float x, float y)
     /* fix point fmod */
     n = ix - iy;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
 
         if (hz < 0) {

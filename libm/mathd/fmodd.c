@@ -144,7 +144,7 @@ double fmod(double x, double y)
     /* fix point fmod */
     n = ix - iy;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
         lz = lx - ly;
 
