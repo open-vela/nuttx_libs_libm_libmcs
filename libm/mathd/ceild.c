@@ -31,7 +31,7 @@ double ceil(double x)
             (void) __raise_inexact(x);
             
             if (i0 < 0) { /* return 0*sign(x) if |x|<1 */
-                i0 = (int32_t)0x80000000;
+                i0 = (int32_t)0x80000000U;
                 i1 = 0;
             } else {
                 i0 = 0x3ff00000;
@@ -60,7 +60,7 @@ double ceil(double x)
             return x;    /* x is integral */
         }
     } else {
-        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)0xffffffffU) >> (j0 - 20);
 
         if ((i1 & i) == 0) {
             return x;    /* x is integral */

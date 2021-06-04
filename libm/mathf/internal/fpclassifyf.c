@@ -10,15 +10,15 @@ int __fpclassifyf(float x)
 
     GET_FLOAT_WORD(w, x);
 
-    if (w == 0x00000000 || w == 0x80000000) {
+    if (w == 0x00000000U || w == 0x80000000U) {
         return FP_ZERO;
-    } else if ((w >= 0x00800000 && w <= 0x7f7fffff) ||
-               (w >= 0x80800000 && w <= 0xff7fffff)) {
+    } else if ((w >= 0x00800000U && w <= 0x7f7fffffU) ||
+               (w >= 0x80800000U && w <= 0xff7fffffU)) {
         return FP_NORMAL;
-    } else if ((w <= 0x007fffff) ||
-               (w >= 0x80000001 && w <= 0x807fffff)) {
+    } else if ((w <= 0x007fffffU) ||
+               (w >= 0x80000001U && w <= 0x807fffffU)) {
         return FP_SUBNORMAL;
-    } else if (w == 0x7f800000 || w == 0xff800000) {
+    } else if (w == 0x7f800000U || w == 0xff800000U) {
         return FP_INFINITE;
     } else {
         return FP_NAN;

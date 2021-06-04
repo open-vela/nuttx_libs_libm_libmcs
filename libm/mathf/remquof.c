@@ -28,7 +28,7 @@ float remquof(float x, float y, int *quo)
     int _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
-    
+
 	assert(quo != (void*)0);
 	if(quo == (void*)0) {
 	    quo = &_quo;
@@ -37,10 +37,10 @@ float remquof(float x, float y, int *quo)
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
-    sxy = (hx ^ hy) & 0x80000000;
-    sx = hx & 0x80000000;      /* sign of x */
-    hx ^= sx;       /* |x| */
-    hy &= 0x7fffffff;    /* |y| */
+    sxy = (hx ^ hy) & 0x80000000U;
+    sx = hx & 0x80000000U;          /* sign of x */
+    hx ^= sx;                       /* |x| */
+    hy &= 0x7fffffff;               /* |y| */
 
     /* purge off exception values */
     if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hy)) {                 /* x or y is NaN */

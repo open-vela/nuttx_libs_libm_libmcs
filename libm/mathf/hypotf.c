@@ -74,12 +74,12 @@ float hypotf(float x, float y)
     w = a - b;
 
     if (w > b) {
-        SET_FLOAT_WORD(t1, ha & 0xfffff000L);
+        SET_FLOAT_WORD(t1, ha & 0xfffff000UL);
         t2 = a - t1;
         w  = sqrtf(t1 * t1 - (b * (-b) - t2 * (a + t1)));
     } else {
         a  = a + a;
-        SET_FLOAT_WORD(y1, hb & 0xfffff000L);
+        SET_FLOAT_WORD(y1, hb & 0xfffff000UL);
         y2 = b - y1;
         SET_FLOAT_WORD(t1, (ha + 0x00800000L) & 0xfffff000UL);
         t2 = a - t1;

@@ -40,7 +40,7 @@ float scalblnf(float x, long int n)
     }
 
     if (k > 0) {               /* normal result */
-        SET_FLOAT_WORD(x, (ix & 0x807fffff) | (k << 23));
+        SET_FLOAT_WORD(x, (ix & 0x807fffffU) | (k << 23U));
         return x;
     }
 
@@ -49,7 +49,7 @@ float scalblnf(float x, long int n)
     }
 
     k += 25;                /* subnormal result */
-    SET_FLOAT_WORD(x, (ix & 0x807fffff) | (k << 23));
+    SET_FLOAT_WORD(x, (ix & 0x807fffffU) | (k << 23U));
     return x * twom25;
 }
 

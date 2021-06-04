@@ -48,7 +48,7 @@ double scalbln(double x, long int n)
     }
 
     if (k > 0) {                    /* normal result */
-        SET_HIGH_WORD(x, (hx & 0x800fffff) | (k << 20));
+        SET_HIGH_WORD(x, (hx & 0x800fffffU) | (k << 20U));
         return x;
     }
 
@@ -57,7 +57,7 @@ double scalbln(double x, long int n)
     }
 
     k += 54;                        /* subnormal result */
-    SET_HIGH_WORD(x, (hx & 0x800fffff) | (k << 20));
+    SET_HIGH_WORD(x, (hx & 0x800fffffU) | (k << 20U));
     return x * twom54;
 }
 
