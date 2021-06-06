@@ -42,20 +42,20 @@ PORTABILITY
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-double ldexp(double value, int exp)
+double ldexp(double value, int exponent)
 {
     if (!isfinite(value) || value == 0.0) {
         return value;
     }
 
-    return scalbn(value, exp);
+    return scalbn(value, exponent);
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
-long double ldexpl(long double value, int exp)
+long double ldexpl(long double value, int exponent)
 {
-    return (long double) ldexp((double) value, exp);
+    return (long double) ldexp((double) value, exponent);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */

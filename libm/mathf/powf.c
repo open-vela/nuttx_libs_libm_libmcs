@@ -39,7 +39,7 @@ ivln2_l  =  7.0526075433e-06; /* 0x36eca570 =1/ln2 tail*/
 float powf(float x, float y)
 {
     float z, ax, z_h, z_l, p_h, p_l;
-    float y1, t1, t2, r, s, t, u, v, w;
+    float _y1, t1, t2, r, s, t, u, v, w;
     int32_t i, j, k, yisint, n;
     int32_t hx, hy, ix, iy, is;
 
@@ -238,11 +238,11 @@ float powf(float x, float y)
         s = -one;    /* (-ve)**(odd int) */
     }
 
-    /* split up y into y1+y2 and compute (y1+y2)*(t1+t2) */
+    /* split up y into _y1+y2 and compute (_y1+y2)*(t1+t2) */
     GET_FLOAT_WORD(is, y);
-    SET_FLOAT_WORD(y1, is & 0xfffff000U);
-    p_l = (y - y1) * t1 + y * t2;
-    p_h = y1 * t1;
+    SET_FLOAT_WORD(_y1, is & 0xfffff000U);
+    p_l = (y - _y1) * t1 + y * t2;
+    p_h = _y1 * t1;
     z = p_l + p_h;
     GET_FLOAT_WORD(j, z);
     i = j & 0x7fffffff;

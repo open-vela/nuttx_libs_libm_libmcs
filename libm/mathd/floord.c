@@ -59,74 +59,74 @@ PORTABILITY
 
 double floor(double x)
 {
-    int32_t i0, i1, j0;
+    int32_t _i0, _i1, _j0;
     uint32_t i, j;
-    EXTRACT_WORDS(i0, i1, x);
-    j0 = ((i0 >> 20) & 0x7ff) - 0x3ff;
+    EXTRACT_WORDS(_i0, _i1, x);
+    _j0 = ((_i0 >> 20) & 0x7ff) - 0x3ff;
 
-    if (j0 < 20) {
-        if (j0 < 0) {  /* raise inexact if x != 0 */
-            if ((i0 | i1) == 0) {
+    if (_j0 < 20) {
+        if (_j0 < 0) {  /* raise inexact if x != 0 */
+            if ((_i0 | _i1) == 0) {
                 return x;
             }
 
             (void) __raise_inexact(x);
 
-            if (i0 >= 0) {
-                i0 = i1 = 0;
+            if (_i0 >= 0) {
+                _i0 = _i1 = 0;
             } else {
-                i0 = (int32_t)0xbff00000U;
-                i1 = 0;
+                _i0 = (int32_t)0xbff00000U;
+                _i1 = 0;
             }
         } else {
-            i = (0x000fffff) >> j0;
+            i = (0x000fffff) >> _j0;
 
-            if (((i0 & i) | i1) == 0) {
+            if (((_i0 & i) | _i1) == 0) {
                 return x;    /* x is integral */
             }
 
             (void) __raise_inexact(x);
-            
-            if (i0 < 0) {
-                i0 += (0x00100000) >> j0;
+
+            if (_i0 < 0) {
+                _i0 += (0x00100000) >> _j0;
             }
 
-            i0 &= (~i);
-            i1 = 0;
+            _i0 &= (~i);
+            _i1 = 0;
         }
-    } else if (j0 > 51) {
-        if (j0 == 0x400) {
+    } else if (_j0 > 51) {
+        if (_j0 == 0x400) {
             return x + x;    /* inf or NaN */
         } else {
             return x;    /* x is integral */
         }
     } else {
-        i = ((uint32_t)0xffffffffU) >> (j0 - 20);
+        i = ((uint32_t)0xffffffffU) >> (_j0 - 20);
 
-        if ((i1 & i) == 0) {
+        if ((_i1 & i) == 0) {
             return x;    /* x is integral */
         }
 
         (void) __raise_inexact(x);
-        
-        if (i0 < 0) {
-            if (j0 == 20) {
-                i0 += 1;
-            } else {
-                j = i1 + (1 << (52 - j0));
 
-                if (j < (uint32_t)i1) {
-                    i0 += 1 ;    /* got a carry */
+        if (_i0 < 0) {
+            if (_j0 == 20) {
+                _i0 += 1;
+            } else {
+                j = _i1 + (1 << (52 - _j0));
+
+                if (j < (uint32_t)_i1) {
+                    _i0 += 1 ;    /* got a carry */
                 }
 
-                i1 = j;
+                _i1 = j;
             }
         }
 
-        i1 &= (~i);
+        _i1 &= (~i);
     }
 
-    INSERT_WORDS(x, i0, i1);
+    INSERT_WORDS(x, _i0, _i1);
     return x;
 }
 
