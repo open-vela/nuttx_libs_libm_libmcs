@@ -41,7 +41,7 @@ QUICKREF
 
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
-double __ctans(double complex z)
+static inline double __ctans(double complex z)
 {
     double f, x, x2, y, y2, rn, t;
     double d;

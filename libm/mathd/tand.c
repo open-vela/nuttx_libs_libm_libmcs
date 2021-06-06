@@ -118,7 +118,7 @@ T[] =  {
      2.59073051863633712884e-05, /* 0x3EFB2A70, 0x74BF7AD4 */
 };
 
-double __tan(double x, double y, int iy)
+static inline double __tan(double x, double y, int iy)
 {
     double z, r, v, w, s;
     int32_t ix, hx;
