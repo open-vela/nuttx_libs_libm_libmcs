@@ -380,9 +380,11 @@ int32_t __rem_pio2f(float x, float *y)
      */
     if (!FLT_UWORD_IS_FINITE(ix)) {
         if (isnan(x)) {
-            y[0] = y[1] = x - x;
+            y[1] = x - x;
+            y[0] = y[1];
         } else {
-            y[0] = y[1] = __raise_invalidf();
+            y[1] = __raise_invalidf();
+            y[0] = y[1];
         }
         return 0;
     }

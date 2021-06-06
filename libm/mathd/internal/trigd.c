@@ -477,9 +477,11 @@ int32_t __rem_pio2(double x, double *y)
      */
     if (ix >= 0x7ff00000) {     /* x is inf or NaN */
         if (isnan(x)) {
-            y[0] = y[1] = x - x;
-        } else {
-            y[0] = y[1] = __raise_invalid();
+            y[1] = x - x;
+            y[0] = y[1];
+        else {
+            y[1] = __raise_invalid();
+            y[0] = y[1];
         }
         return 0;
     }
