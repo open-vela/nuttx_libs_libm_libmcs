@@ -108,13 +108,13 @@ long int lrint(double x)
     } else if (j0 < (int)(8 * sizeof(long int)) - 1) {
         /* 32bit return: j0 in [20,30] */
         /* 64bit return: j0 in [20,62] */
-        if (j0 >= 52)
+        if (j0 >= 52) {
             /* 64bit return: j0 in [52,62] */
             /* 64bit return: left shift amt in [32,42] */
             result = ((long int)((i0 & 0x000fffff) | 0x00100000) << (j0 - 20)) |
                      /* 64bit return: right shift amt in [0,10] */
                      ((long int) i1 << (j0 - 52));
-        else {
+        } else {
             /* 32bit return: j0 in [20,30] */
             /* 64bit return: j0 in [20,51] */
             w = TWO52[sx] + x;

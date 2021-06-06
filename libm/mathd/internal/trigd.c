@@ -279,7 +279,8 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
             }
 
             if (j == 0) { /* need recomputation */
-                for (k = 1; iq[jk - k] == 0; k++); /* k = no. of terms needed */
+                for (k = 1; iq[jk - k] == 0; k++) { /* k = no. of terms needed */
+                }
 
                 for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
                     f[jx + i] = (double) ipio2[jv + i];
@@ -301,9 +302,10 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
     if (z == 0.0) {
         q0 -= 24;
 
-        for (jz -= 1; jz>=0; --jz)
-        {
-            if (iq[jz]!=0) break;
+        for (jz -= 1; jz>=0; --jz) {
+            if (iq[jz]!=0) {
+                break;
+            }
             q0 -= 24;
         }
     } else { /* break z into 24-bit if necessary */
@@ -498,11 +500,12 @@ int32_t __rem_pio2(double x, double *y)
     }
 
     tx[2] = z;
-    
-    for (nx = 3; nx>0; --nx) /* skip zero term */
-	{
-	    if (tx[nx-1]!=zero) break;
-	}
+
+    for (nx = 3; nx>0; --nx) { /* skip zero term */
+        if (tx[nx-1]!=zero) {
+            break;
+        }
+	  }
 
     n  =  __rem_pio2_internal(tx, y, e0, nx);
 
