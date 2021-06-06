@@ -252,6 +252,8 @@ fixup:
     } else if (x > 0.5 * y || (x == 0.5 * y && (q & 1))) {
         q++;
         x -= y;
+    } else {
+        /* No action required */
     }
 
     GET_HIGH_WORD(hx, x);

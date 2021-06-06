@@ -47,6 +47,8 @@ float remquof(float x, float y, int *quo)
         return x + y;
     } else if (FLT_UWORD_IS_ZERO(hy) || FLT_UWORD_IS_INFINITE(hx)) {    /* y is 0 or x is inf */
         return __raise_invalidf();
+    } else {
+        /* No action required */
     }
 
     if (hx < hy) {
@@ -144,6 +146,8 @@ fixup:
     } else if (x > 0.5f * y || (x == 0.5f * y && (q & 1))) {
         q++;
         x -= y;
+    } else {
+        /* No action required */
     }
 
     GET_FLOAT_WORD(hx, x);
