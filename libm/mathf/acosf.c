@@ -40,6 +40,8 @@ float acosf(float x)
         }
 
         return __raise_invalidf();  /* acos(|x|>1) is NaN */
+    } else {
+        /* No action required */
     }
 
     if (ix < 0x3f000000) { /* |x| < 0.5 */
@@ -52,7 +54,7 @@ float acosf(float x)
         q = one + z * (qS1 + z * (qS2 + z * (qS3 + z * qS4)));
         r = p / q;
         return pio2_hi - (x - (pio2_lo - x * r));
-    } else  if (hx < 0) {      /* x < -0.5 */
+    } else if (hx < 0) {      /* x < -0.5 */
         z = (one + x) * (float)0.5;
         p = z * (pS0 + z * (pS1 + z * (pS2 + z * (pS3 + z * (pS4 + z * pS5)))));
         q = one + z * (qS1 + z * (qS2 + z * (qS3 + z * qS4)));

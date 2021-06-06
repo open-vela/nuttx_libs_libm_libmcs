@@ -66,6 +66,8 @@ float expf(float x)    /* default IEEE double exp */
         x  = hi - lo;
     } else if (hx < 0x34000000)  { /* when |x|<2**-23 */
         return __raise_inexactf(one);    /* trigger inexact */
+    } else {
+        /* No action required */
     }
 
     /* x is now in primary range */

@@ -83,6 +83,8 @@ float powf(float x, float y)
             if ((j << (23 - k)) == iy) {
                 yisint = 2 - (j & 1);
             }
+        } else {
+            /* No action required */
         }
     }
 
@@ -126,6 +128,8 @@ float powf(float x, float y)
                 z = zero;
             } else if (FLT_UWORD_IS_ZERO(ix)) {
                 z = __raise_div_by_zerof(z);
+            } else {
+                /* No action required */
             }
         }
 
@@ -134,6 +138,8 @@ float powf(float x, float y)
                 z = __raise_invalidf(); /* (-1)**non-int is NaN */
             } else if (yisint == 1) {
                 z = -z;                 /* (x<0)**odd = -(|x|**odd) */
+            } else {
+                /* No action required */
             }
         }
 
@@ -254,6 +260,8 @@ float powf(float x, float y)
             if (p_l + ovt > z - p_h) {
                 return __raise_overflowf(s);  /* overflow */
             }
+        } else {
+            /* No action required */
         }
     } else {
         if (i > FLT_UWORD_EXP_MIN) {
@@ -262,6 +270,8 @@ float powf(float x, float y)
             if (p_l <= z - p_h) {
                 return __raise_underflowf(s);  /* underflow */
             }
+        } else {
+            /* No action required */
         }
     }
 

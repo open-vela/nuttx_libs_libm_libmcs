@@ -131,6 +131,8 @@ double sqrt(double x)
             return x;    /* sqrt(+-0) = +-0 */
         } else if (ix0 < 0) {
             return __raise_invalid();    /* sqrt(-ve) = sNaN */
+        } else {
+            /* No action required */
         }
     }
 

@@ -51,6 +51,8 @@ float asinf(float x)
             w = p / q;
             return x + x * w;
         }
+    } else {
+        /* No action required */
     }
 
     /* 1> |x|>= 0.5 */

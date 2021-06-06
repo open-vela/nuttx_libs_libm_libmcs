@@ -229,6 +229,8 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
             ih = iq[jz - 1] >> 23;
         } else if (z >= 0.5) {
             ih = 2;
+        } else {
+            /* No action required */
         }
 
         if (ih > 0) { /* q > 0.5 */

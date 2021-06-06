@@ -173,7 +173,11 @@ double pow(double x, double y)
                 if ((j << (20 - k)) == iy) {
                     yisint = 2 - (j & 1);
                 }
+            } else {
+                /* No action required */
             }
+        } else {
+            /* No action required */
         }
     }
 
@@ -228,6 +232,8 @@ double pow(double x, double y)
                     z = __raise_invalid(); /* (-1)**non-int is NaN */
                 } else if (yisint == 1) {
                     z = -z;                /* (x<0)**odd = -(|x|**odd) */
+                } else {
+                    /* No action required */
                 }
             }
 
@@ -367,6 +373,8 @@ double pow(double x, double y)
                 return __raise_underflow(s);
             }
         }
+    } else {
+        /* No action required */
     }
 
     /*
