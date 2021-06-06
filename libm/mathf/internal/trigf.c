@@ -181,7 +181,8 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
             }
 
             if (j == 0) { /* need recomputation */
-                for (k = 1; iq[jk - k] == 0; k++); /* k = no. of terms needed */
+                for (k = 1; iq[jk - k] == 0; k++) { /* k = no. of terms needed */
+                }
 
                 for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
                     f[jx + i] = (float) ipio2[jv + i];
@@ -203,9 +204,10 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
     if (z == (float)0.0) {
         q0 -= 8;
 
-        for (jz -= 1; jz>=0; --jz)
-        {
-            if (iq[jz]!=0) break;
+        for (jz -= 1; jz>=0; --jz) {
+            if (iq[jz]!=0) {
+                break;
+            }
             q0 -= 8;
         }
     } else { /* break z into 8-bit if necessary */
@@ -354,7 +356,7 @@ int32_t __rem_pio2f(float x, float *y)
                 GET_FLOAT_WORD(high, y[0]);
                 i = j - ((high >> 23) & 0xff);
 
-                if (i > 25)  { /* 3rd iteration need, 74 bits acc */
+                if (i > 25) {  /* 3rd iteration need, 74 bits acc */
                     t  = r;    /* will cover all possible cases */
                     w  = fn * pio2_3;
                     r  = t - w;
@@ -366,7 +368,7 @@ int32_t __rem_pio2f(float x, float *y)
 
         y[1] = (r - y[0]) - w;
 
-        if (hx < 0)     {
+        if (hx < 0) {
             y[0] = -y[0];
             y[1] = -y[1];
             return -n;
@@ -399,10 +401,11 @@ int32_t __rem_pio2f(float x, float *y)
     }
 
     tx[2] = z;
-    
-    for (nx = 3; nx>0; --nx) /* skip zero term */
-    {
-        if (tx[nx-1]!=zero) break;
+
+    for (nx = 3; nx>0; --nx) { /* skip zero term */
+        if (tx[nx-1]!=zero) {
+            break;
+        }
     }
 
     n  =  __rem_pio2f_internal(tx, y, e0, nx);
