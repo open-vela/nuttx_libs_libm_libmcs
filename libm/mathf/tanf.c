@@ -25,7 +25,7 @@ T[]    =  {
           2.5907305826e-05, /* 0x37d95384 */
 };
 
-float __tanf(float x, float y, int iy)
+static inline float __tanf(float x, float y, int iy)
 {
     float z, r, v, w, s;
     int32_t ix, hx;
@@ -44,8 +44,8 @@ float __tanf(float x, float y, int iy)
         y = 0.0;
     }
 
-    z    =  x * x;
-    w     =  z * z;
+    z =  x * x;
+    w =  z * z;
     /* Break x^5*(T[1]+x^2*T[2]+...) into
      *      x^5(T[1]+x^4*T[3]+...+x^20*T[11]) +
      *      x^5(x^2*(T[2]+x^4*T[4]+...+x^22*[T12]))

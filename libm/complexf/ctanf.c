@@ -6,7 +6,7 @@
 
 /* Taylor series expansion for cosh(2y) - cos(2x) */
 
-float __ctansf(float complex z)
+static inline float __ctansf(float complex z)
 {
     float f, x, x2, y, y2, rn, t, d;
 
