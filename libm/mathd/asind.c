@@ -112,12 +112,12 @@ double asin(double x)
         uint32_t lx;
         GET_LOW_WORD(lx, x);
 
-        if (((ix - 0x3ff00000) | lx) == 0)
+        if (((ix - 0x3ff00000) | lx) == 0) {
             /* asin(1)=+-pi/2 with inexact */
-        {
+
             return x * pio2_hi + x * pio2_lo;
         }
-        
+
         if (isnan(x)) {
             return x + x;
         }
@@ -137,6 +137,8 @@ double asin(double x)
             w = p / q;
             return x + x * w;
         }
+    } else {
+      /* No action required */
     }
 
     /* 1> |x|>= 0.5 */

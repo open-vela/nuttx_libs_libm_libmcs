@@ -131,6 +131,8 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
             ih = iq[jz - 1] >> 7;
         } else if (z >= (float)0.5) {
             ih = 2;
+        } else {
+            /* No action required */
         }
 
         if (ih > 0) { /* q > 0.5 */

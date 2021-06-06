@@ -176,6 +176,8 @@ double exp(double x)    /* default IEEE double exp */
         x  = hi - lo;
     } else if (hx < 0x3df00000)  { /* when |x|<2**-32 */
         return __raise_inexact(one);
+    } else {
+        /* No action required */
     }
 
     /* x is now in primary range */
