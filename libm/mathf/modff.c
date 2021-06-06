@@ -12,10 +12,10 @@ float modff(float x, float *iptr)
     int32_t i0, j0;
     uint32_t i;
 
-	assert(iptr != (void*)0);
-	if(iptr == (void*)0) {
-	    iptr = &_xi;
-	}
+	  assert(iptr != (void*)0);
+	  if(iptr == (void*)0) {
+	      iptr = &_xi;
+	  }
 
     GET_FLOAT_WORD(i0, x);
     j0 = ((i0 >> 23) & 0xff) - 0x7f; /* exponent of x */
