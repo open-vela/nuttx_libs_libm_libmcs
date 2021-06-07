@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-#pragma once
+#ifndef __LIBMCS_ERRORFUNCTIOND_H
+#define __LIBMCS_ERRORFUNCTIOND_H
 
 #include <math.h>
 #include "../../common/tools.h"
@@ -116,3 +117,5 @@ static inline double __erf_Sb(double s)
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
+
+#endif /* !__LIBMCS_ERRORFUNCTIOND_H */
