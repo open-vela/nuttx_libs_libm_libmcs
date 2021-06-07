@@ -99,7 +99,7 @@ long long int llrint(double x)
         }
     }
 
-    return sx ? -result : result;
+    return (sx == 1) ? -result : result;
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
