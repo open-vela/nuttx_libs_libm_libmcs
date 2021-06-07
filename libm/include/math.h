@@ -1,5 +1,5 @@
-#ifndef _LIBMCS_MATH_H_
-#define	_LIBMCS_MATH_H_
+#ifndef LIBMCS_MATH_H
+#define	LIBMCS_MATH_H
 
 
 #ifdef __cplusplus
@@ -372,4 +372,4 @@ extern int __signbitd(double);
 }
 #endif
 
-#endif /* !_LIBMCS_MATH_H_ */
+#endif /* !LIBMCS_MATH_H */
