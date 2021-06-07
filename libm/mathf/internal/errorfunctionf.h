@@ -2,7 +2,8 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
-#pragma once
+#ifndef __LIBMCS_ERRORFUNCTIONF_H
+#define	__LIBMCS_ERRORFUNCTIONF_H
 
 #include <math.h>
 #include "../../common/tools.h"
@@ -113,3 +114,5 @@ static inline float __erff_Sb(float s)
 {
     return one + s * (sb1 + s * (sb2 + s * (sb3 + s * (sb4 + s * (sb5 + s * (sb6 + s * sb7))))));
 }
+
+#endif /* !__LIBMCS_ERRORFUNCTIONF__H */
