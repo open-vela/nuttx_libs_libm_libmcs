@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: NetBSD */
 /* Written by Matthias Drochner. */
 
-#ifndef __LIBMCS_COMPLEX_H
-#define	__LIBMCS_COMPLEX_H
+#ifndef _LIBMCS_COMPLEX_H_
+#define	_LIBMCS_COMPLEX_H_
 
 #ifdef __cplusplus
 extern "C"{
@@ -146,4 +146,4 @@ float crealf(float complex);
 }
 #endif
 
-#endif /* !__LIBMCS_COMPLEX_H */
+#endif /* !_LIBMCS_COMPLEX_H_ */

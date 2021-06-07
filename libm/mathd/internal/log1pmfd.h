@@ -6,7 +6,7 @@
  * Return log(1+f) - f for 1+f in ~[sqrt(2)/2, sqrt(2)].
  */
 
-#ifndef __LIBMCS_LOG1PMFD_H
+#ifndef _LIBMCS_LOG1PMFS_H_
 #define	__LIBMCD_LOG1PMFD_H
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
@@ -39,4 +39,4 @@ static inline double __log1pmf(double f)
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
 
-#endif /* !__LIBMCS_LOG1PMFD_H */
+#endif /* !_LIBMCS_LOG1PMFS_H_ */

@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-#ifndef __LIBMCS_LOG1PMFF_H
-#define	__LIBMCS_LOG1PMFF_H
+#ifndef _LIBMCS_LOG1PMFF_H_
+#define	_LIBMCS_LOG1PMFF_H_
 
 static const float
 /* |(log(1+s)-log(1-s))/s - Lg(s)| < 2**-34.24 (~[-4.95e-11, 4.97e-11]). */
@@ -25,4 +25,4 @@ static inline float __log1pmff(float f)
     return s * (hfsq + R);
 }
 
-#endif /* !__LIBMCS_LOG1PMFF_H */
+#endif /* !_LIBMCS_LOG1PMFF_H_ */
