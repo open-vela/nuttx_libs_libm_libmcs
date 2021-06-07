@@ -483,7 +483,7 @@ int32_t __rem_pio2(double x, double *y)
         if (isnan(x)) {
             y[1] = x - x;
             y[0] = y[1];
-        else {
+        } else {
             y[1] = __raise_invalid();
             y[0] = y[1];
         }
