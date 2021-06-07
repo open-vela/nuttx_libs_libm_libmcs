@@ -177,7 +177,7 @@ remquo(double x, double y, int *quo)
     n = ix - iy;
     q = 0;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
         lz = lx - ly;
 
