@@ -24,6 +24,8 @@ float remainderf(float x, float p)
         return x + p;
     } else if (FLT_UWORD_IS_ZERO(hp) || FLT_UWORD_IS_INFINITE(hx)) {    /* p is 0 or x is inf */
         return __raise_invalidf();
+    } else {
+        /* No action required */
     }
 
     if (hp <= FLT_UWORD_HALF_MAX) {

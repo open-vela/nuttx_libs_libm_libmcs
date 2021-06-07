@@ -224,6 +224,8 @@ double pow(double x, double y)
                     z = zero;
                 } else if (ix == 0) {
                     z = __raise_div_by_zero(z);
+                } else {
+                    /* No action required */
                 }
             }
 

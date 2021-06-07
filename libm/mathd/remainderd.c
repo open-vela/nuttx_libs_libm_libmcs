@@ -61,9 +61,13 @@ double remainder(double x, double p)
             return x + p;
         } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
             return __raise_invalid();
+        } else {
+            /* No action required */
         }
     } else if ((hp | lp) == 0) {                    /* p = 0 */
         return __raise_invalid();
+    } else {
+        /* No action required */
     }
 
     if (hp <= 0x7fdfffff) {

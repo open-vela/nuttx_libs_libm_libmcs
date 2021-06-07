@@ -27,6 +27,8 @@ double tgamma(double x)
         return __raise_div_by_zero(x);
     } else if (floor(x) == x && x < 0.0) {  /* tgamma(negative integer, -Inf) = NaN */
         return __raise_invalid(x);
+    } else {
+        /* No action required */
     }
 
     y = exp(__lgamma(x, &signgam_local));

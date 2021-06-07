@@ -57,6 +57,8 @@ float remquof(float x, float y, int *quo)
     } else if (hx == hy) {
         *quo = 1;
         return Zero[(uint32_t)sx >> 31];  /* |x|=|y| return x*0*/
+    } else {
+        /* No action required */
     }
 
     /* determine ix = ilogb(x) */

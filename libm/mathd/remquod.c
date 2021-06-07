@@ -97,9 +97,13 @@ remquo(double x, double y, int *quo)
             return x + y;
         } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
             return __raise_invalid();
+        } else {
+            /* No action required */
         }
     } else if ((hy | ly) == 0) {                    /* y = 0 */
         return __raise_invalid();
+    } else {
+        /* Nop action required */
     }
 
     if (hx <= hy) {

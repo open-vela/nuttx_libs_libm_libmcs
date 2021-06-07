@@ -29,9 +29,13 @@ float fmodf(float x, float y)
             return __raise_invalidf();
         } else if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hy)) {  /* x or y is NaN */
             return x + y;
+        } else {
+            /* No action required */
         }
     } else if (FLT_UWORD_IS_ZERO(hy)) {                             /* y is +-0 */
         return __raise_invalidf();
+    } else {
+        /* No action required */
     }
 
     if (hx < hy) {

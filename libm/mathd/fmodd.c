@@ -67,9 +67,13 @@ double fmod(double x, double y)
             return __raise_invalid();
         } else if (isnan(x) || isnan(y)) {      /* x or y is NaN */
             return x + y;
+        } else {
+            /* No action required */
         }
     } else if ((hy | ly) == 0) {                /* y is +-0 */
         return __raise_invalid();
+    } else {
+        /* No action required */
     }
 
     if (hx <= hy) {
