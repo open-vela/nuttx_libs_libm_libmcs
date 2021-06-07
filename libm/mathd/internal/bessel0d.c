@@ -372,9 +372,10 @@ double __y0(double x)
     if (ix >= 0x7ff00000) {
         if (isnan(x)) {     /* y0(NaN) = NaN */
             return x + x;
-        }
-        else if (hx > 0) {  /* y0(+Inf) = +0.0 */
+        } else if (hx > 0) {  /* y0(+Inf) = +0.0 */
             return zero;
+        } else {
+            /* No action required */
         }
     }
 
