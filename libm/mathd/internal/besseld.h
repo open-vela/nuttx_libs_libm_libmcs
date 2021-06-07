@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
-#ifndef __LIBMCS_BESSELD_H
-#define	__LIBMCS_BESSELD_H
+#ifndef LIBMCS_BESSELD_H
+#define	LIBMCS_BESSELD_H
 
 extern double __j0(double x);
 extern double __j1(double x);

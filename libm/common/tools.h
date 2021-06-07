@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-#ifndef _LIBMCS_TOOLS_H_
-#define	_LIBMCS_TOOLS_H_
+#ifndef LIBMCS_TOOLS_H
+#define	LIBMCS_TOOLS_H
 
 #include <limits.h>
 #include <stdbool.h>
@@ -208,4 +208,4 @@ static inline float __raise_inexactf(float x) {
     return (huge - 1.0e-30f) ? x : 0.0f;
 }
 
-#endif /* !_LIBMCS_TOOLS_H_ */
+#endif /* !LIBMCS_TOOLS_H */
