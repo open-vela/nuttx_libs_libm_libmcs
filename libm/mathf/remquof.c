@@ -96,7 +96,7 @@ float remquof(float x, float y, int *quo)
     n = ix - iy;
     q = 0;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
 
         if (hz < 0) {
