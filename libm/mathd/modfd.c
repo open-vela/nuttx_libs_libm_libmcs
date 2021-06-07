@@ -112,7 +112,7 @@ double modf(double x, double *iptr)
 
 long double modfl(long double x, long double *iptr)
 {
-    return (long double) modf((double) x, (long double *) iptr);
+    return (long double) modf((double) x, (double *) iptr);
 }
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
