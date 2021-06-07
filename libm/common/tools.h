@@ -185,7 +185,7 @@ static inline double __raise_underflow(double x) {
 }
 static inline double __raise_inexact(double x) {
     volatile double huge = 1.0e300;
-    return (huge - 1.0e-300) ? x : 0.0;
+    return ((huge - 1.0e-300) == 1) ? x : 0.0;
 }
 
 static inline float __raise_invalidf() {
@@ -205,7 +205,7 @@ static inline float __raise_underflowf(float x) {
 }
 static inline float __raise_inexactf(float x) {
     volatile float huge = 1.0e30f;
-    return (huge - 1.0e-30f) ? x : 0.0f;
+    return ((huge - 1.0e-30f) == 1) ? x : 0.0f;
 }
 
 #endif /* !LIBMCS_TOOLS_H */
