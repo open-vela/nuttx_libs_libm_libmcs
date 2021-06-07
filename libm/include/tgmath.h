@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: NetBSD */
 /* Copyright (c) 2004 Stefan Farfeleder. */
 
-#pragma once
+#ifndef __LIBMCS_TGMATH_H
+#define	__LIBMCS_TGMATH_H
 
 #include <complex.h>
 #include <math.h>
@@ -149,3 +150,5 @@
 #define    conj(__x)    __tg_simple(__x, conj)
 #define    cproj(__x)   __tg_simple(__x, cproj)
 #define    creal(__x)   __tg_simple(__x, creal)
+
+#endif /* !__LIBMCS_TGMATH_H */

@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
-#pragma once
+#ifndef __LIBMCS_FENV_H
+#define	__LIBMCS_FENV_H
 
 #error TBD add error message that fenv.h/fenv.c shall not be used as is.
 
@@ -31,3 +32,5 @@ extern int fetestexcept(int);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* !__LIBMCS_FENV_H */
