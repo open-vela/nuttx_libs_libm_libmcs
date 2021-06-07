@@ -55,7 +55,7 @@ long int lround(double x)
     EXTRACT_WORDS(msw, lsw, x);
 
     /* Extract sign. */
-    sign = ((msw & 0x80000000U) ? -1 : 1);
+    sign = ((msw & 0x80000000U) == 1) ? -1 : 1;
     /* Extract exponent field. */
     exponent_less_1023 = ((msw & 0x7ff00000) >> 20) - 1023;
     msw &= 0x000fffff;

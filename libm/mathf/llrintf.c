@@ -72,7 +72,7 @@ long long int llrintf(float x)
         }
     }
 
-    return sx ? -result : result;
+    return (sx == 1) ? -result : result;
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS

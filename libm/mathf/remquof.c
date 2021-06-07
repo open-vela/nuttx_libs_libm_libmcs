@@ -155,6 +155,6 @@ fixup:
     GET_FLOAT_WORD(hx, x);
     SET_FLOAT_WORD(x, hx ^ sx);
     q &= 0x7fffffff;
-    *quo = (sxy ? -q : q);
+    *quo = ((sxy == 1) ? -q : q);
     return x;
 }
