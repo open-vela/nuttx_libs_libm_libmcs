@@ -7,9 +7,9 @@
 #include "internal/log1pmff.h"
 
 static const float
-two25      =  3.3554432000e+07, /* 0x4c000000 */
-ivln2hi    =  1.4428710938e+00, /* 0x3fb8b000 */
-ivln2lo    = -1.7605285393e-04; /* 0xb9389ad4 */
+two25      =  3.3554432000e+07f, /* 0x4c000000 */
+ivln2hi    =  1.4428710938e+00f, /* 0x3fb8b000 */
+ivln2lo    = -1.7605285393e-04f; /* 0xb9389ad4 */
 
 static const float zero = 0.0f;
 

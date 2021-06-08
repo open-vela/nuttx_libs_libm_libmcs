@@ -6,8 +6,8 @@
 #include "../common/tools.h"
 
 static const float
-one =   1.0000000000e+00, /* 0x3F800000 */
-ln2 =   6.9314718246e-01; /* 0x3f317218 */
+one =   1.0000000000e+00f, /* 0x3F800000 */
+ln2 =   6.9314718246e-01f; /* 0x3f317218 */
 
 float asinhf(float x)
 {
@@ -32,7 +32,7 @@ float asinhf(float x)
         w = logf(fabsf(x)) + ln2;
     } else if (ix > 0x40000000) {  /* 2**28 > |x| > 2.0 */
         t = fabsf(x);
-        w = logf((float)2.0 * t + one / (sqrtf(x * x + one) + t));
+        w = logf(2.0f * t + one / (sqrtf(x * x + one) + t));
     } else {        /* 2.0 > |x| > 2**-28 */
         t = x * x;
         w = log1pf(fabsf(x) + t / (one + sqrtf(one + t)));

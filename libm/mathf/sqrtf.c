@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, tiny = 1.0e-30;
+static const float one = 1.0f, tiny = 1.0e-30f;
 
 float sqrtf(float x)
 {
