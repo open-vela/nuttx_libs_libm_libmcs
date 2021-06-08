@@ -6,8 +6,8 @@
 #include "../common/tools.h"
 
 static const float
-one    = 1.0,
-ln2    = 6.9314718246e-01;  /* 0x3f317218 */
+one    = 1.0f,
+ln2    = 6.9314718246e-01f;  /* 0x3f317218 */
 
 float acoshf(float x)
 {
@@ -28,13 +28,13 @@ float acoshf(float x)
             return logf(x) + ln2;    /* acosh(huge)=log(2x) */
         }
     } else if (hx == 0x3f800000) {
-        return 0.0;            /* acosh(1) = 0 */
+        return 0.0f;            /* acosh(1) = 0 */
     } else if (hx > 0x40000000) {    /* 2**28 > x > 2 */
         t = x * x;
-        return logf((float)2.0 * x - one / (x + sqrtf(t - one)));
+        return logf(2.0f * x - one / (x + sqrtf(t - one)));
     } else {            /* 1<x<2 */
         t = x - one;
-        return log1pf(t + sqrtf((float)2.0 * t + t * t));
+        return log1pf(t + sqrtf(2.0f * t + t * t));
     }
 }
 

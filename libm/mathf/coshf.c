@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, half = 0.5;
+static const float one = 1.0f, half = 0.5f;
 
 float coshf(float x)
 {

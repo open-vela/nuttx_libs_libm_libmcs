@@ -6,8 +6,8 @@
 #include "../common/tools.h"
 
 static const float
-two25   =  3.355443200e+07,    /* 0x4c000000 */
-twom25  =  2.9802322388e-08;    /* 0x33000000 */
+two25   =  3.355443200e+07f,    /* 0x4c000000 */
+twom25  =  2.9802322388e-08f;    /* 0x33000000 */
 
 float scalblnf(float x, long int n)
 {

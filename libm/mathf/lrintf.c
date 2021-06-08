@@ -20,8 +20,8 @@ static const float
    mode.  2^23 is the smallest float that can be represented using all 23 significant
    digits. */
 TWO23[2] = {
-     8.3886080000e+06, /* 0x4b000000 */
-    -8.3886080000e+06, /* 0xcb000000 */
+     8.3886080000e+06f, /* 0x4b000000 */
+    -8.3886080000e+06f, /* 0xcb000000 */
 };
 
 long int lrintf(float x)

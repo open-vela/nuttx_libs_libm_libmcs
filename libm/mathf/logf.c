@@ -6,18 +6,18 @@
 #include "../common/tools.h"
 
 static const float
-ln2_hi = 6.9313812256e-01, /* 0x3f317180 */
-ln2_lo = 9.0580006145e-06, /* 0x3717f7d1 */
-two25  = 3.355443200e+07,  /* 0x4c000000 */
-Lg1    = 6.6666668653e-01, /* 0x3F2AAAAB */
-Lg2    = 4.0000000596e-01, /* 0x3ECCCCCD */
-Lg3    = 2.8571429849e-01, /* 0x3E924925 */
-Lg4    = 2.2222198546e-01, /* 0x3E638E29 */
-Lg5    = 1.8183572590e-01, /* 0x3E3A3325 */
-Lg6    = 1.5313838422e-01, /* 0x3E1CD04F */
-Lg7    = 1.4798198640e-01; /* 0x3E178897 */
+ln2_hi = 6.9313812256e-01f, /* 0x3f317180 */
+ln2_lo = 9.0580006145e-06f, /* 0x3717f7d1 */
+two25  = 3.355443200e+07f,  /* 0x4c000000 */
+Lg1    = 6.6666668653e-01f, /* 0x3F2AAAAB */
+Lg2    = 4.0000000596e-01f, /* 0x3ECCCCCD */
+Lg3    = 2.8571429849e-01f, /* 0x3E924925 */
+Lg4    = 2.2222198546e-01f, /* 0x3E638E29 */
+Lg5    = 1.8183572590e-01f, /* 0x3E3A3325 */
+Lg6    = 1.5313838422e-01f, /* 0x3E1CD04F */
+Lg7    = 1.4798198640e-01f; /* 0x3E178897 */
 
-static const float zero   =  0.0;
+static const float zero =  0.0f;
 
 float logf(float x)
 {
@@ -51,7 +51,7 @@ float logf(float x)
     i = (ix + (0x95f64 << 3)) & 0x800000;
     SET_FLOAT_WORD(x, ix | (i ^ 0x3f800000)); /* normalize x or x/2 */
     k += (i >> 23);
-    f = x - (float)1.0;
+    f = x - 1.0f;
 
     if ((0x007fffff & (15 + ix)) < 16) { /* |f| < 2**-20 */
         if (f == zero) {
@@ -63,7 +63,7 @@ float logf(float x)
             }
         }
 
-        R = f * f * ((float)0.5 - (float)0.33333333333333333 * f);
+        R = f * f * (0.5f - 0.33333333333333333f * f);
 
         if (k == 0) {
             return f - R;
@@ -73,7 +73,7 @@ float logf(float x)
         }
     }
 
-    s = f / ((float)2.0 + f);
+    s = f / (2.0f + f);
     dk = (float)k;
     z = s * s;
     i = ix - (0x6147a << 3);
@@ -85,7 +85,7 @@ float logf(float x)
     R = t2 + t1;
 
     if (i > 0) {
-        hfsq = (float)0.5 * f * f;
+        hfsq = 0.5f * f * f;
 
         if (k == 0) {
             return f - (hfsq - s * (hfsq + R));
