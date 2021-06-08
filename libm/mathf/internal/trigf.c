@@ -116,7 +116,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
         }
 
         /* compute n */
-        z  = scalbnf(z, (int)q0);   /* actual value of z */
+        z  = scalbnf(z, (int32_t)q0);   /* actual value of z */
         z -= (float)8.0 * floorf(z * (float)0.125); /* trim off integer >= 8 */
         n  = (int32_t) z;
         z -= (float)n;
@@ -169,7 +169,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
                 z = one - z;
 
                 if (carry != 0) {
-                    z -= scalbnf(one, (int)q0);
+                    z -= scalbnf(one, (int32_t)q0);
                 }
             }
         }
@@ -213,7 +213,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
             q0 -= 8;
         }
     } else { /* break z into 8-bit if necessary */
-        z = scalbnf(z, -(int)q0);
+        z = scalbnf(z, -(int32_t)q0);
 
         if (z >= two8) {
             fw = (float)((int32_t)(twon8 * z));
@@ -227,7 +227,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
     }
 
     /* convert integer "bit" chunk to floating-point value */
-    fw = scalbnf(one, (int)q0);
+    fw = scalbnf(one, (int32_t)q0);
 
     for (i = jz; i >= 0; i--) {
         q[i] = fw * (float)iq[i];
@@ -293,7 +293,7 @@ int32_t __rem_pio2f(float x, float *y)
     float z, w, t, r, fn;
     float tx[3];
     int32_t i, j, n, ix, hx;
-    int e0, nx;
+    int32_t e0, nx;
 
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
@@ -394,7 +394,7 @@ int32_t __rem_pio2f(float x, float *y)
     }
 
     /* set z = scalbn(|x|,ilogb(x)-7) */
-    e0     = (int)((ix >> 23) - 134); /* e0 = ilogb(z)-7; */
+    e0     = (int32_t)((ix >> 23) - 134); /* e0 = ilogb(z)-7; */
     SET_FLOAT_WORD(z, ix - ((int32_t)e0 << 23));
 
     for (i = 0; i < 2; i++) {

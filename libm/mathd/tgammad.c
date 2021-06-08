@@ -20,7 +20,7 @@
 
 double tgamma(double x)
 {
-    int signgam_local = 0;
+    int32_t signgam_local = 0;
     double y = 0.0;
     
     if (x == 0.0) {                         /* tgamma(+-0) = +-Inf */

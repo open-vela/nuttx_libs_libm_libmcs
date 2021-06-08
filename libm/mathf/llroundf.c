@@ -18,7 +18,7 @@ long long int llroundf(float x)
     w &= 0x7fffff;
     w |= 0x800000;
 
-    if (exponent_less_127 < (int)((8 * sizeof(long long int)) - 1)) {
+    if (exponent_less_127 < (int32_t)((8 * sizeof(long long int)) - 1)) {
         if (exponent_less_127 < 0) {
             return exponent_less_127 < -1 ? 0 : sign;
         } else if (exponent_less_127 >= 23) {

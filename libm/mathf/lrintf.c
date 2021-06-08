@@ -40,7 +40,7 @@ long int lrintf(float x)
     /* Extract exponent field. */
     _j0 = ((_i0 & 0x7f800000) >> 23) - 127;
 
-    if (_j0 < (int)(sizeof(long int) * 8) - 1) {
+    if (_j0 < (int32_t)(sizeof(long int) * 8) - 1) {
         if (_j0 < -1) {
             return 0;
         } else if (_j0 >= 23) {
