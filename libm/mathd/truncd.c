@@ -38,11 +38,11 @@ ANSI C, POSIX
 
 double trunc(double x)
 {
-    int sb;
+    uint32_t sb;
     /* Most significant word, least significant word. */
-    int msw;
-    unsigned int lsw;
-    int exponent_less_1023;
+    uint32_t msw;
+    uint32_t lsw;
+    int32_t exponent_less_1023;
 
     EXTRACT_WORDS(msw, lsw, x);
 
@@ -70,7 +70,7 @@ double trunc(double x)
         /* All bits in the fraction fields of the msw and lsw are needed in the result. */
     } else {
         /* All fraction bits in msw are relevant.  Truncate irrelevant bits from lsw. */
-        INSERT_WORDS(x, msw, lsw & ~(0xffffffffu >> (exponent_less_1023 - 20)));
+        INSERT_WORDS(x, msw, lsw & ~(0xffffffffU >> (exponent_less_1023 - 20)));
     }
 
     return x;

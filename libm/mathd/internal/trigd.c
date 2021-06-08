@@ -214,7 +214,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
         }
 
         /* compute n */
-        z  = scalbn(z, (int)q0);       /* actual value of z */
+        z  = scalbn(z, (int32_t)q0);       /* actual value of z */
         z -= 8.0 * floor(z * 0.125);    /* trim off integer >= 8 */
         n  = (int32_t) z;
         z -= (double)n;
@@ -267,7 +267,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
                 z = one - z;
 
                 if (carry != 0) {
-                    z -= scalbn(one, (int)q0);
+                    z -= scalbn(one, (int32_t)q0);
                 }
             }
         }
@@ -311,7 +311,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
             q0 -= 24;
         }
     } else { /* break z into 24-bit if necessary */
-        z = scalbn(z, -(int)q0);
+        z = scalbn(z, -(int32_t)q0);
 
         if (z >= two24) {
             fw = (double)((int32_t)(twon24 * z));
@@ -325,7 +325,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
     }
 
     /* convert integer "bit" chunk to floating-point value */
-    fw = scalbn(one, (int)q0);
+    fw = scalbn(one, (int32_t)q0);
 
     for (i = jz; i >= 0; i--) {
         q[i] = fw * (double)iq[i];
@@ -390,7 +390,7 @@ int32_t __rem_pio2(double x, double *y)
     double z = 0.0, w, t, r, fn;
     double tx[3];
     int32_t i, j, n, ix, hx;
-    int e0, nx;
+    int32_t e0, nx;
     uint32_t low;
 
     GET_HIGH_WORD(hx, x);       /* high word of x */
@@ -493,7 +493,7 @@ int32_t __rem_pio2(double x, double *y)
     /* set z = scalbn(|x|,ilogb(x)-23) */
     GET_LOW_WORD(low, x);
     SET_LOW_WORD(z, low);
-    e0 = (int)((ix >> 20) - 1046); /* e0 = ilogb(z)-23; */
+    e0 = (int32_t)((ix >> 20) - 1046); /* e0 = ilogb(z)-23; */
     SET_HIGH_WORD(z, ix - ((int32_t)e0 << 20));
 
     for (i = 0; i < 2; i++) {

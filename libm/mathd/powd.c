@@ -414,7 +414,7 @@ double pow(double x, double y)
     j += (n << 20);
 
     if ((j >> 20) <= 0) {
-        z = scalbn(z, (int)n);                    /* subnormal output */
+        z = scalbn(z, (int32_t)n);                    /* subnormal output */
     } else {
         SET_HIGH_WORD(z, j);
     }

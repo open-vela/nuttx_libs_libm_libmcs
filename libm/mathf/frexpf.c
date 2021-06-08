@@ -11,7 +11,7 @@ two25 =  3.3554432000e+07; /* 0x4c000000 */
 
 float frexpf(float x, int *eptr)
 {
-    int _xexp = 0;
+    int32_t _xexp = 0;
     int32_t hx, ix;
 
 	assert(eptr != (void*)0);

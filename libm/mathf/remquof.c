@@ -25,7 +25,7 @@ static const float Zero[] = {0.0, -0.0,};
  */
 float remquof(float x, float y, int *quo)
 {
-    int _quo = 0;
+    int32_t _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
 

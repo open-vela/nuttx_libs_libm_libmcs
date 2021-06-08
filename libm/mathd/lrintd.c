@@ -105,7 +105,7 @@ long int lrint(double x)
             /* shift amt in [20,0] */
             result = _i0 >> (20 - _j0);
         }
-    } else if (_j0 < (int)(8 * sizeof(long int)) - 1) {
+    } else if (_j0 < (int32_t)(8 * sizeof(long int)) - 1) {
         /* 32bit return: _j0 in [20,30] */
         /* 64bit return: _j0 in [20,62] */
         if (_j0 >= 52) {
