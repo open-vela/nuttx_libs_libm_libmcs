@@ -6,16 +6,16 @@
 #include "../common/tools.h"
 
 static const float
-one    =  1.0,
-ln2_hi =  6.9313812256e-01, /* 0x3f317180 */
-ln2_lo =  9.0580006145e-06, /* 0x3717f7d1 */
-invln2 =  1.4426950216e+00, /* 0x3fb8aa3b */
+one    =  1.0f,
+ln2_hi =  6.9313812256e-01f, /* 0x3f317180 */
+ln2_lo =  9.0580006145e-06f, /* 0x3717f7d1 */
+invln2 =  1.4426950216e+00f, /* 0x3fb8aa3b */
 /* scaled coefficients related to expm1 */
-Q1     = -3.3333335072e-02, /* 0xbd088889 */
-Q2     =  1.5873016091e-03, /* 0x3ad00d01 */
-Q3     = -7.9365076090e-05, /* 0xb8a670cd */
-Q4     =  4.0082177293e-06, /* 0x36867e54 */
-Q5     = -2.0109921195e-07; /* 0xb457edbb */
+Q1     = -3.3333335072e-02f, /* 0xbd088889 */
+Q2     =  1.5873016091e-03f, /* 0x3ad00d01 */
+Q3     = -7.9365076090e-05f, /* 0xb8a670cd */
+Q4     =  4.0082177293e-06f, /* 0x36867e54 */
+Q5     = -2.0109921195e-07f; /* 0xb457edbb */
 
 float expm1f(float x)
 {
@@ -60,7 +60,7 @@ float expm1f(float x)
                 k = -1;
             }
         } else {
-            k  = invln2 * x + ((xsb == 0) ? (float)0.5 : (float) -0.5);
+            k  = invln2 * x + ((xsb == 0) ? 0.5f : -0.5f);
             t  = k;
             hi = x - t * ln2_hi;  /* t*ln2_hi is exact here */
             lo = t * ln2_lo;
@@ -79,11 +79,11 @@ float expm1f(float x)
     }
 
     /* x is now in primary range */
-    hfx = (float)0.5 * x;
+    hfx = 0.5f * x;
     hxs = x * hfx;
     r1 = one + hxs * (Q1 + hxs * (Q2 + hxs * (Q3 + hxs * (Q4 + hxs * Q5))));
-    t  = (float)3.0 - r1 * hfx;
-    e  = hxs * ((r1 - t) / ((float)6.0 - x * t));
+    t  = 3.0f - r1 * hfx;
+    e  = hxs * ((r1 - t) / (6.0f - x * t));
 
     if (k == 0) {
         return x - (x * e - hxs);    /* c is 0 */
@@ -92,14 +92,14 @@ float expm1f(float x)
         e -= hxs;
 
         if (k == -1) {
-            return (float)0.5 * (x - e) - (float)0.5;
+            return 0.5f * (x - e) - 0.5f;
         }
 
         if (k == 1) {
-            if (x < (float) -0.25) {
-                return -(float)2.0 * (e - (x + (float)0.5));
+            if (x < -0.25f) {
+                return -2.0f * (e - (x + 0.5f));
             } else {
-                return  one + (float)2.0 * (x - e);
+                return  one + 2.0f * (x - e);
             }
         }
 

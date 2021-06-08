@@ -7,7 +7,7 @@
 #include "../common/tools.h"
 
 static const float
-two25 =  3.3554432000e+07; /* 0x4c000000 */
+two25 =  3.3554432000e+07f; /* 0x4c000000 */
 
 float frexpf(float x, int *eptr)
 {

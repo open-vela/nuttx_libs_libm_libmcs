@@ -6,8 +6,8 @@
 
 static const float
 TWO23[2] = {
-     8.3886080000e+06, /* 0x4b000000 */
-    -8.3886080000e+06, /* 0xcb000000 */
+     8.3886080000e+06f, /* 0x4b000000 */
+    -8.3886080000e+06f, /* 0xcb000000 */
 };
 
 float rintf(float x)
@@ -16,6 +16,7 @@ float rintf(float x)
     uint32_t i, _i1, ix;
     float t;
     volatile float w;
+
     GET_FLOAT_WORD(_i0, x);
     sx = (_i0 >> 31) & 1;
     ix = (_i0 & 0x7fffffff);

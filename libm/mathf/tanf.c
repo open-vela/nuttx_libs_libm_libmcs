@@ -7,28 +7,29 @@
 #include "internal/trigf.h"
 
 static const float
-pio4   =  7.8539812565e-01, /* 0x3f490fda */
-pio4lo =  3.7748947079e-08, /* 0x33222168 */
+pio4   =  7.8539812565e-01f, /* 0x3f490fda */
+pio4lo =  3.7748947079e-08f, /* 0x33222168 */
 T[]    =  {
-          3.3333334327e-01, /* 0x3eaaaaab */
-          1.3333334029e-01, /* 0x3e088889 */
-          5.3968254477e-02, /* 0x3d5d0dd1 */
-          2.1869488060e-02, /* 0x3cb327a4 */
-          8.8632395491e-03, /* 0x3c11371f */
-          3.5920790397e-03, /* 0x3b6b6916 */
-          1.4562094584e-03, /* 0x3abede48 */
-          5.8804126456e-04, /* 0x3a1a26c8 */
-          2.4646313977e-04, /* 0x398137b9 */
-          7.8179444245e-05, /* 0x38a3f445 */
-          7.1407252108e-05, /* 0x3895c07a */
-         -1.8558637748e-05, /* 0xb79bae5f */
-          2.5907305826e-05, /* 0x37d95384 */
+          3.3333334327e-01f, /* 0x3eaaaaab */
+          1.3333334029e-01f, /* 0x3e088889 */
+          5.3968254477e-02f, /* 0x3d5d0dd1 */
+          2.1869488060e-02f, /* 0x3cb327a4 */
+          8.8632395491e-03f, /* 0x3c11371f */
+          3.5920790397e-03f, /* 0x3b6b6916 */
+          1.4562094584e-03f, /* 0x3abede48 */
+          5.8804126456e-04f, /* 0x3a1a26c8 */
+          2.4646313977e-04f, /* 0x398137b9 */
+          7.8179444245e-05f, /* 0x38a3f445 */
+          7.1407252108e-05f, /* 0x3895c07a */
+         -1.8558637748e-05f, /* 0xb79bae5f */
+          2.5907305826e-05f, /* 0x37d95384 */
 };
 
 static inline float __tanf(float x, float y, int iy)
 {
     float z, r, v, w, s;
     int32_t ix, hx;
+
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;  /* high word of |x| */
 
@@ -41,7 +42,7 @@ static inline float __tanf(float x, float y, int iy)
         z = pio4 - x;
         w = pio4lo - y;
         x = z + w;
-        y = 0.0;
+        y = 0.0f;
     }
 
     z =  x * x;
@@ -59,7 +60,7 @@ static inline float __tanf(float x, float y, int iy)
 
     if (ix >= 0x3f2ca140) {
         v = (float)iy;
-        return (float)(1 - ((hx >> 30) & 2)) * (v - (float)2.0 * (x - (w * w / (w + v) - r)));
+        return (float)(1 - ((hx >> 30) & 2)) * (v - 2.0f * (x - (w * w / (w + v) - r)));
     }
 
     if (iy == 1) {
@@ -73,10 +74,10 @@ static inline float __tanf(float x, float y, int iy)
         GET_FLOAT_WORD(i, z);
         SET_FLOAT_WORD(z, i & 0xfffff000U);
         v  = r - (z - x);   /* z+v = r+x */
-        t = a  = -(float)1.0 / w;  /* a = -1.0/w */
+        t = a  = -1.0f / w;  /* a = -1.0/w */
         GET_FLOAT_WORD(i, t);
         SET_FLOAT_WORD(t, i & 0xfffff000U);
-        s  = (float)1.0 + t * z;
+        s  = 1.0f + t * z;
         return t + a * (s + t * v);
     }
 }

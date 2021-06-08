@@ -7,10 +7,10 @@
 #include "internal/log1pmff.h"
 
 static const float
-ln2_hi = 6.9313812256e-01, /* 0x3f317180 */
-ln2_lo = 9.0580006145e-06; /* 0x3717f7d1 */
+ln2_hi = 6.9313812256e-01f, /* 0x3f317180 */
+ln2_lo = 9.0580006145e-06f; /* 0x3717f7d1 */
 
-static const float zero = 0.0;
+static const float zero = 0.0f;
 
 float log1pf(float x)
 {
@@ -28,7 +28,7 @@ float log1pf(float x)
 
     if (hx < 0x3ed413d7) {          /* x < 0.41422  */
         if (ax >= 0x3f800000) {     /* x <= -1.0 */
-            if (x == (float) -1.0) {
+            if (x == -1.0f) {
                 return __raise_div_by_zerof(-1.0f); /* log1p(-1)=-inf */
             } else {
                 return __raise_invalidf();          /* log1p(x<-1)=NaN */
@@ -52,11 +52,11 @@ float log1pf(float x)
 
     if (k != 0) {
         if (hx < 0x5a000000) {
-            u  = (float)1.0 + x;
+            u  = 1.0f + x;
             GET_FLOAT_WORD(hu, u);
             k  = (hu >> 23) - 127;
             /* correction term */
-            c  = (k > 0) ? (float)1.0 - (u - x) : x - (u - (float)1.0);
+            c  = (k > 0) ? 1.0f - (u - x) : x - (u - 1.0f);
             c /= u;
         } else {
             u  = x;
@@ -75,10 +75,10 @@ float log1pf(float x)
             hu = (0x00800000 - hu) >> 2;
         }
 
-        f = u - (float)1.0;
+        f = u - 1.0f;
     }
 
-    hfsq = (float)0.5 * f * f;
+    hfsq = 0.5f * f * f;
 
     if (hu == 0) { /* |f| < 2**-20 */
         if (f == zero) {
@@ -90,7 +90,7 @@ float log1pf(float x)
             }
         }
 
-        R = hfsq * ((float)1.0 - (float)0.66666666666666666 * f);
+        R = hfsq * (1.0f - 0.66666666666666666f * f);
 
         if (k == 0) {
             return f - R;

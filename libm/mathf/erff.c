@@ -7,9 +7,9 @@
 #include "internal/errorfunctionf.h"
 
 static const float
-erx  =  8.4506291151e-01, /* 0x3f58560b */
-efx  =  1.2837916613e-01, /* 0x3e0375d4 */
-efx8 =  1.0270333290e+00; /* 0x3f8375d4 */
+erx  =  8.4506291151e-01f, /* 0x3f58560b */
+efx  =  1.2837916613e-01f, /* 0x3e0375d4 */
+efx8 =  1.0270333290e+00f; /* 0x3f8375d4 */
 
 float erff(float x)
 {
@@ -33,7 +33,7 @@ float erff(float x)
             if (ix < 0x04000000)
                 /*avoid underflow */
             {
-                return (float)0.125 * ((float)8.0 * x + efx8 * x);
+                return 0.125f * (8.0f * x + efx8 * x);
             }
 
             return x + efx * x;
@@ -75,7 +75,7 @@ float erff(float x)
 
     GET_FLOAT_WORD(ix, x);
     SET_FLOAT_WORD(z, ix & 0xfffff000U);
-    r  =  expf(-z * z - (float)0.5625) * expf((z - x) * (z + x) + R / S);
+    r  =  expf(-z * z - 0.5625f) * expf((z - x) * (z + x) + R / S);
 
     if (hx >= 0) {
         return one - r / x;

@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float zero = 0.0;
+static const float zero = 0.0f;
 
 float remainderf(float x, float p)
 {
@@ -48,7 +48,7 @@ float remainderf(float x, float p)
             }
         }
     } else {
-        p_half = (float)0.5 * p;
+        p_half = 0.5f * p;
 
         if (x > p_half) {
             x -= p;

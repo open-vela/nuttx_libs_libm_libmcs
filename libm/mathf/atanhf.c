@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0;
+static const float one = 1.0f;
 
 float atanhf(float x)
 {
@@ -38,9 +38,9 @@ float atanhf(float x)
 
     if (ix < 0x3f000000) {     /* x < 0.5 */
         t = x + x;
-        t = (float)0.5 * log1pf(t + t * x / (one - x));
+        t = 0.5f * log1pf(t + t * x / (one - x));
     } else {
-        t = (float)0.5 * log1pf((x + x) / (one - x));
+        t = 0.5f * log1pf((x + x) / (one - x));
     }
 
     if (hx >= 0) {

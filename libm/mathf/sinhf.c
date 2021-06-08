@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0;
+static const float one = 1.0f;
 
 float sinhf(float x)
 {
@@ -20,7 +20,7 @@ float sinhf(float x)
         return x + x;
     }
 
-    h = 0.5;
+    h = 0.5f;
 
     if (jx < 0) {
         h = -h;
@@ -39,7 +39,7 @@ float sinhf(float x)
         t = expm1f(fabsf(x));
 
         if (ix < 0x3f800000) {
-            return h * ((float)2.0 * t - t * t / (t + one));
+            return h * (2.0f * t - t * t / (t + one));
         }
 
         return h * (t + t / (t + one));
@@ -52,7 +52,7 @@ float sinhf(float x)
 
     /* |x| in [log(maxdouble), overflowthresold] */
     if (ix <= FLT_UWORD_LOG_2MAX) {
-        w = expf((float)0.5 * fabsf(x));
+        w = expf(0.5f * fabsf(x));
         t = h * w;
         return t * w;
     }

@@ -11,7 +11,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, Zero[] = {0.0, -0.0,};
+static const float one = 1.0f, Zero[] = {0.0f, -0.0f,};
 
 float fmodf(float x, float y)
 {
