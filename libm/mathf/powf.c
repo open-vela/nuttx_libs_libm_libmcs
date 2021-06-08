@@ -309,7 +309,7 @@ float powf(float x, float y)
     j += (n << 23);
 
     if ((j >> 23) <= 0) {
-        z = scalbnf(z, (int)n);    /* subnormal output */
+        z = scalbnf(z, (int32_t)n);    /* subnormal output */
     } else {
         SET_FLOAT_WORD(z, j);
     }

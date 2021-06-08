@@ -74,7 +74,7 @@ static const double Zero[] = {0.0, -0.0,};
 double
 remquo(double x, double y, int *quo)
 {
-    int _quo = 0;
+    int32_t _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz, q, sxy;
 

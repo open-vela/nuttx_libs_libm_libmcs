@@ -91,7 +91,7 @@ long int lround(double x)
             /* 64bit long: exponent_less_1023 in [20,51] */
             /* 32bit long: shift amt in [0,10] */
             /* 64bit long: shift amt in [0,31] */
-            unsigned int tmp = lsw + (0x80000000U >> (exponent_less_1023 - 20));
+            uint32_t tmp = lsw + (0x80000000U >> (exponent_less_1023 - 20));
 
             if (tmp < lsw) {
                 ++msw;

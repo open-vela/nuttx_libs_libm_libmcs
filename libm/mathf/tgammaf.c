@@ -14,7 +14,7 @@
 
 float tgammaf(float x)
 {
-    int signgam_local = 0;
+    int32_t signgam_local = 0;
     float y = 0.0f;
     
     if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
