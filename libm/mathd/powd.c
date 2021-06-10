@@ -253,8 +253,8 @@ double pow(double x, double y)
     }
 
     /* |y| is huge */
-    if (iy > 0x41e00000) {     /* if |y| > 2**31 */
-        if (iy > 0x43f00000) { /* if |y| > 2**64, must o/uflow */
+    if (iy > 0x42000000) {     /* if |y| > ~2**33 (does not regard mantissa) */
+        if (iy > 0x43f00000) { /* if |y| > ~2**64, must o/uflow */
             if (ix <= 0x3fefffff) {
                 return (hy < 0) ? __raise_overflow(one) : __raise_underflow(one);
             }
