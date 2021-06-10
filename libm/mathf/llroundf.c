@@ -14,11 +14,11 @@ long long int llroundf(float x)
 
     GET_FLOAT_WORD(w, x);
     exponent_less_127 = ((w & 0x7f800000) >> 23) - 127;
-    sign = (w & 0x80000000) != 0 ? -1 : 1;
+    sign = (w & 0x80000000U) != 0 ? -1 : 1;
     w &= 0x7fffff;
     w |= 0x800000;
 
-    if (exponent_less_127 < (int)((8 * sizeof(long long int)) - 1)) {
+    if (exponent_less_127 < (int32_t)((8 * sizeof(long long int)) - 1)) {
         if (exponent_less_127 < 0) {
             return exponent_less_127 < -1 ? 0 : sign;
         } else if (exponent_less_127 >= 23) {

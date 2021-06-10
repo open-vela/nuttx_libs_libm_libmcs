@@ -9,30 +9,30 @@
 float modff(float x, float *iptr)
 {
     float _xi = 0.0f;
-    int32_t i0, j0;
+    int32_t _i0, _j0;
     uint32_t i;
-    
-	assert(iptr != (void*)0);
-	if(iptr == (void*)0) {
-	    iptr = &_xi;
-	}
-    
-    GET_FLOAT_WORD(i0, x);
-    j0 = ((i0 >> 23) & 0xff) - 0x7f; /* exponent of x */
 
-    if (j0 < 23) {         /* integer part in x */
-        if (j0 < 0) {         /* |x|<1 */
-            SET_FLOAT_WORD(*iptr, i0 & 0x80000000); /* *iptr = +-0 */
+	  assert(iptr != (void*)0);
+	  if(iptr == (void*)0) {
+	      iptr = &_xi;
+	  }
+
+    GET_FLOAT_WORD(_i0, x);
+    _j0 = ((_i0 >> 23) & 0xff) - 0x7f; /* exponent of x */
+
+    if (_j0 < 23) {         /* integer part in x */
+        if (_j0 < 0) {         /* |x|<1 */
+            SET_FLOAT_WORD(*iptr, _i0 & 0x80000000U); /* *iptr = +-0 */
             return x;
         } else {
-            i = (0x007fffff) >> j0;
+            i = (0x007fffff) >> _j0;
 
-            if ((i0 & i) == 0) {       /* x is integral */
+            if ((_i0 & i) == 0) {       /* x is integral */
                 *iptr = x;
-                SET_FLOAT_WORD(x, i0 & 0x80000000); /* return +-0 */
+                SET_FLOAT_WORD(x, _i0 & 0x80000000U); /* return +-0 */
                 return x;
             } else {
-                SET_FLOAT_WORD(*iptr, i0 & (~i));
+                SET_FLOAT_WORD(*iptr, _i0 & (~i));
                 return x - *iptr;
             }
         }
@@ -43,7 +43,7 @@ float modff(float x, float *iptr)
             return *iptr = x + x;    /* x is NaN, return NaN */
         }
 
-        SET_FLOAT_WORD(x, i0 & 0x80000000); /* return +-0 */
+        SET_FLOAT_WORD(x, _i0 & 0x80000000U); /* return +-0 */
         return x;
     }
 }

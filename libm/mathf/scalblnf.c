@@ -6,8 +6,8 @@
 #include "../common/tools.h"
 
 static const float
-two25   =  3.355443200e+07,    /* 0x4c000000 */
-twom25  =  2.9802322388e-08;    /* 0x33000000 */
+two25   =  3.355443200e+07f,    /* 0x4c000000 */
+twom25  =  2.9802322388e-08f;    /* 0x33000000 */
 
 float scalblnf(float x, long int n)
 {
@@ -40,7 +40,7 @@ float scalblnf(float x, long int n)
     }
 
     if (k > 0) {               /* normal result */
-        SET_FLOAT_WORD(x, (ix & 0x807fffff) | (k << 23));
+        SET_FLOAT_WORD(x, (ix & 0x807fffffU) | (k << 23U));
         return x;
     }
 
@@ -49,7 +49,7 @@ float scalblnf(float x, long int n)
     }
 
     k += 25;                /* subnormal result */
-    SET_FLOAT_WORD(x, (ix & 0x807fffff) | (k << 23));
+    SET_FLOAT_WORD(x, (ix & 0x807fffffU) | (k << 23U));
     return x * twom25;
 }
 

@@ -108,7 +108,7 @@ static const double one = 1.0, tiny = 1.0e-300;
 double sqrt(double x)
 {
     double z;
-    int32_t sign = 0x80000000;
+    int32_t sign = 0x80000000U;
     uint32_t r, t1, s1, ix1, q1;
     int32_t ix0, s0, q, m, t, i;
 
@@ -131,6 +131,8 @@ double sqrt(double x)
             return x;    /* sqrt(+-0) = +-0 */
         } else if (ix0 < 0) {
             return __raise_invalid();    /* sqrt(-ve) = sNaN */
+        } else {
+            /* No action required */
         }
     }
 
@@ -156,7 +158,7 @@ double sqrt(double x)
     m -= 1023;    /* unbias exponent */
     ix0 = (ix0 & 0x000fffff) | 0x00100000;
 
-    if (m & 1) { /* odd m, double x to make it even */
+    if (0 < (m & 1)) { /* odd m, double x to make it even */
         ix0 += ix0 + (int32_t)((ix1 & (uint32_t)sign) >> 31U);
         ix1 += ix1;
     }
@@ -218,11 +220,11 @@ double sqrt(double x)
         if (z >= one) {
             z = one + tiny;
 
-            if (q1 == (uint32_t)0xffffffff) {
+            if (q1 == (uint32_t)0xffffffffU) {
                 q1 = 0;
                 q += 1;
             } else if (z > one) {
-                if (q1 == (uint32_t)0xfffffffe) {
+                if (q1 == (uint32_t)0xfffffffeU) {
                     q += 1;
                 }
 

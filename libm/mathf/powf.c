@@ -6,40 +6,40 @@
 #include "../common/tools.h"
 
 static const float
-bp[]     = {1.0, 1.5,},
-dp_h[]   = { 0.0, 5.84960938e-01,}, /* 0x3f15c000 */
-dp_l[]   = { 0.0, 1.56322085e-06,}, /* 0x35d1cfdc */
-zero     =  0.0,
-one      =  1.0,
-two      =  2.0,
-two24    =  16777216.0,       /* 0x4b800000 */
+bp[]     = { 1.0f, 1.5f},
+dp_h[]   = { 0.0f, 5.84960938e-01f}, /* 0x3f15c000 */
+dp_l[]   = { 0.0f, 1.56322085e-06f}, /* 0x35d1cfdc */
+zero     =  0.0f,
+one      =  1.0f,
+two      =  2.0f,
+two24    =  16777216.0f,       /* 0x4b800000 */
 /* poly coefs for (3/2)*(log(x)-2s-2/3*s**3 */
-L1       =  6.0000002384e-01, /* 0x3f19999a */
-L2       =  4.2857143283e-01, /* 0x3edb6db7 */
-L3       =  3.3333334327e-01, /* 0x3eaaaaab */
-L4       =  2.7272811532e-01, /* 0x3e8ba305 */
-L5       =  2.3066075146e-01, /* 0x3e6c3255 */
-L6       =  2.0697501302e-01, /* 0x3e53f142 */
-P1       =  1.6666667163e-01, /* 0x3e2aaaab */
-P2       = -2.7777778450e-03, /* 0xbb360b61 */
-P3       =  6.6137559770e-05, /* 0x388ab355 */
-P4       = -1.6533901999e-06, /* 0xb5ddea0e */
-P5       =  4.1381369442e-08, /* 0x3331bb4c */
-lg2      =  6.9314718246e-01, /* 0x3f317218 */
-lg2_h    =  6.93145752e-01,   /* 0x3f317200 */
-lg2_l    =  1.42860654e-06,   /* 0x35bfbe8c */
-ovt      =  4.2995665694e-08, /* -(128-log2(ovfl+.5ulp)) */
-cp       =  9.6179670095e-01, /* 0x3f76384f =2/(3ln2) */
-cp_h     =  9.6179199219e-01, /* 0x3f763800 =head of cp */
-cp_l     =  4.7017383622e-06, /* 0x369dc3a0 =tail of cp_h */
-ivln2    =  1.4426950216e+00, /* 0x3fb8aa3b =1/ln2 */
-ivln2_h  =  1.4426879883e+00, /* 0x3fb8aa00 =16b 1/ln2*/
-ivln2_l  =  7.0526075433e-06; /* 0x36eca570 =1/ln2 tail*/
+L1       =  6.0000002384e-01f, /* 0x3f19999a */
+L2       =  4.2857143283e-01f, /* 0x3edb6db7 */
+L3       =  3.3333334327e-01f, /* 0x3eaaaaab */
+L4       =  2.7272811532e-01f, /* 0x3e8ba305 */
+L5       =  2.3066075146e-01f, /* 0x3e6c3255 */
+L6       =  2.0697501302e-01f, /* 0x3e53f142 */
+P1       =  1.6666667163e-01f, /* 0x3e2aaaab */
+P2       = -2.7777778450e-03f, /* 0xbb360b61 */
+P3       =  6.6137559770e-05f, /* 0x388ab355 */
+P4       = -1.6533901999e-06f, /* 0xb5ddea0e */
+P5       =  4.1381369442e-08f, /* 0x3331bb4c */
+lg2      =  6.9314718246e-01f, /* 0x3f317218 */
+lg2_h    =  6.93145752e-01f,   /* 0x3f317200 */
+lg2_l    =  1.42860654e-06f,   /* 0x35bfbe8c */
+ovt      =  4.2995665694e-08f, /* -(128-log2(ovfl+.5ulp)) */
+cp       =  9.6179670095e-01f, /* 0x3f76384f =2/(3ln2) */
+cp_h     =  9.6179199219e-01f, /* 0x3f763800 =head of cp */
+cp_l     =  4.7017383622e-06f, /* 0x369dc3a0 =tail of cp_h */
+ivln2    =  1.4426950216e+00f, /* 0x3fb8aa3b =1/ln2 */
+ivln2_h  =  1.4426879883e+00f, /* 0x3fb8aa00 =16b 1/ln2*/
+ivln2_l  =  7.0526075433e-06f; /* 0x36eca570 =1/ln2 tail*/
 
 float powf(float x, float y)
 {
     float z, ax, z_h, z_l, p_h, p_l;
-    float y1, t1, t2, r, s, t, u, v, w;
+    float _y1, t1, t2, r, s, t, u, v, w;
     int32_t i, j, k, yisint, n;
     int32_t hx, hy, ix, iy, is;
 
@@ -83,6 +83,8 @@ float powf(float x, float y)
             if ((j << (23 - k)) == iy) {
                 yisint = 2 - (j & 1);
             }
+        } else {
+            /* No action required */
         }
     }
 
@@ -126,6 +128,8 @@ float powf(float x, float y)
                 z = zero;
             } else if (FLT_UWORD_IS_ZERO(ix)) {
                 z = __raise_div_by_zerof(z);
+            } else {
+                /* No action required */
             }
         }
 
@@ -134,6 +138,8 @@ float powf(float x, float y)
                 z = __raise_invalidf(); /* (-1)**non-int is NaN */
             } else if (yisint == 1) {
                 z = -z;                 /* (x<0)**odd = -(|x|**odd) */
+            } else {
+                /* No action required */
             }
         }
 
@@ -159,12 +165,12 @@ float powf(float x, float y)
         /* now |1-x| is tiny <= 2**-20, suffice to compute
            log(x) by x-x^2/2+x^3/3-x^4/4 */
         t = ax - 1;      /* t has 20 trailing zeros */
-        w = (t * t) * ((float)0.5 - t * ((float)0.333333333333 - t * (float)0.25));
+        w = (t * t) * (0.5f - t * (0.333333333333f - t * 0.25f));
         u = ivln2_h * t;  /* ivln2_h has 16 sig. bits */
         v = t * ivln2_l - w * ivln2;
         t1 = u + v;
         GET_FLOAT_WORD(is, t1);
-        SET_FLOAT_WORD(t1, is & 0xfffff000);
+        SET_FLOAT_WORD(t1, is & 0xfffff000U);
         t2 = v - (t1 - u);
     } else {
         float s2, s_h, s_l, t_h, t_l;
@@ -200,7 +206,7 @@ float powf(float x, float y)
         s = u * v;
         s_h = s;
         GET_FLOAT_WORD(is, s_h);
-        SET_FLOAT_WORD(s_h, is & 0xfffff000);
+        SET_FLOAT_WORD(s_h, is & 0xfffff000U);
         /* t_h=ax+bp[k] High */
         SET_FLOAT_WORD(t_h, ((ix >> 1) | 0x20000000) + 0x0040000 + (k << 21));
         t_l = ax - (t_h - bp[k]);
@@ -210,17 +216,17 @@ float powf(float x, float y)
         r = s2 * s2 * (L1 + s2 * (L2 + s2 * (L3 + s2 * (L4 + s2 * (L5 + s2 * L6)))));
         r += s_l * (s_h + s);
         s2  = s_h * s_h;
-        t_h = (float)3.0 + s2 + r;
+        t_h = 3.0f + s2 + r;
         GET_FLOAT_WORD(is, t_h);
-        SET_FLOAT_WORD(t_h, is & 0xfffff000);
-        t_l = r - ((t_h - (float)3.0) - s2);
+        SET_FLOAT_WORD(t_h, is & 0xfffff000U);
+        t_l = r - ((t_h - 3.0f) - s2);
         /* u+v = s*(1+...) */
         u = s_h * t_h;
         v = s_l * t_h + t_l * s;
         /* 2/(3log2)*(s+...) */
         p_h = u + v;
         GET_FLOAT_WORD(is, p_h);
-        SET_FLOAT_WORD(p_h, is & 0xfffff000);
+        SET_FLOAT_WORD(p_h, is & 0xfffff000U);
         p_l = v - (p_h - u);
         z_h = cp_h * p_h;      /* cp_h+cp_l = 2/(3*log2) */
         z_l = cp_l * p_h + p_l * cp + dp_l[k];
@@ -228,7 +234,7 @@ float powf(float x, float y)
         t = (float)n;
         t1 = (((z_h + z_l) + dp_h[k]) + t);
         GET_FLOAT_WORD(is, t1);
-        SET_FLOAT_WORD(t1, is & 0xfffff000);
+        SET_FLOAT_WORD(t1, is & 0xfffff000U);
         t2 = z_l - (((t1 - t) - dp_h[k]) - z_h);
     }
 
@@ -238,11 +244,11 @@ float powf(float x, float y)
         s = -one;    /* (-ve)**(odd int) */
     }
 
-    /* split up y into y1+y2 and compute (y1+y2)*(t1+t2) */
+    /* split up y into _y1+y2 and compute (_y1+y2)*(t1+t2) */
     GET_FLOAT_WORD(is, y);
-    SET_FLOAT_WORD(y1, is & 0xfffff000);
-    p_l = (y - y1) * t1 + y * t2;
-    p_h = y1 * t1;
+    SET_FLOAT_WORD(_y1, is & 0xfffff000U);
+    p_l = (y - _y1) * t1 + y * t2;
+    p_h = _y1 * t1;
     z = p_l + p_h;
     GET_FLOAT_WORD(j, z);
     i = j & 0x7fffffff;
@@ -254,6 +260,8 @@ float powf(float x, float y)
             if (p_l + ovt > z - p_h) {
                 return __raise_overflowf(s);  /* overflow */
             }
+        } else {
+            /* No action required */
         }
     } else {
         if (i > FLT_UWORD_EXP_MIN) {
@@ -262,6 +270,8 @@ float powf(float x, float y)
             if (p_l <= z - p_h) {
                 return __raise_underflowf(s);  /* underflow */
             }
+        } else {
+            /* No action required */
         }
     }
 
@@ -286,7 +296,7 @@ float powf(float x, float y)
 
     t = p_l + p_h;
     GET_FLOAT_WORD(is, t);
-    SET_FLOAT_WORD(t, is & 0xfffff000);
+    SET_FLOAT_WORD(t, is & 0xfffff000U);
     u = t * lg2_h;
     v = (p_l - (t - p_h)) * lg2 + t * lg2_l;
     z = u + v;
@@ -299,7 +309,7 @@ float powf(float x, float y)
     j += (n << 23);
 
     if ((j >> 23) <= 0) {
-        z = scalbnf(z, (int)n);    /* subnormal output */
+        z = scalbnf(z, (int32_t)n);    /* subnormal output */
     } else {
         SET_FLOAT_WORD(z, j);
     }

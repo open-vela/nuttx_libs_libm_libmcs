@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-#pragma once
+#ifndef LIBMCS_TOOLS_H
+#define	LIBMCS_TOOLS_H
 
 #include <limits.h>
 #include <stdbool.h>
@@ -46,7 +47,7 @@ typedef union {
         ew_u.value = (d);                               \
         (ix0) = ew_u.parts.msw;                         \
         (ix1) = ew_u.parts.lsw;                         \
-    } while (0)
+    } while (0 == 1)
 
 /* Get the more significant 32 bit int from a double.  */
 
@@ -55,7 +56,7 @@ typedef union {
         ieee_double_shape_type gh_u;                    \
         gh_u.value = (d);                               \
         (i) = gh_u.parts.msw;                           \
-    } while (0)
+    } while (0 == 1)
 
 /* Get the less significant 32 bit int from a double.  */
 
@@ -64,7 +65,7 @@ typedef union {
         ieee_double_shape_type gl_u;                    \
         gl_u.value = (d);                               \
         (i) = gl_u.parts.lsw;                           \
-    } while (0)
+    } while (0 == 1)
 
 /* Set a double from two 32 bit ints.  */
 
@@ -74,7 +75,7 @@ typedef union {
         iw_u.parts.msw = (ix0);                         \
         iw_u.parts.lsw = (ix1);                         \
         (d) = iw_u.value;                               \
-    } while (0)
+    } while (0 == 1)
 
 /* Set the more significant 32 bits of a double from an int.  */
 
@@ -84,7 +85,7 @@ typedef union {
         sh_u.value = (d);                               \
         sh_u.parts.msw = (v);                           \
         (d) = sh_u.value;                               \
-    } while (0)
+    } while (0 == 1)
 
 /* Set the less significant 32 bits of a double from an int.  */
 
@@ -94,7 +95,7 @@ typedef union {
         sl_u.value = (d);                               \
         sl_u.parts.lsw = (v);                           \
         (d) = sl_u.value;                               \
-    } while (0)
+    } while (0 == 1)
 
 /* A union which permits us to convert between a float and a 32 bit
    int.  */
@@ -111,7 +112,7 @@ typedef union {
         ieee_float_shape_type gf_u;                     \
         gf_u.value = (d);                               \
         (i) = gf_u.word;                                \
-    } while (0)
+    } while (0 == 1)
 
 /* Set a float from a 32 bit int.  */
 
@@ -120,7 +121,7 @@ typedef union {
         ieee_float_shape_type sf_u;                     \
         sf_u.word = (i);                                \
         (d) = sf_u.value;                               \
-    } while (0)
+    } while (0 == 1)
 
 /* Macros to avoid undefined behaviour that can arise if the amount
    of a shift is exactly equal to the size of the shifted operand.  */
@@ -172,19 +173,19 @@ static inline double __raise_invalid() {
     return r;
 }
 static inline double __raise_div_by_zero(double x) {
-    return signbit(x) ? __forced_calculation(-1.0 / 0.0) : __forced_calculation(1.0 / 0.0);
+    return (signbit(x) == 1) ? __forced_calculation(-1.0 / 0.0) : __forced_calculation(1.0 / 0.0);
 }
 static inline double __raise_overflow(double x) {
     volatile double huge = 1.0e300;
-    return signbit(x) ? -huge * huge : huge * huge;
+    return (signbit(x) == 1) ? -(huge * huge) : (huge * huge);
 }
 static inline double __raise_underflow(double x) {
     volatile double tiny = 1.0e-300;
-    return signbit(x) ? -tiny * tiny : tiny * tiny;
+    return (signbit(x) == 1) ? -(tiny * tiny) : (tiny * tiny);
 }
 static inline double __raise_inexact(double x) {
     volatile double huge = 1.0e300;
-    return (huge - 1.0e-300) ? x : 0.0;
+    return ((huge - 1.0e-300) == 1) ? x : 0.0;
 }
 
 static inline float __raise_invalidf() {
@@ -192,17 +193,19 @@ static inline float __raise_invalidf() {
     return r;
 }
 static inline float __raise_div_by_zerof(float x) {
-    return signbit(x) ? __forced_calculationf(-1.0f / 0.0f) : __forced_calculationf(1.0f / 0.0f);
+    return (signbit(x) == 1) ? __forced_calculationf(-1.0f / 0.0f) : __forced_calculationf(1.0f / 0.0f);
 }
 static inline float __raise_overflowf(float x) {
     volatile float huge = 1.0e30f;
-    return signbit(x) ? -huge * huge : huge * huge;
+    return (signbit(x) == 1) ? -(huge * huge) : (huge * huge);
 }
 static inline float __raise_underflowf(float x) {
     volatile float tiny = 1.0e-30f;
-    return signbit(x) ? -tiny * tiny : tiny * tiny;
+    return (signbit(x) == 1) ? -(tiny * tiny) : (tiny * tiny);
 }
 static inline float __raise_inexactf(float x) {
     volatile float huge = 1.0e30f;
-    return (huge - 1.0e-30f) ? x : 0.0f;
+    return ((huge - 1.0e-30f) == 1) ? x : 0.0f;
 }
+
+#endif /* !LIBMCS_TOOLS_H */

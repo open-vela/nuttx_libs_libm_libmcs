@@ -2,7 +2,8 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 /* TBD Check if license/copyright should be SunMicrosystems */
 
-#pragma once
+#ifndef LIBMCS_CONFIG_H
+#define	LIBMCS_CONFIG_H
 
 /* If an FPU is not standard compliant for subnormal values, use the define LIBMCS_FPU_DAZ to force 
  * each procedure to first multiply the input value(s) by 1, therefore using the FPUs defined
@@ -162,3 +163,5 @@
         #error Must define endianness
     #endif
 #endif
+
+#endif /* !LIBMCS_CONFIG_H */

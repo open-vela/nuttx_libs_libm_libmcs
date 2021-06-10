@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, tiny = 1.0e-30;
+static const float one = 1.0f, tiny = 1.0e-30f;
 
 float sqrtf(float x)
 {
@@ -50,7 +50,7 @@ float sqrtf(float x)
     m -= 127;    /* unbias exponent */
     ix = (ix & 0x007fffffL) | 0x00800000L;
 
-    if (m & 1) { /* odd m, double x to make it even */
+    if (0 < (m & 1)) { /* odd m, double x to make it even */
         ix += ix;
     }
 

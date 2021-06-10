@@ -7,9 +7,9 @@
 #include "internal/log1pmff.h"
 
 static const float
-two25      =  3.3554432000e+07, /* 0x4c000000 */
-ivln2hi    =  1.4428710938e+00, /* 0x3fb8b000 */
-ivln2lo    = -1.7605285393e-04; /* 0xb9389ad4 */
+two25      =  3.3554432000e+07f, /* 0x4c000000 */
+ivln2hi    =  1.4428710938e+00f, /* 0x3fb8b000 */
+ivln2lo    = -1.7605285393e-04f; /* 0xb9389ad4 */
 
 static const float zero = 0.0f;
 
@@ -55,7 +55,7 @@ float log2f(float x)
     r = __log1pmff(f);
     hi = f - hfsq;
     GET_FLOAT_WORD(hx, hi);
-    SET_FLOAT_WORD(hi, hx & 0xfffff000);
+    SET_FLOAT_WORD(hi, hx & 0xfffff000U);
     lo = (f - hi) - hfsq + r;
     return (lo + hi) * ivln2lo + lo * ivln2hi + hi * ivln2hi + y;
 }

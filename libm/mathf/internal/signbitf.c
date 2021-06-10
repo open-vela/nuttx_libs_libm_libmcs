@@ -40,5 +40,5 @@ int __signbitf(float x)
 
     GET_FLOAT_WORD(w, x);
 
-    return (w & 0x80000000) != 0;
+    return (w & 0x80000000U) != 0;
 }

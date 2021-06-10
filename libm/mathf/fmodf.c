@@ -11,7 +11,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0, Zero[] = {0.0, -0.0,};
+static const float one = 1.0f, Zero[] = {0.0f, -0.0f,};
 
 float fmodf(float x, float y)
 {
@@ -19,9 +19,9 @@ float fmodf(float x, float y)
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
-    sx = hx & 0x80000000;      /* sign of x */
-    hx ^= sx;       /* |x| */
-    hy &= 0x7fffffff;    /* |y| */
+    sx = hx & 0x80000000U;      /* sign of x */
+    hx ^= sx;                   /* |x| */
+    hy &= 0x7fffffff;           /* |y| */
 
     /* purge off exception values */
     if (!FLT_UWORD_IS_FINITE(hx) || !FLT_UWORD_IS_FINITE(hy)) {     /* x or y is +-Inf/NaN */
@@ -29,9 +29,13 @@ float fmodf(float x, float y)
             return __raise_invalidf();
         } else if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hy)) {  /* x or y is NaN */
             return x + y;
+        } else {
+            /* No action required */
         }
     } else if (FLT_UWORD_IS_ZERO(hy)) {                             /* y is +-0 */
         return __raise_invalidf();
+    } else {
+        /* No action required */
     }
 
     if (hx < hy) {
@@ -80,7 +84,7 @@ float fmodf(float x, float y)
     /* fix point fmod */
     n = ix - iy;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
 
         if (hz < 0) {

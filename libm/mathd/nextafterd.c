@@ -61,7 +61,7 @@ double nextafter(double x, double y)
     }
 
     if ((ix | lx) == 0) {      /* x == 0 */
-        INSERT_WORDS(x, hy & 0x80000000, 1); /* return +-minsubnormal */
+        INSERT_WORDS(x, hy & 0x80000000U, 1U); /* return +-minsubnormal */
         y = x * x;
 
         if (y == x) {

@@ -57,7 +57,7 @@ double fmod(double x, double y)
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
-    sx = hx & 0x80000000;      /* sign of x */
+    sx = hx & 0x80000000U;     /* sign of x */
     hx ^= sx;                  /* |x| */
     hy &= 0x7fffffff;          /* |y| */
 
@@ -67,9 +67,13 @@ double fmod(double x, double y)
             return __raise_invalid();
         } else if (isnan(x) || isnan(y)) {      /* x or y is NaN */
             return x + y;
+        } else {
+            /* No action required */
         }
     } else if ((hy | ly) == 0) {                /* y is +-0 */
         return __raise_invalid();
+    } else {
+        /* No action required */
     }
 
     if (hx <= hy) {
@@ -144,7 +148,7 @@ double fmod(double x, double y)
     /* fix point fmod */
     n = ix - iy;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
         lz = lx - ly;
 

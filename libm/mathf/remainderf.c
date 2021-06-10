@@ -5,7 +5,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float zero = 0.0;
+static const float zero = 0.0f;
 
 float remainderf(float x, float p)
 {
@@ -15,7 +15,7 @@ float remainderf(float x, float p)
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hp, p);
-    sx = hx & 0x80000000;
+    sx = hx & 0x80000000U;
     hp &= 0x7fffffff;
     hx &= 0x7fffffff;
 
@@ -24,6 +24,8 @@ float remainderf(float x, float p)
         return x + p;
     } else if (FLT_UWORD_IS_ZERO(hp) || FLT_UWORD_IS_INFINITE(hx)) {    /* p is 0 or x is inf */
         return __raise_invalidf();
+    } else {
+        /* No action required */
     }
 
     if (hp <= FLT_UWORD_HALF_MAX) {
@@ -46,7 +48,7 @@ float remainderf(float x, float p)
             }
         }
     } else {
-        p_half = (float)0.5 * p;
+        p_half = 0.5f * p;
 
         if (x > p_half) {
             x -= p;

@@ -13,7 +13,7 @@
     #define QUO_MASK INT_MAX
 #endif
 
-static const float Zero[] = {0.0, -0.0,};
+static const float Zero[] = {0.0f, -0.0f};
 
 /*
  * Return the IEEE remainder and set *quo to the last n bits of the
@@ -25,10 +25,10 @@ static const float Zero[] = {0.0, -0.0,};
  */
 float remquof(float x, float y, int *quo)
 {
-    int _quo = 0;
+    int32_t _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
-    
+
 	assert(quo != (void*)0);
 	if(quo == (void*)0) {
 	    quo = &_quo;
@@ -37,16 +37,18 @@ float remquof(float x, float y, int *quo)
 
     GET_FLOAT_WORD(hx, x);
     GET_FLOAT_WORD(hy, y);
-    sxy = (hx ^ hy) & 0x80000000;
-    sx = hx & 0x80000000;      /* sign of x */
-    hx ^= sx;       /* |x| */
-    hy &= 0x7fffffff;    /* |y| */
+    sxy = (hx ^ hy) & 0x80000000U;
+    sx = hx & 0x80000000U;          /* sign of x */
+    hx ^= sx;                       /* |x| */
+    hy &= 0x7fffffff;               /* |y| */
 
     /* purge off exception values */
     if (FLT_UWORD_IS_NAN(hx) || FLT_UWORD_IS_NAN(hy)) {                 /* x or y is NaN */
         return x + y;
     } else if (FLT_UWORD_IS_ZERO(hy) || FLT_UWORD_IS_INFINITE(hx)) {    /* y is 0 or x is inf */
         return __raise_invalidf();
+    } else {
+        /* No action required */
     }
 
     if (hx < hy) {
@@ -55,6 +57,8 @@ float remquof(float x, float y, int *quo)
     } else if (hx == hy) {
         *quo = 1;
         return Zero[(uint32_t)sx >> 31];  /* |x|=|y| return x*0*/
+    } else {
+        /* No action required */
     }
 
     /* determine ix = ilogb(x) */
@@ -94,7 +98,7 @@ float remquof(float x, float y, int *quo)
     n = ix - iy;
     q = 0;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
 
         if (hz < 0) {
@@ -144,11 +148,13 @@ fixup:
     } else if (x > 0.5f * y || (x == 0.5f * y && (q & 1))) {
         q++;
         x -= y;
+    } else {
+        /* No action required */
     }
 
     GET_FLOAT_WORD(hx, x);
     SET_FLOAT_WORD(x, hx ^ sx);
     q &= 0x7fffffff;
-    *quo = (sxy ? -q : q);
+    *quo = ((sxy == 1) ? -q : q);
     return x;
 }

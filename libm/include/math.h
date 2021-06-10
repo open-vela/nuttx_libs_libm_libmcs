@@ -1,5 +1,6 @@
+#ifndef LIBMCS_MATH_H
+#define	LIBMCS_MATH_H
 
-#pragma once
 
 #ifdef __cplusplus
 extern "C"{
@@ -370,3 +371,5 @@ extern int __signbitd(double);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* !LIBMCS_MATH_H */

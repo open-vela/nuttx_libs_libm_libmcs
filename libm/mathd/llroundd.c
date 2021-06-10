@@ -17,7 +17,7 @@ long long int llround(double x)
     EXTRACT_WORDS(msw, lsw, x);
 
     /* Extract sign. */
-    sign = ((msw & 0x80000000) ? -1 : 1);
+    sign = ((msw & 0x80000000U) ? -1 : 1);
     /* Extract exponent field. */
     exponent_less_1023 = ((msw & 0x7ff00000) >> 20) - 1023;
     msw &= 0x000fffff;
@@ -50,7 +50,7 @@ long long int llround(double x)
         } else {
             /* 64bit longlong: exponent_less_1023 in [20,51] */
             /* 64bit longlong: shift amt in [0,31] */
-            unsigned int tmp = lsw + (0x80000000 >> (exponent_less_1023 - 20));
+            uint32_t tmp = lsw + (0x80000000U >> (exponent_less_1023 - 20));
 
             if (tmp < lsw) {
                 ++msw;

@@ -6,12 +6,12 @@
 #include "../common/tools.h"
 
 static const float
-tiny    =  1.0e-30,
-zero    =  0.0,
-pi_o_4  =  7.8539818525e-01, /* 0x3f490fdb */
-pi_o_2  =  1.5707963705e+00, /* 0x3fc90fdb */
-pi      =  3.1415927410e+00, /* 0x40490fdb */
-pi_lo   = -8.7422776573e-08; /* 0xb3bbbd2e */
+tiny    =  1.0e-30f,
+zero    =  0.0f,
+pi_o_4  =  7.8539818525e-01f, /* 0x3f490fdb */
+pi_o_2  =  1.5707963705e+00f, /* 0x3fc90fdb */
+pi      =  3.1415927410e+00f, /* 0x40490fdb */
+pi_lo   = -8.7422776573e-08f; /* 0xb3bbbd2e */
 
 float atan2f(float y, float x)
 {
@@ -37,6 +37,7 @@ float atan2f(float y, float x)
     /* when y = 0 */
     if (FLT_UWORD_IS_ZERO(iy)) {
         switch (m) {
+        default:
         case 0:
         case 1:
             return y;          /* atan(+-0,+anything)=+-0 */
@@ -58,6 +59,7 @@ float atan2f(float y, float x)
     if (FLT_UWORD_IS_INFINITE(ix)) {
         if (FLT_UWORD_IS_INFINITE(iy)) {
             switch (m) {
+            default:
             case 0:
                 return  pi_o_4 + tiny;               /* atan(+INF,+INF) */
 
@@ -65,13 +67,14 @@ float atan2f(float y, float x)
                 return -pi_o_4 - tiny;               /* atan(-INF,+INF) */
 
             case 2:
-                return (float)3.0 * pi_o_4 + tiny;   /*atan(+INF,-INF)*/
+                return 3.0f * pi_o_4 + tiny;   /*atan(+INF,-INF)*/
 
             case 3:
-                return (float) -3.0 * pi_o_4 - tiny; /*atan(-INF,-INF)*/
+                return -3.0f * pi_o_4 - tiny; /*atan(-INF,-INF)*/
             }
         } else {
             switch (m) {
+            default:
             case 0:
                 return  zero  ;                      /* atan(+...,+INF) */
 

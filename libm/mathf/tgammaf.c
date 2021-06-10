@@ -14,13 +14,15 @@
 
 float tgammaf(float x)
 {
-    int signgam_local = 0;
+    int32_t signgam_local = 0;
     float y = 0.0f;
     
     if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
         return __raise_div_by_zerof(x);
     } else if (floorf(x) == x && x < 0.0f) {    /* tgamma(negative integer, -Inf) = NaN */
         return __raise_invalidf(x);
+    } else {
+        /* No action required */
     }
     
     y = expf(__lgammaf(x, &signgam_local));

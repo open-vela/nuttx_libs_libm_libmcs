@@ -74,20 +74,20 @@ static const double Zero[] = {0.0, -0.0,};
 double
 remquo(double x, double y, int *quo)
 {
-    int _quo = 0;
+    int32_t _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz, q, sxy;
-    
+
 	assert(quo != (void*)0);
 	if(quo == (void*)0) {
 	    quo = &_quo;
 	}
     *quo = 0;
-    
+
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
-    sxy = (hx ^ hy) & 0x80000000;
-    sx = hx & 0x80000000;      /* sign of x */
+    sxy = (hx ^ hy) & 0x80000000U;
+    sx = hx & 0x80000000U;     /* sign of x */
     hx ^= sx;                  /* |x| */
     hy &= 0x7fffffff;          /* |y| */
 
@@ -97,9 +97,13 @@ remquo(double x, double y, int *quo)
             return x + y;
         } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
             return __raise_invalid();
+        } else {
+            /* No action required */
         }
     } else if ((hy | ly) == 0) {                    /* y = 0 */
         return __raise_invalid();
+    } else {
+        /* No action required */
     }
 
     if (hx <= hy) {
@@ -109,7 +113,7 @@ remquo(double x, double y, int *quo)
         }
 
         if (lx == ly) {
-            *quo = (sxy ? -1 : 1);
+            *quo = ((sxy == 1) ? -1 : 1);
             return Zero[(uint32_t)sx >> 31];        /* |x|=|y| return x*0 */
         }
     }
@@ -177,7 +181,7 @@ remquo(double x, double y, int *quo)
     n = ix - iy;
     q = 0;
 
-    while (n--) {
+    while (n-- > 0) {
         hz = hx - hy;
         lz = lx - ly;
 
@@ -213,7 +217,7 @@ remquo(double x, double y, int *quo)
     /* convert back to floating value and restore the sign */
     if ((hx | lx) == 0) {         /* return sign(x)*0 */
         q &= QUO_MASK;
-        *quo = (sxy ? -q : q);
+        *quo = ((sxy == 1) ? -q : q);
         return Zero[(uint32_t)sx >> 31];
     }
 
@@ -252,12 +256,14 @@ fixup:
     } else if (x > 0.5 * y || (x == 0.5 * y && (q & 1))) {
         q++;
         x -= y;
+    } else {
+        /* No action required */
     }
 
     GET_HIGH_WORD(hx, x);
     SET_HIGH_WORD(x, hx ^ sx);
     q &= QUO_MASK;
-    *quo = (sxy ? -q : q);
+    *quo = ((sxy == 1) ? -q : q);
     return x;
 }
 

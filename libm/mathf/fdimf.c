@@ -13,7 +13,7 @@ float fdimf(float x, float y)
         return (y);
     }
 
-    return x > y ? x - y : 0.0;
+    return x > y ? x - y : 0.0f;
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS

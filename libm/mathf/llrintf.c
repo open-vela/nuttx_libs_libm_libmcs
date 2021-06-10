@@ -21,46 +21,46 @@ static const float
    mode.  2^23 is the smallest float that can be represented using all 23 significant
    digits. */
 TWO23[2] = {
-     8.3886080000e+06, /* 0x4b000000 */
-    -8.3886080000e+06, /* 0xcb000000 */
+     8.3886080000e+06f, /* 0x4b000000 */
+    -8.3886080000e+06f, /* 0xcb000000 */
 };
 
 long long int llrintf(float x)
 {
-    int32_t j0, sx;
-    uint32_t i0;
+    int32_t _j0, sx;
+    uint32_t _i0;
     float t;
     volatile float w;
     long long int result;
 
-    GET_FLOAT_WORD(i0, x);
+    GET_FLOAT_WORD(_i0, x);
 
     /* Extract sign bit. */
-    sx = (i0 >> 31);
+    sx = (_i0 >> 31);
 
     /* Extract exponent field. */
-    j0 = ((i0 & 0x7f800000) >> 23) - 127;
+    _j0 = ((_i0 & 0x7f800000) >> 23) - 127;
 
-    if (j0 < (int)(sizeof(long long int) * 8) - 1) {
-        if (j0 < -1) {
+    if (_j0 < (int32_t)(sizeof(long long int) * 8) - 1) {
+        if (_j0 < -1) {
             return 0;
-        } else if (j0 >= 23) {
-            result = (long long int)((i0 & 0x7fffff) | 0x800000) << (j0 - 23);
+        } else if (_j0 >= 23) {
+            result = (long long int)((_i0 & 0x7fffff) | 0x800000) << (_j0 - 23);
         } else {
             w = TWO23[sx] + x;
             t = w - TWO23[sx];
-            GET_FLOAT_WORD(i0, t);
+            GET_FLOAT_WORD(_i0, t);
 
             /* Detect the all-zeros representation of plus and
                minus zero, which fails the calculation below. */
-            if ((i0 & ~((uint32_t)1 << 31)) == 0) {
+            if ((_i0 & ~((uint32_t)1 << 31)) == 0) {
                 return 0;
             }
 
-            j0 = ((i0 >> 23) & 0xff) - 0x7f;
-            i0 &= 0x7fffff;
-            i0 |= 0x800000;
-            result = i0 >> (23 - j0);
+            _j0 = ((_i0 >> 23) & 0xff) - 0x7f;
+            _i0 &= 0x7fffff;
+            _i0 |= 0x800000;
+            result = _i0 >> (23 - _j0);
         }
     } else {
         (void) __raise_invalidf(x);
@@ -72,7 +72,7 @@ long long int llrintf(float x)
         }
     }
 
-    return sx ? -result : result;
+    return (sx == 1) ? -result : result;
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS

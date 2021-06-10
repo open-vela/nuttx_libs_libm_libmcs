@@ -299,6 +299,7 @@ double __lgamma(double x, int *signgamp)
         }
 
         switch (i) {
+        default:
         case 0:
             z = y * y;
             p1 = a0 + z * (a2 + z * (a4 + z * (a6 + z * (a8 + z * a10))));
@@ -321,6 +322,7 @@ double __lgamma(double x, int *signgamp)
             p1 = y * (u0 + y * (u1 + y * (u2 + y * (u3 + y * (u4 + y * u5)))));
             p2 = one + y * (v1 + y * (v2 + y * (v3 + y * (v4 + y * v5))));
             r += (-0.5 * y + p1 / p2);
+            break;
         }
     } else if (ix < 0x40200000) {        /* x < 8.0 */
         i = (int32_t)x;
@@ -331,6 +333,7 @@ double __lgamma(double x, int *signgamp)
         z = one;    /* lgamma(1+s) = log(s) + lgamma(s) */
 
         switch (i) {
+        default:
         case 7:
             z *= (y + 6.0);  /* FALLTHRU */
 

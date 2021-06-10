@@ -141,7 +141,7 @@ double log1p(double x)
             }
         }
 
-        if (hx > 0 || hx <= ((int32_t)0xbfd2bec3)) {
+        if (hx > 0 || hx <= ((int32_t)0xbfd2bec3U)) {
             k = 0;
             f = x;
             hu = 1;

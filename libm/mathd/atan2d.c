@@ -109,6 +109,7 @@ double atan2(double y, double x)
     /* when y = 0 */
     if ((iy | ly) == 0) {
         switch (m) {
+        default:
         case 0:
         case 1:
             return y;          /* atan(+-0,+anything)=+-0 */
@@ -130,6 +131,7 @@ double atan2(double y, double x)
     if (ix == 0x7ff00000) {
         if (iy == 0x7ff00000) {
             switch (m) {
+            default:
             case 0:
                 return  pi_o_4 + tiny;       /* atan(+INF,+INF) */
 
@@ -144,6 +146,7 @@ double atan2(double y, double x)
             }
         } else {
             switch (m) {
+            default:
             case 0:
                 return  zero;      /* atan(+...,+INF) */
 

@@ -7,39 +7,39 @@
 
 float ceilf(float x)
 {
-    int32_t i0, j0;
+    int32_t _i0, _j0;
     uint32_t i, ix;
-    GET_FLOAT_WORD(i0, x);
-    ix = (i0 & 0x7fffffff);
-    j0 = (ix >> 23) - 0x7f;
+    GET_FLOAT_WORD(_i0, x);
+    ix = (_i0 & 0x7fffffff);
+    _j0 = (ix >> 23) - 0x7f;
 
-    if (j0 < 23) {
-        if (j0 < 0) {  /* raise inexact if x != 0 */
+    if (_j0 < 23) {
+        if (_j0 < 0) {  /* raise inexact if x != 0 */
             if (FLT_UWORD_IS_ZERO(ix)) {
                 return x;
             }
 
             (void) __raise_inexactf(x); /* raise inexact flag */
 
-            if (i0 < 0) {
-                i0 = (int32_t)0x80000000;
+            if (_i0 < 0) {
+                _i0 = (int32_t)0x80000000U;
             } else {
-                i0 = 0x3f800000;
+                _i0 = 0x3f800000;
             }
         } else {
-            i = (0x007fffff) >> j0;
+            i = (0x007fffff) >> _j0;
 
-            if ((i0 & i) == 0) {
+            if ((_i0 & i) == 0) {
                 return x;    /* x is integral */
             }
 
             (void) __raise_inexactf(x); /* raise inexact flag */
-        
-            if (i0 > 0) {
-                i0 += (0x00800000) >> j0;
+
+            if (_i0 > 0) {
+                _i0 += (0x00800000) >> _j0;
             }
 
-            i0 &= (~i);
+            _i0 &= (~i);
         }
     } else {
         if (!FLT_UWORD_IS_FINITE(ix)) {
@@ -49,7 +49,7 @@ float ceilf(float x)
         }
     }
 
-    SET_FLOAT_WORD(x, i0);
+    SET_FLOAT_WORD(x, _i0);
     return x;
 }
 

@@ -154,10 +154,21 @@ one     =  1.0,
 two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
 twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
 
-int __rem_pio2_internal(double *x, double *y, int e0, int nx)
+static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
 {
-    int32_t jz, jx, jv, jp, jk, carry, n, iq[20], i, j, k, m, q0, ih;
-    double z, fw, f[20], fq[20], q[20];
+    int32_t jz, jx, jv, jp, jk, carry, n, i, j, k, m, q0, ih;
+    int32_t iq[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+    double z, fw;
+    double f[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    double fq[20] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    double q[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+
+    bool recompute;
 
     /* initialize jk*/
     jk = 4;
@@ -191,108 +202,116 @@ int __rem_pio2_internal(double *x, double *y, int e0, int nx)
     }
 
     jz = jk;
-recompute:
 
-    /* distill q[] into iq[] reversingly */
-    for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
-        fw    = (double)((int32_t)(twon24 * z));
-        iq[i] = (int32_t)(z - two24 * fw);
-        z     =  q[j - 1] + fw;
-    }
+    do {
+        recompute = false;
 
-    /* compute n */
-    z  = scalbn(z, (int)q0);       /* actual value of z */
-    z -= 8.0 * floor(z * 0.125);    /* trim off integer >= 8 */
-    n  = (int32_t) z;
-    z -= (double)n;
-    ih = 0;
+        /* distill q[] into iq[] reversingly */
+        for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
+            fw    = (double)((int32_t)(twon24 * z));
+            iq[i] = (int32_t)(z - two24 * fw);
+            z     =  q[j - 1] + fw;
+        }
 
-    if (q0 > 0) { /* need iq[jz-1] to determine n */
-        i  = (iq[jz - 1] >> (24 - q0));
-        n += i;
-        iq[jz - 1] -= i << (24 - q0);
-        ih = iq[jz - 1] >> (23 - q0);
-    } else if (q0 == 0) {
-        ih = iq[jz - 1] >> 23;
-    } else if (z >= 0.5) {
-        ih = 2;
-    }
+        /* compute n */
+        z  = scalbn(z, (int32_t)q0);       /* actual value of z */
+        z -= 8.0 * floor(z * 0.125);    /* trim off integer >= 8 */
+        n  = (int32_t) z;
+        z -= (double)n;
+        ih = 0;
 
-    if (ih > 0) { /* q > 0.5 */
-        n += 1;
-        carry = 0;
+        if (q0 > 0) { /* need iq[jz-1] to determine n */
+            i  = (iq[jz - 1] >> (24 - q0));
+            n += i;
+            iq[jz - 1] -= i << (24 - q0);
+            ih = iq[jz - 1] >> (23 - q0);
+        } else if (q0 == 0) {
+            ih = iq[jz - 1] >> 23;
+        } else if (z >= 0.5) {
+            ih = 2;
+        } else {
+            /* No action required */
+        }
 
-        for (i = 0; i < jz ; i++) { /* compute 1-q */
-            j = iq[i];
+        if (ih > 0) { /* q > 0.5 */
+            n += 1;
+            carry = 0;
 
-            if (carry == 0) {
-                if (j != 0) {
-                    carry = 1;
-                    iq[i] = 0x1000000 - j;
+            for (i = 0; i < jz ; i++) { /* compute 1-q */
+                j = iq[i];
+
+                if (carry == 0) {
+                    if (j != 0) {
+                        carry = 1;
+                        iq[i] = 0x1000000 - j;
+                    }
+                } else {
+                    iq[i] = 0xffffff - j;
                 }
-            } else {
-                iq[i] = 0xffffff - j;
+            }
+
+            if (q0 > 0) {     /* rare case: chance is 1 in 12 */
+                switch (q0) {
+                default:
+                case 1:
+                    iq[jz - 1] &= 0x7fffff;
+                    break;
+
+                case 2:
+                    iq[jz - 1] &= 0x3fffff;
+                    break;
+                }
+            }
+
+            if (ih == 2) {
+                z = one - z;
+
+                if (carry != 0) {
+                    z -= scalbn(one, (int32_t)q0);
+                }
             }
         }
 
-        if (q0 > 0) {     /* rare case: chance is 1 in 12 */
-            switch (q0) {
-            case 1:
-                iq[jz - 1] &= 0x7fffff;
-                break;
+        /* check if recomputation is needed */
+        if (z == zero) {
+            j = 0;
 
-            case 2:
-                iq[jz - 1] &= 0x3fffff;
-                break;
+            for (i = jz - 1; i >= jk; i--) {
+                j |= iq[i];
             }
-        }
 
-        if (ih == 2) {
-            z = one - z;
-
-            if (carry != 0) {
-                z -= scalbn(one, (int)q0);
-            }
-        }
-    }
-
-    /* check if recomputation is needed */
-    if (z == zero) {
-        j = 0;
-
-        for (i = jz - 1; i >= jk; i--) {
-            j |= iq[i];
-        }
-
-        if (j == 0) { /* need recomputation */
-            for (k = 1; iq[jk - k] == 0; k++); /* k = no. of terms needed */
-
-            for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
-                f[jx + i] = (double) ipio2[jv + i];
-
-                for (j = 0, fw = 0.0; j <= jx; j++) {
-                    fw += x[j] * f[jx + i - j];
+            if (j == 0) { /* need recomputation */
+                for (k = 1; iq[jk - k] == 0; k++) { /* k = no. of terms needed */
                 }
 
-                q[i] = fw;
-            }
+                for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
+                    f[jx + i] = (double) ipio2[jv + i];
 
-            jz += k;
-            goto recompute;
+                    for (j = 0, fw = 0.0; j <= jx; j++) {
+                        fw += x[j] * f[jx + i - j];
+                    }
+
+                    q[i] = fw;
+                }
+
+                jz += k;
+                recompute = true;
+            }
         }
-    }
+    } while (recompute)
 
     /* chop off zero terms */
     if (z == 0.0) {
         q0 -= 24;
 
-        for (jz -= 1; jz>=0; --jz)
-        {
-            if (iq[jz]!=0) break;
+        for (jz -= 1; jz>=0; --jz) {
+            if (iq[jz]!=0) {
+                break;
+            }
             q0 -= 24;
         }
     } else { /* break z into 24-bit if necessary */
-        z = scalbn(z, -(int)q0);
+        z = scalbn(z, -(int32_t)q0);
 
         if (z >= two24) {
             fw = (double)((int32_t)(twon24 * z));
@@ -306,7 +325,7 @@ recompute:
     }
 
     /* convert integer "bit" chunk to floating-point value */
-    fw = scalbn(one, (int)q0);
+    fw = scalbn(one, (int32_t)q0);
 
     for (i = jz; i >= 0; i--) {
         q[i] = fw * (double)iq[i];
@@ -371,7 +390,7 @@ int32_t __rem_pio2(double x, double *y)
     double z = 0.0, w, t, r, fn;
     double tx[3];
     int32_t i, j, n, ix, hx;
-    int e0, nx;
+    int32_t e0, nx;
     uint32_t low;
 
     GET_HIGH_WORD(hx, x);       /* high word of x */
@@ -462,9 +481,11 @@ int32_t __rem_pio2(double x, double *y)
      */
     if (ix >= 0x7ff00000) {     /* x is inf or NaN */
         if (isnan(x)) {
-            y[0] = y[1] = x - x;
+            y[1] = x - x;
+            y[0] = y[1];
         } else {
-            y[0] = y[1] = __raise_invalid();
+            y[1] = __raise_invalid();
+            y[0] = y[1];
         }
         return 0;
     }
@@ -472,7 +493,7 @@ int32_t __rem_pio2(double x, double *y)
     /* set z = scalbn(|x|,ilogb(x)-23) */
     GET_LOW_WORD(low, x);
     SET_LOW_WORD(z, low);
-    e0 = (int)((ix >> 20) - 1046); /* e0 = ilogb(z)-23; */
+    e0 = (int32_t)((ix >> 20) - 1046); /* e0 = ilogb(z)-23; */
     SET_HIGH_WORD(z, ix - ((int32_t)e0 << 20));
 
     for (i = 0; i < 2; i++) {
@@ -481,11 +502,12 @@ int32_t __rem_pio2(double x, double *y)
     }
 
     tx[2] = z;
-    
-    for (nx = 3; nx>0; --nx) /* skip zero term */
-	{
-	    if (tx[nx-1]!=zero) break;
-	}
+
+    for (nx = 3; nx>0; --nx) { /* skip zero term */
+        if (tx[nx-1]!=zero) {
+            break;
+        }
+	  }
 
     n  =  __rem_pio2_internal(tx, y, e0, nx);
 

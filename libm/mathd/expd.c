@@ -127,8 +127,11 @@ P5          =  4.13813679705723846039e-08;  /* 0x3E663769, 0x72BEA4D0 */
 
 double exp(double x)    /* default IEEE double exp */
 {
-    double y, hi, lo, c, t;
-    int32_t k = 0, xsb;
+    double y, c, t;
+    double hi = 0.0;
+    double lo = 0.0;
+    int32_t k = 0;
+    int32_t xsb;
     uint32_t hx;
 
     GET_HIGH_WORD(hx, x);
@@ -145,7 +148,7 @@ double exp(double x)    /* default IEEE double exp */
                 return x + x;    /* NaN */
             } else { /* exp(+-inf)={inf,0} */
                 return (xsb == 0) ? x : zero;
-            } 
+            }
         }
 
         if (x > o_threshold) {
@@ -173,6 +176,8 @@ double exp(double x)    /* default IEEE double exp */
         x  = hi - lo;
     } else if (hx < 0x3df00000)  { /* when |x|<2**-32 */
         return __raise_inexact(one);
+    } else {
+        /* No action required */
     }
 
     /* x is now in primary range */

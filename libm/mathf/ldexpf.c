@@ -4,20 +4,20 @@
 
 #include <math.h>
 
-float ldexpf(float value, int exp)
+float ldexpf(float value, int exponent)
 {
-    if (!isfinite(value) || value == (float)0.0) {
+    if ((isfinite(value) == 0) || value == 0.0f) {
         return value;
     }
 
-    return scalbnf(value, exp);
+    return scalbnf(value, exponent);
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS
 
-double ldexp(double value, int exp)
+double ldexp(double value, int exponent)
 {
-    return (double) ldexpf((float) value, exp);
+    return (double) ldexpf((float) value, exponent);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */

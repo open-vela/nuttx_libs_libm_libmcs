@@ -66,14 +66,14 @@ two54 =  1.80143985094819840000e+16; /* 0x43500000, 0x00000000 */
 
 double frexp(double x, int *eptr)
 {
-    int _xexp = 0;
+    int32_t _xexp = 0;
     int32_t hx, ix, lx;
-    
+
 	assert(eptr != (void*)0);
 	if(eptr == (void*)0) {
 	    eptr = &_xexp;
 	}
-    
+
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;
     *eptr = 0;
@@ -90,7 +90,7 @@ double frexp(double x, int *eptr)
     }
 
     *eptr += (ix >> 20) - 1022;
-    hx = (hx & 0x800fffff) | 0x3fe00000;
+    hx = (hx & 0x800fffffU) | 0x3fe00000U;
     SET_HIGH_WORD(x, hx);
     return x;
 }

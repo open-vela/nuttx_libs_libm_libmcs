@@ -68,70 +68,70 @@ static const double TWO52[2] = {
 
 double rint(double x)
 {
-    int32_t i0, j0, sx;
-    uint32_t i, i1;
+    int32_t _i0, _j0, sx;
+    uint32_t i, _i1;
     double t;
     volatile double w;
-    EXTRACT_WORDS(i0, i1, x);
-    sx = (i0 >> 31) & 1;               /* sign */
-    j0 = ((i0 >> 20) & 0x7ff) - 0x3ff; /* exponent */
+    EXTRACT_WORDS(_i0, _i1, x);
+    sx = (_i0 >> 31) & 1;               /* sign */
+    _j0 = ((_i0 >> 20) & 0x7ff) - 0x3ff; /* exponent */
 
-    if (j0 < 20) {                     /* no integral bits in LS part */
-        if (j0 < 0) {                  /* x is fractional or 0 */
-            if (((i0 & 0x7fffffff) | i1) == 0) {
+    if (_j0 < 20) {                     /* no integral bits in LS part */
+        if (_j0 < 0) {                  /* x is fractional or 0 */
+            if (((_i0 & 0x7fffffff) | _i1) == 0) {
                 return x;              /* x == 0 */
             }
 
-            i1 |= (i0 & 0x0fffff);
-            i0 &= 0xfffe0000;
-            i0 |= ((i1 | -i1) >> 12) & 0x80000;
-            SET_HIGH_WORD(x, i0);
+            _i1 |= (_i0 & 0x0fffff);
+            _i0 &= 0xfffe0000U;
+            _i0 |= ((_i1 | -_i1) >> 12) & 0x80000;
+            SET_HIGH_WORD(x, _i0);
             w = TWO52[sx] + x;
             t =  w - TWO52[sx];
-            GET_HIGH_WORD(i0, t);
-            SET_HIGH_WORD(t, (i0 & 0x7fffffff) | (sx << 31));
+            GET_HIGH_WORD(_i0, t);
+            SET_HIGH_WORD(t, (_i0 & 0x7fffffff) | (sx << 31));
             return t;
         } else {                       /* x has integer and maybe fraction */
-            i = (0x000fffff) >> j0;
+            i = (0x000fffff) >> _j0;
 
-            if (((i0 & i) | i1) == 0) {
+            if (((_i0 & i) | _i1) == 0) {
                 return x;              /* x is integral */
             }
 
             i >>= 1;
 
-            if (((i0 & i) | i1) != 0) {
+            if (((_i0 & i) | _i1) != 0) {
                 /* 2nd or any later bit after radix is set */
-                if (j0 == 19) {
-                    i1 = 0x80000000;
+                if (_j0 == 19) {
+                    _i1 = 0x80000000U;
                 } else {
-                    i1 = 0;
+                    _i1 = 0;
                 }
 
-                i0 = (i0 & (~i)) | ((0x40000) >> j0);
+                _i0 = (_i0 & (~i)) | ((0x40000) >> _j0);
             }
         }
-    } else if (j0 > 51) {
-        if (j0 == 0x400) {
+    } else if (_j0 > 51) {
+        if (_j0 == 0x400) {
             return x + x;              /* inf or NaN */
         } else {
             return x;                  /* x is integral */
         }
     } else {
-        i = ((uint32_t)(0xffffffff)) >> (j0 - 20);
+        i = ((uint32_t)0xffffffffU) >> (_j0 - 20);
 
-        if ((i1 & i) == 0) {
+        if ((_i1 & i) == 0) {
             return x;                  /* x is integral */
         }
 
         i >>= 1;
 
-        if ((i1 & i) != 0) {
-            i1 = (i1 & (~i)) | ((0x40000000) >> (j0 - 20));
+        if ((_i1 & i) != 0) {
+            _i1 = (_i1 & (~i)) | ((0x40000000) >> (_j0 - 20));
         }
     }
 
-    INSERT_WORDS(x, i0, i1);
+    INSERT_WORDS(x, _i0, _i1);
     w = TWO52[sx] + x;
     return w - TWO52[sx];
 }

@@ -119,7 +119,7 @@ ivln2_l  =  1.92596299112661746887e-08;  /* 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail*/
 double pow(double x, double y)
 {
     double z, ax, z_h, z_l, p_h, p_l;
-    double y1, t1, t2, r, s, t, u, v, w;
+    double _y1, t1, t2, r, s, t, u, v, w;
     int32_t i, j, k, yisint, n;
     int32_t hx, hy, ix, iy;
     uint32_t lx, ly;
@@ -173,7 +173,11 @@ double pow(double x, double y)
                 if ((j << (20 - k)) == iy) {
                     yisint = 2 - (j & 1);
                 }
+            } else {
+                /* No action required */
             }
+        } else {
+            /* No action required */
         }
     }
 
@@ -220,6 +224,8 @@ double pow(double x, double y)
                     z = zero;
                 } else if (ix == 0) {
                     z = __raise_div_by_zero(z);
+                } else {
+                    /* No action required */
                 }
             }
 
@@ -228,6 +234,8 @@ double pow(double x, double y)
                     z = __raise_invalid(); /* (-1)**non-int is NaN */
                 } else if (yisint == 1) {
                     z = -z;                /* (x<0)**odd = -(|x|**odd) */
+                } else {
+                    /* No action required */
                 }
             }
 
@@ -343,11 +351,11 @@ double pow(double x, double y)
         s = -one;    /* (-ve)**(odd int) */
     }
 
-    /* split up y into y1+y2 and compute (y1+y2)*(t1+t2) */
-    y1  = y;
-    SET_LOW_WORD(y1, 0);
-    p_l = (y - y1) * t1 + y * t2;
-    p_h = y1 * t1;
+    /* split up y into _y1+y2 and compute (_y1+y2)*(t1+t2) */
+    _y1  = y;
+    SET_LOW_WORD(_y1, 0);
+    p_l = (y - _y1) * t1 + y * t2;
+    p_h = _y1 * t1;
     z = p_l + p_h;
     EXTRACT_WORDS(j, i, z);
 
@@ -360,13 +368,15 @@ double pow(double x, double y)
             }
         }
     } else if ((j & 0x7fffffff) >= 0x4090cc00) { /* z <= -1075 */
-        if (((j - 0xc090cc00) | i) != 0) {       /* z < -1075 */
+        if (((j - 0xc090cc00U) | i) != 0) {      /* z < -1075 */
             return __raise_underflow(s);
         } else {
             if (p_l <= z - p_h) {
                 return __raise_underflow(s);
             }
         }
+    } else {
+        /* No action required */
     }
 
     /*
@@ -404,7 +414,7 @@ double pow(double x, double y)
     j += (n << 20);
 
     if ((j >> 20) <= 0) {
-        z = scalbn(z, (int)n);                    /* subnormal output */
+        z = scalbn(z, (int32_t)n);                    /* subnormal output */
     } else {
         SET_HIGH_WORD(z, j);
     }

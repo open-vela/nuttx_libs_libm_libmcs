@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: NetBSD */
 /* Written by Matthias Drochner. */
 
-#pragma once
+#ifndef LIBMCS_COMPLEX_H
+#define	LIBMCS_COMPLEX_H
 
 #ifdef __cplusplus
 extern "C"{
@@ -114,27 +115,27 @@ float crealf(float complex);
     long double complex ccosl(long double complex);
     long double complex csinl(long double complex);
     long double complex ctanl(long double complex);
-    
+
     long double complex cacoshl(long double complex);
     long double complex casinhl(long double complex);
     long double complex catanhl(long double complex);
     long double complex ccoshl(long double complex);
     long double complex csinhl(long double complex);
     long double complex ctanhl(long double complex);
-    
+
     long double complex cexpl(long double complex);
     long double complex clogl(long double complex);
-    
+
     long double cabsl(long double complex) ;
     long double complex cpowl(long double complex, long double complex);
     long double complex csqrtl(long double complex);
-    
+
     long double cargl(long double complex);
     long double cimagl(long double complex);
     long double complex conjl(long double complex);
     long double complex cprojl(long double complex);
     long double creall(long double complex);
-    
+
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 
 #define CMPLX () /* TODO */
@@ -144,3 +145,5 @@ float crealf(float complex);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* !LIBMCS_COMPLEX_H */

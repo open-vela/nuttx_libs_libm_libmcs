@@ -6,7 +6,7 @@
 
 float exp2f(float x)
 {
-    return powf(2.0, x);
+    return powf(2.0f, x);
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS

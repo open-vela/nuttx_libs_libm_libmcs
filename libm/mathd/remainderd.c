@@ -51,7 +51,7 @@ double remainder(double x, double p)
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hp, lp, p);
-    sx = hx & 0x80000000;
+    sx = hx & 0x80000000U;
     hp &= 0x7fffffff;
     hx &= 0x7fffffff;
 
@@ -61,9 +61,13 @@ double remainder(double x, double p)
             return x + p;
         } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
             return __raise_invalid();
+        } else {
+            /* No action required */
         }
     } else if ((hp | lp) == 0) {                    /* p = 0 */
         return __raise_invalid();
+    } else {
+        /* No action required */
     }
 
     if (hp <= 0x7fdfffff) {
