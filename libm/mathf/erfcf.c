@@ -9,7 +9,7 @@
 static const float
 half =  5.0000000000e-01f, /* 0x3F000000 */
 two  =  2.0000000000e+00f, /* 0x40000000 */
-erx  =  8.4506291151e-01f; /* 0x3f58560b */
+erx  =  8.42697144e-01f,   /* 0x3f57bb00 */
 
 float erfcf(float x)
 {
@@ -29,7 +29,7 @@ float erfcf(float x)
     }
 
     if (ix < 0x3f580000) {       /* |x|<0.84375 */
-        if (ix < 0x23800000) {   /* |x|<2**-56 */
+        if (ix < 0x33800000) {   /* |x|<2**-24 */
             return __raise_inexactf(one);
         }
 
