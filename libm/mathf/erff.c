@@ -7,7 +7,12 @@
 #include "internal/errorfunctionf.h"
 
 static const float
-erx  =  8.4506291151e-01f, /* 0x3f58560b */
+erx  =  8.42697144e-01f,   /* 0x3f57bb00 */
+/*
+ * In the domain [0, 2**-14], only the first term in the power series
+ * expansion of erf(x) is used.  The magnitude of the first neglected
+ * terms is less than 2**-42.
+ */
 efx  =  1.2837916613e-01f, /* 0x3e0375d4 */
 efx8 =  1.0270333290e+00f; /* 0x3f8375d4 */
 
@@ -29,7 +34,7 @@ float erff(float x)
     }
 
     if (ix < 0x3f580000) {       /* |x|<0.84375 */
-        if (ix < 0x31800000) {    /* |x|<2**-28 */
+        if (ix < 0x38800000) {    /* |x|<2**-14 */
             if (ix < 0x04000000)
                 /*avoid underflow */
             {
@@ -65,7 +70,7 @@ float erff(float x)
     x = fabsf(x);
     s = one / (x * x);
 
-    if (ix < 0x4036DB6E) {  /* |x| < 1/0.35 */
+    if (ix < 0x4036DB8C) {  /* |x| < 1/0.35 */
         R = __erff_Ra(s);
         S = __erff_Sa(s);
     } else {    /* |x| >= 1/0.35 */
