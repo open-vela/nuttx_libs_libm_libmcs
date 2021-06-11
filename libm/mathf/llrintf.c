@@ -64,7 +64,7 @@ long long int llrintf(float x)
         }
     } else {
         (void) __raise_invalidf(x);
-        if (sx == 1) {
+        if (sx != 0) {
             return __MIN_LONG_LONG;
         }
         else {
@@ -72,7 +72,7 @@ long long int llrintf(float x)
         }
     }
 
-    return (sx == 1) ? -result : result;
+    return (sx != 0) ? -result : result;
 }
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS

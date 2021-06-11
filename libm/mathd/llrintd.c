@@ -91,7 +91,7 @@ long long int llrint(double x)
         }
     } else {
         (void) __raise_invalid(x);
-        if (sx == 1) {
+        if (sx != 0) {
             return __MIN_LONG_LONG;
         }
         else {
@@ -99,7 +99,7 @@ long long int llrint(double x)
         }
     }
 
-    return (sx == 1) ? -result : result;
+    return (sx != 0) ? -result : result;
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
