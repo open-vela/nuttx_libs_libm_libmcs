@@ -237,7 +237,7 @@ double __jn(int n, double x)
         }
     }
 
-    if (sgn == 1) {
+    if (sgn != 0) {
         return -b;
     } else {
         return b;

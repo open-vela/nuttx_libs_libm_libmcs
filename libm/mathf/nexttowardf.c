@@ -36,17 +36,17 @@ float nexttowardf(float x, long double y)
     if (x == 0) {
         ux.bits = 1;
 
-        if (signbit(y) == 1) {
+        if (signbit(y) != 0) {
             ux.bits |= 0x80000000U;
         }
     } else if (x < y) {
-        if (signbit(x) == 1) {
+        if (signbit(x) != 0) {
             ux.bits--;
         } else {
             ux.bits++;
         }
     } else {
-        if (signbit(x) == 1) {
+        if (signbit(x) != 0) {
             ux.bits++;
         } else {
             ux.bits--;
