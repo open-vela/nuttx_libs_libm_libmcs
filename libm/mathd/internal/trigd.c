@@ -298,7 +298,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
                 recompute = true;
             }
         }
-    } while (recompute)
+    } while (recompute);
 
     /* chop off zero terms */
     if (z == 0.0) {

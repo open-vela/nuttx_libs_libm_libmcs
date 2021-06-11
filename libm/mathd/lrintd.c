@@ -105,7 +105,7 @@ long int lrint(double x)
             /* shift amt in [20,0] */
             result = _i0 >> (20 - _j0);
         }
-    } else if (_j0 < (int32_t)(8 * sizeof(long int)) - 1) {
+    } else if ((uint32_t)_j0 < (8 * sizeof(long int)) - 1) {
         /* 32bit return: _j0 in [20,30] */
         /* 64bit return: _j0 in [20,62] */
         if (_j0 >= 52) {
@@ -130,7 +130,7 @@ long int lrint(double x)
             /* 64bit return: left shift amt in [0,32] */
             /* ***32bit return: right shift amt in [32,21] */
             /* ***64bit return: right shift amt in [32,0] */
-            result = ((long int) _i0 << (_j0 - 20)) | SAFE_RIGHT_SHIFT(i1, (52 - _j0));
+            result = ((long int) _i0 << (_j0 - 20)) | SAFE_RIGHT_SHIFT(i1, (uint32_t)(52 - _j0));
         }
     } else {
         (void) __raise_invalid(x);

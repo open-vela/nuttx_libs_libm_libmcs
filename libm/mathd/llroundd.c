@@ -39,7 +39,7 @@ long long int llround(double x)
             /* shift amt in [20,1] */
             result = msw >> (20 - exponent_less_1023);
         }
-    } else if (exponent_less_1023 < (8 * sizeof(long long int)) - 1) {
+    } else if ((uint32_t)exponent_less_1023 < (8 * sizeof(long long int)) - 1) {
         /* 64bit longlong: exponent_less_1023 in [20,62] */
         if (exponent_less_1023 >= 52) {
             /* 64bit longlong: exponent_less_1023 in [52,62] */
@@ -59,7 +59,7 @@ long long int llround(double x)
             /* 64bit longlong: shift amt in [0,31] */
             result = ((long long int) msw << (exponent_less_1023 - 20))
                      /* ***64bit longlong: shift amt in [32,1] */
-                     | SAFE_RIGHT_SHIFT(tmp, (52 - exponent_less_1023));
+                     | SAFE_RIGHT_SHIFT(tmp, (uint32_t)(52 - exponent_less_1023));
         }
     } else {   /* Result is too large to be represented by a long long int. */
         (void) __raise_invalid(x);
