@@ -113,7 +113,7 @@ remquo(double x, double y, int *quo)
         }
 
         if (lx == ly) {
-            *quo = ((sxy == 1) ? -1 : 1);
+            *quo = ((sxy != 0) ? -1 : 1);
             return Zero[(uint32_t)sx >> 31];        /* |x|=|y| return x*0 */
         }
     }
@@ -217,7 +217,7 @@ remquo(double x, double y, int *quo)
     /* convert back to floating value and restore the sign */
     if ((hx | lx) == 0) {         /* return sign(x)*0 */
         q &= QUO_MASK;
-        *quo = ((sxy == 1) ? -q : q);
+        *quo = ((sxy != 0) ? -q : q);
         return Zero[(uint32_t)sx >> 31];
     }
 
@@ -263,7 +263,7 @@ fixup:
     GET_HIGH_WORD(hx, x);
     SET_HIGH_WORD(x, hx ^ sx);
     q &= QUO_MASK;
-    *quo = ((sxy == 1) ? -q : q);
+    *quo = ((sxy != 0) ? -q : q);
     return x;
 }
 

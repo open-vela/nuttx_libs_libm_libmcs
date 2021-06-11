@@ -173,19 +173,19 @@ static inline double __raise_invalid() {
     return r;
 }
 static inline double __raise_div_by_zero(double x) {
-    return (signbit(x) == 1) ? __forced_calculation(-1.0 / 0.0) : __forced_calculation(1.0 / 0.0);
+    return (signbit(x) != 0) ? __forced_calculation(-1.0 / 0.0) : __forced_calculation(1.0 / 0.0);
 }
 static inline double __raise_overflow(double x) {
     volatile double huge = 1.0e300;
-    return (signbit(x) == 1) ? -(huge * huge) : (huge * huge);
+    return (signbit(x) != 0) ? -(huge * huge) : (huge * huge);
 }
 static inline double __raise_underflow(double x) {
     volatile double tiny = 1.0e-300;
-    return (signbit(x) == 1) ? -(tiny * tiny) : (tiny * tiny);
+    return (signbit(x) != 0) ? -(tiny * tiny) : (tiny * tiny);
 }
 static inline double __raise_inexact(double x) {
     volatile double huge = 1.0e300;
-    return ((huge - 1.0e-300) == 1) ? x : 0.0;
+    return ((huge - 1.0e-300) != 0) ? x : 0.0;
 }
 
 static inline float __raise_invalidf() {
@@ -193,19 +193,19 @@ static inline float __raise_invalidf() {
     return r;
 }
 static inline float __raise_div_by_zerof(float x) {
-    return (signbit(x) == 1) ? __forced_calculationf(-1.0f / 0.0f) : __forced_calculationf(1.0f / 0.0f);
+    return (signbit(x) != 0) ? __forced_calculationf(-1.0f / 0.0f) : __forced_calculationf(1.0f / 0.0f);
 }
 static inline float __raise_overflowf(float x) {
     volatile float huge = 1.0e30f;
-    return (signbit(x) == 1) ? -(huge * huge) : (huge * huge);
+    return (signbit(x) != 0) ? -(huge * huge) : (huge * huge);
 }
 static inline float __raise_underflowf(float x) {
     volatile float tiny = 1.0e-30f;
-    return (signbit(x) == 1) ? -(tiny * tiny) : (tiny * tiny);
+    return (signbit(x) != 0) ? -(tiny * tiny) : (tiny * tiny);
 }
 static inline float __raise_inexactf(float x) {
     volatile float huge = 1.0e30f;
-    return ((huge - 1.0e-30f) == 1) ? x : 0.0f;
+    return ((huge - 1.0e-30f) != 0) ? x : 0.0f;
 }
 
 #endif /* !LIBMCS_TOOLS_H */

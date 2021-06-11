@@ -238,7 +238,7 @@ double sqrt(double x)
     ix0 = (q >> 1) + 0x3fe00000;
     ix1 =  q1 >> 1;
 
-    if ((q & 1) == 1) {
+    if ((q & 1) != 0) {
         ix1 |= sign;
     }
 
