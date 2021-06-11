@@ -66,7 +66,7 @@ double floor(double x)
 
     if (_j0 < 20) {
         if (_j0 < 0) {  /* raise inexact if x != 0 */
-            if ((_i0 | _i1) == 0) {
+            if (((_i0 & 0x7fffffff) | _i1) == 0) {
                 return x;
             }
 
