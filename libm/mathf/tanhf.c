@@ -17,18 +17,18 @@ float tanhf(float x)
 
     /* x is INF or NaN */
     if (!FLT_UWORD_IS_FINITE(ix)) {
-        if (isnan(x)) {                         /* tanh(NaN) = NaN */
+        if (isnan(x)) {             /* tanh(NaN) = NaN */
             return x + x;
         } else if (jx >= 0) {
-            return __raise_inexactf(one);       /* tanh(+inf)=+1 */
+            return one;             /* tanh(+inf)=+1 */
         } else {
-            return -__raise_inexactf(one);      /* tanh(-inf)=-1 */
+            return -one;            /* tanh(-inf)=-1 */
         }
     }
 
     /* |x| < 22 */
-    if (ix < 0x41b00000) {        /* |x|<22 */
-        if (ix < 0x24000000) {     /* |x|<2**-55 */
+    if (ix < 0x41b00000) {          /* |x|<22 */
+        if (ix < 0x24000000) {      /* |x|<2**-55 */
             if (FLT_UWORD_IS_ZERO(ix)) {    /* return x inexact except 0 */
                 return x;
             } else {
@@ -36,7 +36,7 @@ float tanhf(float x)
             }
         }
 
-        if (ix >= 0x3f800000) {  /* |x|>=1  */
+        if (ix >= 0x3f800000) {     /* |x|>=1  */
             t = expm1f(two * fabsf(x));
             z = one - two / (t + two);
         } else {

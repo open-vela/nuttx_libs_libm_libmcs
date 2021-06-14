@@ -124,9 +124,15 @@ double log1p(double x)
 
     k = 1;
 
+    if (hx >= 0x7ff00000) {                /* x = NaN/+-Inf */
+        return x + x;
+    }
+
     if (hx < 0x3FDA827A) {                 /* x < 0.41422  */
         if (ax >= 0x3ff00000) {            /* x <= -1.0 */
-            if (x == -1.0) {
+            if (isnan(x)) {
+                return x + x;
+            } else if (x == -1.0) {
                 return __raise_div_by_zero(-1.0); /* log1p(-1)=-inf */
             } else {
                 return __raise_invalid(); /* log1p(x<-1)=NaN */
@@ -146,10 +152,6 @@ double log1p(double x)
             f = x;
             hu = 1;
         }                                  /* -0.2929<x<0.41422 */
-    }
-
-    if (hx >= 0x7ff00000) {                /* x = NaN/+-Inf */
-        return x + x;
     }
 
     if (k != 0) {

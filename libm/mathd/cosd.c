@@ -51,7 +51,11 @@ double cos(double x)
     
     if(ix <= 0x3fe921fb) {
         if(ix < 0x3e46a09e) {        /* if x < 2**-27 * sqrt(2) */
-            return __raise_inexact(1.0);          /* generate inexact */
+            if (x == 0.0) {          /* return 1 inexact except 0 */
+                return 1.0;
+            } else {
+                return __raise_inexactf(1.0);
+            }
         }
         
         return __cos(x, z);

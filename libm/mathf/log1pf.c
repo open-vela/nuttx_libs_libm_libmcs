@@ -22,13 +22,15 @@ float log1pf(float x)
 
     k = 1;
 
-    if (!FLT_UWORD_IS_FINITE(hx)) { /* x = NaN/+-Inf */
+    if (!FLT_UWORD_IS_FINITE(hx)) { /* x = NaN/+Inf */
         return x + x;
     }
 
     if (hx < 0x3ed413d7) {          /* x < 0.41422  */
         if (ax >= 0x3f800000) {     /* x <= -1.0 */
-            if (x == -1.0f) {
+            if (FLT_UWORD_IS_NAN(ax)) {             /* x = NaN */
+                return x + x;
+            } else if (x == -1.0f) {
                 return __raise_div_by_zerof(-1.0f); /* log1p(-1)=-inf */
             } else {
                 return __raise_invalidf();          /* log1p(x<-1)=NaN */
