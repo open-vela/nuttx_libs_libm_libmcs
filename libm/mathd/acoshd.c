@@ -86,14 +86,14 @@ double acosh(double x)
     EXTRACT_WORDS(hx, lx, x);
 
     if (hx < 0x3ff00000) {     /* x < 1 */
-        return __raise_invalid();
+        if (isnan(x)) {
+            return x + x;
+        } else {
+            return __raise_invalid();
+        }
     } else if (hx >= 0x41b00000) {  /* x > 2**28 */
-        if (hx >= 0x7ff00000) {  /* x is inf of NaN */
-            if (isnan(x)) {
-                return x + x;
-            } else {
-                return __raise_invalid();
-            }
+        if (hx >= 0x7ff00000) {  /* x is +inf or NaN */
+            return x + x;
         } else {
             return log(x) + ln2;    /* acosh(huge)=log(2x) */
         }

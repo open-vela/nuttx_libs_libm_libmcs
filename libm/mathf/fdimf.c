@@ -5,12 +5,8 @@
 
 float fdimf(float x, float y)
 {
-    if (isnan(x)) {
-        return (x);
-    }
-
-    if (isnan(y)) {
-        return (y);
+    if (isnan(x) || isnan(y)) {
+        return x * y;
     }
 
     return x > y ? x - y : 0.0f;
