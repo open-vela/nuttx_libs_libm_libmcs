@@ -29,14 +29,18 @@ float logf(float x)
     k = 0;
 
     if (FLT_UWORD_IS_ZERO(ix & 0x7fffffff)) {
-        return __raise_div_by_zerof(-1.0f); /* log(+-0)=-inf */
+        return __raise_div_by_zerof(-1.0f);     /* log(+-0)=-inf */
+    }
+
+    if (FLT_UWORD_IS_NAN(ix & 0x7fffffff)) {    /* x = NaN */
+        return x + x;
     }
 
     if (ix < 0) {
-        return __raise_invalidf();          /* log(-#) = NaN */
+        return __raise_invalidf();              /* log(-#) = NaN */
     }
 
-    if (!FLT_UWORD_IS_FINITE(ix)) {         /* x = NaN/+-Inf */
+    if (FLT_UWORD_IS_INFINITE(ix)) {            /* x = +Inf */
         return x + x;
     }
 
