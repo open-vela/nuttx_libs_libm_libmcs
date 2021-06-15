@@ -138,9 +138,9 @@ float crealf(float complex);
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
 
-#define CMPLX () /* TODO */
-#define CMPLXF () /* TODO */
-#define CMPLXL () /* TODO */
+#define CMPLX(x,y)      ((double complex){(double)x, (double)y})
+#define CMPLXF(x,y)     ((float complex){(float)x, (float)y})
+#define CMPLXL(x,y)     ((long double complex){(long double)x, (long double)y})
 
 #ifdef __cplusplus
 }
