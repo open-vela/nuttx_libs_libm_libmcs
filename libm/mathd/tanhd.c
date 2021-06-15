@@ -76,12 +76,12 @@ double tanh(double x)
 
     /* x is INF or NaN */
     if (ix >= 0x7ff00000) {
-        if (isnan(x)) {                         /* tanh(NaN) = NaN */
+        if (isnan(x)) {             /* tanh(NaN) = NaN */
             return x + x;
         } else if (jx >= 0) {
-            return __raise_inexact(one);        /* tanh(+inf)=+1 */
+            return one;             /* tanh(+inf)=+1 */
         } else {
-            return -__raise_inexact(one);       /* tanh(-inf)=-1 */
+            return -one;            /* tanh(-inf)=-1 */
         }
     }
 

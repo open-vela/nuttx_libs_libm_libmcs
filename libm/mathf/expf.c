@@ -65,7 +65,11 @@ float expf(float x)    /* default IEEE double exp */
 
         x  = hi - lo;
     } else if (hx < 0x34000000)  { /* when |x|<2**-23 */
-        return __raise_inexactf(one);    /* trigger inexact */
+        if (x == 0.0f) {         /* return 1 inexact except 0 */
+            return one;
+        } else {
+            return __raise_inexactf(one);
+        }
     } else {
         /* No action required */
     }

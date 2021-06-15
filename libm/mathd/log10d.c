@@ -95,7 +95,11 @@ double log10(double x)
         }
 
         if (hx < 0) {
-            return __raise_invalid();   /* log(-#) = NaN */
+            if (isnan(x)) {
+                return x + x;
+            } else {
+                return __raise_invalid();   /* log(-#) = NaN */
+            }
         }
 
         k -= 54;
