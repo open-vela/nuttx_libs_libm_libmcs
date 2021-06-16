@@ -68,7 +68,7 @@ float expf(float x)    /* default IEEE double exp */
         if (x == 0.0f) {         /* return 1 inexact except 0 */
             return one;
         } else {
-            return __raise_inexactf(one);
+            return __raise_inexactf(one + x);
         }
     } else {
         /* No action required */

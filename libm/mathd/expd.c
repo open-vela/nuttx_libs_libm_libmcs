@@ -178,7 +178,7 @@ double exp(double x)    /* default IEEE double exp */
         if (x == 0.0) {         /* return 1 inexact except 0 */
             return one;
         } else {
-            return __raise_inexact(one);
+            return __raise_inexact(one + x);
         }
     } else {
         /* No action required */
