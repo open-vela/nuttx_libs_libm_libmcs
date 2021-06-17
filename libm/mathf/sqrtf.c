@@ -78,19 +78,9 @@ float sqrtf(float x)
         r >>= 1;
     }
 
-    /* use floating add to find out rounding direction */
     if (ix != 0) {
-        z = one - tiny; /* trigger inexact flag */
-
-        if (z >= one) {
-            z = one + tiny;
-
-            if (z > one) {
-                q += 2;
-            } else {
-                q += (q & 1);
-            }
-        }
+        (void) __raise_inexactf(x);
+        q += (q & 1);
     }
 
     ix = (q >> 1) + 0x3f000000;

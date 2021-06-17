@@ -219,23 +219,12 @@ double sqrt(double x)
 
     /* use floating add to find out rounding direction */
     if ((ix0 | ix1) != 0) {
-        z = one - tiny; /* trigger inexact flag */
-
-        if (z >= one) {
-            z = one + tiny;
-
-            if (q1 == (uint32_t)0xffffffffU) {
-                q1 = 0;
-                q += 1;
-            } else if (z > one) {
-                if (q1 == (uint32_t)0xfffffffeU) {
-                    q += 1;
-                }
-
-                q1 += 2;
-            } else {
-                q1 += (q1 & 1);
-            }
+        (void) __raise_inexact(x);
+        if (q1 == (uint32_t)0xffffffffU) {
+            q1 = 0;
+            q += 1;
+        } else {
+            q1 += (q1 & 1);
         }
     }
 
