@@ -6,6 +6,10 @@
 
 float cabsf(float complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return hypotf(crealf(z), cimagf(z));
 }
 

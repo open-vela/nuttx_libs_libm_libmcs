@@ -8,6 +8,10 @@
 
 float modff(float x, float *iptr)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float _xi = 0.0f;
     int32_t _i0, _j0;
     uint32_t i;

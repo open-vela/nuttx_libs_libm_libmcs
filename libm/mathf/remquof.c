@@ -25,6 +25,11 @@ static const float Zero[] = {0.0f, -0.0f};
  */
 float remquof(float x, float y, int *quo)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
@@ -138,6 +143,9 @@ float remquof(float x, float y, int *quo)
 
 fixup:
     SET_FLOAT_WORD(x, hx);
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
     y = fabsf(y);
 
     if (y < 0x1p-125f) {

@@ -96,6 +96,10 @@ qS4     =  7.70381505559019352791e-02; /* 0x3FB3B8C5, 0xB12E9282 */
 
 double acos(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double z, p, q, r, w, s, c, df;
     int32_t hx, ix;
     GET_HIGH_WORD(hx, x);

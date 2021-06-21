@@ -67,6 +67,10 @@ static const double one = 1.0, two = 2.0;
 
 double tanh(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double t, z;
     int32_t jx, ix;
 

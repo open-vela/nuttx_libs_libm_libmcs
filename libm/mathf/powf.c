@@ -38,6 +38,11 @@ ivln2_l  =  7.0526075433e-06f; /* 0x36eca570 =1/ln2 tail*/
 
 float powf(float x, float y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float z, ax, z_h, z_l, p_h, p_l;
     float _y1, t1, t2, r, s, t, u, v, w;
     int32_t i, j, k, yisint, n;

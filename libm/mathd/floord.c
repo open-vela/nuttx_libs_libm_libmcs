@@ -59,6 +59,10 @@ PORTABILITY
 
 double floor(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t _i0, _i1, _j0;
     uint32_t i, j;
     EXTRACT_WORDS(_i0, _i1, x);

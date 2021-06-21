@@ -18,6 +18,10 @@ efx8 =  1.0270333290e+00f; /* 0x3f8375d4 */
 
 float erff(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, ix;
     float R, S, P, Q, s, z, r;
     GET_FLOAT_WORD(hx, x);

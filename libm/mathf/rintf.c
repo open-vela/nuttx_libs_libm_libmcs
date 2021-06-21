@@ -12,6 +12,10 @@ TWO23[2] = {
 
 float rintf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t _i0, _j0, sx;
     uint32_t i, _i1, ix;
     float t;

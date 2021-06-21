@@ -5,6 +5,12 @@
 
 float fmaf(float x, float y, float z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= __volatile_onef;
+    z *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return x * y + z;
 }
 

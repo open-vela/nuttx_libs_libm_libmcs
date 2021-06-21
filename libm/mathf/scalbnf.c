@@ -17,6 +17,10 @@ twom25  =  2.9802322388e-08f;    /* 0x33000000 */
 
 float scalbnf(float x, int n)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t  k, ix;
     uint32_t hx;
 

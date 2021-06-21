@@ -9,6 +9,11 @@ static const float zero = 0.0f;
 
 float remainderf(float x, float p)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    p *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, hp;
     uint32_t sx;
     float p_half;

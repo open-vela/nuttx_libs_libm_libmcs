@@ -43,7 +43,11 @@ G  =  3.57142857142857150787e-01; /* 5/14      = 0x3FD6DB6D, 0xB6DB6DB7 */
 
 double cbrt(double x)
 {
-    int32_t    hx;
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
+    int32_t hx;
     double r, s, t = 0.0, w;
     uint32_t sign;
     uint32_t high, low;

@@ -80,6 +80,10 @@ static const double one = 1.0;
 
 double atanh(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double t;
     int32_t hx, ix;
     uint32_t lx;

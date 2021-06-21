@@ -13,6 +13,10 @@ erx  =  8.42697144e-01f,   /* 0x3f57bb00 */
 
 float erfcf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, ix;
     float R, S, P, Q, s, y, z, r;
     GET_FLOAT_WORD(hx, x);

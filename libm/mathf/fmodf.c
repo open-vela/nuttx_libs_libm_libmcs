@@ -11,10 +11,15 @@
 #include <math.h>
 #include "../common/tools.h"
 
-static const float one = 1.0f, Zero[] = {0.0f, -0.0f,};
+static const float Zero[] = {0.0f, -0.0f,};
 
 float fmodf(float x, float y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t n, hx, hy, hz, ix, iy, sx, i;
 
     GET_FLOAT_WORD(hx, x);
@@ -118,12 +123,12 @@ float fmodf(float x, float y)
         hx = ((hx - 0x00800000) | ((iy + 127) << 23));
         SET_FLOAT_WORD(x, hx | sx);
     } else {        /* subnormal output */
-        /* If denormals are not supported, this code will generate a
-           zero representation.  */
         n = -126 - iy;
         hx >>= n;
         SET_FLOAT_WORD(x, hx | sx);
-        x *= one;        /* create necessary signal */
+#ifdef __LIBMCS_FPU_DAZ
+        x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
     }
 
     return x;        /* exact output */

@@ -11,6 +11,10 @@ ln2    = 6.9314718246e-01f;  /* 0x3f317218 */
 
 float acoshf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float t;
     int32_t hx;
     GET_FLOAT_WORD(hx, x);
