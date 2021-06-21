@@ -16,6 +16,10 @@
 
 float floorf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t _i0, _j0;
     uint32_t i, ix;
     GET_FLOAT_WORD(_i0, x);

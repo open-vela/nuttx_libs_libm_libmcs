@@ -40,6 +40,10 @@
 
 double cos(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double y[2], z = 0.0;
     int32_t n, ix;
 

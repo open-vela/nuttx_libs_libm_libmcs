@@ -153,6 +153,10 @@ efx8 =  1.02703333676410069053e+00; /* 0x3FF06EBA, 0x8214DB69 */
 
 double erf(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, ix;
     double R, S, P, Q, s, z, r;
     GET_HIGH_WORD(hx, x);

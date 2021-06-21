@@ -12,6 +12,10 @@
 
 double y1(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return __y1(x);
 }
 

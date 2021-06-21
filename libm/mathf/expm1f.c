@@ -19,6 +19,10 @@ Q5     = -2.0109921195e-07f; /* 0xb457edbb */
 
 float expm1f(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float y, hi, lo, c, t, e, hxs, hfx, r1;
     int32_t k, xsb;
     uint32_t hx;

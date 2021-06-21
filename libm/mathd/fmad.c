@@ -7,6 +7,12 @@
 
 double fma(double x, double y, double z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+    z *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return x * y + z;
 }
 

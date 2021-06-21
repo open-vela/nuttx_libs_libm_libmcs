@@ -4,6 +4,10 @@
 
 float complex casinf(float complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float complex w;
     float complex ca, ct, zz, z2;
     float x, y;

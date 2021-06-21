@@ -107,6 +107,10 @@ static const double one = 1.0, tiny = 1.0e-300;
 
 double sqrt(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double z;
     int32_t sign = 0x80000000U;
     uint32_t r, t1, s1, ix1, q1;

@@ -8,6 +8,10 @@
 
 float cosf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float y[2], z = 0.0f;
     int32_t n, ix;
 

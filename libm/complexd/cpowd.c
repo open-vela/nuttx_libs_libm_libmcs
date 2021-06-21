@@ -49,6 +49,11 @@ QUICKREF
 
 double complex cpow(double complex x, double complex y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double complex w;
     double realz, imagz, result, theta, absx, argx;
 

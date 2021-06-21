@@ -9,6 +9,10 @@ static const float one = 1.0f;
 
 float atanhf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float t;
     int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);

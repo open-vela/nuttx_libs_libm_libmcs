@@ -6,6 +6,10 @@
 
 float ldexpf(float value, int exponent)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    value *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     if ((isfinite(value) == 0) || value == 0.0f) {
         return value;
     }

@@ -7,6 +7,11 @@
 
 float hypotf(float x, float y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float a = x;
     float b = y;
     float t1, t2;

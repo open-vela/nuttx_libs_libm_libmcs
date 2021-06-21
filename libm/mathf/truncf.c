@@ -6,6 +6,10 @@
 
 float truncf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t sb;
     int32_t w;
     int32_t exponent_less_127;

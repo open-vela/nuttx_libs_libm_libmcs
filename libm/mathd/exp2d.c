@@ -40,6 +40,10 @@ PORTABILITY
 
 double exp2(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return pow(2.0, x);
 }
 
