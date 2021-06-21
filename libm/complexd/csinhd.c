@@ -39,6 +39,10 @@ QUICKREF
 
 double complex csinh(double complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double complex w;
     double x, y;
 

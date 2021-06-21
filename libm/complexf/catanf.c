@@ -6,6 +6,10 @@
 
 float complex catanf(float complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float complex w;
     float a, t, x, x2, y;
 

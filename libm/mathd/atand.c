@@ -91,6 +91,10 @@ static const double one = 1.0;
 
 double atan(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double w, s1, s2, z;
     int32_t ix, hx, id;
 

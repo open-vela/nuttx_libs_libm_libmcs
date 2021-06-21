@@ -20,6 +20,10 @@
 
 double tgamma(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t signgam_local = 0;
     double y = 0.0;
     

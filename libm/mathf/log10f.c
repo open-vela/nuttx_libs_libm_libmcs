@@ -17,6 +17,10 @@ static const float zero = 0.0f;
 
 float log10f(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float f, hfsq, hi, lo, r, y;
     int32_t i, k, hx;
 

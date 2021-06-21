@@ -80,6 +80,10 @@ ln2    = 6.93147180559945286227e-01;  /* 0x3FE62E42, 0xFEFA39EF */
 
 double acosh(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double t;
     int32_t hx;
     uint32_t lx;

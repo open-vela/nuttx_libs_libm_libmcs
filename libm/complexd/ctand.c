@@ -86,6 +86,10 @@ static inline double __ctans(double complex z)
 
 double complex ctan(double complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double complex w;
     double d;
 

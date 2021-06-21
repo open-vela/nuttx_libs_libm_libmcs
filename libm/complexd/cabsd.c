@@ -48,6 +48,10 @@ QUICKREF
 
 double cabs(double complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return hypot(creal(z), cimag(z));
 }
 

@@ -51,6 +51,10 @@ QUICKREF
 
 double complex cacosh(double complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double complex w;
 
     w = clog(z + csqrt(z + 1) * csqrt(z - 1));

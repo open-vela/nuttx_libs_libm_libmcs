@@ -120,6 +120,10 @@ T[] =  {
 
 static inline double __tan(double x, double y, int iy)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double z, r, v, w, s;
     int32_t ix, hx;
     GET_HIGH_WORD(hx, x);

@@ -6,6 +6,10 @@
 
 float cargf(float complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return atan2f(cimagf(z), crealf(z));
 }
 

@@ -44,6 +44,10 @@ PORTABILITY
 
 double ldexp(double value, int exponent)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    value *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     if ((isfinite(value) == 0) || (value == 0.0)) {
         return value;
     }

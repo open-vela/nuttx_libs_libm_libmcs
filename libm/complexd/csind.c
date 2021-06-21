@@ -41,6 +41,10 @@ QUICKREF
 
 double complex csin(double complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double complex w;
     double ch, sh;
 

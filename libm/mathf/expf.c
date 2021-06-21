@@ -25,6 +25,10 @@ P5        =   4.1381369442e-08f; /* 0x3331bb4c */
 
 float expf(float x)    /* default IEEE double exp */
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float y, hi, lo, c, t;
     int32_t k = 0, xsb, sx;
     uint32_t hx;

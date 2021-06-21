@@ -28,6 +28,10 @@ static const double TWO52[2] = {
 
 long long int llrint(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t _i0, _j0, sx;
     uint32_t _i1;
     double t;

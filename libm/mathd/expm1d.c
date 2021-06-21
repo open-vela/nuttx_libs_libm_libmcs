@@ -151,6 +151,10 @@ Q5          = -2.01099218183624371326e-07; /* BE8AFDB7 6E09C32D */
 
 double expm1(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double y, hi, lo, c, t, e, hxs, hfx, r1;
     int32_t k, xsb;
     uint32_t hx;

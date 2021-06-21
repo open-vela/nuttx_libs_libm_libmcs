@@ -9,6 +9,10 @@ static const float one = 1.0f;
 
 float sinhf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float t, w, h;
     int32_t ix, jx;
 

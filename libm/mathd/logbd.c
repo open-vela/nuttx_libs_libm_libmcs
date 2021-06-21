@@ -69,6 +69,10 @@ frexp, ilogb
 
 double logb(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, lx, ix;
 
     EXTRACT_WORDS(hx, lx, x);

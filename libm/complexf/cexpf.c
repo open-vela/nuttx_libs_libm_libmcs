@@ -5,6 +5,10 @@
 
 float complex cexpf(float complex z)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    z *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float complex w;
     float r, x, y;
 

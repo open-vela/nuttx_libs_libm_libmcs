@@ -41,6 +41,10 @@ SEEALSO
 
 double round(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     /* Most significant word, least significant word. */
     int32_t msw, exponent_less_1023;
     uint32_t lsw;

@@ -7,6 +7,10 @@
 
 long long int llroundf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t exponent_less_127;
     uint32_t w;
     long long int result;

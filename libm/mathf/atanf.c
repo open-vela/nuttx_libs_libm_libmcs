@@ -37,6 +37,10 @@ static const float one = 1.0f;
 
 float atanf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float w, s1, s2, z;
     int32_t ix, hx, id;
 

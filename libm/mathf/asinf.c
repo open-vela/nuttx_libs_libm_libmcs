@@ -24,6 +24,10 @@ qS4     =  7.7038154006e-02f; /* 0x3d9dc62e */
 
 float asinf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float t, w, p, q, c, r, s;
     int32_t hx, ix;
     GET_FLOAT_WORD(hx, x);

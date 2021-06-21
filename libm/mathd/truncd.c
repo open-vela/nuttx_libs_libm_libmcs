@@ -38,6 +38,10 @@ ANSI C, POSIX
 
 double trunc(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     uint32_t sb;
     /* Most significant word, least significant word. */
     uint32_t msw;

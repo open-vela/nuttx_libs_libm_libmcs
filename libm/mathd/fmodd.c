@@ -48,10 +48,15 @@ PORTABILITY
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-static const double one = 1.0, Zero[] = {0.0, -0.0,};
+static const double Zero[] = {0.0, -0.0,};
 
 double fmod(double x, double y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz;
 
@@ -210,7 +215,10 @@ double fmod(double x, double y)
         }
 
         INSERT_WORDS(x, hx | sx, lx);
-        x *= one;        /* create necessary signal */
+#ifdef __LIBMCS_FPU_DAZ
+        x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     }
 
     return x;        /* exact output */

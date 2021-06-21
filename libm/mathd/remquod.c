@@ -71,9 +71,13 @@ static const double Zero[] = {0.0, -0.0,};
  * method.  In practice, this is far more bits than are needed to use
  * remquo in reduction algorithms.
  */
-double
-remquo(double x, double y, int *quo)
+double remquo(double x, double y, int *quo)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz, q, sxy;
@@ -246,6 +250,9 @@ remquo(double x, double y, int *quo)
 
 fixup:
     INSERT_WORDS(x, hx, lx);
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
     y = fabs(y);
 
     if (y < 0x1p-1021) {

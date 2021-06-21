@@ -41,6 +41,11 @@ ANSI C, POSIX.
 
 double fdim(double x, double y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     if (isnan(x) || isnan(y)) {
         return x * y;
     }

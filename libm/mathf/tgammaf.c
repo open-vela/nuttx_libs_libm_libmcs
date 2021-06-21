@@ -14,6 +14,10 @@
 
 float tgammaf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t signgam_local = 0;
     float y = 0.0f;
     
