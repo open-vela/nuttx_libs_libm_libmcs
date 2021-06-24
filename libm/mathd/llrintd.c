@@ -94,7 +94,7 @@ long long int llrint(double x)
             result = ((long long int) _i0 << (_j0 - 20)) | SAFE_RIGHT_SHIFT(_i1, (uint32_t)(52 - _j0));
         }
     } else {
-        (void) __raise_invalid(x);
+        (void) __raise_invalid();
         if (sx != 0) {
             return __MIN_LONG_LONG;
         }

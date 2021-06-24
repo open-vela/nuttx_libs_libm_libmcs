@@ -24,7 +24,7 @@ float tgammaf(float x)
     if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
         return __raise_div_by_zerof(x);
     } else if (floorf(x) == x && isless(x, 0.0f) != 0) {    /* tgamma(negative integer, -Inf) = NaN */
-        return __raise_invalidf(x);
+        return __raise_invalidf();
     } else {
         /* No action required */
     }
