@@ -93,7 +93,7 @@ double __jn(int n, double x)
              *           3     s+c         c-s
              */
             switch (n & 3) {
-            default:
+            default:    /* FALLTHRU */
             case 0:
                 temp =  cos(x) + sin(x);
                 break;
@@ -300,7 +300,7 @@ double __yn(int n, double x)
          *           3     s+c         c-s
          */
         switch (n & 3) {
-        default:
+        default:    /* FALLTHRU */
         case 0:
             temp =  sin(x) - cos(x);
             break;

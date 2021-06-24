@@ -190,17 +190,17 @@ static double __sin_pi(double x)
         y =  __sin(pi * y, zero, 0);
         break;
 
-    case 1:
+    case 1: /* FALLTHRU */
     case 2:
         y =  __cos(pi * (0.5 - y), zero);
         break;
 
-    case 3:
+    case 3: /* FALLTHRU */
     case 4:
         y =  __sin(pi * (one - y), zero, 0);
         break;
 
-    case 5:
+    case 5: /* FALLTHRU */
     case 6:
         y = -__cos(pi * (y - 1.5), zero);
         break;
@@ -299,7 +299,7 @@ double __lgamma(double x, int *signgamp)
         }
 
         switch (i) {
-        default:
+        default:    /* FALLTHRU */
         case 0:
             z = y * y;
             p1 = a0 + z * (a2 + z * (a4 + z * (a6 + z * (a8 + z * a10))));
@@ -333,7 +333,7 @@ double __lgamma(double x, int *signgamp)
         z = one;    /* lgamma(1+s) = log(s) + lgamma(s) */
 
         switch (i) {
-        default:
+        default:             /* FALLTHRU */
         case 7:
             z *= (y + 6.0);  /* FALLTHRU */
 
@@ -347,7 +347,7 @@ double __lgamma(double x, int *signgamp)
             z *= (y + 3.0);  /* FALLTHRU */
 
         case 3:
-            z *= (y + 2.0);  /* FALLTHRU */
+            z *= (y + 2.0);
             r += log(z);
             break;
         }

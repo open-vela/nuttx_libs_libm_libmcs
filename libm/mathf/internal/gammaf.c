@@ -121,17 +121,17 @@ static float __sin_pif(float x)
         y =  __sinf(pi * y, zero, 0);
         break;
 
-    case 1:
+    case 1: /* FALLTHRU */
     case 2:
         y =  __cosf(pi * (0.5f - y), zero);
         break;
 
-    case 3:
+    case 3: /* FALLTHRU */
     case 4:
         y =  __sinf(pi * (one - y), zero, 0);
         break;
 
-    case 5:
+    case 5: /* FALLTHRU */
     case 6:
         y = -__cosf(pi * (y - 1.5f), zero);
         break;
@@ -230,7 +230,7 @@ float __lgammaf(float x, int *signgamp)
         }
 
         switch (i) {
-        default:
+        default:    /* FALLTHRU */
         case 0:
             z = y * y;
             p1 = a0 + z * (a2 + z * (a4 + z * (a6 + z * (a8 + z * a10))));
@@ -264,7 +264,7 @@ float __lgammaf(float x, int *signgamp)
         z = one;    /* lgamma(1+s) = log(s) + lgamma(s) */
 
         switch (i) {
-        default:
+        default:              /* FALLTHRU */
         case 7:
             z *= (y + 6.0f);  /* FALLTHRU */
 
@@ -278,7 +278,7 @@ float __lgammaf(float x, int *signgamp)
             z *= (y + 3.0f);  /* FALLTHRU */
 
         case 3:
-            z *= (y + 2.0f);  /* FALLTHRU */
+            z *= (y + 2.0f);
             r += logf(z);
             break;
         }
