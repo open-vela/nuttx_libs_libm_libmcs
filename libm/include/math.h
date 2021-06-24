@@ -35,10 +35,14 @@ typedef double double_t;
 #define M_SQRT2             1.41421356237309504880
 #define M_SQRT1_2           0.70710678118654752440
         
-#define HUGE_VAL            (1.0e999999999)
-#define HUGE_VALF           (1.0e999999999f)
-#define HUGE_VALL           (long double)HUGE_VAL
+#define HUGE_VAL            (__infd)
+#define HUGE_VALF           (__inff)
+#define HUGE_VALL           ((long double) HUGE_VAL)
 #define INFINITY            HUGE_VALF
+
+/* Global constants that contain infinities. */
+extern const float __inff;
+extern const double __infd;
     
 #define NAN                 (nanf(""))
     
@@ -50,7 +54,6 @@ typedef double double_t;
     
 #define FP_ILOGB0           (-INT_MAX)
 #define FP_ILOGBNAN         INT_MAX
-
 
 /* Double trigonometric functions */
 extern double               acos(double);
