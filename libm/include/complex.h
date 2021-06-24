@@ -137,10 +137,17 @@ float crealf(float complex);
     long double creall(long double complex);
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-
-#define CMPLX(x,y)      ((double complex){(double)x, (double)y})
-#define CMPLXF(x,y)     ((float complex){(float)x, (float)y})
-#define CMPLXL(x,y)     ((long double complex){(long double)x, (long double)y})
+    
+/* The C11 CMPLX macros are compiler dependant and only available starting at GCC 4.7+ or with clang! If need be define them yourself. */
+#ifdef __clang__
+    #define CMPLX(x, y)     ((double complex){(double) x, (double) y})
+    #define CMPLXF(x, y)    ((float complex){(float) x, (float) y})
+    #define CMPLXL(x, y)    ((long double complex){(long double) x, (long double) y})
+#elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7))
+    #define CMPLX(x, y)     __builtin_complex ((double) (x), (double) (y))
+    #define CMPLXF(x, y)    __builtin_complex ((float) (x), (float) (y))
+    #define CMPLXL(x, y)    __builtin_complex ((long double) (x), (long double) (y))
+#endif
 
 #ifdef __cplusplus
 }
