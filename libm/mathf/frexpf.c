@@ -15,7 +15,7 @@ float frexpf(float x, int *eptr)
     x *= __volatile_onef;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    int32_t _xexp = 0;
+    int _xexp = 0;
     int32_t hx, ix;
 
 	assert(eptr != (void*)0);

@@ -18,7 +18,7 @@ float tgammaf(float x)
     x *= __volatile_onef;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    int32_t signgam_local = 0;
+    int signgam_local = 0;
     float y = 0.0f;
     
     if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
