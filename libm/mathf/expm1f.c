@@ -88,6 +88,9 @@ float expm1f(float x)
     if (k == 0) {
         return x - (x * e - hxs);    /* c is 0 */
     } else {
+        double twopk = 0.0;
+        SET_HIGH_WORD(twopk, ((uint32_t)(0x7F + k)) << 23); /* add k to y's exponent */
+
         e  = (x * (e - c) - c);
         e -= hxs;
 
@@ -104,28 +107,21 @@ float expm1f(float x)
         }
 
         if (k <= -2 || k > 56) { /* suffice to return exp(x)-1 */
-            int32_t i;
             y = one - (e - x);
-            GET_FLOAT_WORD(i, y);
-            SET_FLOAT_WORD(y, i + (k << 23)); /* add k to y's exponent */
-            return y - one;
+            return y * twopk - one;
         }
 
         t = one;
 
         if (k < 23) {
-            int32_t i;
             SET_FLOAT_WORD(t, 0x3f800000 - (0x1000000 >> k)); /* t=1-2^-k */
             y = t - (e - x);
-            GET_FLOAT_WORD(i, y);
-            SET_FLOAT_WORD(y, i + (k << 23)); /* add k to y's exponent */
+            y *= twopk;
         } else {
-            int32_t i;
             SET_FLOAT_WORD(t, ((0x7f - k) << 23)); /* 2^-k */
             y = x - (e + t);
             y += one;
-            GET_FLOAT_WORD(i, y);
-            SET_FLOAT_WORD(y, i + (k << 23)); /* add k to y's exponent */
+            y *= twopk;
         }
     }
 

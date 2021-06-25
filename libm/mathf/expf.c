@@ -84,16 +84,15 @@ float expf(float x)    /* default IEEE double exp */
         y = one - ((lo - (x * c) / (2.0f - c)) - hi);
     }
 
+    /* add k to y's exponent */
     if (k >= -125) {
-        uint32_t hy;
-        GET_FLOAT_WORD(hy, y);
-        SET_FLOAT_WORD(y, hy + (k << 23)); /* add k to y's exponent */
-        return y;
+        double twopk = 0.0f;
+        SET_HIGH_WORD(twopk, ((uint32_t)(0x7F + k)) << 23);
+        return y * twopk;
     } else {
-        uint32_t hy;
-        GET_FLOAT_WORD(hy, y);
-        SET_FLOAT_WORD(y, hy + ((k + 100) << 23)); /* add k to y's exponent */
-        return y * twom100;
+        double twopk = 0.0f;
+        SET_HIGH_WORD(twopk, ((uint32_t)(0x7F + (k + 100))) << 23);
+        return y * twopk * twom100;
     }
 }
 
