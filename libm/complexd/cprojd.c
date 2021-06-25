@@ -62,7 +62,7 @@ double complex cproj(double complex z)
 {
     double_complex w = { .z = z };
 
-    if (isinf(creal(z)) || isinf(cimag(z))) {
+    if (isinf(REAL_PART(w)) || isinf(IMAG_PART(w))) {
         REAL_PART(w) = INFINITY;
         IMAG_PART(w) = copysign(0.0, cimag(z));
     }
