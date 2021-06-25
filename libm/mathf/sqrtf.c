@@ -40,7 +40,7 @@ float sqrtf(float x)
     m = (ix >> 23);
 
     if (FLT_UWORD_IS_SUBNORMAL(hx)) {       /* subnormal x */
-        for (i = 0; (ix & 0x00800000L) == 0; i++) {
+        for (i = 0; (ix & 0x00800000) == 0; i++) {
             ix <<= 1;
         }
 
@@ -48,7 +48,7 @@ float sqrtf(float x)
     }
 
     m -= 127;    /* unbias exponent */
-    ix = (ix & 0x007fffffL) | 0x00800000L;
+    ix = (ix & 0x007fffff) | 0x00800000;
 
     if (0 < (m & 1)) { /* odd m, double x to make it even */
         ix += ix;
@@ -59,7 +59,7 @@ float sqrtf(float x)
     /* generate sqrt(x) bit by bit */
     ix += ix;
     q = s = 0;        /* q = sqrt(x) */
-    r = 0x01000000L;        /* r = moving bit from right to left */
+    r = 0x01000000;        /* r = moving bit from right to left */
 
     while (r != 0) {
         t = s + r;
@@ -89,7 +89,7 @@ float sqrtf(float x)
         }
     }
 
-    ix = (q >> 1) + 0x3f000000L;
+    ix = (q >> 1) + 0x3f000000;
     ix += (m << 23);
     SET_FLOAT_WORD(z, ix);
     return z;
