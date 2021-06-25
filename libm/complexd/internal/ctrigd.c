@@ -18,7 +18,11 @@ void __ccoshsinh(double x, double *c, double *s)
         *s = sinh(x);
     } else {
         e = exp(x);
-        ei = 0.5 / e;
+        if (__fpclassifyd(e) != FP_ZERO) {
+            ei = 0.5 / e;
+        } else {
+            ei = HUGE_VAL;
+        }
         e = 0.5 * e;
         *s = e - ei;
         *c = e + ei;

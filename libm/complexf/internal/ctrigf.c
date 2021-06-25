@@ -16,7 +16,11 @@ void __ccoshsinhf(float x, float *c, float *s)
         *s = sinhf(x);
     } else {
         e = expf(x);
-        ei = 0.5f / e;
+        if (__fpclassifyf(e) != FP_ZERO) {
+            ei = 0.5f / e;
+        } else {
+            ei = HUGE_VALF;
+        }
         e = 0.5f * e;
         *s = e - ei;
         *c = e + ei;
