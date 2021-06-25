@@ -15,9 +15,9 @@ float hypotf(float x, float y)
     int32_t j, k, ha, hb;
 
     GET_FLOAT_WORD(ha, x);
-    ha &= 0x7fffffffL;
+    ha &= 0x7fffffff;
     GET_FLOAT_WORD(hb, y);
-    hb &= 0x7fffffffL;
+    hb &= 0x7fffffff;
 
     if (hb > ha) {
         j = ha;
@@ -28,13 +28,13 @@ float hypotf(float x, float y)
     SET_FLOAT_WORD(a, ha);   /* a <- |a| */
     SET_FLOAT_WORD(b, hb);   /* b <- |b| */
 
-    if ((ha - hb) > 0xf000000L) {
+    if ((ha - hb) > 0xf000000) {
         return a + b;   /* x/y > 2**30 */
     }
 
     k = 0;
 
-    if (ha > 0x58800000L) {   /* a>2**50 */
+    if (ha > 0x58800000) {   /* a>2**50 */
         if (!FLT_UWORD_IS_FINITE(ha)) {   /* Inf or NaN */
             w = a + b;          /* for sNaN */
 
@@ -50,18 +50,18 @@ float hypotf(float x, float y)
         }
 
         /* scale a and b by 2**-68 */
-        ha -= 0x22000000L;
-        hb -= 0x22000000L;
+        ha -= 0x22000000;
+        hb -= 0x22000000;
         k += 68;
         SET_FLOAT_WORD(a, ha);
         SET_FLOAT_WORD(b, hb);
     }
 
-    if (hb < 0x26800000L) {   /* b < 2**-50 */
+    if (hb < 0x26800000) {   /* b < 2**-50 */
         if (FLT_UWORD_IS_ZERO(hb)) {
             return a;
         } else if (FLT_UWORD_IS_SUBNORMAL(hb)) {
-            SET_FLOAT_WORD(t1, 0x7e800000L);   /* t1=2^126 */
+            SET_FLOAT_WORD(t1, 0x7e800000);   /* t1=2^126 */
             b *= t1;
             a *= t1;
             k -= 126;
@@ -78,20 +78,20 @@ float hypotf(float x, float y)
     w = a - b;
 
     if (w > b) {
-        SET_FLOAT_WORD(t1, ha & 0xfffff000UL);
+        SET_FLOAT_WORD(t1, ha & 0xfffff000U);
         t2 = a - t1;
         w  = sqrtf(t1 * t1 - (b * (-b) - t2 * (a + t1)));
     } else {
         a  = a + a;
-        SET_FLOAT_WORD(_y1, hb & 0xfffff000UL);
+        SET_FLOAT_WORD(_y1, hb & 0xfffff000U);
         _y2 = b - _y1;
-        SET_FLOAT_WORD(t1, (ha + 0x00800000L) & 0xfffff000UL);
+        SET_FLOAT_WORD(t1, (ha + 0x00800000) & 0xfffff000U);
         t2 = a - t1;
         w  = sqrtf(t1 * _y1 - (w * (-w) - (t1 * _y2 + t2 * b)));
     }
 
     if (k != 0) {
-        SET_FLOAT_WORD(t1, 0x3f800000L + (k << 23));
+        SET_FLOAT_WORD(t1, 0x3f800000 + (k << 23));
         return t1 * w;
     } else {
         return w;
