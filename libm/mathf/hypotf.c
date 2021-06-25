@@ -91,7 +91,7 @@ float hypotf(float x, float y)
     }
 
     if (k != 0) {
-        SET_FLOAT_WORD(t1, 0x3f800000 + (k << 23));
+        SET_FLOAT_WORD(t1, (0x7F + k) << 23);
         return t1 * w;
     } else {
         return w;
