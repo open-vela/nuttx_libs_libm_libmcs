@@ -111,9 +111,9 @@ double atan(double x)
         }
 
         if (hx > 0) {
-            return  atanhi[3] + atanlo[3];
+            return  __raise_inexact(atanhi[3]);
         } else {
-            return -atanhi[3] - atanlo[3];
+            return -__raise_inexact(atanhi[3]);
         }
     }
 
