@@ -30,7 +30,7 @@ float remquof(float x, float y, int *quo)
     y *= __volatile_onef;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    int32_t _quo = 0;
+    int _quo = 0;
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
 
@@ -125,6 +125,7 @@ float remquof(float x, float y, int *quo)
 
     /* convert back to floating value and restore the sign */
     if (hx == 0) {             /* return sign(x)*0 */
+        q &= 0x7fffffff;
         *quo = (sxy ? -q : q);
         return Zero[(uint32_t)sx >> 31];
     }

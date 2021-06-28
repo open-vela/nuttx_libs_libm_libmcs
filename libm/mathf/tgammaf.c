@@ -18,13 +18,13 @@ float tgammaf(float x)
     x *= __volatile_onef;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    int32_t signgam_local = 0;
+    int signgam_local = 0;
     float y = 0.0f;
     
     if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
         return __raise_div_by_zerof(x);
     } else if (floorf(x) == x && isless(x, 0.0f) != 0) {    /* tgamma(negative integer, -Inf) = NaN */
-        return __raise_invalidf(x);
+        return __raise_invalidf();
     } else {
         /* No action required */
     }

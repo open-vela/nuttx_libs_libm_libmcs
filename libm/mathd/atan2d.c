@@ -77,7 +77,6 @@ PORTABILITY
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
-tiny    = 1.0e-300,
 zero    = 0.0,
 pi_o_4  = 7.8539816339744827900E-01, /* 0x3FE921FB, 0x54442D18 */
 pi_o_2  = 1.5707963267948965580E+00, /* 0x3FF921FB, 0x54442D18 */
@@ -114,88 +113,88 @@ double atan2(double y, double x)
     /* when y = 0 */
     if ((iy | ly) == 0) {
         switch (m) {
-        default:
-        case 0:
+        default:    /* FALLTHRU */
+        case 0:     /* FALLTHRU */
         case 1:
             return y;          /* atan(+-0,+anything)=+-0 */
 
         case 2:
-            return  pi + tiny; /* atan(+0,-anything) = pi */
+            return __raise_inexact(pi); /* atan(+0,-anything) = pi */
 
         case 3:
-            return -pi - tiny; /* atan(-0,-anything) =-pi */
+            return -__raise_inexact(pi); /* atan(-0,-anything) =-pi */
         }
     }
 
     /* when x = 0 */
     if ((ix | lx) == 0) {
-        return (hy < 0) ?  -pi_o_2 - tiny : pi_o_2 + tiny;
+        return (hy < 0) ? -__raise_inexact(pi_o_2) : __raise_inexact(pi_o_2);
     }
 
     /* when x is INF */
     if (ix == 0x7ff00000) {
         if (iy == 0x7ff00000) {
             switch (m) {
-            default:
+            default:    /* FALLTHRU */
             case 0:
-                return  pi_o_4 + tiny;       /* atan(+INF,+INF) */
+                return  __raise_inexact(pi_o_4);        /* atan(+INF,+INF) */
 
             case 1:
-                return -pi_o_4 - tiny;       /* atan(-INF,+INF) */
+                return -__raise_inexact(pi_o_4);        /* atan(-INF,+INF) */
 
             case 2:
-                return  3.0 * pi_o_4 + tiny; /* atan(+INF,-INF) */
+                return  __raise_inexact(3.0 * pi_o_4);  /* atan(+INF,-INF) */
 
             case 3:
-                return -3.0 * pi_o_4 - tiny; /* atan(-INF,-INF) */
+                return -__raise_inexact(3.0 * pi_o_4);  /* atan(-INF,-INF) */
             }
         } else {
             switch (m) {
-            default:
+            default:    /* FALLTHRU */
             case 0:
-                return  zero;      /* atan(+...,+INF) */
+                return  zero;                           /* atan(+...,+INF) */
 
             case 1:
-                return -zero;      /* atan(-...,+INF) */
+                return -zero;                           /* atan(-...,+INF) */
 
             case 2:
-                return  pi + tiny; /* atan(+...,-INF) */
+                return  __raise_inexact(pi);            /* atan(+...,-INF) */
 
             case 3:
-                return -pi - tiny; /* atan(-...,-INF) */
+                return -__raise_inexact(pi);            /* atan(-...,-INF) */
             }
         }
     }
 
     /* when y is INF */
     if (iy == 0x7ff00000) {
-        return (hy < 0) ? -pi_o_2 - tiny : pi_o_2 + tiny;
+        return (hy < 0) ? -__raise_inexact(pi_o_2) : __raise_inexact(pi_o_2);
     }
 
     /* compute y/x */
     k = (iy - ix) >> 20;
 
     if (k > 60) {
-        z = pi_o_2 + 0.5 * pi_lo;  /* |y/x| >  2**60 */
+        z = __raise_inexact(pi_o_2);    /* |y/x| >  2**60 */
         m &= 1;
     } else if (hx < 0 && k < -60) {
-        z = 0.0;                   /* 0 > |y|/x > -2**60 */
+        z = 0.0;                        /* 0 > |y|/x > -2**60 */
     } else {
-        z = atan(fabs(y / x));     /* safe to do y/x */
+        z = atan(fabs(y / x));          /* safe to do y/x */
     }
 
     switch (m) {
     case 0:
-        return  z;                 /* atan(+,+) */
+        return  z;                      /* atan(+,+) */
 
     case 1:
-        return  -z;                /* atan(-,+) */
+        return  -z;                     /* atan(-,+) */
 
     case 2:
-        return  pi - (z - pi_lo);  /* atan(+,-) */
+        return  pi - (z - pi_lo);       /* atan(+,-) */
 
     default: /* case 3 */
-        return (z - pi_lo) - pi;   /* atan(-,-) */
+        return (z - pi_lo) - pi;        /* atan(-,-) */
     }
 }
 

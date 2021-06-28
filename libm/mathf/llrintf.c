@@ -67,7 +67,7 @@ long long int llrintf(float x)
             result = _i0 >> (23 - _j0);
         }
     } else {
-        (void) __raise_invalidf(x);
+        (void) __raise_invalidf();
         if (sx != 0) {
             return __MIN_LONG_LONG;
         }
