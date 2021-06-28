@@ -229,9 +229,6 @@ double expm1(double x)
     if (k == 0) {
         return x - (x * e - hxs);    /* c is 0 */
     } else {
-        double twopk = 0.0;
-        SET_HIGH_WORD(twopk, ((uint32_t)(0x3FF + k)) << 20); /* add k to y's exponent */
-
         e  = (x * (e - c) - c);
         e -= hxs;
 
@@ -248,8 +245,11 @@ double expm1(double x)
         }
 
         if (k <= -2 || k > 56) { /* suffice to return exp(x)-1 */
+            uint32_t high;
             y = one - (e - x);
-            return y * twopk - one;
+            GET_HIGH_WORD(high, y);
+            SET_HIGH_WORD(y, high + (((uint32_t)k) << 20)); /* add k to y's exponent */
+            return y - one;
         }
 
         t = one;
@@ -258,13 +258,15 @@ double expm1(double x)
             uint32_t high;
             SET_HIGH_WORD(t, 0x3ff00000 - (0x200000 >> k)); /* t=1-2^-k */
             y = t - (e - x);
-            y *= twopk;
+            GET_HIGH_WORD(high, y);
+            SET_HIGH_WORD(y, high + (k << 20)); /* add k to y's exponent */
         } else {
             uint32_t high;
             SET_HIGH_WORD(t, ((0x3ff - k) << 20)); /* 2^-k */
             y = x - (e + t);
             y += one;
-            y *= twopk;
+            GET_HIGH_WORD(high, y);
+            SET_HIGH_WORD(y, high + (k << 20)); /* add k to y's exponent */
         }
     }
 
