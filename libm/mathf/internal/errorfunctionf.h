@@ -9,110 +9,87 @@
 #include "../../common/tools.h"
 
 static const float
-one  =  1.0000000000e+00f, /* 0x3F800000 */
+one  =  1.00000000e+00f, /* 0x3F800000 */
 /*
- * Coefficients for approximation to  erf on [0,0.84375]
+ * Domain [0, 0.84375], range ~[-5.4419e-10, 5.5179e-10]:
+ * |(erf(x) - x)/x - pp(x)/qq(x)| < 2**-31
  */
-pp0  =  1.2837916613e-01f, /* 0x3e0375d4 */
-pp1  = -3.2504209876e-01f, /* 0xbea66beb */
-pp2  = -2.8481749818e-02f, /* 0xbce9528f */
-pp3  = -5.7702702470e-03f, /* 0xbbbd1489 */
-pp4  = -2.3763017452e-05f, /* 0xb7c756b1 */
-qq1  =  3.9791721106e-01f, /* 0x3ecbbbce */
-qq2  =  6.5022252500e-02f, /* 0x3d852a63 */
-qq3  =  5.0813062117e-03f, /* 0x3ba68116 */
-qq4  =  1.3249473704e-04f, /* 0x390aee49 */
-qq5  = -3.9602282413e-06f, /* 0xb684e21a */
+pp0  =  1.28379166e-01f, /* 0x3e0375d4 */
+pp1  = -3.36030394e-01f, /* 0xbeac0c2d */
+pp2  = -1.86261395e-03f, /* 0xbaf422f4 */
+qq1  =  3.12324315e-01f, /* 0x3e9fe8f9 */
+qq2  =  2.16070414e-02f, /* 0x3cb10140 */
+qq3  = -1.98859372e-03f, /* 0xbb025311 */
 /*
- * Coefficients for approximation to  erf  in [0.84375,1.25]
+ * Domain [0.84375, 1.25], range ~[-1.023e-9, 1.023e-9]:
+ * |(erf(x) - erx) - pa(x)/qa(x)| < 2**-31
  */
-pa0  = -2.3621185683e-03f, /* 0xbb1acdc6 */
-pa1  =  4.1485610604e-01f, /* 0x3ed46805 */
-pa2  = -3.7220788002e-01f, /* 0xbebe9208 */
-pa3  =  3.1834661961e-01f, /* 0x3ea2fe54 */
-pa4  = -1.1089469492e-01f, /* 0xbde31cc2 */
-pa5  =  3.5478305072e-02f, /* 0x3d1151b3 */
-pa6  = -2.1663755178e-03f, /* 0xbb0df9c0 */
-qa1  =  1.0642088205e-01f, /* 0x3dd9f331 */
-qa2  =  5.4039794207e-01f, /* 0x3f0a5785 */
-qa3  =  7.1828655899e-02f, /* 0x3d931ae7 */
-qa4  =  1.2617121637e-01f, /* 0x3e013307 */
-qa5  =  1.3637083583e-02f, /* 0x3c5f6e13 */
-qa6  =  1.1984500103e-02f, /* 0x3c445aa3 */
+pa0  =  3.65041046e-06f, /* 0x3674f993 */
+pa1  =  4.15109307e-01f, /* 0x3ed48935 */
+pa2  = -2.09395722e-01f, /* 0xbe566bd5 */
+pa3  =  8.67677554e-02f, /* 0x3db1b34b */
+qa1  =  4.95560974e-01f, /* 0x3efdba2b */
+qa2  =  3.71248513e-01f, /* 0x3ebe1449 */
+qa3  =  3.92478965e-02f, /* 0x3d20c267 */
 /*
- * Coefficients for approximation to  erfc in [1.25,1/0.35]
+ * Domain [1.25,1/0.35], range ~[-4.821e-9, 4.927e-9]:
+ * |log(x*erfc(x)) + x**2 + 0.5625 - ra(x)/sa(x)| < 2**-28
  */
-ra0  = -9.8649440333e-03f, /* 0xbc21a093 */
-ra1  = -6.9385856390e-01f, /* 0xbf31a0b7 */
-ra2  = -1.0558626175e+01f, /* 0xc128f022 */
-ra3  = -6.2375331879e+01f, /* 0xc2798057 */
-ra4  = -1.6239666748e+02f, /* 0xc322658c */
-ra5  = -1.8460508728e+02f, /* 0xc3389ae7 */
-ra6  = -8.1287437439e+01f, /* 0xc2a2932b */
-ra7  = -9.8143291473e+00f, /* 0xc11d077e */
-sa1  =  1.9651271820e+01f, /* 0x419d35ce */
-sa2  =  1.3765776062e+02f, /* 0x4309a863 */
-sa3  =  4.3456588745e+02f, /* 0x43d9486f */
-sa4  =  6.4538726807e+02f, /* 0x442158c9 */
-sa5  =  4.2900814819e+02f, /* 0x43d6810b */
-sa6  =  1.0863500214e+02f, /* 0x42d9451f */
-sa7  =  6.5702495575e+00f, /* 0x40d23f7c */
-sa8  = -6.0424413532e-02f, /* 0xbd777f97 */
+ra0  = -9.88156721e-03f, /* 0xbc21e64c */
+ra1  = -5.43658376e-01f, /* 0xbf0b2d32 */
+ra2  = -1.66828310e+00f, /* 0xbfd58a4d */
+ra3  = -6.91554189e-01f, /* 0xbf3109b2 */
+sa1  =  4.48581553e+00f, /* 0x408f8bcd */
+sa2  =  4.10799170e+00f, /* 0x408374ab */
+sa3  =  5.53855181e-01f, /* 0x3f0dc974 */
 /*
- * Coefficients for approximation to  erfc in [1/.35,28]
+ * Domain [2.85715, 11], range ~[-1.484e-9, 1.505e-9]:
+ * |log(x*erfc(x)) + x**2 + 0.5625 - rb(x)/sb(x)| < 2**-30
  */
-rb0  = -9.8649431020e-03f, /* 0xbc21a092 */
-rb1  = -7.9928326607e-01f, /* 0xbf4c9dd4 */
-rb2  = -1.7757955551e+01f, /* 0xc18e104b */
-rb3  = -1.6063638306e+02f, /* 0xc320a2ea */
-rb4  = -6.3756646729e+02f, /* 0xc41f6441 */
-rb5  = -1.0250950928e+03f, /* 0xc480230b */
-rb6  = -4.8351919556e+02f, /* 0xc3f1c275 */
-sb1  =  3.0338060379e+01f, /* 0x41f2b459 */
-sb2  =  3.2579251099e+02f, /* 0x43a2e571 */
-sb3  =  1.5367296143e+03f, /* 0x44c01759 */
-sb4  =  3.1998581543e+03f, /* 0x4547fdbb */
-sb5  =  2.5530502930e+03f, /* 0x451f90ce */
-sb6  =  4.7452853394e+02f, /* 0x43ed43a7 */
-sb7  = -2.2440952301e+01f; /* 0xc1b38712 */
+rb0  = -9.86496918e-03f, /* 0xbc21a0ae */
+rb1  = -5.48049808e-01f, /* 0xbf0c4cfe */
+rb2  = -1.84115684e+00f, /* 0xbfebab07 */
+sb1  =  4.87132740e+00f, /* 0x409be1ea */
+sb2  =  3.04982710e+00f, /* 0x4043305e */
+sb3  = -7.61900663e-01f; /* 0xbf430bec */
 
 static inline float __erff_y(float x)
 {
     float s, z, r;
     z = x * x;
-    r = pp0 + z * (pp1 + z * (pp2 + z * (pp3 + z * pp4)));
-    s = one + z * (qq1 + z * (qq2 + z * (qq3 + z * (qq4 + z * qq5))));
+    r = pp0 + z * (pp1 + z * pp2);
+    s = one + z * (qq1 + z * (qq2 + z * qq3));
     return r / s;
 }
 
 static inline float __erff_P(float s)
 {
-    return pa0 + s * (pa1 + s * (pa2 + s * (pa3 + s * (pa4 + s * (pa5 + s * pa6)))));
+    return pa0 + s * (pa1 + s * (pa2 + s * pa3));
 }
 
 static inline float __erff_Q(float s)
 {
-    return one + s * (qa1 + s * (qa2 + s * (qa3 + s * (qa4 + s * (qa5 + s * qa6)))));
+    return one + s * (qa1 + s * (qa2 + s * qa3));
 }
 
 static inline float __erff_Ra(float s)
 {
-    return ra0 + s * (ra1 + s * (ra2 + s * (ra3 + s * (ra4 + s * (ra5 + s * (ra6 + s * ra7))))));
+    return ra0 + s * (ra1 + s * (ra2 + s * ra3));
 }
 
 static inline float __erff_Sa(float s)
 {
-    return one + s * (sa1 + s * (sa2 + s * (sa3 + s * (sa4 + s * (sa5 + s * (sa6 + s * (sa7 + s * sa8)))))));
+    return one + s * (sa1 + s * (sa2 + s * sa3));
 }
 
 static inline float __erff_Rb(float s)
 {
-    return rb0 + s * (rb1 + s * (rb2 + s * (rb3 + s * (rb4 + s * (rb5 + s * rb6)))));
+    return rb0 + s * (rb1 + s * rb2);
 }
 
 static inline float __erff_Sb(float s)
 {
-    return one + s * (sb1 + s * (sb2 + s * (sb3 + s * (sb4 + s * (sb5 + s * (sb6 + s * sb7))))));
+    return one + s * (sb1 + s * (sb2 + s * sb3));
 }
 
 #endif /* !LIBMCS_ERRORFUNCTIONF_H */
