@@ -175,10 +175,8 @@ double hypot(double x, double y)
     }
 
     if (k != 0) {
-        uint32_t high;
-        t1 = 1.0;
-        GET_HIGH_WORD(high, t1);
-        SET_HIGH_WORD(t1, high + (k << 20));
+        t1 = 0.0;
+        SET_HIGH_WORD(t1, (0x3FF + k) << 20);
         return t1 * w;
     } else {
         return w;
