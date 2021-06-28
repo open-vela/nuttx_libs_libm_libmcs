@@ -84,6 +84,10 @@ static inline float __tanf(float x, float y, int iy)
 
 float tanf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float y[2], z = 0.0;
     int32_t n, ix;
 

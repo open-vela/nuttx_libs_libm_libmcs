@@ -57,6 +57,10 @@ QUICKREF
 
 double modf(double x, double *iptr)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double _xi = 0.0;
     int32_t _i0, _i1, _j0;
     uint32_t i;

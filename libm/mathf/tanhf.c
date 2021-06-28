@@ -9,6 +9,10 @@ static const float one = 1.0f, two = 2.0f;
 
 float tanhf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float t, z;
     int32_t jx, ix;
 

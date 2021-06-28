@@ -16,24 +16,16 @@ float nextafterf(float x, float y)
 
     if (FLT_UWORD_IS_NAN(ix) || FLT_UWORD_IS_NAN(iy)) {
         return x + y;
-    }
-
-    if (x == y) {
+    } else if (hx == hy) {
         return x;                      /* x=y, return x */
-    }
-
-    if (FLT_UWORD_IS_ZERO(ix)) {       /* x == 0 */
-        SET_FLOAT_WORD(x, (hy & 0x80000000U) | FLT_UWORD_MIN);
-        y = x * x;
-
-        if (y == x) {
-            return y;
-        } else {
-            return x;                  /* raise underflow flag */
+    } else if (ix == 0) {              /* x == 0 */
+        if (ix == iy) {
+            return x;                  /* x=y, return x */
         }
-    }
-
-    if (hx >= 0) {                     /* x > 0 */
+        SET_FLOAT_WORD(x, (hy & 0x80000000U) | 1U);
+        (void) __raise_underflowf(x);
+        return x;
+    } else if (hx >= 0) {              /* x > 0 */
         if (hx > hy) {                 /* x > y, x -= ulp */
             hx -= 1;
         } else {                       /* x < y, x += ulp */
@@ -54,12 +46,7 @@ float nextafterf(float x, float y)
     }
 
     if (hy < 0x00800000) {            /* underflow */
-        y = x * x;
-
-        if (y != x) {                 /* raise underflow flag */
-            SET_FLOAT_WORD(y, hx);
-            return y;
-        }
+        (void) __raise_underflowf(x);
     }
 
     SET_FLOAT_WORD(x, hx);

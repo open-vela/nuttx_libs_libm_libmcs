@@ -6,6 +6,10 @@
 
 float roundf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     uint32_t w;
     /* Most significant word, least significant word. */
     int32_t exponent_less_127;

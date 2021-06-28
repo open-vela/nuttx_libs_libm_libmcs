@@ -118,6 +118,11 @@ ivln2_l  =  1.92596299112661746887e-08;  /* 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail*/
 
 double pow(double x, double y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double z, ax, z_h, z_l, p_h, p_l;
     double _y1, t1, t2, r, s, t, u, v, w;
     int32_t i, j, k, yisint, n;

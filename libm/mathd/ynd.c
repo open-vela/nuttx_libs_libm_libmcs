@@ -34,6 +34,10 @@
 
 double yn(int n, double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     return __yn(n, x);
 }
 

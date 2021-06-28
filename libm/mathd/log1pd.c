@@ -116,6 +116,10 @@ static const double zero = 0.0;
 
 double log1p(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double hfsq, f, c, R, u;
     int32_t k, hx, hu, ax;
 

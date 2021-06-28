@@ -9,6 +9,10 @@ static const float one = 1.0f, tiny = 1.0e-30f;
 
 float sqrtf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     float z;
     uint32_t r, hx;
     int32_t ix, s, q, m, t, i;

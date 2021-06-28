@@ -21,6 +21,10 @@ G  =  3.5714286566e-01f; /* 5/14      = 0x3eb6db6e */
 
 float cbrtf(float x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t    hx;
     float r, s, t;
     uint32_t sign;
@@ -56,7 +60,7 @@ float cbrtf(float x)
     s = C + r * t;
     t *= G + F / (s + E + D / s);
 
-    /* retore the sign bit */
+    /* restore the sign bit */
     GET_FLOAT_WORD(high, t);
     SET_FLOAT_WORD(t, high | sign);
     return (t);

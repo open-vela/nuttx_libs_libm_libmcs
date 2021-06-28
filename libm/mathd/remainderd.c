@@ -45,6 +45,11 @@ static const double zero = 0.0;
 
 double remainder(double x, double p)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    p *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, hp;
     uint32_t sx, lx, lp;
     double p_half;

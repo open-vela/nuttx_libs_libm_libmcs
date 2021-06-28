@@ -153,6 +153,10 @@ erx  =  8.45062911510467529297e-01; /* 0x3FEB0AC1, 0x60000000 */
 
 double erfc(double x)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, ix;
     double R, S, P, Q, s, y, z, r;
     GET_HIGH_WORD(hx, x);

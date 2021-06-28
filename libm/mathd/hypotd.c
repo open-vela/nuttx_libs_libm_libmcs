@@ -73,6 +73,11 @@ PORTABILITY
 
 double hypot(double x, double y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double a = x;
     double b = y;
     double t1, t2;

@@ -127,6 +127,10 @@ P5          =  4.13813679705723846039e-08;  /* 0x3E663769, 0x72BEA4D0 */
 
 double exp(double x)    /* default IEEE double exp */
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     double y, c, t;
     double hi = 0.0;
     double lo = 0.0;

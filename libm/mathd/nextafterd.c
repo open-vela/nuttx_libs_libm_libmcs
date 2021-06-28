@@ -50,49 +50,41 @@ double nextafter(double x, double y)
 
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
-    ix = hx & 0x7fffffff;      /* |x| */
+    ix = hx & 0x7fffffff;               /* |x| */
 
-    if (isnan(x) || isnan(y)) { /* x or y is nan */
+    if (isnan(x) || isnan(y)) {         /* x or y is nan */
         return x + y;
-    }
-
-    if (x == y) {
-        return x;              /* x=y, return x */
-    }
-
-    if ((ix | lx) == 0) {      /* x == 0 */
-        INSERT_WORDS(x, hy & 0x80000000U, 1U); /* return +-minsubnormal */
-        y = x * x;
-
-        if (y == x) {
-            return y;
-        } else {
-            return x;                        /* raise underflow flag */
+    } else if (hx == hy && lx == ly) {
+        return x;                       /* x=y, return x */
+    } else if ((ix | lx) == 0) {        /* x == 0 */
+        if (ix == (hy & 0x7fffffff) && ly == 0U) {
+            return x;                   /* x=y, return x */
         }
-    }
-
-    if (hx >= 0) {             /* x > 0 */
+        INSERT_WORDS(x, hy & 0x80000000U, 1U); /* return +-minsubnormal */
+        (void) __raise_underflow(x);
+        return x;
+    } else if (hx >= 0) {               /* x > 0 */
         if (hx > hy || ((hx == hy) && (lx > ly))) { /* x > y, x -= ulp */
             if (lx == 0) {
                 hx -= 1;
             }
 
             lx -= 1;
-        } else {                /* x < y, x += ulp */
+        } else {                        /* x < y, x += ulp */
             lx += 1;
 
             if (lx == 0) {
                 hx += 1;
             }
         }
-    } else {                    /* x < 0 */
+    } else {                            /* x < 0 */
         if (hy >= 0 || hx > hy || ((hx == hy) && (lx > ly))) { /* x < y, x -= ulp */
             if (lx == 0) {
                 hx -= 1;
             }
 
             lx -= 1;
-        } else {                /* x > y, x += ulp */
+        } else {                        /* x > y, x += ulp */
             lx += 1;
 
             if (lx == 0) {
@@ -104,16 +96,11 @@ double nextafter(double x, double y)
     hy = hx & 0x7ff00000;
 
     if (hy >= 0x7ff00000) {
-        return __raise_overflow(x); /* overflow if x is finite */
+        return __raise_overflow(x);     /* overflow if x is finite */
     }
 
-    if (hy < 0x00100000) {     /* underflow */
-        y = x * x;
-
-        if (y != x) {          /* raise underflow flag */
-            INSERT_WORDS(y, hx, lx);
-            return y;
-        }
+    if (hy < 0x00100000) {              /* underflow */
+        (void) __raise_underflow(x);
     }
 
     INSERT_WORDS(x, hx, lx);
