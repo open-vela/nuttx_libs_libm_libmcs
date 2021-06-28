@@ -103,8 +103,6 @@ PORTABILITY
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
-static const double one = 1.0, tiny = 1.0e-300;
-
 double sqrt(double x)
 {
 #ifdef __LIBMCS_FPU_DAZ
