@@ -177,11 +177,11 @@ static inline double __raise_div_by_zero(double x) {
 }
 static inline double __raise_overflow(double x) {
     volatile double huge = 1.0e300;
-    return (signbit(x) != 0) ? -(huge * huge) : (huge * huge);
+    return (signbit(x) != 0) ? -__forced_calculation(huge * huge) : __forced_calculation(huge * huge);
 }
 static inline double __raise_underflow(double x) {
     volatile double tiny = 1.0e-300;
-    return (signbit(x) != 0) ? -(tiny * tiny) : (tiny * tiny);
+    return (signbit(x) != 0) ? -__forced_calculation(tiny * tiny) : __forced_calculation(tiny * tiny);
 }
 static inline double __raise_inexact(double x) {
     volatile double huge = 1.0e300;
@@ -197,11 +197,11 @@ static inline float __raise_div_by_zerof(float x) {
 }
 static inline float __raise_overflowf(float x) {
     volatile float huge = 1.0e30f;
-    return (signbit(x) != 0) ? -(huge * huge) : (huge * huge);
+    return (signbit(x) != 0) ? -__forced_calculationf(huge * huge) : __forced_calculationf(huge * huge);
 }
 static inline float __raise_underflowf(float x) {
     volatile float tiny = 1.0e-30f;
-    return (signbit(x) != 0) ? -(tiny * tiny) : (tiny * tiny);
+    return (signbit(x) != 0) ? -__forced_calculationf(tiny * tiny) : __forced_calculationf(tiny * tiny);
 }
 static inline float __raise_inexactf(float x) {
     volatile float huge = 1.0e30f;

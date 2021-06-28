@@ -9,7 +9,7 @@
 static const float
 half =  5.0000000000e-01f, /* 0x3F000000 */
 two  =  2.0000000000e+00f, /* 0x40000000 */
-erx  =  8.42697144e-01f,   /* 0x3f57bb00 */
+erx  =  8.42697144e-01f;   /* 0x3f57bb00 */
 
 float erfcf(float x)
 {
