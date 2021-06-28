@@ -198,15 +198,16 @@ double exp(double x)    /* default IEEE double exp */
         y = one - ((lo - (x * c) / (2.0 - c)) - hi);
     }
 
-    /* add k to y's exponent */
     if (k >= -1021) {
-        double twopk = 0.0;
-        SET_HIGH_WORD(twopk, ((uint32_t)(0x3FF + k)) << 20);
-        return y * twopk;
+        uint32_t hy;
+        GET_HIGH_WORD(hy, y);
+        SET_HIGH_WORD(y, hy + (((uint32_t)k) << 20)); /* add k to y's exponent */
+        return y;
     } else {
-        double twopk = 0.0;
-        SET_HIGH_WORD(twopk, ((uint32_t)(0x3FF + (k + 1000))) << 20);
-        return y * twopk * twom1000;
+        uint32_t hy;
+        GET_HIGH_WORD(hy, y);
+        SET_HIGH_WORD(y, hy + (((uint32_t)k + 1000U) << 20)); /* add k to y's exponent */
+        return y * twom1000;
     }
 }
 
