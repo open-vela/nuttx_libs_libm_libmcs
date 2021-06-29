@@ -1,0 +1,116 @@
+#!/bin/bash
+# SPDX-License-Identifier: GTDGmbH
+# Copyright 2020-2021 by GTD GmbH.
+
+# Filenames
+sizecheck=sizeoftypes.c
+user_make=user_make.mk
+
+# Delete old user_make.mk if there is any
+[ -f "${user_make}" ] && rm ${user_make}
+
+# Create .c file to check type sizes
+echo "Creating minimal .c file to check type sizes."
+printf "double d_data[16];\\nlong double l_data[16];\\nlong int li_data[16];" > ${sizecheck}
+
+# Ask user for toolchain
+echo "Please enter the path to your compiler toolchain including prefix (e.g. /opt/rtems-4.11/bin/sparc-rtems-), leave empty if compiling on & for host:"
+while true
+do
+	read -r CROSS_COMPILE
+	CC=${CROSS_COMPILE}gcc
+	CC_version=$($CC --version)
+	if [[ "$CC_version" == "" ]]; then
+		echo "No compiler found at specified location. Try again:"
+	else
+		break
+	fi
+done
+echo "Found compiler:"
+echo "${CC_version}"
+
+# Ask for CFLAGS
+echo "Please enter additional compiler flags (e.g. -mlong-double-64):"
+while true
+do
+	read -r extra_cflags
+	if $($CC -c ${sizecheck} ${extra_cflags}); then
+		break
+	else
+		echo "Your compiler did not recognise all your flags. Try again:"
+	fi
+done
+
+# Ask user for DAZ/FTZ
+echo "Does your platform by default use, or is configured to use, DAZ/FTZ (Denormals Are Zero / Flush To Zero) mode (e.g. your platform has an older GRFPU which does not support subnormals)?"
+select yn in "Yes" "No"; do
+	case $yn in
+		Yes ) extra_cflags="${extra_cflags} -DLIBMCS_FPU_DAZ"; break;;
+		No ) break;;
+	esac
+done
+
+# Build and run type sizes check to assign defines
+echo "Build and run type sizes check to assign defines."
+$CC -c ${sizecheck} ${extra_cflags}
+long_int_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "li_data" | awk '{print $2/16*8}')
+if [ "$long_int_size" -eq "32" ]; then
+	extra_cflags="${extra_cflags} -DLIBMCS_LONG_IS_32BIT";
+	echo "Found long int to be 32bit.";
+fi
+double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "d_data" | awk '{print $2/16*8}')
+if [ "$double_size" -eq "32" ]; then
+	extra_cflags="${extra_cflags} -DLIBMCS_DOUBLE_IS_32BIT";
+	echo "Found double to be 32bit.";
+else
+	long_double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "l_data" | awk '{print $2/16*8}')
+	if [ "$long_double_size" -eq "64" ]; then
+		echo "Found long double to be 64bit.";
+		echo "Do you want long double procedures? If 'No' is chosen long double procedures will not be compiled into the library, and will not need to be qualified.";
+		select yn in "Yes" "No"; do
+			case $yn in
+				Yes ) extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BIT"; break;;
+				No ) break;;
+			esac
+		done
+	else
+		echo "Found long double to be not 64bit. The library will not have long double procedures.";
+	fi
+fi
+
+# Check toolchain for endianness
+echo "Check toolchain for endianness."
+endianness=$($CC -dM -E - < /dev/null | grep "__BYTE_ORDER__" | awk '{print $3}')
+if [ "$endianness" != "__ORDER_LITTLE_ENDIAN__" ] && [ "$endianness" != "__ORDER_BIG_ENDIAN__" ] ; then
+	echo "Your toolchain does not define endianness (__BYTE_ORDER__ is not defined as either __ORDER_BIG_ENDIAN__ or __ORDER_LITTLE_ENDIAN__). Which endianness is appropriate for your target platform (e.g. SPARCs are usually Big Endian)?";
+	select endian in "Little Endian" "Big Endian"; do
+		case $endian in
+			"Little Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"; break;;
+			"Big Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_BIG_ENDIAN__"; break;;
+		esac
+	done
+else
+	echo "Found endianness to be ${endianness}.";
+fi
+
+# Create configuration Makefile
+echo "Creating configuration Makefile."
+{ echo "ifndef CROSS_COMPILE";
+echo "    CROSS_COMPILE = ${CROSS_COMPILE}";
+echo "endif";
+echo "EXTRA_CFLAGS += ${extra_cflags}"; } > ${user_make}
+echo "Added the following extra compilation flags to make: ${extra_cflags}"
+
+# Ask user for complex procedures
+echo "Do you want complex procedures? If 'No' is chosen complex procedures will not be compiled into the library, and will not need to be qualified."
+select yn in "Yes" "No"; do
+	case $yn in
+		Yes ) echo "WANT_COMPLEX = 1" >> ${user_make}; echo "See user manual (SUM) for the limitations and inaccuracies in complex procedures!"; break;;
+		No ) echo "WANT_COMPLEX = 0" >> ${user_make}; break;;
+	esac
+done
+
+# Cleanup
+rm ${sizecheck}
+rm ${sizecheck%.*}.o
+echo "CONFIGURE_SUCCESS = 1" >> ${user_make}

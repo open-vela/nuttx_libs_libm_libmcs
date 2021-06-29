@@ -15,21 +15,23 @@
  * If the FPU has an internal implementation for DAZ (denormals are zero), the input values will be
  * reduced to zero and the procedures will then behave as if a zero was used as an input. Usually
  * this will also generate an inexact exception. */
-// #define LIBMCS_FPU_DAZ
 #ifdef LIBMCS_FPU_DAZ
     #define __LIBMCS_FPU_DAZ
     static volatile double __volatile_one = 1.0;
     static volatile float __volatile_onef = 1.0f;
 #endif /* LIBMCS_FPU_DAZ */
 
+/* Define to tell the libm to exclude complex procedures. */
+#ifdef LIBMCS_EXCLUDE_COMPLEX
+    #define __LIBMCS_EXCLUDE_COMPLEX
+#endif /* LIBMCS_EXCLUDE_COMPLEX */
+
 /* Define to tell the libm to be built for 32bit doubles. */
-// #define LIBMCS_DOUBLE_IS_32BITS
 #ifdef LIBMCS_DOUBLE_IS_32BITS
     #define __LIBMCS_DOUBLE_IS_32BITS
 #endif /* LIBMCS_DOUBLE_IS_32BITS */
 
 /* Define to tell the libm to be built for 64bit long doubles. */
-#define LIBMCS_LONG_DOUBLE_IS_64BITS
 #ifdef LIBMCS_LONG_DOUBLE_IS_64BITS
     #define __LIBMCS_LONG_DOUBLE_IS_64BITS
     #ifdef LIBMCS_DOUBLE_IS_32BITS
@@ -38,7 +40,6 @@
 #endif /* LIBMCS_LONG_DOUBLE_IS_64BITS */
 
 /* Define to tell the libm to be built for 32bit long int. */
-// #define LIBMCS_LONG_IS_32BITS
 #define __MAX_LONG_LONG 0x7FFFFFFFFFFFFFFFLL
 #define __MIN_LONG_LONG 0x8000000000000000LL
 #ifdef LIBMCS_LONG_IS_32BITS
@@ -146,17 +147,6 @@
 #elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
     #define __IEEE_LITTLE_ENDIAN
 #endif
-
-/* The original code used statements like
-    n0 = ((*(int*)&one)>>29)^1;        * index of high word *
-    ix0 = *(n0+(int*)&x);            * high word of x *
-    ix1 = *((1-n0)+(int*)&x);        * low word of x *
-   to dig two 32 bit words out of the 64 bit IEEE floating point
-   value.  That is non-ANSI, and, moreover, the gcc instruction
-   scheduler gets it wrong.  We instead use the following macros.
-   Unlike the original code, we determine the endianness at compile
-   time, not at run time; I don't see much benefit to selecting
-   endianness at run time.  */
 
 #ifndef __IEEE_BIG_ENDIAN
     #ifndef __IEEE_LITTLE_ENDIAN
