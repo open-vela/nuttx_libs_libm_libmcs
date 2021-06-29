@@ -30,6 +30,7 @@ config.status
 libtool
 POTFILES
 *-POTFILES
+user_make.mk
 
 tags
 TAGS

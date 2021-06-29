@@ -295,8 +295,7 @@ extern float                fmaf(float, float, float);
     /* Long double float-multiply-add function */
     extern long double      fmal(long double, long double, long double);
 
-    /* nexttoward procedures, they're seperated from the manipulation functions due to containing long */
-    /* double inputs for all procedures */
+    /* nexttoward procedures, they're seperated from the manipulation functions due to containing long double inputs for all procedures */
     extern float            nexttowardf(float, long double);
     extern double           nexttoward(double, long double);
     extern long double      nexttowardl(long double, long double);
