@@ -124,7 +124,7 @@ double pow(double x, double y)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     double z, ax, z_h, z_l, p_h, p_l;
-    double _y1, t1, t2, r, s, t, u, v, w;
+    double _y1, t1, t2, r, s, sign, t, u, v, w;
     int32_t i, j, k, yisint, n;
     int32_t hx, hy, ix, iy;
     uint32_t lx, ly;
@@ -248,18 +248,21 @@ double pow(double x, double y)
         }
     }
 
+    n = ((uint32_t)hx >> 31U) - 1U;
+
     /* (x<0)**(non-int) is NaN */
-    /* REDHAT LOCAL: This used to be
-    if((((hx>>31)+1)|yisint)==0) return (x-x)/(x-x);
-       but ANSI C says a right shift of a signed negative quantity is
-       implementation defined.  */
-    if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)yisint) == 0) {
+    if ((n | yisint) == 0) {
         return __raise_invalid();
+    }
+
+    sign = one; /* (sign of result -ve**odd) = -1 else = 1 */
+    if ((n | (yisint - 1)) == 0) {
+        sign = -one;    /* (-ve)**(odd int) */
     }
 
     /* |y| is huge */
     if (iy > 0x42000000) {     /* if |y| > ~2**33 (does not regard mantissa) */
-        if (iy > 0x43f00000) { /* if |y| > ~2**64, must o/uflow */
+        if (iy > 0x43f00000) { /* if |y| > ~2**64, must o/uflow and y is an even integer */
             if (ix <= 0x3fefffff) { /* |x| < 1 */
                 return (hy < 0) ? __raise_overflow(one) : __raise_underflow(one);
             } else {                /* |x| > 1 */
@@ -269,11 +272,11 @@ double pow(double x, double y)
 
         /* over/underflow if x is not close to one */
         if (ix < 0x3fefffff) {
-            return (hy < 0) ? __raise_overflow(one) : __raise_underflow(one);
+            return (hy < 0) ? __raise_overflow(sign) : __raise_underflow(sign);
         }
 
         if (ix > 0x3ff00000) {
-            return (hy > 0) ? __raise_overflow(one) : __raise_underflow(one);
+            return (hy > 0) ? __raise_overflow(sign) : __raise_underflow(sign);
         }
 
         /* now |1-x| is tiny <= 2**-20, suffice to compute
@@ -348,12 +351,6 @@ double pow(double x, double y)
         t2 = z_l - (((t1 - t) - dp_h[k]) - z_h);
     }
 
-    s = one; /* s (sign of result -ve**odd) = -1 else = 1 */
-
-    if (((((uint32_t)hx >> 31U) - 1U) | (uint32_t)(yisint - 1)) == 0) {
-        s = -one;    /* (-ve)**(odd int) */
-    }
-
     /* split up y into _y1+y2 and compute (_y1+y2)*(t1+t2) */
     _y1  = y;
     SET_LOW_WORD(_y1, 0);
@@ -364,18 +361,18 @@ double pow(double x, double y)
 
     if (j >= 0x40900000) {                       /* z >= 1024 */
         if (((j - 0x40900000) | i) != 0) {       /* if z > 1024 */
-            return __raise_overflow(s);
+            return __raise_overflow(sign);
         } else {
             if (p_l + ovt > z - p_h) {
-                return __raise_overflow(s);
+                return __raise_overflow(sign);
             }
         }
     } else if ((j & 0x7fffffff) >= 0x4090cc00) { /* z <= -1075 */
         if (((j - 0xc090cc00U) | i) != 0) {      /* z < -1075 */
-            return __raise_underflow(s);
+            return __raise_underflow(sign);
         } else {
             if (p_l <= z - p_h) {
-                return __raise_underflow(s);
+                return __raise_underflow(sign);
             }
         }
     } else {
@@ -422,7 +419,7 @@ double pow(double x, double y)
         SET_HIGH_WORD(z, j);
     }
 
-    return s * z;
+    return sign * z;
 }
 
 #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
