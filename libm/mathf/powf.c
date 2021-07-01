@@ -159,6 +159,7 @@ float powf(float x, float y)
     /* |y| is huge */
     if (iy > 0x4d000000) { /* if |y| > 2**27 */
         /* over/underflow if x is not close to one */
+        /* Contrary to the double procedure we don't need the sign for these over/underflows as |y| > 2**27 means that y is an even integer (should the border ever be lowered to 2**23 or lower, the sign plays a role). */
         if (ix < 0x3f7ffff4) {
             return (hy < 0) ? __raise_overflowf(one) : __raise_underflowf(one);
         }
