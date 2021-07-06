@@ -347,7 +347,9 @@ double __lgamma(double x, int *signgamp)
             z *= (y + 3.0);  /* FALLTHRU */
 
         case 3:
-            z *= (y + 2.0);
+            z *= (y + 2.0);  /* FALLTHRU */
+
+        case 2:
             r += log(z);
             break;
         }
