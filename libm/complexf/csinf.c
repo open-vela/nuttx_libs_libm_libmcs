@@ -14,7 +14,8 @@ float complex csinf(float complex z)
     float ch, sh;
 
     __ccoshsinhf(cimagf(z), &ch, &sh);
-    w = sinf(crealf(z)) * ch + (cosf(crealf(z)) * sh) * I;
+    /* w = sinf(crealf(z)) * ch + (cosf(crealf(z)) * sh) * I; */
+    w = CMPLXF(sinf(crealf(z)) * ch, cosf(crealf(z)) * sh);
     return w;
 }
 

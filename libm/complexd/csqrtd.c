@@ -54,15 +54,15 @@ double complex csqrt(double complex z)
 
     if (y == 0.0) {
         if (x == 0.0) {
-            w = 0.0 + y * I;
+            w = CMPLX(0.0, y);
         } else {
             r = fabs(x);
             r = sqrt(r);
 
             if (x < 0.0) {
-                w = 0.0 + r * I;
+                w = CMPLX(0.0, r);
             } else {
-                w = r + y * I;
+                w = CMPLX(r, y);
             }
         }
 
@@ -74,9 +74,9 @@ double complex csqrt(double complex z)
         r = sqrt(0.5 * r);
 
         if (y > 0) {
-            w = r + r * I;
+            w = CMPLX(r, r);
         } else {
-            w = r - r * I;
+            w = CMPLX(r, -r);
         }
 
         return w;
@@ -93,7 +93,7 @@ double complex csqrt(double complex z)
         scale = 7.450580596923828125e-9; /* 2^-27 */
     }
 
-    w = x + y * I;
+    w = CMPLX(x, y);
     r = cabs(w);
 
     if (x > 0) {
@@ -107,9 +107,9 @@ double complex csqrt(double complex z)
     }
 
     if (y < 0) {
-        w = t - r * I;
+        w = CMPLX(t, -r);
     } else {
-        w = t + r * I;
+        w = CMPLX(t, r);
     }
 
     return w;

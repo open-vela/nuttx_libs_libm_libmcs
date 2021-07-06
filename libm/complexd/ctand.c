@@ -100,11 +100,12 @@ double complex ctan(double complex z)
     }
 
     if (d == 0.0) {
-        w = HUGE_VAL + HUGE_VAL * I;
+        w = CMPLX(HUGE_VAL, HUGE_VAL);
         return w;
     }
 
-    w = sin(2.0 * creal(z)) / d + (sinh(2.0 * cimag(z)) / d) * I;
+    /* w = sin(2.0 * creal(z)) / d + (sinh(2.0 * cimag(z)) / d) * I; */
+    w = CMPLX(sin(2.0 * creal(z)) / d, sinh(2.0 * cimag(z)) / d);
     return w;
 }
 

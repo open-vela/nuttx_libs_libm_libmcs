@@ -53,26 +53,24 @@ double complex casin(double complex z)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     double complex w;
-    double complex ca, ct, zz, z2;
+    double complex ct, zz, z2;
     double x, y;
 
     x = creal(z);
     y = cimag(z);
 
-    ca = x + y * I;
-    ct = ca * I;
-    /* sqrt( 1 - z*z) */
-    /* cmul( &ca, &ca, &zz ) */
-    /*x * x  -  y * y */
-    zz = (x - y) * (x + y) + (2.0 * x * y) * I;
+    ct = CMPLX(-y, x);
+    /* zz = (x - y) * (x + y) + (2.0 * x * y) * I; */
+    zz = CMPLX((x - y) * (x + y), 2.0 * x * y);
 
-    zz = 1.0 - creal(zz) - cimag(zz) * I;
+    /* zz = 1.0 - creal(zz) - cimag(zz) * I; */
+    zz = CMPLX(1.0 - creal(zz), -cimag(zz));
     z2 = csqrt(zz);
 
     zz = ct + z2;
     zz = clog(zz);
-    /* multiply by 1/i = -i */
-    w = zz * (-1.0 * I);
+    /* w = zz * (-1.0 * I); */
+    w = CMPLX(cimag(zz), -creal(zz));
     return w;
 }
 

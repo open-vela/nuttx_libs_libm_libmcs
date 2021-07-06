@@ -15,7 +15,8 @@ float complex cexpf(float complex z)
     x = crealf(z);
     y = cimagf(z);
     r = expf(x);
-    w = r * cosf(y) + r * sinf(y) * I;
+    /* w = r * cosf(y) + r * sinf(y) * I; */
+    w = CMPLXF(r * cosf(y), r * sinf(y));
     return w;
 }
 
