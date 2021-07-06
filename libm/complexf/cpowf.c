@@ -18,7 +18,7 @@ float complex cpowf(float complex x, float complex y)
     absx = cabsf(x);
 
     if (absx == 0.0f) {
-        return (0.0f + 0.0f * I);
+        return CMPLX(0.0f, 0.0f);
     }
 
     argx = cargf(x);
@@ -30,7 +30,8 @@ float complex cpowf(float complex x, float complex y)
         theta = theta + imagz * logf(absx);
     }
 
-    w = result * cosf(theta) + (result * sinf(theta)) * I;
+    /*w = result * cosf(theta) + (result * sinf(theta)) * I; */
+    w = CMPLXF(result * cosf(theta), result * sinf(theta));
     return w;
 }
 

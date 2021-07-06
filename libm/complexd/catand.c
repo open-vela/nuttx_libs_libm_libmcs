@@ -63,7 +63,7 @@ double complex catan(double complex z)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     double complex w;
-    double a, t, x, x2, y;
+    double a, t, x, x2, y, tmp;
 
     x = creal(z);
     y = cimag(z);
@@ -80,7 +80,7 @@ double complex catan(double complex z)
     }
 
     t = 0.5 * atan2(2.0 * x, a);
-    w = __redupi(t);
+    tmp = __redupi(t);
 
     t = y - 1.0;
     a = x2 + (t * t);
@@ -91,11 +91,12 @@ double complex catan(double complex z)
 
     t = y + 1.0;
     a = (x2 + (t * t)) / a;
-    w = w + (0.25 * log(a)) * I;
+    /* w = tmp + (0.25 * log(a)) * I; */
+    w = CMPLX(tmp, 0.25 * log(a));
     return w;
 
 ovrf:
-    w = HUGE_VAL + HUGE_VAL * I;
+    w = CMPLX(HUGE_VAL, HUGE_VAL);
     return w;
 }
 

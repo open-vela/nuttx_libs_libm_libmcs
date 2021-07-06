@@ -50,7 +50,8 @@ double complex ctanh(double complex z)
     x = creal(z);
     y = cimag(z);
     d = cosh(2.0 * x) + cos(2.0 * y);
-    w = sinh(2.0 * x) / d  + (sin(2.0 * y) / d) * I;
+    /* w = sinh(2.0 * x) / d  + (sin(2.0 * y) / d) * I; */
+    w = CMPLX(sinh(2.0 * x) / d, sin(2.0 * y) / d);
 
     return w;
 }

@@ -10,9 +10,13 @@ float complex cacosf(float complex z)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     float complex w;
+    float complex tmp0;
+    float tmp1;
 
-    w = casinf(z);
-    w = ((float)M_PI_2 - crealf(w)) - cimagf(w) * I;
+    tmp0 = casinf(z);
+    tmp1 = (float)M_PI_2 - crealf(tmp0);
+    w = CMPLXF(tmp1, -cimagf(tmp0));
+
     return w;
 }
 

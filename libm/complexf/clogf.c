@@ -15,7 +15,8 @@ float complex clogf(float complex z)
     rr = cabsf(z);
     p = logf(rr);
     rr = atan2f(cimagf(z), crealf(z));
-    w = p + rr * I;
+    /* w = p + rr * I; */
+    w = CMPLXF(p, rr);
     return w;
 }
 
