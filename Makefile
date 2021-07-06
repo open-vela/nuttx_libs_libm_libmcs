@@ -3,6 +3,8 @@
 
 SHELL := /bin/bash
 
+-include user_make.mk
+
 ifndef ARCH
     ARCH = $(shell $(CROSS_COMPILE)gcc -v 2>&1 | grep Target | cut -d' ' -f 2)
 endif
@@ -13,6 +15,10 @@ MKDIR = mkdir -p
 CP = cp
 MV = mv
 RM = rm -rf
+DATE = date
+WHICH = which
+SHA256 = sha256sum
+INFO_FILENAME = build_info.yml
 
 ifeq ($(V),1)
     Q =
@@ -27,192 +33,201 @@ endif
 
 INCLUDE = -Ilibm/include -Ilibm/common -Ilibm/mathd/internal -Ilibm/mathf/internal
 
-SRC=libm/common/isgreater.c \
-    libm/common/isnan.c \
-    libm/common/signgam.c \
-    libm/common/tools.c \
-    libm/complexd/cabsd.c \
-    libm/complexd/cacosd.c \
-    libm/complexd/cacoshd.c \
-    libm/complexd/cargd.c \
-    libm/complexd/casind.c \
-    libm/complexd/casinhd.c \
-    libm/complexd/catand.c \
-    libm/complexd/catanhd.c \
-    libm/complexd/ccosd.c \
-    libm/complexd/ccoshd.c \
-    libm/complexd/cexpd.c \
-    libm/complexd/cimagd.c \
-    libm/complexd/clogd.c \
-    libm/complexd/conjd.c \
-    libm/complexd/cpowd.c \
-    libm/complexd/cprojd.c \
-    libm/complexd/creald.c \
-    libm/complexd/csind.c \
-    libm/complexd/csinhd.c \
-    libm/complexd/csqrtd.c \
-    libm/complexd/ctand.c \
-    libm/complexd/ctanhd.c \
-    libm/complexd/internal/ctrigd.c \
-    libm/complexf/cabsf.c \
-    libm/complexf/cacosf.c \
-    libm/complexf/cacoshf.c \
-    libm/complexf/cargf.c \
-    libm/complexf/casinf.c \
-    libm/complexf/casinhf.c \
-    libm/complexf/catanf.c \
-    libm/complexf/catanhf.c \
-    libm/complexf/ccosf.c \
-    libm/complexf/ccoshf.c \
-    libm/complexf/cexpf.c \
-    libm/complexf/cimagf.c \
-    libm/complexf/clogf.c \
-    libm/complexf/conjf.c \
-    libm/complexf/cpowf.c \
-    libm/complexf/cprojf.c \
-    libm/complexf/crealf.c \
-    libm/complexf/csinf.c \
-    libm/complexf/csinhf.c \
-    libm/complexf/csqrtf.c \
-    libm/complexf/ctanf.c \
-    libm/complexf/ctanhf.c \
-    libm/complexf/internal/ctrigf.c \
-    libm/mathd/acosd.c \
-    libm/mathd/acoshd.c \
-    libm/mathd/asind.c \
-    libm/mathd/asinhd.c \
-    libm/mathd/atan2d.c \
-    libm/mathd/atand.c \
-    libm/mathd/atanhd.c \
-    libm/mathd/cbrtd.c \
-    libm/mathd/ceild.c \
-    libm/mathd/copysignd.c \
-    libm/mathd/cosd.c \
-    libm/mathd/coshd.c \
-    libm/mathd/erfcd.c \
-    libm/mathd/erfd.c \
-    libm/mathd/exp2d.c \
-    libm/mathd/expd.c \
-    libm/mathd/expm1d.c \
-    libm/mathd/fabsd.c \
-    libm/mathd/fdimd.c \
-    libm/mathd/floord.c \
-    libm/mathd/fmad.c \
-    libm/mathd/fmaxd.c \
-    libm/mathd/fmind.c \
-    libm/mathd/fmodd.c \
-    libm/mathd/frexpd.c \
-    libm/mathd/hypotd.c \
-    libm/mathd/ilogbd.c \
-    libm/mathd/internal/bessel0d.c \
-    libm/mathd/internal/bessel1d.c \
-    libm/mathd/internal/besselnd.c \
-    libm/mathd/internal/fpclassifyd.c \
-    libm/mathd/internal/gammad.c \
-    libm/mathd/internal/signbitd.c \
-    libm/mathd/internal/trigd.c \
-    libm/mathd/j0d.c \
-    libm/mathd/j1d.c \
-    libm/mathd/jnd.c \
-    libm/mathd/ldexpd.c \
-    libm/mathd/lgammad.c \
-    libm/mathd/llrintd.c \
-    libm/mathd/llroundd.c \
-    libm/mathd/log10d.c \
-    libm/mathd/log1pd.c \
-    libm/mathd/log2d.c \
-    libm/mathd/logbd.c \
-    libm/mathd/logd.c \
-    libm/mathd/lrintd.c \
-    libm/mathd/lroundd.c \
-    libm/mathd/modfd.c \
-    libm/mathd/nand.c \
-    libm/mathd/nearbyintd.c \
-    libm/mathd/nextafterd.c \
-    libm/mathd/nexttowardd.c \
-    libm/mathd/powd.c \
-    libm/mathd/remainderd.c \
-    libm/mathd/remquod.c \
-    libm/mathd/rintd.c \
-    libm/mathd/roundd.c \
-    libm/mathd/scalblnd.c \
-    libm/mathd/scalbnd.c \
-    libm/mathd/sind.c \
-    libm/mathd/sinhd.c \
-    libm/mathd/sqrtd.c \
-    libm/mathd/tand.c \
-    libm/mathd/tanhd.c \
-    libm/mathd/tgammad.c \
-    libm/mathd/truncd.c \
-    libm/mathd/y0d.c \
-    libm/mathd/y1d.c \
-    libm/mathd/ynd.c \
-    libm/mathf/acosf.c \
-    libm/mathf/acoshf.c \
-    libm/mathf/asinf.c \
-    libm/mathf/asinhf.c \
-    libm/mathf/atan2f.c \
-    libm/mathf/atanf.c \
-    libm/mathf/atanhf.c \
-    libm/mathf/cbrtf.c \
-    libm/mathf/ceilf.c \
-    libm/mathf/copysignf.c \
-    libm/mathf/cosf.c \
-    libm/mathf/coshf.c \
-    libm/mathf/erfcf.c \
-    libm/mathf/erff.c \
-    libm/mathf/exp2f.c \
-    libm/mathf/expf.c \
-    libm/mathf/expm1f.c \
-    libm/mathf/fabsf.c \
-    libm/mathf/fdimf.c \
-    libm/mathf/floorf.c \
-    libm/mathf/fmaf.c \
-    libm/mathf/fmaxf.c \
-    libm/mathf/fminf.c \
-    libm/mathf/fmodf.c \
-    libm/mathf/frexpf.c \
-    libm/mathf/hypotf.c \
-    libm/mathf/ilogbf.c \
-    libm/mathf/internal/fpclassifyf.c \
-    libm/mathf/internal/gammaf.c \
-    libm/mathf/internal/signbitf.c \
-    libm/mathf/internal/trigf.c \
-    libm/mathf/ldexpf.c \
-    libm/mathf/lgammaf.c \
-    libm/mathf/llrintf.c \
-    libm/mathf/llroundf.c \
-    libm/mathf/log10f.c \
-    libm/mathf/log1pf.c \
-    libm/mathf/log2f.c \
-    libm/mathf/logbf.c \
-    libm/mathf/logf.c \
-    libm/mathf/lrintf.c \
-    libm/mathf/lroundf.c \
-    libm/mathf/modff.c \
-    libm/mathf/nanf.c \
-    libm/mathf/nearbyintf.c \
-    libm/mathf/nextafterf.c \
-    libm/mathf/nexttowardf.c \
-    libm/mathf/powf.c \
-    libm/mathf/remainderf.c \
-    libm/mathf/remquof.c \
-    libm/mathf/rintf.c \
-    libm/mathf/roundf.c \
-    libm/mathf/scalblnf.c \
-    libm/mathf/scalbnf.c \
-    libm/mathf/sinf.c \
-    libm/mathf/sinhf.c \
-    libm/mathf/sqrtf.c \
-    libm/mathf/tanf.c \
-    libm/mathf/tanhf.c \
-    libm/mathf/tgammaf.c \
-    libm/mathf/truncf.c
+CSRC =  libm/complexd/cabsd.c \
+        libm/complexd/cacosd.c \
+        libm/complexd/cacoshd.c \
+        libm/complexd/cargd.c \
+        libm/complexd/casind.c \
+        libm/complexd/casinhd.c \
+        libm/complexd/catand.c \
+        libm/complexd/catanhd.c \
+        libm/complexd/ccosd.c \
+        libm/complexd/ccoshd.c \
+        libm/complexd/cexpd.c \
+        libm/complexd/cimagd.c \
+        libm/complexd/clogd.c \
+        libm/complexd/conjd.c \
+        libm/complexd/cpowd.c \
+        libm/complexd/cprojd.c \
+        libm/complexd/creald.c \
+        libm/complexd/csind.c \
+        libm/complexd/csinhd.c \
+        libm/complexd/csqrtd.c \
+        libm/complexd/ctand.c \
+        libm/complexd/ctanhd.c \
+        libm/complexd/internal/ctrigd.c \
+        libm/complexf/cabsf.c \
+        libm/complexf/cacosf.c \
+        libm/complexf/cacoshf.c \
+        libm/complexf/cargf.c \
+        libm/complexf/casinf.c \
+        libm/complexf/casinhf.c \
+        libm/complexf/catanf.c \
+        libm/complexf/catanhf.c \
+        libm/complexf/ccosf.c \
+        libm/complexf/ccoshf.c \
+        libm/complexf/cexpf.c \
+        libm/complexf/cimagf.c \
+        libm/complexf/clogf.c \
+        libm/complexf/conjf.c \
+        libm/complexf/cpowf.c \
+        libm/complexf/cprojf.c \
+        libm/complexf/crealf.c \
+        libm/complexf/csinf.c \
+        libm/complexf/csinhf.c \
+        libm/complexf/csqrtf.c \
+        libm/complexf/ctanf.c \
+        libm/complexf/ctanhf.c \
+        libm/complexf/internal/ctrigf.c
+
+SRC =   libm/common/isgreater.c \
+        libm/common/isnan.c \
+        libm/common/signgam.c \
+        libm/common/tools.c \
+        libm/mathd/acosd.c \
+        libm/mathd/acoshd.c \
+        libm/mathd/asind.c \
+        libm/mathd/asinhd.c \
+        libm/mathd/atan2d.c \
+        libm/mathd/atand.c \
+        libm/mathd/atanhd.c \
+        libm/mathd/cbrtd.c \
+        libm/mathd/ceild.c \
+        libm/mathd/copysignd.c \
+        libm/mathd/cosd.c \
+        libm/mathd/coshd.c \
+        libm/mathd/erfcd.c \
+        libm/mathd/erfd.c \
+        libm/mathd/exp2d.c \
+        libm/mathd/expd.c \
+        libm/mathd/expm1d.c \
+        libm/mathd/fabsd.c \
+        libm/mathd/fdimd.c \
+        libm/mathd/floord.c \
+        libm/mathd/fmad.c \
+        libm/mathd/fmaxd.c \
+        libm/mathd/fmind.c \
+        libm/mathd/fmodd.c \
+        libm/mathd/frexpd.c \
+        libm/mathd/hypotd.c \
+        libm/mathd/ilogbd.c \
+        libm/mathd/internal/bessel0d.c \
+        libm/mathd/internal/bessel1d.c \
+        libm/mathd/internal/besselnd.c \
+        libm/mathd/internal/fpclassifyd.c \
+        libm/mathd/internal/gammad.c \
+        libm/mathd/internal/signbitd.c \
+        libm/mathd/internal/trigd.c \
+        libm/mathd/j0d.c \
+        libm/mathd/j1d.c \
+        libm/mathd/jnd.c \
+        libm/mathd/ldexpd.c \
+        libm/mathd/lgammad.c \
+        libm/mathd/llrintd.c \
+        libm/mathd/llroundd.c \
+        libm/mathd/log10d.c \
+        libm/mathd/log1pd.c \
+        libm/mathd/log2d.c \
+        libm/mathd/logbd.c \
+        libm/mathd/logd.c \
+        libm/mathd/lrintd.c \
+        libm/mathd/lroundd.c \
+        libm/mathd/modfd.c \
+        libm/mathd/nand.c \
+        libm/mathd/nearbyintd.c \
+        libm/mathd/nextafterd.c \
+        libm/mathd/nexttowardd.c \
+        libm/mathd/powd.c \
+        libm/mathd/remainderd.c \
+        libm/mathd/remquod.c \
+        libm/mathd/rintd.c \
+        libm/mathd/roundd.c \
+        libm/mathd/scalblnd.c \
+        libm/mathd/scalbnd.c \
+        libm/mathd/sind.c \
+        libm/mathd/sinhd.c \
+        libm/mathd/sqrtd.c \
+        libm/mathd/tand.c \
+        libm/mathd/tanhd.c \
+        libm/mathd/tgammad.c \
+        libm/mathd/truncd.c \
+        libm/mathd/y0d.c \
+        libm/mathd/y1d.c \
+        libm/mathd/ynd.c \
+        libm/mathf/acosf.c \
+        libm/mathf/acoshf.c \
+        libm/mathf/asinf.c \
+        libm/mathf/asinhf.c \
+        libm/mathf/atan2f.c \
+        libm/mathf/atanf.c \
+        libm/mathf/atanhf.c \
+        libm/mathf/cbrtf.c \
+        libm/mathf/ceilf.c \
+        libm/mathf/copysignf.c \
+        libm/mathf/cosf.c \
+        libm/mathf/coshf.c \
+        libm/mathf/erfcf.c \
+        libm/mathf/erff.c \
+        libm/mathf/exp2f.c \
+        libm/mathf/expf.c \
+        libm/mathf/expm1f.c \
+        libm/mathf/fabsf.c \
+        libm/mathf/fdimf.c \
+        libm/mathf/floorf.c \
+        libm/mathf/fmaf.c \
+        libm/mathf/fmaxf.c \
+        libm/mathf/fminf.c \
+        libm/mathf/fmodf.c \
+        libm/mathf/frexpf.c \
+        libm/mathf/hypotf.c \
+        libm/mathf/ilogbf.c \
+        libm/mathf/internal/fpclassifyf.c \
+        libm/mathf/internal/gammaf.c \
+        libm/mathf/internal/signbitf.c \
+        libm/mathf/internal/trigf.c \
+        libm/mathf/ldexpf.c \
+        libm/mathf/lgammaf.c \
+        libm/mathf/llrintf.c \
+        libm/mathf/llroundf.c \
+        libm/mathf/log10f.c \
+        libm/mathf/log1pf.c \
+        libm/mathf/log2f.c \
+        libm/mathf/logbf.c \
+        libm/mathf/logf.c \
+        libm/mathf/lrintf.c \
+        libm/mathf/lroundf.c \
+        libm/mathf/modff.c \
+        libm/mathf/nanf.c \
+        libm/mathf/nearbyintf.c \
+        libm/mathf/nextafterf.c \
+        libm/mathf/nexttowardf.c \
+        libm/mathf/powf.c \
+        libm/mathf/remainderf.c \
+        libm/mathf/remquof.c \
+        libm/mathf/rintf.c \
+        libm/mathf/roundf.c \
+        libm/mathf/scalblnf.c \
+        libm/mathf/scalbnf.c \
+        libm/mathf/sinf.c \
+        libm/mathf/sinhf.c \
+        libm/mathf/sqrtf.c \
+        libm/mathf/tanf.c \
+        libm/mathf/tanhf.c \
+        libm/mathf/tgammaf.c \
+        libm/mathf/truncf.c
+
+ifeq ($(WANT_COMPLEX),1)
+    SRC += $(CSRC)
+else
+    EXTRA_CFLAGS += -DLIBMCS_EXCLUDE_COMPLEX
+endif
 
 SRC_ROOT = .
 SRC_DIRS = $(sort $(dir $(SRC)))
 
 BUILD_ROOT = build-$(ARCH)
+
+BUILD_INFO = $(BUILD_ROOT)/$(INFO_FILENAME)
 
 OBJ_ROOT = $(BUILD_ROOT)/obj
 OBJ_DIRS = $(addprefix $(OBJ_ROOT)/,$(SRC_DIRS))
@@ -236,21 +251,45 @@ OBJ = $(addprefix $(OBJ_ROOT)/, $(SRC:.c=.o))
 .SUFFIXES:
 .SUFFIXES: .o .c
 
+.PHONY: all debug release clean cleanall distclean install check_config
+all: $(OUT) $(BUILD_INFO)
+
+check_config:
+	@[ "1" == "$(CONFIGURE_SUCCESS)" ] || (echo "Either configuration was faulty or not done, please run configure" && exit 1)
+
+$(BUILD_INFO): $(OUT)
+	@echo "[LOG] $(BUILD_INFO)"
+	@echo "---" > $(BUILD_INFO)
+	@printf "date: " >> $(BUILD_INFO)
+	$(Q)$(DATE) >> $(BUILD_INFO)
+	@printf "compiler_path: " >> $(BUILD_INFO)
+	$(Q)$(WHICH) $(CC) >> $(BUILD_INFO)
+	@echo "compiler_information: |" >> $(BUILD_INFO)
+	$(Q)$(CC) -v 2>&1 | sed 's/^/    /' >> $(BUILD_INFO)
+	@echo "cflags_and_include: $(CFLAGS) $(CFLAGS_TARGET) $(INCLUDE)" >> $(BUILD_INFO)
+	@echo "git_info:" >> $(BUILD_INFO)
+	@printf "    branch: " >> $(BUILD_INFO)
+	$(Q)(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "-") >> $(BUILD_INFO)
+	@printf "    commit: " >> $(BUILD_INFO)
+	$(Q)(git rev-parse HEAD 2>/dev/null || echo "-") >> $(BUILD_INFO)
+	@printf "    dirty: " >> $(BUILD_INFO)
+	$(Q)((git diff --exit-code > /dev/null 2>&1 && echo "no") || ([ $$? -eq 1 ] && echo "yes") || echo "-") >> $(BUILD_INFO)
+	@printf "libm_sha256: " >> $(BUILD_INFO)
+	$(Q)$(SHA256) $(OUT) >> $(BUILD_INFO)
+	@echo "..." >> $(BUILD_INFO)
+
 # Include dependency info for *existing* .o files
 -include $(OBJ:.o=.d)
 
-.PHONY: all debug release clean cleanall
-all: $(OUT)
-
-$(OUT): $(OBJ) | $(BIN_DIR)
+$(OUT): $(OBJ) | check_config $(BIN_DIR)
 	@echo "[AR] $@"
 	$(Q)$(AR) -scr $@ $?
 
-$(OBJ_ROOT)/%.o: $(SRC_ROOT)/%.c | $(OBJ_DIRS)
+$(OBJ_ROOT)/%.o: $(SRC_ROOT)/%.c | check_config $(OBJ_DIRS)
 	@echo "[CC] $< > $@"
 	$(Q)$(CC) $(CFLAGS) $(CFLAGS_TARGET) $(INCLUDE) -MD -MP $< -o $@
 
-$(OBJ_DIRS) $(BIN_DIR):
+$(OBJ_DIRS) $(BIN_DIR): check_config
 	@echo "[MKDIR] $@"
 	$(Q)$(MKDIR) $@
 
@@ -266,3 +305,12 @@ clean:
 cleanall:
 	@echo "[RM] build-*"
 	$(Q)$(RM) build-*
+
+distclean:
+	@echo "[RM] user_make.mk"
+	$(Q)$(RM) user_make.mk
+	$(Q)$(RM) sizeoftypes.c
+	$(Q)$(RM) sizeoftypes.o
+
+install:
+	@echo "LibmCS cannot be installed."
