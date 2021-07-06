@@ -278,7 +278,9 @@ float __lgammaf(float x, int *signgamp)
             z *= (y + 3.0f);  /* FALLTHRU */
 
         case 3:
-            z *= (y + 2.0f);
+            z *= (y + 2.0f);  /* FALLTHRU */
+
+        case 2:
             r += logf(z);
             break;
         }
