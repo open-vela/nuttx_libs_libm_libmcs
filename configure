@@ -55,12 +55,12 @@ echo "Build and run type sizes check to assign defines."
 $CC -c ${sizecheck} ${extra_cflags}
 long_int_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "li_data" | awk '{print $2/16*8}')
 if [ "$long_int_size" -eq "32" ]; then
-	extra_cflags="${extra_cflags} -DLIBMCS_LONG_IS_32BIT";
+	extra_cflags="${extra_cflags} -DLIBMCS_LONG_IS_32BITS";
 	echo "Found long int to be 32bit.";
 fi
 double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "d_data" | awk '{print $2/16*8}')
 if [ "$double_size" -eq "32" ]; then
-	extra_cflags="${extra_cflags} -DLIBMCS_DOUBLE_IS_32BIT";
+	extra_cflags="${extra_cflags} -DLIBMCS_DOUBLE_IS_32BITS";
 	echo "Found double to be 32bit.";
 else
 	long_double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "l_data" | awk '{print $2/16*8}')
@@ -69,7 +69,7 @@ else
 		echo "Do you want long double procedures? If 'No' is chosen long double procedures will not be compiled into the library, and will not need to be qualified.";
 		select yn in "Yes" "No"; do
 			case $yn in
-				Yes ) extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BIT"; break;;
+				Yes ) extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BITS"; break;;
 				No ) break;;
 			esac
 		done
