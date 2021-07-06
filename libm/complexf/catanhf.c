@@ -9,8 +9,12 @@ float complex catanhf(float complex z)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     float complex w;
+    float complex tmp;
 
-    w = -1.0f * I * catanf(z * I);
+    /* w = -1.0f * I * catanf(z * I); */
+    tmp = CMPLXF(-cimagf(z), crealf(z));
+    tmp = catanf(tmp);
+    w = CMPLXF(cimagf(tmp), -crealf(tmp));
     return w;
 }
 

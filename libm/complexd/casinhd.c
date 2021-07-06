@@ -62,10 +62,14 @@ double complex casinh(double complex z)
 #ifdef __LIBMCS_FPU_DAZ
     z *= __volatile_one;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
-
+    
     double complex w;
+    double complex tmp;
 
-    w = -1.0 * I * casin(z * I);
+    /* w = -1.0 * I * casin(z * I); */
+    tmp = CMPLX(-cimag(z), creal(z));
+    tmp = casin(tmp);
+    w = CMPLX(cimag(tmp), -creal(tmp));
     return w;
 }
 

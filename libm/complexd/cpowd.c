@@ -62,7 +62,7 @@ double complex cpow(double complex x, double complex y)
     absx = cabs(x);
 
     if (absx == 0.0) {
-        return (0.0 + 0.0 * I);
+        return CMPLX(0.0, 0.0);
     }
 
     argx = carg(x);
@@ -74,7 +74,8 @@ double complex cpow(double complex x, double complex y)
         theta = theta + imagz * log(absx);
     }
 
-    w = result * cos(theta) + (result * sin(theta)) * I;
+    /* w = result * cos(theta) + (result * sin(theta)) * I; */
+    w = CMPLX(result * cos(theta), result * sin(theta));
     return w;
 }
 

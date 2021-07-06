@@ -49,7 +49,8 @@ double complex ccos(double complex z)
     double ch, sh;
 
     __ccoshsinh(cimag(z), &ch, &sh);
-    w = cos(creal(z)) * ch - (sin(creal(z)) * sh) * I;
+    /* w = cos(creal(z)) * ch - (sin(creal(z)) * sh) * I; */
+    w = CMPLX(cos(creal(z)) * ch, -(sin(creal(z)) * sh));
     return w;
 }
 

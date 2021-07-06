@@ -64,11 +64,12 @@ float complex ctanf(float complex z)
     }
 
     if (d == 0.0f) {
-        w = HUGE_VALF + HUGE_VALF * I;
+        w = CMPLXF(HUGE_VALF, HUGE_VALF);
         return w;
     }
 
-    w = sinf(2.0f * crealf(z)) / d + (sinhf(2.0f * cimagf(z)) / d) * I;
+    /* w = sinf(2.0f * crealf(z)) / d + (sinhf(2.0f * cimagf(z)) / d) * I; */
+    w = CMPLXF(sinf(2.0f * crealf(z)) / d, sinhf(2.0f * cimagf(z)) / d);
     return w;
 }
 

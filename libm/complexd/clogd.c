@@ -59,7 +59,8 @@ double complex clog(double complex z)
     rr = cabs(z);
     p = log(rr);
     rr = atan2(cimag(z), creal(z));
-    w = p + rr * I;
+    /* w = p + rr * I; */
+    w = CMPLX(p, rr);
     return w;
 }
 

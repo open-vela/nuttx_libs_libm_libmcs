@@ -17,14 +17,14 @@ float complex csqrtf(float complex z)
 
     if (y == 0.0f) {
         if (x < 0.0f) {
-            w = 0.0f + sqrtf(-x) * I;
-            return w;
+            w = CMPLXF(0.0f, sqrtf(-x));
         } else if (x == 0.0f) {
-            return (0.0f + y * I);
+            w = CMPLXF(0.0f, y);
         } else {
-            w = sqrtf(x) + y * I;
-            return w;
+            w = CMPLXF(sqrtf(x), y);
         }
+        
+        return w;
     }
 
     if (x == 0.0f) {
@@ -32,9 +32,9 @@ float complex csqrtf(float complex z)
         r = sqrtf(0.5f * r);
 
         if (y > 0) {
-            w = r + r * I;
+            w = CMPLXF(r, r);
         } else {
-            w = r - r * I;
+            w = CMPLXF(r, -r);
         }
 
         return w;
@@ -51,7 +51,7 @@ float complex csqrtf(float complex z)
         scale = 1.220703125e-4f; /* 2^-13 */
     }
 
-    w = x + y * I;
+    w = CMPLXF(x, y);
     r = cabsf(w);
 
     if (x > 0) {
@@ -65,9 +65,9 @@ float complex csqrtf(float complex z)
     }
 
     if (y < 0) {
-        w = t - r * I;
+        w = CMPLXF(t, -r);
     } else {
-        w = t + r * I;
+        w = CMPLXF(t, r);
     }
 
     return w;
