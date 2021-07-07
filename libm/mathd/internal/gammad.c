@@ -333,7 +333,6 @@ double __lgamma(double x, int *signgamp)
         z = one;    /* lgamma(1+s) = log(s) + lgamma(s) */
 
         switch (i) {
-        default:             /* FALLTHRU */
         case 7:
             z *= (y + 6.0);  /* FALLTHRU */
 
@@ -349,7 +348,7 @@ double __lgamma(double x, int *signgamp)
         case 3:
             z *= (y + 2.0);  /* FALLTHRU */
 
-        case 2:
+        default:
             r += log(z);
             break;
         }
