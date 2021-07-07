@@ -2,7 +2,7 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #ifndef LIBMCS_CTRIGF_H
-#define	LIBMCS_CTRIGF_H
+#define LIBMCS_CTRIGF_H
 
 #define MACHEPF 3.0e-8
 

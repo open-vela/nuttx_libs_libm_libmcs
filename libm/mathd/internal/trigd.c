@@ -507,7 +507,7 @@ int32_t __rem_pio2(double x, double *y)
         if (tx[nx-1]!=zero) {
             break;
         }
-	  }
+    }
 
     n  =  __rem_pio2_internal(tx, y, e0, nx);
 
