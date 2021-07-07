@@ -264,7 +264,6 @@ float __lgammaf(float x, int *signgamp)
         z = one;    /* lgamma(1+s) = log(s) + lgamma(s) */
 
         switch (i) {
-        default:              /* FALLTHRU */
         case 7:
             z *= (y + 6.0f);  /* FALLTHRU */
 
@@ -280,7 +279,7 @@ float __lgammaf(float x, int *signgamp)
         case 3:
             z *= (y + 2.0f);  /* FALLTHRU */
 
-        case 2:
+        default:
             r += logf(z);
             break;
         }
