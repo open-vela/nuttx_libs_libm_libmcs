@@ -2,7 +2,7 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #ifndef LIBMCS_BESSELD_H
-#define	LIBMCS_BESSELD_H
+#define LIBMCS_BESSELD_H
 
 extern double __j0(double x);
 extern double __j1(double x);

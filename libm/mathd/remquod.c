@@ -82,10 +82,10 @@ double remquo(double x, double y, int *quo)
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t lx, ly, lz, q, sxy;
 
-	assert(quo != (void*)0);
-	if(quo == (void*)0) {
-	    quo = &_quo;
-	}
+    assert(quo != (void*)0);
+    if(quo == (void*)0) {
+        quo = &_quo;
+    }
     *quo = 0;
 
     EXTRACT_WORDS(hx, lx, x);

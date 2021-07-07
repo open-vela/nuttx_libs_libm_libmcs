@@ -1,6 +1,5 @@
 #ifndef LIBMCS_MATH_H
-#define	LIBMCS_MATH_H
-
+#define LIBMCS_MATH_H
 
 #ifdef __cplusplus
 extern "C"{
