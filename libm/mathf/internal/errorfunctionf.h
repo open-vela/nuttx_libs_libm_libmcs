@@ -3,7 +3,7 @@
 /* Conversion to float by Ian Lance Taylor, Cygnus Support, ian@cygnus.com. */
 
 #ifndef LIBMCS_ERRORFUNCTIONF_H
-#define	LIBMCS_ERRORFUNCTIONF_H
+#define LIBMCS_ERRORFUNCTIONF_H
 
 #include <math.h>
 #include "../../common/tools.h"

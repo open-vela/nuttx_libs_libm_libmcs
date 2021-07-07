@@ -18,10 +18,10 @@ float frexpf(float x, int *eptr)
     int _xexp = 0;
     int32_t hx, ix;
 
-	assert(eptr != (void*)0);
-	if(eptr == (void*)0) {
-	    eptr = &_xexp;
-	}
+    assert(eptr != (void*)0);
+    if(eptr == (void*)0) {
+        eptr = &_xexp;
+    }
 
     GET_FLOAT_WORD(hx, x);
     ix = 0x7fffffff & hx;

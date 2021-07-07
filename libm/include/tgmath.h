@@ -2,7 +2,7 @@
 /* Copyright (c) 2004 Stefan Farfeleder. */
 
 #ifndef LIBMCS_TGMATH_H
-#define	LIBMCS_TGMATH_H
+#define LIBMCS_TGMATH_H
 
 #include <complex.h>
 #include <math.h>

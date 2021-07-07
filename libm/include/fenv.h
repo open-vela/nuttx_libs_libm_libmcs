@@ -2,7 +2,7 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #ifndef LIBMCS_FENV_H
-#define	LIBMCS_FENV_H
+#define LIBMCS_FENV_H
 
 #error TBD add error message that fenv.h/fenv.c shall not be used as is.
 

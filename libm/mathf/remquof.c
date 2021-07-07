@@ -34,10 +34,10 @@ float remquof(float x, float y, int *quo)
     int32_t n, hx, hy, hz, ix, iy, sx, i;
     uint32_t q, sxy;
 
-	assert(quo != (void*)0);
-	if(quo == (void*)0) {
-	    quo = &_quo;
-	}
+    assert(quo != (void*)0);
+    if(quo == (void*)0) {
+        quo = &_quo;
+    }
     *quo = 0;
 
     GET_FLOAT_WORD(hx, x);
