@@ -7,7 +7,7 @@
  */
 
 #ifndef LIBMCS_LOG1PMFD_H
-#define	LIBMCS_LOG1PMFD_H
+#define LIBMCS_LOG1PMFD_H
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 

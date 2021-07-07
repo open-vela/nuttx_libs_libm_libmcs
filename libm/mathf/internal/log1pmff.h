@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 #ifndef LIBMCS_LOG1PMFF_H
-#define	LIBMCS_LOG1PMFF_H
+#define LIBMCS_LOG1PMFF_H
 
 static const float
 /* |(log(1+s)-log(1-s))/s - Lg(s)| < 2**-34.24 (~[-4.95e-11, 4.97e-11]). */

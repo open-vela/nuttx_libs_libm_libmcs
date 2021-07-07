@@ -2,7 +2,7 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #ifndef LIBMCS_TRIGF_H
-#define	LIBMCS_TRIGF_H
+#define LIBMCS_TRIGF_H
 
 #include "../../common/tools.h"
 

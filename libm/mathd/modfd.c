@@ -65,10 +65,10 @@ double modf(double x, double *iptr)
     int32_t _i0, _i1, _j0;
     uint32_t i;
 
-	  assert(iptr != (void*)0);
-	  if(iptr == (void*)0) {
-	      iptr = &_xi;
-	  }
+    assert(iptr != (void*)0);
+    if(iptr == (void*)0) {
+        iptr = &_xi;
+    }
 
     EXTRACT_WORDS(_i0, _i1, x);
     _j0 = ((_i0 >> 20) & 0x7ff) - 0x3ff;                 /* exponent of x */

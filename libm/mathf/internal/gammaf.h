@@ -2,7 +2,7 @@
 /* Copyright 2020-2021 by GTD GmbH. */
 
 #ifndef LIBMCS_GAMMAF_H
-#define	LIBMCS_GAMMAF_H
+#define LIBMCS_GAMMAF_H
 
 extern float __lgammaf(float x, int *signgamp);
 

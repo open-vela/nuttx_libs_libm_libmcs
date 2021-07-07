@@ -73,10 +73,10 @@ double frexp(double x, int *eptr)
     int _xexp = 0;
     int32_t hx, ix, lx;
 
-	assert(eptr != (void*)0);
-	if(eptr == (void*)0) {
-	    eptr = &_xexp;
-	}
+    assert(eptr != (void*)0);
+    if(eptr == (void*)0) {
+        eptr = &_xexp;
+    }
 
     EXTRACT_WORDS(hx, lx, x);
     ix = 0x7fffffff & hx;

@@ -2,7 +2,7 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
 #ifndef LIBMCS_TOOLS_H
-#define	LIBMCS_TOOLS_H
+#define LIBMCS_TOOLS_H
 
 #include <limits.h>
 #include <stdbool.h>
