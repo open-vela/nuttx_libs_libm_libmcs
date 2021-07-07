@@ -2,7 +2,7 @@
 /* Written by Matthias Drochner. */
 
 #ifndef LIBMCS_COMPLEX_H
-#define	LIBMCS_COMPLEX_H
+#define LIBMCS_COMPLEX_H
 
 #ifdef __cplusplus
 extern "C"{
@@ -137,10 +137,55 @@ float crealf(float complex);
     long double creall(long double complex);
 
 #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+    
+/* The C11 CMPLX macros are compiler dependant and only available starting at GCC 4.7+ or with clang! If need be define them yourself. */
+#ifdef __clang__
+    #define CMPLX(x, y)     ((double complex){(double) x, (double) y})
+    #define CMPLXF(x, y)    ((float complex){(float) x, (float) y})
+    #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
+        #define CMPLXL(x, y)    ((long double complex){(long double) x, (long double) y})
+    #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7))
+    #define CMPLX(x, y)     __builtin_complex ((double) (x), (double) (y))
+    #define CMPLXF(x, y)    __builtin_complex ((float) (x), (float) (y))
+    #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
+        #define CMPLXL(x, y)    __builtin_complex ((long double) (x), (long double) (y))
+    #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#else
+    /* Due to the used compiler being too old the library cannot provide fully C11 standard compliant macros CMPLX, CMPLXF, CMPLXL. The library provides functionally equivalent inline functions with the same symbol name with the only limitation in that they cannot be used for static initialisation. */
 
-#define CMPLX () /* TODO */
-#define CMPLXF () /* TODO */
-#define CMPLXL () /* TODO */
+    static inline float complex CMPLXF(float x, float y)
+    {
+        union {
+            float a[2];
+            float complex f;
+        } z = {{ x, y }};
+
+        return (z.f);
+    }
+
+    static inline double complex CMPLX(double x, double y)
+    {
+        union {
+            double a[2];
+            double complex f;
+        } z = {{ x, y }};
+
+        return (z.f);
+    }
+
+    #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
+        static inline long double complex CMPLXL(long double x, long double y)
+        {
+            union {
+                long double a[2];
+                long double complex f;
+            } z = {{ x, y }};
+
+            return (z.f);
+        }
+    #endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif
 
 #ifdef __cplusplus
 }
