@@ -11,7 +11,7 @@ float complex catanf(float complex z)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     float complex w;
-    float a, t, x, x2, y;
+    float a, t, x, x2, y, tmp;
 
     x = crealf(z);
     y = cimagf(z);
@@ -28,7 +28,7 @@ float complex catanf(float complex z)
     }
 
     t = 0.5f * atan2f(2.0f * x, a);
-    w = __redupif(t);
+    tmp = __redupif(t);
 
     t = y - 1.0f;
     a = x2 + (t * t);
@@ -39,11 +39,12 @@ float complex catanf(float complex z)
 
     t = y + 1.0f;
     a = (x2 + (t * t)) / a;
-    w = w + (0.25f * logf(a)) * I;
+    /* w = tmp + (0.25f * logf(a)) * I; */
+    w = CMPLXF(tmp, 0.25f * logf(a));
     return w;
 
 ovrf:
-    w = HUGE_VALF + HUGE_VALF * I;
+    w = CMPLXF(HUGE_VALF, HUGE_VALF);
     return w;
 }
 

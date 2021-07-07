@@ -48,7 +48,8 @@ double complex csinh(double complex z)
 
     x = creal(z);
     y = cimag(z);
-    w = sinh(x) * cos(y) + (cosh(x) * sin(y)) * I;
+    /* w = sinh(x) * cos(y) + (cosh(x) * sin(y)) * I; */
+    w = CMPLX(sinh(x) * cos(y), cosh(x) * sin(y));
     return w;
 }
 

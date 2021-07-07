@@ -56,8 +56,12 @@ double complex catanh(double complex z)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     double complex w;
+    double complex tmp;
 
-    w = -1.0 * I * catan(z * I);
+    /* w = -1.0 * I * catan(z * I) */
+    tmp = CMPLX(-cimag(z), creal(z));
+    tmp = catan(tmp);
+    w = CMPLX(cimag(tmp), -creal(tmp));
     return w;
 }
 
