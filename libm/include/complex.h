@@ -4,6 +4,10 @@
 #ifndef LIBMCS_COMPLEX_H
 #define LIBMCS_COMPLEX_H
 
+#ifdef __STDC_NO_COMPLEX__
+    #error Your toolchain has defined __STDC_NO_COMPLEX__ which indicates that it does not support complex types as such you should not include complex.h in your software. (Hint: When running configure for the LibmCS choose not to use complex procedures.)
+#endif
+
 #ifdef __cplusplus
 extern "C"{
 #endif
