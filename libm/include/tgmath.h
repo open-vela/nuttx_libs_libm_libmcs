@@ -4,6 +4,8 @@
 #ifndef LIBMCS_TGMATH_H
 #define LIBMCS_TGMATH_H
 
+#error tgmath.h should never be used in critical systems. If you insist on doing it anyway you are on your own. The given tgmath.h implementation is taken from newlib as is and has not been reviewed by us and as such is wholely unqualified.
+
 #include <complex.h>
 #include <math.h>
 
