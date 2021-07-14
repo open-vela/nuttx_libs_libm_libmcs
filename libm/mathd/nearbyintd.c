@@ -1,43 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<nearbyint>>, <<nearbyintf>>---round to integer
-INDEX
-    nearbyint
-INDEX
-    nearbyintf
-
-SYNOPSIS
-    #include <math.h>
-    double nearbyint(double <[x]>);
-    float nearbyintf(float <[x]>);
-
-DESCRIPTION
-The <<nearbyint>> functions round their argument to an integer value in
-floating-point format, using the current rounding direction and
-(supposedly) without raising the "inexact" floating-point exception.
-See the <<rint>> functions for the same function with the "inexact"
-floating-point exception being raised when appropriate.
-
-BUGS
-Newlib does not support the floating-point exception model, so that
-the floating-point exception control is not present and thereby what may
-be seen will be compiler and hardware dependent in this regard.
-The Newlib <<nearbyint>> functions are identical to the <<rint>>
-functions with respect to the floating-point exception behavior, and
-will cause the "inexact" exception to be raised for most targets.
-
-RETURNS
-<[x]> rounded to an integral value, using the current rounding direction.
-
-PORTABILITY
-ANSI C, POSIX
-
-SEEALSO
-<<rint>>, <<round>>
-*/
+/**
+ *
+ * This family of functions implements the nearest integer value to :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float nearbyintf(float x);
+ *     double nearbyint(double x);
+ *     long double nearbyintl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``nearbyint`` computes the nearest integer value to :math:`x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    nearbyint(x) = \lfloor x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``nearbyint`` returns the nearest integer value to :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`               | :math:`-0`   | :math:`+0`   | :math:`>0`               | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==========================+==============+==============+==========================+==============+==============+
+ * | **nearbyint(x)**    | :math:`-Inf` | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 

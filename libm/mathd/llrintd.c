@@ -2,15 +2,52 @@
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 /* lrint adapted to be llrint for Newlib, 2009 by Craig Howland. */
 
-/*
- * llrint(x)
- * Return x rounded to integral value according to the prevailing
- * rounding mode.
- * Method:
- *    Using floating addition.
- * Exception:
- *    Inexact flag raised if x not equal to llrint(x).
- */
+/**
+ *
+ * This family of functions implements the nearest integer value to :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     long long int llrintf(float x);
+ *     long long int llrint(double x);
+ *     long long int llrintl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``llrint`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`lrint` but returns ``long long int`` instead of ``long int``.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    llrint(x) = \lfloor x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``llrint`` returns the nearest integer value to :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------------------+---------------------------------------+--------------------------+--------------+--------------+--------------------------+---------------------------------------+--------------------------+--------------------------+
+ * | **x**               | :math:`-Inf`             | :math:`<` min :math:`\mathbb{I}_{ll}` | :math:`<0`               | :math:`-0`   | :math:`+0`   | :math:`>0`               | :math:`>` max :math:`\mathbb{I}_{ll}` | :math:`+Inf`             | :math:`NaN`              |
+ * +=====================+==========================+=======================================+==========================+==============+==============+==========================+=======================================+==========================+==========================+
+ * | **llrint(x)**       | min :math:`\mathbb{I}_{ll}`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_{ll}`                                      | :math:`llrint(±Inf)`     |
+ * +---------------------+--------------------------+---------------------------------------+--------------------------+--------------+--------------+--------------------------+---------------------------------------+--------------------------+--------------------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

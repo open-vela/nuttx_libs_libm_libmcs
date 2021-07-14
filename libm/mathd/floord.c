@@ -1,56 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<floor>>, <<floorf>>, <<ceil>>, <<ceilf>>---floor and ceiling
-INDEX
-    floor
-INDEX
-    floorf
-INDEX
-    ceil
-INDEX
-    ceilf
-
-SYNOPSIS
-    #include <math.h>
-    double floor(double <[x]>);
-        float floorf(float <[x]>);
-        double ceil(double <[x]>);
-        float ceilf(float <[x]>);
-
-DESCRIPTION
-<<floor>> and <<floorf>> find
-@tex
-$\lfloor x \rfloor$,
-@end tex
-the nearest integer less than or equal to <[x]>.
-<<ceil>> and <<ceilf>> find
-@tex
-$\lceil x\rceil$,
-@end tex
-the nearest integer greater than or equal to <[x]>.
-
-RETURNS
-<<floor>> and <<ceil>> return the integer result as a double.
-<<floorf>> and <<ceilf>> return the integer result as a float.
-
-PORTABILITY
-<<floor>> and <<ceil>> are ANSI.
-<<floorf>> and <<ceilf>> are extensions.
-
-
-*/
-
-/*
- * floor(x)
- * Return x rounded toward -inf to integral value
- * Method:
- *    Bit twiddling.
- * Exception:
- *    Inexact flag raised if x not equal to floor(x).
- */
+/**
+ *
+ * This family of functions implements rounding towards negative infinity of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float floorf(float x);
+ *     double floor(double x);
+ *     long double floorl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``floor`` computes the input value rounded towards negative infinity.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    floor(x) = \lfloor x \rfloor
+ *
+ * Returns
+ * =======
+ *
+ * ``floor`` returns the input value rounded towards negative infinity.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+---------------------------+--------------+--------------+---------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                | :math:`-0`   | :math:`+0`   | :math:`>0`                | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+===========================+==============+==============+===========================+==============+==============+
+ * | **floor(x)**        | :math:`-Inf` | :math:`\lfloor x \rfloor` | :math:`x`                   | :math:`\lfloor x \rfloor` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+---------------------------+--------------+--------------+---------------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
