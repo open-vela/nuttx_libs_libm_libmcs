@@ -1,38 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<round>>, <<roundf>>---round to integer, to nearest
-INDEX
-    round
-INDEX
-    roundf
-
-SYNOPSIS
-    #include <math.h>
-    double round(double <[x]>);
-    float roundf(float <[x]>);
-
-DESCRIPTION
-    The <<round>> functions round their argument to the nearest integer
-    value in floating-point format, rounding halfway cases away from zero,
-    regardless of the current rounding direction.  (While the "inexact"
-    floating-point exception behavior is unspecified by the C standard, the
-    <<round>> functions are written so that "inexact" is not raised if the
-    result does not equal the argument, which behavior is as recommended by
-    IEEE 754 for its related functions.)
-
-RETURNS
-<[x]> rounded to an integral value.
-
-PORTABILITY
-ANSI C, POSIX
-
-SEEALSO
-<<nearbyint>>, <<rint>>
-
-*/
+/**
+ *
+ * This family of functions implements the nearest integer value to :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float roundf(float x);
+ *     double round(double x);
+ *     long double roundl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``round`` computes the nearest integer value to :math:`x`. Half-way cases are rounded away from zero (which is the only difference to :ref:`nearbyint`, :ref:`rint`).
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    round(x) = \lfloor x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``round`` returns the nearest integer value to :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`               | :math:`-0`   | :math:`+0`   | :math:`>0`               | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==========================+==============+==============+==========================+==============+==============+
+ * | **round(x)**        | :math:`-Inf` | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

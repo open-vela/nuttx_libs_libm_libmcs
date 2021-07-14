@@ -1,35 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<trunc>>, <<truncf>>---round to integer, towards zero
-INDEX
-    trunc
-INDEX
-    truncf
-
-SYNOPSIS
-    #include <math.h>
-    double trunc(double <[x]>);
-    float truncf(float <[x]>);
-
-DESCRIPTION
-    The <<trunc>> functions round their argument to the integer value, in
-    floating format, nearest to but no larger in magnitude than the
-    argument, regardless of the current rounding direction.  (While the
-    "inexact" floating-point exception behavior is unspecified by the C
-    standard, the <<trunc>> functions are written so that "inexact" is not
-    raised if the result does not equal the argument, which behavior is as
-    recommended by IEEE 754 for its related functions.)
-
-RETURNS
-<[x]> truncated to an integral value.
-
-PORTABILITY
-ANSI C, POSIX
-
-*/
+/**
+ *
+ * This family of functions implements the nearest integer value towards zero from :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float truncf(float x);
+ *     double trunc(double x);
+ *     long double truncl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``trunc`` computes the nearest integer value towards zero from :math:`x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    trunc(x) = \left\{\begin{array}{ll} \lfloor x \rfloor, & x \in \mathbb{F}^{+} \\ \lceil x \rceil, & otherwise \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``trunc`` returns the nearest integer value towards zero from :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+---------------------------+--------------+--------------+---------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                | :math:`-0`   | :math:`+0`   | :math:`>0`                | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+===========================+==============+==============+===========================+==============+==============+
+ * | **trunc(x)**        | :math:`-Inf` | :math:`\lceil x \rceil`   | :math:`x`                   | :math:`\lfloor x \rfloor` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+---------------------------+--------------+--------------+---------------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
