@@ -1,40 +1,90 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __remainder(x,p)
- * Return :
- *     returns  x REM p  =  x - [x/p]*p as if in infinite
- *     precise arithmetic, where [x/p] is the (infinite bit)
- *    integer nearest x/p (in half way case choose the even one).
- * Method :
- *    Based on fmod() return x-[x/p]chopped*p exactlp.
- */
-
-/*
-FUNCTION
-<<remainder>>, <<remainderf>>---round and  remainder
-INDEX
-    remainder
-INDEX
-    remainderf
-
-SYNOPSIS
-    #include <math.h>
-    double remainder(double <[x]>, double <[y]>);
-    float remainderf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-<<remainder>> and <<remainderf>> find the remainder of
-<[x]>/<[y]>; this value is in the range -<[y]>/2 .. +<[y]>/2.
-
-RETURNS
-<<remainder>> returns the integer result as a double.
-
-PORTABILITY
-<<remainder>> is a System V release 4.
-<<remainderf>> is an extension.
-
-*/
+/**
+ *
+ * This family of functions implements the floating-point remainder :math:`x\ REM\ y`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float remainderf(float x, float y);
+ *     double remainder(double x, double y);
+ *     long double remainderl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``remainder`` computes the floating-point remainder :math:`r = x\ REM\ y = x - n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is the integral value nearest to :math:`\frac{x}{y}`.
+ *
+ * The ``fmod`` and ``remainder`` procedures are rather similar, but not the same, see examples:
+ *
+ * +----------------+----------------+----------------+----------------+
+ * | x              | y              | fmod           | remainder      |
+ * +================+================+================+================+
+ * | :math:`+2.456` | :math:`+2.0`   | :math:`+0.456` | :math:`+0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`+3.456` | :math:`+2.0`   | :math:`+1.456` | :math:`-0.544` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-2.456` | :math:`+2.0`   | :math:`-0.456` | :math:`-0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-3.456` | :math:`+2.0`   | :math:`-1.456` | :math:`+0.544` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`+2.456` | :math:`-2.0`   | :math:`+0.456` | :math:`+0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`+3.456` | :math:`-2.0`   | :math:`+1.456` | :math:`-0.544` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-2.456` | :math:`-2.0`   | :math:`-0.456` | :math:`-0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-3.456` | :math:`-2.0`   | :math:`-1.456` | :math:`+0.544` |
+ * +----------------+----------------+----------------+----------------+
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    remainder(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remainder(x, y) \in [-|\frac{y}{2}|,|\frac{y}{2}|]
+ *
+ * Returns
+ * =======
+ *
+ * ``remainder`` returns the floating-point remainder :math:`x\ REM\ y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when :math:`x` is infinite or :math:`y` is zero.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | remainder(x,y)           | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`qNaN`             | :math:`x`                                                                                                 | :math:`qNaN`             | :math:`qNaN`             |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`<0`               |                          | :math:`x\ REM\ y`        | :math:`x`                                           | :math:`x\ REM\ y`        |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`-0`               |                          | :math:`qNaN`                                                                                              |                          |                          |
+ * +--------------------------+                          +                                                                                                           +                          +                          +
+ * | :math:`+0`               |                          |                                                                                                           |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`>0`               |                          | :math:`x\ REM\ y`        | :math:`x`                                           | :math:`x\ REM\ y`        |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`+Inf`             |                          | :math:`x`                                                                                                 |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`qNaN`                                                                                                                                                    |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

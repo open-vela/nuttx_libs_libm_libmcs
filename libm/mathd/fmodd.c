@@ -1,47 +1,90 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
- * fmod(x,y)
- * Return x mod y in exact arithmetic
- * Method: shift and subtract
- */
-
-/*
-FUNCTION
-<<fmod>>, <<fmodf>>---floating-point remainder (modulo)
-
-INDEX
-fmod
-INDEX
-fmodf
-
-SYNOPSIS
-#include <math.h>
-double fmod(double <[x]>, double <[y]>);
-float fmodf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-The <<fmod>> and <<fmodf>> functions compute the floating-point
-remainder of <[x]>/<[y]> (<[x]> modulo <[y]>).
-
-RETURNS
-The <<fmod>> function returns the value
-@ifnottex
-<[x]>-<[i]>*<[y]>,
-@end ifnottex
-@tex
-$x-i\times y$,
-@end tex
-for the largest integer <[i]> such that, if <[y]> is nonzero, the
-result has the same sign as <[x]> and magnitude less than the
-magnitude of <[y]>.
-
-<<fmod(<[x]>,0)>> returns NaN, and sets <<errno>> to <<EDOM>>.
-
-PORTABILITY
-<<fmod>> is ANSI C. <<fmodf>> is an extension.
-*/
+/**
+ *
+ * This family of functions implements the floating-point remainder of :math:`x` divided by :math:`y`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float fmodf(float x, float y);
+ *     double fmod(double x, double y);
+ *     long double fmodl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``fmod`` computes the floating-point remainder of :math:`x` divided by :math:`y`.
+ *
+ * The ``fmod`` and ``remainder`` procedures are rather similar, but not the same, see examples:
+ *
+ * +----------------+----------------+----------------+----------------+
+ * | x              | y              | fmod           | remainder      |
+ * +================+================+================+================+
+ * | :math:`+2.456` | :math:`+2.0`   | :math:`+0.456` | :math:`+0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`+3.456` | :math:`+2.0`   | :math:`+1.456` | :math:`-0.544` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-2.456` | :math:`+2.0`   | :math:`-0.456` | :math:`-0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-3.456` | :math:`+2.0`   | :math:`-1.456` | :math:`+0.544` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`+2.456` | :math:`-2.0`   | :math:`+0.456` | :math:`+0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`+3.456` | :math:`-2.0`   | :math:`+1.456` | :math:`-0.544` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-2.456` | :math:`-2.0`   | :math:`-0.456` | :math:`-0.456` |
+ * +----------------+----------------+----------------+----------------+
+ * | :math:`-3.456` | :math:`-2.0`   | :math:`-1.456` | :math:`+0.544` |
+ * +----------------+----------------+----------------+----------------+
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    fmod(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge |fmod(x, y)| < |y| \wedge \frac{f(x, y)}{|f(x, y)|} = \frac{x}{|x|}
+ *
+ * Returns
+ * =======
+ *
+ * ``fmod`` returns the floating-point remainder of :math:`x` divided by :math:`y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when :math:`x` is infinite or :math:`y` is zero.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | fmod(x,y)                | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`qNaN`             | :math:`x`                                                                                                 | :math:`qNaN`             | :math:`qNaN`             |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`<0`               |                          | :math:`fmod(x, y)`       | :math:`x`                                           | :math:`fmod(x, y)`       |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`-0`               |                          | :math:`qNaN`                                                                                              |                          |                          |
+ * +--------------------------+                          +                                                                                                           +                          +                          +
+ * | :math:`+0`               |                          |                                                                                                           |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`>0`               |                          | :math:`fmod(x, y)`       | :math:`x`                                           | :math:`fmod(x, y)`       |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`+Inf`             |                          | :math:`x`                                                                                                 |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`qNaN`                                                                                                                                                    |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
