@@ -1,51 +1,91 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<remquo>>, <<remquof>>---remainder and part of quotient
-INDEX
-    remquo
-INDEX
-    remquof
-
-SYNOPSIS
-    #include <math.h>
-    double remquo(double <[x]>, double <[y]>, int *<[quo]>);
-    float remquof(float <[x]>, float <[y]>, int *<[quo]>);
-
-DESCRIPTION
-The <<remquo>> functions compute the same remainder as the <<remainder>>
-functions; this value is in the range -<[y]>/2 ... +<[y]>/2.  In the object
-pointed to by <<quo>> they store a value whose sign is the sign of <<x>>/<<y>>
-and whose magnitude is congruent modulo 2**n to the magnitude of the integral
-quotient of <<x>>/<<y>>.  (That is, <<quo>> is given the n lsbs of the
-quotient, not counting the sign.)  This implementation uses n=31 if int is 32
-bits or more, otherwise, n is 1 less than the width of int.
-
-For example:
-.    remquo(-29.0, 3.0, &<[quo]>)
-returns -1.0 and sets <[quo]>=10, and
-.    remquo(-98307.0, 3.0, &<[quo]>)
-returns -0.0 and sets <[quo]>=-32769, although for 16-bit int, <[quo]>=-1.  In
-the latter case, the actual quotient of -(32769=0x8001) is reduced to -1
-because of the 15-bit limitation for the quotient.
-
-RETURNS
-When either argument is NaN, NaN is returned.  If <[y]> is 0 or <[x]> is
-infinite (and neither is NaN), a domain error occurs (i.e. the "invalid"
-floating point exception is raised or errno is set to EDOM), and NaN is
-returned.
-Otherwise, the <<remquo>> functions return <[x]> REM <[y]>.
-
-BUGS
-IEEE754-2008 calls for <<remquo>>(subnormal, inf) to cause the "underflow"
-floating-point exception.  This implementation does not.
-
-PORTABILITY
-C99, POSIX.
-
-*/
+/**
+ *
+ * This family of functions implements the floating-point remainder :math:`x\ REM\ y` and puts the quotient (or at least the 3 least significant bits) into the outpointer.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float remquof(float x, float y, int *quo);
+ *     double remquo(double x, double y, int *quo);
+ *     long double remquol(long double x, long double y, int *quo);
+ *
+ * Description
+ * ===========
+ *
+ * ``remquo`` computes the floating-point remainder :math:`r = x\ REM\ y = x - n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is the integral value nearest to :math:`\frac{x}{y}`.
+ :math:`n` is then put into the output pointer :math:`*quo`. If :math:`n` is too large to be represented in an ``integer``, only the three least significant bits of :math:`n` are correct.
+ *
+ * ``remquo`` and ``remainder`` are functionally equivalent concerning the return value, ``remquo`` only adds an additional output.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    remquo(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remquo(x, y) \in [-|\frac{y}{2}|,|\frac{y}{2}|] \wedge quo = n
+ *
+ * Returns
+ * =======
+ *
+ * ``remquo`` returns the floating-point remainder :math:`x\ REM\ y`. The quotient :math:`n` is put into :math:`*quo`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when :math:`x` is infinite or :math:`y` is zero.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | remquo(x,y)              | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`qNaN`             | :math:`x`                                                                                                 | :math:`qNaN`             | :math:`qNaN`             |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`<0`               |                          | :math:`x\ REM\ y`        | :math:`x`                                           | :math:`x\ REM\ y`        |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`-0`               |                          | :math:`qNaN`                                                                                              |                          |                          |
+ * +--------------------------+                          +                                                                                                           +                          +                          +
+ * | :math:`+0`               |                          |                                                                                                           |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`>0`               |                          | :math:`x\ REM\ y`        | :math:`x`                                           | :math:`x\ REM\ y`        |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`+Inf`             |                          | :math:`x`                                                                                                 |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`qNaN`                                                                                                                                                    |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | :math:`*quo`             | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`0`                | :math:`0`                                                                                                 | :math:`0`                | :math:`0`                |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`<0`               |                          | :math:`n`                | :math:`0`                                           | :math:`n`                |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`-0`               |                          | :math:`0`                                                                                                 |                          |                          |
+ * +--------------------------+                          +                                                                                                           +                          +                          +
+ * | :math:`+0`               |                          |                                                                                                           |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`>0`               |                          | :math:`n`                | :math:`0`                                           | :math:`n`                |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`+Inf`             |                          | :math:`0`                                                                                                 |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`0`                                                                                                                                                       |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <assert.h>
 #include <math.h>
