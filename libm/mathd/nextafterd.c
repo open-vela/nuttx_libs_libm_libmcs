@@ -1,42 +1,68 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-       <<nextafter>>, <<nextafterf>>---get next number
-
-INDEX
-    nextafter
-INDEX
-    nextafterf
-
-SYNOPSIS
-       #include <math.h>
-       double nextafter(double <[val]>, double <[dir]>);
-       float nextafterf(float <[val]>, float <[dir]>);
-
-DESCRIPTION
-<<nextafter>> returns the double-precision floating-point number
-closest to <[val]> in the direction toward <[dir]>.  <<nextafterf>>
-performs the same operation in single precision.  For example,
-<<nextafter(0.0,1.0)>> returns the smallest positive number which is
-representable in double precision.
-
-RETURNS
-Returns the next closest number to <[val]> in the direction toward
-<[dir]>.
-
-PORTABILITY
-    Neither <<nextafter>> nor <<nextafterf>> is required by ANSI C
-    or by the System V Interface Definition (Issue 2).
-*/
-
-/* IEEE functions
- *    nextafter(x,y)
- *    return the next machine floating-point number of x in the
- *    direction toward y.
- *   Special cases:
- */
+/**
+ *
+ * This family of functions computes the next floating-point value after :math:`x` in direction of :math:`y`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float nextafterf(float x, float y);
+ *     double nextafter(double x, double y);
+ *     long double nextafterl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``nextafter`` computes the next floating-point value after :math:`x` in direction of :math:`y`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    nextafter(x, y) = \left\{\begin{array}{ll} y, & x = y \\ \text{min} \{z | z \in \mathbb{F} \wedge z > x\}, & x < y \\ \text{max} \{z | z \in \mathbb{F} \wedge z < x\}, & otherwise \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``nextafter`` returns the the next floating-point value after :math:`x` in direction of :math:`y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception when the magnitude of :math:`x` is the largest finite value representable in the type and :math:`y` is infinite with the same sign as :math:`x`.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | nextafter(x,y)           | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`-Inf`             | :math:`nextafter(x, y)`  | max :math:`\mathbb{S}^{-}`                          | :math:`nextafter(x, y)`  | :math:`nextafter(x, y)`  | :math:`qNaN`             |
+ * +--------------------------+--------------------------+                          +                                                     +                          +                          +                          +
+ * | :math:`<0`               | :math:`nextafter(x, y)`  |                          |                                                     |                          |                          |                          |
+ * +--------------------------+                          +                          +--------------------------+--------------------------+                          +                          +                          +
+ * | :math:`-0`               |                          |                          | :math:`y`                                           |                          |                          |                          |
+ * +--------------------------+                          +                          +                                                     +                          +                          +                          +
+ * | :math:`+0`               |                          |                          |                                                     |                          |                          |                          |
+ * +--------------------------+                          +                          +--------------------------+--------------------------+                          +                          +                          +
+ * | :math:`>0`               |                          |                          | min :math:`\mathbb{S}^{+}`                          |                          |                          |                          |
+ * +--------------------------+                          +                          +                                                     +                          +--------------------------+                          +
+ * | :math:`+Inf`             |                          |                          |                                                     |                          | :math:`+Inf`             |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`qNaN`                                                                                                                                                    |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

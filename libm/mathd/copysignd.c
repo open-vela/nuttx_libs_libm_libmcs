@@ -1,39 +1,70 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<copysign>>, <<copysignf>>---sign of <[y]>, magnitude of <[x]>
-
-INDEX
-    copysign
-INDEX
-    copysignf
-
-SYNOPSIS
-    #include <math.h>
-    double copysign (double <[x]>, double <[y]>);
-    float copysignf (float <[x]>, float <[y]>);
-
-DESCRIPTION
-<<copysign>> constructs a number with the magnitude (absolute value)
-of its first argument, <[x]>, and the sign of its second argument,
-<[y]>.
-
-<<copysignf>> does the same thing; the two functions differ only in
-the type of their arguments and result.
-
-RETURNS
-<<copysign>> returns a <<double>> with the magnitude of
-<[x]> and the sign of <[y]>.
-<<copysignf>> returns a <<float>> with the magnitude of
-<[x]> and the sign of <[y]>.
-
-PORTABILITY
-<<copysign>> is not required by either ANSI C or the System V Interface
-Definition (Issue 2).
-
-*/
+/**
+ *
+ * This family of functions copies the sign of :math:`y` onto :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float copysignf(float x, float y);
+ *     double copysign(double x, double y);
+ *     long double copysignl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``copysign`` computes the value with the magnitude of :math:`x` and sign of :math:`y`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    copysign(x, y) = |x| \cdot sgn\ y
+ *
+ * Returns
+ * =======
+ *
+ * ``copysign`` returns the value with the magnitude of :math:`x` and sign of :math:`y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Does not raise ``invalid operation`` exception on ``sNaN`` input.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+
+ * | copysign(x,y)            | x                                                   |
+ * +--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`\neq NaN`         | :math:`NaN`              |
+ * +==========================+==========================+==========================+
+ * | :math:`-NaN`             | :math:`-|x|`             | :math:`qNaN`             |
+ * +--------------------------+                          +                          +
+ * | :math:`-Inf`             |                          |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`<0`               |                          |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`-0`               |                          |                          |
+ * +--------------------------+--------------------------+                          +
+ * | :math:`+0`               | :math:`|x|`              |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`>0`               |                          |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`+Inf`             |                          |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`+NaN`             |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"
