@@ -1,0 +1,38 @@
+fmin
+~~~~
+
+.. c:autodoc:: ../libm/mathd/fmind.c
+
+Special cases
+^^^^^^^^^^^^^
+
++-----------------------------+-----------------------------+-----------------------------+
+| x                           | y                           | Result                      |
++=============================+=============================+=============================+
+| :math:`±0`                  | :math:`±0`                  | :math:`y`                   |
++-----------------------------+-----------------------------+-----------------------------+
+| :math:`NaN`                 | :math:`\in \mathbb{F}`      | :math:`y`                   |
++-----------------------------+-----------------------------+-----------------------------+
+| :math:`\in \mathbb{F}`      | :math:`NaN`                 | :math:`x`                   |
++-----------------------------+-----------------------------+-----------------------------+
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+The approach is to first check for :math:`NaN`s and then compare the inputs to return the minimum:
+
+#. Return :math:`NaN` if both input values are :math:`NaN`.
+#. Return the remaining value if one of the input values is :math:`NaN`.
+#. If :math:`x < y` return :math:`x`, else return :math:`y`.
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-1220
+* REQ-ML-1230
+* REQ-ML-1232
+
+References
+^^^^^^^^^^
+
+* :ref:`fmax`

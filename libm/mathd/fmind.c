@@ -1,31 +1,66 @@
 /* SPDX-License-Identifier: RedHat */
 /* Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved. */
 
-/*
-FUNCTION
-<<fmin>>, <<fminf>>---minimum
-INDEX
-    fmin
-INDEX
-    fminf
-
-SYNOPSIS
-    #include <math.h>
-    double fmin(double <[x]>, double <[y]>);
-    float fminf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-The <<fmin>> functions determine the minimum numeric value of their arguments.
-NaN arguments are treated as missing data:  if one argument is a NaN and the
-other numeric, then the <<fmin>> functions choose the numeric value.
-
-RETURNS
-The <<fmin>> functions return the minimum numeric value of their arguments.
-
-PORTABILITY
-ANSI C, POSIX.
-
-*/
+/**
+ *
+ * This family of functions detemines the minimum value of :math:`x` and :math:`y`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float fminf(float x, float y);
+ *     double fmin(double x, double y);
+ *     long double fminl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``fmin`` computes the minimum value of :math:`x` and :math:`y`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    fmin(x, y) = \left\{\begin{array}{ll} x, & x < y \\ y, & otherwise \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``fmin`` returns the minimum value of :math:`x` and :math:`y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | fmin(x,y)                | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`y`                                           | :math:`y`                                                                      | :math:`y`                | :math:`y`                |
+ * +--------------------------+--------------------------+--------------------------+                                                                                +                          +                          +
+ * | :math:`<0`               | :math:`x`                | :math:`fmin(x, y)`       |                                                                                |                          |                          |
+ * +--------------------------+                          +--------------------------+                                                                                +                          +                          +
+ * | :math:`-0`               |                          | :math:`x`                |                                                                                |                          |                          |
+ * +--------------------------+                          +                          +                                                                                +                          +                          +
+ * | :math:`+0`               |                          |                          |                                                                                |                          |                          |
+ * +--------------------------+                          +                          +--------------------------+--------------------------+--------------------------+                          +                          +
+ * | :math:`>0`               |                          |                          | :math:`x`                                           | :math:`fmin(x, y)`       |                          |                          |
+ * +--------------------------+                          +                          +                                                     +--------------------------+                          +                          +
+ * | :math:`+Inf`             |                          |                          |                                                     | :math:`x`                |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`x`                                                                                                                                                       |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 
