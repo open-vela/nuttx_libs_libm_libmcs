@@ -1,0 +1,38 @@
+fmax
+~~~~
+
+.. c:autodoc:: ../libm/mathd/fmaxd.c
+
+Special cases
+^^^^^^^^^^^^^
+
++-----------------------------+-----------------------------+-----------------------------+
+| x                           | y                           | Result                      |
++=============================+=============================+=============================+
+| :math:`±0`                  | :math:`±0`                  | :math:`y`                   |
++-----------------------------+-----------------------------+-----------------------------+
+| :math:`NaN`                 | :math:`\in \mathbb{F}`      | :math:`y`                   |
++-----------------------------+-----------------------------+-----------------------------+
+| :math:`\in \mathbb{F}`      | :math:`NaN`                 | :math:`x`                   |
++-----------------------------+-----------------------------+-----------------------------+
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+The approach is to first check for :math:`NaN`s and then compare the inputs to return the maximum:
+
+#. Return :math:`NaN` if both input values are :math:`NaN`.
+#. Return the remaining value if one of the input values is :math:`NaN`.
+#. If :math:`x > y` return :math:`x`, else return :math:`y`.
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-1240
+* REQ-ML-1250
+* REQ-ML-1252
+
+References
+^^^^^^^^^^
+
+* :ref:`fmin`
