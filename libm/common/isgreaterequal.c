@@ -3,7 +3,7 @@
 
 /**
  *
- * This macro is used to test if :math:`x` is greater than :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs.
+ * This macro is used to test if :math:`x` is greater than or equal to :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs.
  *
  * Synopsis
  * ========
@@ -11,25 +11,25 @@
  * .. code-block:: c
  *
  *     #include <math.h>
- *     int isgreater(x, y);
+ *     int isgreaterequal(x, y);
  *
  * Description
  * ===========
  *
- * ``isgreater`` tests whether :math:`x` is greater than :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs. Not throwing an exception is the only difference to using a relational comparison operator.
+ * ``isgreaterequal`` tests whether :math:`x` is greater than or equal to :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs. Not throwing an exception is the only difference to using a relational comparison operator.
  *
  * Mathematical Function
  * =====================
  * 
  * .. math::
  *
- *    isgreater(x) = \left\{\begin{array}{ll} 1, & x > y \\
- *                                            0, & otherwise \end{array}\right.
+ *    isgreaterequal(x) = \left\{\begin{array}{ll} 1, & x \geq y \\
+ *                                                 0, & otherwise \end{array}\right.
  *
  * Returns
  * =======
  *
- * ``isgreater`` returns :math:`1` if :math:`x > y`, else :math:`0`.
+ * ``isgreaterequal`` returns :math:`1` if :math:`x \geq y`, else :math:`0`.
  *
  * Exceptions
  * ==========
@@ -40,11 +40,11 @@
  * ==========
  *
  * +--------------------------+--------------------------+--------------------------+
- * | isgreater(x,y)           | x                                                   |
+ * | isgreaterequal(x,y)      | x                                                   |
  * +--------------------------+--------------------------+--------------------------+
  * | y                        | :math:`\neq NaN`         | :math:`NaN`              |
  * +==========================+==========================+==========================+
- * | :math:`\neq NaN`         | :math:`x > y\ ?\ 1 : 0`  | :math:`0`                |
+ * | :math:`\neq NaN`         | :math:`x >= y\ ?\ 1 : 0` | :math:`0`                |
  * +--------------------------+--------------------------+                          +
  * | :math:`NaN`              | :math:`0`                |                          |
  * +--------------------------+--------------------------+--------------------------+
