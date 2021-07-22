@@ -102,11 +102,16 @@ Requirements
 References
 ^^^^^^^^^^
 
-* :ref:`__j0, __j1, __jn, __y0, __y1, __yn <internal_bessel>`
 * :ref:`acos`
 * :ref:`acosh`
 * :ref:`asin`
 * :ref:`asinh`
 * :ref:`csqrt`
 * :ref:`hypot`
+* :ref:`j0`
+* :ref:`j1`
+* :ref:`jn`
 * :ref:`pow`
+* :ref:`y0`
+* :ref:`y1`
+* :ref:`yn`

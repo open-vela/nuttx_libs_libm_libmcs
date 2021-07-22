@@ -1,6 +1,58 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the Bessel function of the first kind of order 0.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     double j0(double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``j0`` computes the Bessel value of :math:`x` of the first kind of order 0.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    j0(x) = J_{0}(x)
+ *
+ * Notice that the mathematical function represented by the procedure ``j0`` is not :math:`j_0` (which is the spherical version of the Bessel function) but :math:`J_0`. See WolframAlpha_ for what it looks like and Wikipedia_ for more information.
+ *
+ * .. _WolframAlpha: https://www.wolframalpha.com/input/?i=J0%28x%29
+ * .. _Wikipedia: https://en.wikipedia.org/wiki/Bessel_function
+ *
+ * Returns
+ * =======
+ *
+ * ``j0`` returns the Bessel value of :math:`x` of the first kind of order 0.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`   | :math:`-0`   | :math:`+0`   | :math:`>0`   | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==============+==============+==============+==============+==============+==============+
+ * | **j0(x)**           | :math:`+0`   | :math:`J_{0}(x)`                                          | :math:`+0`   | :math:`qNaN` |
+ * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
+ * 
+ *///
+
 /*
 FUNCTION
 <<jN>>, <<jNf>>, <<yN>>, <<yNf>>---Bessel functions

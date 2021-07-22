@@ -1,6 +1,72 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the Bessel function of the first kind of order :math:`n`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     double jn(int n, double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``jn`` computes the Bessel value of :math:`x` of the first kind of order :math:`n`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    jn(n, x) = J_{n}(x)
+ *
+ * Notice that the mathematical function represented by the procedure ``jn`` is not :math:`j_n` (which is the spherical version of the Bessel function) but :math:`J_n`. See WolframAlpha_ for what it looks like (it shows the different :math:`n` quite nicely in a 3D plot) and Wikipedia_ for more information.
+ *
+ * .. _WolframAlpha: https://www.wolframalpha.com/input/?i=Jn%28x%29
+ * .. _Wikipedia: https://en.wikipedia.org/wiki/Bessel_function
+ *
+ * Returns
+ * =======
+ *
+ * ``jn`` returns the Bessel value of :math:`x` of the first kind of order :math:`n`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+
+ * | jn(n,x)                  | n                                                   |
+ * +--------------------------+--------------------------+--------------------------+
+ * | x                        | :math:`<0`               | :math:`>0`               |
+ * +==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`+0`                                          |
+ * +--------------------------+--------------------------+--------------------------+
+ * | :math:`<0`               | :math:`J_{-n}(-x)`       | :math:`J_{n}(x)`         |
+ * +--------------------------+                          +                          +
+ * | :math:`-0`               |                          |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`+0`               |                          |                          |
+ * +--------------------------+                          +                          +
+ * | :math:`>0`               |                          |                          |
+ * +--------------------------+--------------------------+--------------------------+
+ * | :math:`+Inf`             | :math:`+0`                                          |
+ * +--------------------------+--------------------------+--------------------------+
+ * | :math:`NaN`              | :math:`qNaN`                                        |
+ * +--------------------------+--------------------------+--------------------------+
+ * 
+ *///
+
 /*
  * wrapper jn(int n, double x), yn(int n, double x)
  * floating point Bessel's function of the 1st and 2nd kind

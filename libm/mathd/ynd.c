@@ -1,6 +1,73 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the Bessel function of the second kind of order :math:`n`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     double yn(int n, double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``yn`` computes the Bessel value of :math:`x` of the second kind of order :math:`n`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    yn(n, x) = Y_{n}(x)
+ *
+ * Notice that the mathematical function represented by the procedure ``yn`` is not :math:`y_n` (which is the spherical version of the Bessel function) but :math:`Y_n`. See Wikipedia_ for more information.
+ *
+ * .. _Wikipedia: https://en.wikipedia.org/wiki/Bessel_function
+ *
+ * Returns
+ * =======
+ *
+ * ``yn`` returns the Bessel value of :math:`x` of the second kind of order :math:`n`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when :math:`x` is negative.
+ *
+ * Raise ``divide by zero`` exception when :math:`x` is zero.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+-------------------------------+-------------------------------+
+ * | yn(n,x)                  | n                                                             |
+ * +--------------------------+-------------------------------+-------------------------------+
+ * | x                        | :math:`<0`                    | :math:`>0`                    |
+ * +==========================+===============================+===============================+
+ * | :math:`-Inf`             | :math:`qNaN`                                                  |
+ * +--------------------------+                                                               +
+ * | :math:`<0`               |                                                               |
+ * +--------------------------+-------------------------------+-------------------------------+
+ * | :math:`-0`               | :math:`-Inf`                                                  |
+ * +--------------------------+                                                               +
+ * | :math:`+0`               |                                                               |
+ * +--------------------------+-------------------------------+-------------------------------+
+ * | :math:`>0`               | :math:`(-1)^n \cdot Y_{n}(x)` | :math:`Y_{n}(x)`              |
+ * +--------------------------+-------------------------------+-------------------------------+
+ * | :math:`+Inf`             | :math:`+0`                                                    |
+ * +--------------------------+-------------------------------+-------------------------------+
+ * | :math:`NaN`              | :math:`qNaN`                                                  |
+ * +--------------------------+-------------------------------+-------------------------------+
+ * 
+ *///
+
 /*
  * wrapper jn(int n, double x), yn(int n, double x)
  * floating point Bessel's function of the 1st and 2nd kind
