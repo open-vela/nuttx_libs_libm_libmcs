@@ -80,9 +80,7 @@ CSRC =  libm/complexd/cabsd.c \
         libm/complexf/ctanhf.c \
         libm/complexf/internal/ctrigf.c
 
-SRC =   libm/common/isgreater.c \
-        libm/common/isnan.c \
-        libm/common/signgam.c \
+SRC =   libm/common/signgam.c \
         libm/common/tools.c \
         libm/mathd/acosd.c \
         libm/mathd/acoshd.c \
@@ -111,9 +109,6 @@ SRC =   libm/common/isgreater.c \
         libm/mathd/frexpd.c \
         libm/mathd/hypotd.c \
         libm/mathd/ilogbd.c \
-        libm/mathd/internal/bessel0d.c \
-        libm/mathd/internal/bessel1d.c \
-        libm/mathd/internal/besselnd.c \
         libm/mathd/internal/fpclassifyd.c \
         libm/mathd/internal/gammad.c \
         libm/mathd/internal/signbitd.c \
