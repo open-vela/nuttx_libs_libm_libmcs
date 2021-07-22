@@ -35,7 +35,6 @@ References
 ^^^^^^^^^^
 
 * :ref:`__ccoshsinh <internal_ctrig>`
-* :ref:`__j0, __j1, __jn <internal_bessel>`
 * :ref:`__lgamma <internal_gamma>`
 * :ref:`__rem_pio2 <internal_trig>`
 * :ref:`csqrt`
@@ -47,6 +46,9 @@ References
 * :ref:`cosh`
 * :ref:`erf`
 * :ref:`erfc`
+* :ref:`j0`
+* :ref:`j1`
+* :ref:`jn`
 * :ref:`pow`
 * :ref:`remainder`
 * :ref:`remquo`
