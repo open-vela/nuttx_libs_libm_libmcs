@@ -1,6 +1,60 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the Bessel function of the second kind of order 1.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     double y1(double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``y1`` computes the Bessel value of :math:`x` of the second kind of order 1.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    y1(x) = Y_{1}(x)
+ *
+ * Notice that the mathematical function represented by the procedure ``y1`` is not :math:`y_1` (which is the spherical version of the Bessel function) but :math:`Y_1`. See WolframAlpha_ for what it looks like and Wikipedia_ for more information.
+ *
+ * .. _WolframAlpha: https://www.wolframalpha.com/input/?i=Y_1%28x%29
+ * .. _Wikipedia: https://en.wikipedia.org/wiki/Bessel_function
+ *
+ * Returns
+ * =======
+ *
+ * ``y1`` returns the Bessel value of :math:`x` of the second kind of order 1.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is negative.
+ *
+ * Raise ``divide by zero`` exception when the input value is zero.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+------------------+--------------+--------------+------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`       | :math:`-0`   | :math:`+0`   | :math:`>0`       | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==================+==============+==============+==================+==============+==============+
+ * | **y1(x)**           | :math:`qNaN`                    | :math:`-Inf`                | :math:`Y_{1}(x)` | :math:`+0`   | :math:`qNaN` |
+ * +---------------------+--------------+------------------+--------------+--------------+------------------+--------------+--------------+
+ * 
+ *///
+
 /* __j1(x), __y1(x)
  * Bessel function of the first and second kinds of order zero.
  * Method -- j1(x):
@@ -89,7 +143,7 @@ double y1(double x)
         }
     }
 
-    if ((ix | lx) == 0) {   /* y1(+-0) = +Inf */
+    if ((ix | lx) == 0) {   /* y1(+-0) = -Inf */
         return __raise_div_by_zero(-1.0);
     }
 

@@ -120,10 +120,12 @@ Requirements
 References
 ^^^^^^^^^^
 
-* :ref:`__jn, __y0, __y1 <internal_bessel>`
 * :ref:`__lgamma <internal_gamma>`
 * :ref:`acosh`
 * :ref:`asinh`
 * :ref:`catan`
 * :ref:`clog`
 * :ref:`cpow`
+* :ref:`jn`
+* :ref:`y0`
+* :ref:`y1`
