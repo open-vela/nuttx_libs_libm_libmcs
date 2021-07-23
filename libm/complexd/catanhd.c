@@ -1,49 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<catanh>>, <<catanhf>>---complex arc hyperbolic tangent
-
-INDEX
-        catanh
-INDEX
-        catanhf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex catanh(double complex <[z]>);
-       float complex catanhf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex arc hyperbolic tan of <[z]>,
-        with branch cuts outside the interval [-1, +1] along the
-        real axis.
-
-        <<catanhf>> is identical to <<catanh>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        @ifnottex
-        These functions return the complex arc hyperbolic tangent value,
-        in the range of a strip mathematically unbounded along the
-        real axis and in the interval [-i*p/2, +i*p/2] along the
-        imaginary axis.
-        @end ifnottex
-        @tex
-        These functions return the complex arc hyperbolic tangent value,
-        in the range of a strip mathematically unbounded along the
-        real axis and in the interval [$-i\pi/2$, $+i\pi/2$] along the
-        imaginary axis.
-        @end tex
-
-PORTABILITY
-        <<catanh>> and <<catanhf>> are ISO C99
-
-QUICKREF
-        <<catanh>> and <<catanhf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions implements the complex hyperbolic arc tangent of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex catanhf(float complex z);
+ *     double complex catanh(double complex z);
+ *     long double complex catanhl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``catanh`` computes the complex hyperbolic inverse tangent (*arc tangent*) of the input value, with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    catanh(z) \approx tanh^{-1}(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``catanh`` returns the complex hyperbolic inverse tangent of the input value in the output range of a strip mathematically unbounded along the real axis and in the interval :math:`[-\frac{\pi}{2}i, \frac{\pi}{2}i]` along the imaginary axis.
+ * 
+ *///
 
 #include <complex.h>
 

@@ -1,36 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<csinh>>, <<csinhf>>---complex hyperbolic sine
-
-INDEX
-        csinh
-INDEX
-        csinhf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex csinh(double complex <[z]>);
-       float complex csinhf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex hyperbolic sine of <[z]>.
-
-        <<ccoshf>> is identical to <<ccosh>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        These functions return the complex hyperbolic sine value.
-
-PORTABILITY
-        <<csinh>> and <<csinhf>> are ISO C99
-
-QUICKREF
-        <<csinh>> and <<csinhf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions implements the complex hyperbolic sine of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex csinhf(float complex z);
+ *     double complex csinh(double complex z);
+ *     long double complex csinhl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``csinh`` computes the complex hyperbolic sine of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    csinh(z) \approx sinh(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``csinh`` returns the complex hyperbolic sine of the input value.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>
