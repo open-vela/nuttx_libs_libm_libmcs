@@ -37,9 +37,9 @@ float complex cpowf(float complex x, float complex y)
 
 #ifdef __LIBMCS_DOUBLE_IS_32BITS
 
-double complex cacos(double complex x, double complex y)
+double complex cpow(double complex x, double complex y)
 {
-    return (double complex) cacosf((float complex) x, (float complex) y);
+    return (double complex) cpowf((float complex) x, (float complex) y);
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
