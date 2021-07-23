@@ -23,8 +23,8 @@
  * 
  * .. math::
  *
- *    isgreaterequal(x) = \left\{\begin{array}{ll} 1, & x \geq y \\
- *                                                 0, & otherwise \end{array}\right.
+ *    isgreaterequal(x, y) = \left\{\begin{array}{ll} 1, & x \geq y \\
+ *                                                    0, & otherwise \end{array}\right.
  *
  * Returns
  * =======
