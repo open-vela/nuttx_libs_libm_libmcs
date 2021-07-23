@@ -32,8 +32,10 @@ Requirements
 References
 ^^^^^^^^^^
 
-* :ref:`__ccoshsinh <internal_ctrig>`
+.. * :ref:`__ccoshsinh <internal_ctrig>`
+* :ref:`ccos`
 * :ref:`ccosh`
+* :ref:`csin`
 * :ref:`csinh`
 * :ref:`ctan`
 * :ref:`ctanh`
