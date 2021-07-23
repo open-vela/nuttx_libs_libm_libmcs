@@ -1,0 +1,24 @@
+cabs
+~~~~
+
+.. c:autodoc:: ../libm/complexd/cabsd.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-7400
+
+References
+^^^^^^^^^^
+
+* :ref:`cimag`
+* :ref:`clog`
+* :ref:`cpow`
+* :ref:`creal`
+* :ref:`csqrt`
+* :ref:`hypot`

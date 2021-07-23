@@ -1,0 +1,29 @@
+cpow
+~~~~~
+
+.. c:autodoc:: ../libm/complexd/cpowd.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-7500
+
+References
+^^^^^^^^^^
+
+* :ref:`cabs`
+* :ref:`carg`
+* :ref:`cimag`
+* :ref:`CMPLX`
+* :ref:`cos`
+* :ref:`creal`
+* :ref:`csqrt`
+* :ref:`exp`
+* :ref:`log`
+* :ref:`pow`
+* :ref:`sin`

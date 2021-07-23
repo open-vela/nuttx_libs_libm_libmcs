@@ -1,39 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<csqrt>>, <<csqrtf>>---complex square root
-
-INDEX
-        csqrt
-INDEX
-        csqrtf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex csqrt(double complex <[z]>);
-       float complex csqrtf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex square root of <[z]>, with
-        a branch cut along the negative real axis.
-
-        <<csqrtf>> is identical to <<csqrt>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        The csqrt functions return the complex square root value, in
-        the range of the right halfplane (including the imaginary axis).
-
-PORTABILITY
-        <<csqrt>> and <<csqrtf>> are ISO C99
-
-QUICKREF
-        <<csqrt>> and <<csqrtf>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions implements the complex square root of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float complex csqrtf(float complex z);
+ *     double complex csqrt(double complex z);
+ *     long double complex csqrtl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``csqrt`` computes the complex square root of the input value, with a branch cut along the negative real axis.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    csqrt(z) \approx \sqrt{z}
+ *
+ * Returns
+ * =======
+ *
+ * ``csqrt`` returns the complex square root of the input value, in the range of the right halfplane (including the imaginary axis).
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>
