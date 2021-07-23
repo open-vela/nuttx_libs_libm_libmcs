@@ -23,8 +23,8 @@
  * 
  * .. math::
  *
- *    islessgreater(x) = \left\{\begin{array}{ll} 1, & x < y \vee x > y \\
- *                                                0, & otherwise \end{array}\right.
+ *    islessgreater(x, y) = \left\{\begin{array}{ll} 1, & x < y \vee x > y \\
+ *                                                   0, & otherwise \end{array}\right.
  *
  * Returns
  * =======

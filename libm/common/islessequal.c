@@ -23,8 +23,8 @@
  * 
  * .. math::
  *
- *    islessequal(x) = \left\{\begin{array}{ll} 1, & x \leq y \\
- *                                              0, & otherwise \end{array}\right.
+ *    islessequal(x, y) = \left\{\begin{array}{ll} 1, & x \leq y \\
+ *                                                 0, & otherwise \end{array}\right.
  *
  * Returns
  * =======
