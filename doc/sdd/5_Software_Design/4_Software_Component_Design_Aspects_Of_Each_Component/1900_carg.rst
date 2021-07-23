@@ -1,0 +1,22 @@
+carg
+~~~~
+
+.. c:autodoc:: ../libm/complexd/cargd.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-7700
+
+References
+^^^^^^^^^^
+
+* :ref:`atan2`
+* :ref:`cimag`
+* :ref:`cpow`
+* :ref:`creal`
