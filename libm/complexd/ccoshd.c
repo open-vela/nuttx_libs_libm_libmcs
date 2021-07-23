@@ -1,37 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<ccosh>>, <<ccoshf>>---complex hyperbolic cosine
-
-INDEX
-        ccosh
-INDEX
-        ccoshf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex ccosh(double complex <[z]>);
-       float complex ccoshf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex hyperbolic cosine of <[z]>.
-
-        <<ccoshf>> is identical to <<ccosh>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        These functions return the complex hyperbolic cosine value.
-
-PORTABILITY
-        <<ccosh>> and <<ccoshf>> are ISO C99
-
-QUICKREF
-        <<ccosh>> and <<ccoshf>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions implements the complex hyperbolic cosine of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex ccoshf(float complex z);
+ *     double complex ccosh(double complex z);
+ *     long double complex ccoshl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``ccosh`` computes the complex hyperbolic cosine of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    ccosh(z) \approx cosh(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``ccosh`` returns the complex hyperbolic cosine of the input value.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>
