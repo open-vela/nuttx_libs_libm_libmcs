@@ -1,6 +1,39 @@
 /* SPDX-License-Identifier: PublicDomain */
 /* Written by Matthias Drochner <drochner@NetBSD.org>. */
 
+/**
+ *
+ * This family of functions evaluates the complex conjugate of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex conjf(float complex z);
+ *     double complex conj(double complex z);
+ *     long double complex conjl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``conj`` computes the complex conjugate of :math:`z`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    conj(z) = \Re(z) - \Im(z) \cdot i
+ *
+ * Returns
+ * =======
+ *
+ * ``conj`` returns the complex conjugate of :math:`z`.
+ * 
+ *///
+
 /*
 FUNCTION
         <<conj>>, <<conjf>>---complex conjugate

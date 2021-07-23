@@ -1,45 +1,38 @@
 /* SPDX-License-Identifier: PublicDomain */
 /* Written by Matthias Drochner <drochner@NetBSD.org>. */
 
-/*
-FUNCTION
-        <<carg>>, <<cargf>>---argument (phase angle)
-
-INDEX
-        carg
-INDEX
-        cargf
-
-SYNOPSIS
-       #include <complex.h>
-       double carg(double complex <[z]>);
-       float cargf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the argument (also called phase angle)
-        of <[z]>, with a branch cut along the negative real axis.
-
-        <<cargf>> is identical to <<carg>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        @ifnottex
-        The carg functions return the value of the argument in the
-        interval [-pi, +pi]
-        @end ifnottex
-        @tex
-        The carg functions return the value of the argument in the
-        interval [$-\pi$, $+\pi$]
-        @end tex
-
-PORTABILITY
-        <<carg>> and <<cargf>> are ISO C99
-
-QUICKREF
-        <<carg>> and <<cargf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions implements the argument of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float cargf(float complex z);
+ *     double carg(double complex z);
+ *     long double cargl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``carg`` computes the argument (also called phase angle) of the input value, with a branch cut along the negative real axis.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    carg(z) \approx \varphi (z) = \tan^{-1} \frac{\Im(z)}{\Re(z)}
+ *
+ * Returns
+ * =======
+ *
+ * ``carg`` returns the argument of the input value in the interval :math:`[-\pi, \pi]`.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>
