@@ -23,8 +23,8 @@
  * 
  * .. math::
  *
- *    isunordered(x) = \left\{\begin{array}{ll} 1, & x = \text{NaN} \vee y = \text{NaN} \\
- *                                              0, & otherwise \end{array}\right.
+ *    isunordered(x, y) = \left\{\begin{array}{ll} 1, & x = \text{NaN} \vee y = \text{NaN} \\
+ *                                                 0, & otherwise \end{array}\right.
  *
  * Returns
  * =======

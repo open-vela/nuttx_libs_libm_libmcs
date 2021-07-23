@@ -23,8 +23,8 @@
  * 
  * .. math::
  *
- *    isgreater(x) = \left\{\begin{array}{ll} 1, & x > y \\
- *                                            0, & otherwise \end{array}\right.
+ *    isgreater(x, y) = \left\{\begin{array}{ll} 1, & x > y \\
+ *                                               0, & otherwise \end{array}\right.
  *
  * Returns
  * =======
