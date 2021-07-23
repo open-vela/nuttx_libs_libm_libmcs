@@ -1,37 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<ctan>>, <<ctanf>>---complex tangent
-
-INDEX
-        ctan
-INDEX
-        ctanf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex ctan(double complex <[z]>);
-       float complex ctanf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex tangent of <[z]>.
-
-        <<ctanf>> is identical to <<ctan>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        These functions return the complex tangent value.
-
-PORTABILITY
-        <<ctan>> and <<ctanf>> are ISO C99
-
-QUICKREF
-        <<ctan>> and <<ctanf>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions implements the complex tangent of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex ctanf(float complex z);
+ *     double complex ctan(double complex z);
+ *     long double complex ctanl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``ctan`` computes the complex tangent of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    ctan(z) \approx tan(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``ctan`` returns the complex tangent of the input value.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>

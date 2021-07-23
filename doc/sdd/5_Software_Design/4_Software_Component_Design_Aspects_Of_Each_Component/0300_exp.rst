@@ -81,3 +81,14 @@ Requirements
 
 References
 ^^^^^^^^^^
+
+.. * :ref:`__ccoshsinh <internal_ctrig>`
+* :ref:`ccos`
+* :ref:`cexp`
+* :ref:`cosh`
+* :ref:`cpow`
+* :ref:`csin`
+* :ref:`erf`
+* :ref:`erfc`
+* :ref:`sinh`
+* :ref:`tgamma`
