@@ -1,0 +1,24 @@
+cexp
+~~~~
+
+.. c:autodoc:: ../libm/complexd/cexpd.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-7200
+
+References
+^^^^^^^^^^
+
+* :ref:`cimag`
+* :ref:`CMPLX`
+* :ref:`cos`
+* :ref:`creal`
+* :ref:`exp`
+* :ref:`sin`

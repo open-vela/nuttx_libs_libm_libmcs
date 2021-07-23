@@ -1,0 +1,26 @@
+clog
+~~~~
+
+.. c:autodoc:: ../libm/complexd/clogd.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-7300
+
+References
+^^^^^^^^^^
+
+* :ref:`atan2`
+* :ref:`cabs`
+* :ref:`cacosh`
+* :ref:`casin`
+* :ref:`cimag`
+* :ref:`CMPLX`
+* :ref:`creal`
+* :ref:`log`
