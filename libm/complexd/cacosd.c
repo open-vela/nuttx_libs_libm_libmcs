@@ -1,46 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<cacos>>, <<cacosf>>---complex arc cosine
-
-INDEX
-        cacos
-INDEX
-        cacosf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex cacos(double complex <[z]>);
-       float complex cacosf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex arc cosine of <[z]>,
-        with branch cuts outside the interval [-1, +1] along the real axis.
-
-        <<cacosf>> is identical to <<cacos>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        @ifnottex
-        These functions return the complex arc cosine value, in the range
-        of a strip mathematically  unbounded  along the imaginary axis
-        and in the interval [0, pi] along the real axis.
-        @end ifnottex
-        @tex
-        These functions return the complex arc cosine value, in the range
-        of a strip mathematically  unbounded  along the imaginary axis
-        and in the interval [<<0>>, $\pi$] along the real axis.
-        @end tex
-
-PORTABILITY
-        <<cacos>> and <<cacosf>> are ISO C99
-
-QUICKREF
-        <<cacos>> and <<cacosf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions implements the complex arc cosine of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex cacosf(float complex z);
+ *     double complex cacos(double complex z);
+ *     long double complex cacosl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``cacos`` computes the complex inverse cosine (*arc cosine*) of the input value, with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    cacos(z) \approx cos^{-1}(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``cacos`` returns the complex inverse cosine of the input value in the output range of a strip mathematically unbounded along the imaginary axis and in the interval :math:`[0, \pi]` radians along the real axis.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>

@@ -1,37 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<ccos>>, <<ccosf>>---complex cosine
-
-INDEX
-        ccos
-INDEX
-        ccosf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex ccos(double complex <[z]>);
-       float complex ccosf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex cosine of <[z]>.
-
-        <<ccosf>> is identical to <<ccos>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        These functions return the complex cosine value.
-
-PORTABILITY
-        <<ccos>> and <<ccosf>> are ISO C99
-
-QUICKREF
-        <<ccos>> and <<ccosf>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions implements the complex cosine of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex ccosf(float complex z);
+ *     double complex ccos(double complex z);
+ *     long double complex ccosl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``ccos`` computes the complex cosine of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    ccos(z) \approx cos(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``ccos`` returns the complex cosine of the input value.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>

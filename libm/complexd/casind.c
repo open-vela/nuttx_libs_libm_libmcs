@@ -1,46 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<casin>>, <<casinf>>---complex arc sine
-
-INDEX
-        casin
-INDEX
-        casinf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex casin(double complex <[z]>);
-       float complex casinf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex arc sine of <[z]>,
-        with branch cuts outside the interval [-1, +1] along the real axis.
-
-        <<casinf>> is identical to <<casin>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        @ifnottex
-        These functions return the complex arc sine value, in the range
-        of a strip mathematically  unbounded  along the imaginary axis
-        and in the interval [-pi/2, +pi/2] along the real axis.
-        @end ifnottex
-        @tex
-        These functions return the complex arc sine value, in the range
-        of a strip mathematically  unbounded  along the imaginary axis
-        and in the interval [$-\pi/2$, $+\pi/2$] along the real axis.
-        @end tex
-
-PORTABILITY
-        <<casin>> and <<casinf>> are ISO C99
-
-QUICKREF
-        <<casin>> and <<casinf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions implements the complex arc sine of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex casinf(float complex z);
+ *     double complex casin(double complex z);
+ *     long double complex casinl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``casin`` computes the complex inverse sine (*arc sine*) of the input value, with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    casin(z) \approx sin^{-1}(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``casin`` returns the complex inverse sine of the input value in the output range of a strip mathematically unbounded along the imaginary axis and in the interval :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` radians along the real axis.
+ * 
+ *///
 
 #include <complex.h>
 

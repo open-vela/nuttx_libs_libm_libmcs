@@ -1,54 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<catan>>, <<catanf>>---complex arc tangent
-
-INDEX
-        catan
-INDEX
-        catanf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex catan(double complex <[z]>);
-       float complex catanf(float complex <[z]>);
-
-
-DESCRIPTION
-        @ifnottex
-        These functions compute the complex arc tangent of <[z]>,
-        with branch cuts outside the interval [-i, +i] along the
-        imaginary axis.
-        @end ifnottex
-        @tex
-        These functions compute the complex arc tangent of <[z]>,
-        with branch cuts outside the interval [$-i$, $+i$] along the
-        imaginary axis.
-        @end tex
-
-        <<catanf>> is identical to <<catan>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        @ifnottex
-        These functions return the complex arc tangent value, in the range
-        of a strip mathematically  unbounded  along the imaginary axis
-        and in the interval [-pi/2, +pi/2] along the real axis.
-        @end ifnottex
-        @tex
-        These functions return the complex arc tangent, in the range
-        of a strip mathematically  unbounded  along the imaginary axis
-        and in the interval [$-\pi/2$, $+\pi/2$] along the real axis.
-        @end tex
-
-PORTABILITY
-        <<catan>> and <<catanf>> are ISO C99
-
-QUICKREF
-        <<catan>> and <<catanf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions implements the complex arc tangent of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex catanf(float complex z);
+ *     double complex catan(double complex z);
+ *     long double complex catanl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``catan`` computes the complex inverse tangent (*arc tangent*) of the input value, with branch cuts outside the interval :math:`[-i, +i]` along the imaginary axis.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    catan(z) \approx tan^{-1}(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``catan`` returns the complex inverse tangent of the input value in the output range of a strip mathematically unbounded along the imaginary axis and in the interval :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` radians along the real axis.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>
