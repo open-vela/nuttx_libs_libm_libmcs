@@ -10,7 +10,6 @@
  *
  * .. code-block:: c
  *
- *     #include <math.h>
  *     float __cosf(float x, float y)
  *     double __cos(double x, double y)
  *     float __sinf(float x, float y, int iy)

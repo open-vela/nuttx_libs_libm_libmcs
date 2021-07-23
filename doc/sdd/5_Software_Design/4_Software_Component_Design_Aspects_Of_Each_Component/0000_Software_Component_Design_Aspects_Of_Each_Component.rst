@@ -296,3 +296,11 @@ Complex Manipulation Functions
    1930_conj.rst
    1940_cproj.rst
    1950_creal.rst
+
+Miscellaneous Internal Functions
+""""""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   2000_misc_internal.rst
