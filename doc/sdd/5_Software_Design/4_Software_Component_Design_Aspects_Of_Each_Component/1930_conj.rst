@@ -1,0 +1,17 @@
+conj
+~~~~~
+
+.. c:autodoc:: ../libm/complexd/conjd.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-8000
+
+References
+^^^^^^^^^^
