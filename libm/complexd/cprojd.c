@@ -1,43 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<cproj>>, <<cprojf>>--- Riemann sphere projection
-
-INDEX
-        cproj
-INDEX
-        cprojf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex cproj(double complex <[z]>);
-       float complex cprojf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute a projection of <[z]> onto the Riemann
-        sphere: <[z]> projects to <[z]> except that all complex infinities
-        (even those with one infinite part and one NaN part) project
-        to positive infinity on the real axis. If <[z]> has an infinite part,
-        then <<cproj>>(<[z]>) is equivalent to
-
-                 INFINITY + I * copysign(0.0, cimag(z))
-
-        <<cprojf>> is identical to <<cproj>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        The cproj functions return the value of the projection onto
-        the Riemann sphere.
-
-PORTABILITY
-        <<cproj>> and <<cprojf>> are ISO C99
-
-QUICKREF
-        <<cproj>> and <<cprojf>> are ISO C99
-
-*/
+/**
+ *
+ * This family of functions evaluates the value of the projection of the complex argument :math:`z` onto the Riemann sphere.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex cprojf(float complex z);
+ *     double complex cproj(double complex z);
+ *     long double complex cprojl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``cproj`` computes the value of the projection of :math:`z` onto the Riemann sphere.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    cproj(z) = \left\{\begin{array}{ll} z, & \Re(z) \neq \pm Inf \wedge \Im(z) \neq \pm Inf \\ +Inf \pm 0i, & otherwise \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``cproj`` returns the value of the projection of :math:`z` onto the Riemann sphere.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>

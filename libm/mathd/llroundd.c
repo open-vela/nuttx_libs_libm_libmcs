@@ -1,6 +1,53 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
-/* lrint adapted to be llrint for Newlib, 2009 by Craig Howland. */
+/* lround adapted to be llround for Newlib, 2009 by Craig Howland. */
+
+/**
+ *
+ * This family of functions implements the nearest integer value to :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     long long int llroundf(float x);
+ *     long long int llround(double x);
+ *     long long int llroundl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``llround`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`lround` but returns ``long long int`` instead of ``long int``.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    llround(x) = \lfloor x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``llround`` returns the nearest integer value to :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------------------+---------------------------------------+--------------------------+--------------+--------------+--------------------------+---------------------------------------+--------------------------+--------------------------+
+ * | **x**               | :math:`-Inf`             | :math:`<` min :math:`\mathbb{I}_{ll}` | :math:`<0`               | :math:`-0`   | :math:`+0`   | :math:`>0`               | :math:`>` max :math:`\mathbb{I}_{ll}` | :math:`+Inf`             | :math:`NaN`              |
+ * +=====================+==========================+=======================================+==========================+==============+==============+==========================+=======================================+==========================+==========================+
+ * | **llround(x)**      | min :math:`\mathbb{I}_{ll}`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_{ll}`                                      | :math:`llround(±Inf)`    |
+ * +---------------------+--------------------------+---------------------------------------+--------------------------+--------------+--------------+--------------------------+---------------------------------------+--------------------------+--------------------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

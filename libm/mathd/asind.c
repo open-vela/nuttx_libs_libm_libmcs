@@ -1,83 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __asin(x)
- * Method :
- *    Since  asin(x) = x + x^3/6 + x^5*3/40 + x^7*15/336 + ...
- *    we approximate asin(x) on [0,0.5] by
- *        asin(x) = x + x*x^2*R(x^2)
- *    where
- *        R(x^2) is a rational approximation of (asin(x)-x)/x^3
- *    and its remez error is bounded by
- *        |(asin(x)-x)/x^3 - R(x^2)| < 2^(-58.75)
+/**
  *
- *    For x in [0.5,1]
- *        asin(x) = pi/2-2*asin(sqrt((1-x)/2))
- *    Let y = (1-x), z = y/2, s := sqrt(z), and pio2_hi+pio2_lo=pi/2;
- *    then for x>0.98
- *        asin(x) = pi/2 - 2*(s+s*z*R(z))
- *            = pio2_hi - (2*(s+s*z*R(z)) - pio2_lo)
- *    For x<=0.98, let pio4_hi = pio2_hi/2, then
- *        f = hi part of s;
- *        c = sqrt(z) - f = (z-f*f)/(s+f)     ...f+c=sqrt(z)
- *    and
- *        asin(x) = pi/2 - 2*(s+s*z*R(z))
- *            = pio4_hi+(pio4-2s)-(2s*z*R(z)-pio2_lo)
- *            = pio4_hi+(pio4-2f)-(2s*z*R(z)-(pio2_lo+2c))
+ * This family of functions implements the arc sine of :math:`x`.
  *
- * Special cases:
- *    if x is NaN, return x itself;
- *    if |x|>1, return NaN with invalid signal.
+ * Synopsis
+ * ========
  *
- */
-
-/*
-FUNCTION
-        <<asin>>, <<asinf>>---arc sine
-
-INDEX
-   asin
-INDEX
-   asinf
-
-SYNOPSIS
-        #include <math.h>
-        double asin(double <[x]>);
-        float asinf(float <[x]>);
-
-DESCRIPTION
-
-<<asin>> computes the inverse sine (arc sine) of the argument <[x]>.
-Arguments to <<asin>> must be in the range @minus{}1 to 1.
-
-<<asinf>> is identical to <<asin>>, other than taking and
-returning floats.
-
-RETURNS
-@ifnottex
-<<asin>> returns values in radians, in the range of -pi/2 to pi/2.
-@end ifnottex
-@tex
-<<asin>> returns values in radians, in the range of $-\pi/2$ to $\pi/2$.
-@end tex
-
-If <[x]> is not in the range @minus{}1 to 1, <<asin>> and <<asinf>>
-return NaN (not a number), and the global variable <<errno>> is set to
-<<EDOM>>.
-
-QUICKREF
- ansi posix rentrant
- asin     y,y,m
- asinf   n,n,m
-
-MATHREF
- asin,  -1<=arg<=1, asin(arg),,,
- asin,  NAN,  arg,EDOM, DOMAIN
-
-MATHREF
- asinf,  -1<=arg<=1, asin(arg),,,
- asinf,  NAN,  arg,EDOM, DOMAIN
-*/
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float asinf(float x);
+ *     double asin(double x);
+ *     long double asinl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``asin`` computes the inverse sine (*arc sine*) of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    asin(x) \approx sin^{-1}(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``asin`` returns value in radians, in the range :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is not in the interval :math:`[-1, 1]`.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<-1`  | :math:`\in [-1,-0[` | :math:`-0`   | :math:`+0`   | :math:`\in ]+0,+1]` | :math:`>+1`  | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==============+=====================+==============+==============+=====================+==============+==============+==============+
+ * | **asin(x)**         | :math:`qNaN` | :math:`qNaN` | :math:`sin^{-1} x`  | :math:`x`                   | :math:`sin^{-1} x`  | :math:`qNaN` | :math:`qNaN` | :math:`qNaN` |
+ * +---------------------+--------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

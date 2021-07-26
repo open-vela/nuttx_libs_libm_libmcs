@@ -1,37 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<cexp>>, <<cexpf>>---complex base-e exponential
-
-INDEX
-        cexp
-INDEX
-        cexpf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex cexp(double complex <[z]>);
-       float complex cexpf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute  the complex base-<[e]> exponential of <[z]>.
-
-        <<cexpf>> is identical to <<cexp>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        The cexp functions return the complex base-<[e]> exponential value.
-
-PORTABILITY
-        <<cexp>> and <<cexpf>> are ISO C99
-
-QUICKREF
-        <<cexp>> and <<cexpf>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions implements the complex exponential function, that is :math:`e` powered by :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float complex cexpf(float z);
+ *     double complex cexp(double z);
+ *     long double complex cexpl(long double z);
+ *
+ * Description
+ * ===========
+ *
+ * ``cexp`` computes :math:`e` powered by the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    cexp(z) \approx e^z
+ *
+ * Returns
+ * =======
+ *
+ * ``cexp`` returns :math:`e` powered by :math:`z`.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>

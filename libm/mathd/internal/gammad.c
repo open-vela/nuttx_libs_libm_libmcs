@@ -1,6 +1,58 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions is a set of functions used by the gamma function procedures as internal functions. Only ``__lgamma`` is accessible via ``gammad.h`` (``gammaf.h``), but should not be accessed directly by a user.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float __sin_pif(float x)
+ *     double __sin_pi(double x)
+ *     float __lgammaf(float x, int *signgamp)
+ *     double __lgamma(double x, int *signgamp)
+ *
+ * Description
+ * ===========
+ *
+ * ``__lgamma`` computes the natural logarithm of the gamma function of :math:`x` and places the sign of the gamma function in the out-pointer :math:`signgamp`.
+ *
+ * ``__sin_pi`` computes the sine of the input value after it was multiplied by :math:`\pi`. The procedure is only called in the range :math:`[-2^{52},-2^{-70}]`, calling it outside of this range may result in unexpected results.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    \_\_sin\_pi(x) &\approx sin(\pi \cdot x)  \\
+ *    \_\_lgamma(x) &\approx \ln{|\Gamma(x)|} = \ln{\left|\int_{0}^{\infty}e^{-t}t^{x-1}dt\right|}  \\
+ *    \_\_lgamma\_signgamp(x) &= \left\{\begin{array}{ll} +1, & +0 \leq  \Gamma(x) \\ -1, & -0 \geq \Gamma(x) \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``__lgamma`` returns the natural logarithm of the gamma function of :math:`x` and places the sign of the gamma function in the out-pointer :math:`signgamp`.
+ *
+ * ``__sin_pi`` returns the sine of :math:`\pi \cdot x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Do not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * The output maps are in the respective external functions :ref:`lgamma` and :ref:`tgamma`.
+ *
+ *///
+
 /* __lgamma_r(x, signgamp)
  * Reentrant version of the logarithm of the Gamma function
  * with user provide pointer for the sign of Gamma(x).

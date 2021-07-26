@@ -1,31 +1,66 @@
 /* SPDX-License-Identifier: RedHat */
 /* Copyright (C) 2002 by  Red Hat, Incorporated. All rights reserved. */
 
-/*
-FUNCTION
-<<fmax>>, <<fmaxf>>---maximum
-INDEX
-    fmax
-INDEX
-    fmaxf
-
-SYNOPSIS
-    #include <math.h>
-    double fmax(double <[x]>, double <[y]>);
-    float fmaxf(float <[x]>, float <[y]>);
-
-DESCRIPTION
-The <<fmax>> functions determine the maximum numeric value of their arguments.
-NaN arguments are treated as missing data:  if one argument is a NaN and the
-other numeric, then the <<fmax>> functions choose the numeric value.
-
-RETURNS
-The <<fmax>> functions return the maximum numeric value of their arguments.
-
-PORTABILITY
-ANSI C, POSIX.
-
-*/
+/**
+ *
+ * This family of functions detemines the maximum value of :math:`x` and :math:`y`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float fmaxf(float x, float y);
+ *     double fmax(double x, double y);
+ *     long double fmaxl(long double x, long double y);
+ *
+ * Description
+ * ===========
+ *
+ * ``fmax`` computes the maximum value of :math:`x` and :math:`y`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    fmax(x, y) = \left\{\begin{array}{ll} x, & x > y \\ y, & otherwise \end{array}\right.
+ *
+ * Returns
+ * =======
+ *
+ * ``fmax`` returns the maximum value of :math:`x` and :math:`y`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | fmax(x,y)                | x                                                                                                                                                                                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ * | y                        | :math:`-Inf`             | :math:`<0`               | :math:`-0`               | :math:`+0`               | :math:`>0`               | :math:`+Inf`             | :math:`NaN`              |
+ * +==========================+==========================+==========================+==========================+==========================+==========================+==========================+==========================+
+ * | :math:`-Inf`             | :math:`y`                | :math:`x`                | :math:`x`                                           | :math:`x`                | :math:`x`                | :math:`y`                |
+ * +--------------------------+                          +--------------------------+                                                     +                          +                          +                          +
+ * | :math:`<0`               |                          | :math:`fmax(x, y)`       |                                                     |                          |                          |                          |
+ * +--------------------------+                          +--------------------------+--------------------------+--------------------------+                          +                          +                          +
+ * | :math:`-0`               |                          | :math:`y`                                                                      |                          |                          |                          |
+ * +--------------------------+                          +                                                                                +                          +                          +                          +
+ * | :math:`+0`               |                          |                                                                                |                          |                          |                          |
+ * +--------------------------+                          +                                                                                +--------------------------+                          +                          +
+ * | :math:`>0`               |                          |                                                                                | :math:`fmax(x, y)`       |                          |                          |
+ * +--------------------------+                          +                                                                                +--------------------------+--------------------------+                          +
+ * | :math:`+Inf`             |                          |                                                                                | :math:`y`                                           |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+                          +
+ * | :math:`NaN`              | :math:`x`                                                                                                                                                       |                          |
+ * +--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+--------------------------+
+ *
+ *///
 
 #include <math.h>
 

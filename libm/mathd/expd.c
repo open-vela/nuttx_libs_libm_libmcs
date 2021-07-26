@@ -1,102 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* exp(x)
- * Returns the exponential of x.
+/**
  *
- * Method
- *   1. Argument reduction:
- *      Reduce x to an r so that |r| <= 0.5*ln2 ~ 0.34658.
- *    Given x, find r and integer k such that
+ * This family of functions implements the exponential function, that is :math:`e` powered by :math:`x`.
  *
- *               x = k*ln2 + r,  |r| <= 0.5*ln2.
+ * Synopsis
+ * ========
  *
- *      Here r will be represented as r = hi-lo for better
- *    accuracy.
+ * .. code-block:: c
  *
- *   2. Approximation of exp(r) by a special rational function on
- *    the interval [0,0.34658]:
- *    Write
- *        R(r**2) = r*(exp(r)+1)/(exp(r)-1) = 2 + r*r/6 - r**4/360 + ...
- *      We use a special Reme algorithm on [0,0.34658] to generate
- *     a polynomial of degree 5 to approximate R. The maximum error
- *    of this polynomial approximation is bounded by 2**-59. In
- *    other words,
- *        R(z) ~ 2.0 + P1*z + P2*z**2 + P3*z**3 + P4*z**4 + P5*z**5
- *      (where z=r*r, and the values of P1 to P5 are listed below)
- *    and
- *        |                  5          |     -59
- *        | 2.0+P1*z+...+P5*z   -  R(z) | <= 2
- *        |                             |
- *    The computation of exp(r) thus becomes
- *                             2*r
- *        exp(r) = 1 + -------
- *                      R - r
- *                                 r*R1(r)
- *               = 1 + r + ----------- (for better accuracy)
- *                          2 - R1(r)
- *    where
- *                     2       4             10
- *        R1(r) = r - (P1*r  + P2*r  + ... + P5*r   ).
+ *     #include <math.h>
+ *     float expf(float x);
+ *     double exp(double x);
+ *     long double expl(long double x);
  *
- *   3. Scale back to obtain exp(x):
- *    From step 1, we have
- *       exp(x) = 2^k * exp(r)
+ * Description
+ * ===========
  *
- * Special cases:
- *    exp(INF) is INF, exp(NaN) is NaN;
- *    exp(-INF) is 0, and
- *    for finite argument, only exp(0)=1 is exact.
+ * ``exp`` computes :math:`e` powered by the input value.
  *
- * Accuracy:
- *    according to an error analysis, the error is always less than
- *    1 ulp (unit in the last place).
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
  *
- * Misc. info.
- *    For IEEE double
- *        if x >  7.09782712893383973096e+02 then exp(x) overflow
- *        if x < -7.45133219101941108420e+02 then exp(x) underflow
+ *    exp(x) \approx e^x
  *
- * Constants:
- * The hexadecimal values are the intended ones for the following
- * constants. The decimal values may be used, provided that the
- * compiler will convert from decimal to binary accurately enough
- * to produce the hexadecimal values shown.
- */
-
-/*
-FUNCTION
-    <<exp>>, <<expf>>---exponential
-INDEX
-    exp
-INDEX
-    expf
-
-SYNOPSIS
-    #include <math.h>
-    double exp(double <[x]>);
-    float expf(float <[x]>);
-
-DESCRIPTION
-    <<exp>> and <<expf>> calculate the exponential of <[x]>, that is,
-    @ifnottex
-    e raised to the power <[x]> (where e
-    @end ifnottex
-    @tex
-    $e^x$ (where $e$
-    @end tex
-    is the base of the natural system of logarithms, approximately 2.71828).
-
-RETURNS
-    On success, <<exp>> and <<expf>> return the calculated value.
-    If the result underflows, the returned value is <<0>>.  If the
-    result overflows, the returned value is <<HUGE_VAL>>.  In
-    either case, <<errno>> is set to <<ERANGE>>.
-
-PORTABILITY
-    <<exp>> is ANSI C.  <<expf>> is an extension.
-
-*/
+ * Returns
+ * =======
+ *
+ * ``exp`` returns :math:`e` powered by :math:`x`, in the range :math:`\mathbb{F}^{+}_0`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`   | :math:`-0`   | :math:`+0`   | :math:`>0`   | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==============+==============+==============+==============+==============+==============+
+ * | **exp(x)**          | :math:`+0`   | :math:`e^x`  | :math:`+1`                  | :math:`e^x`  | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

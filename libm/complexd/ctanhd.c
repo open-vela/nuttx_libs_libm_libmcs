@@ -1,37 +1,37 @@
 /* SPDX-License-Identifier: NetBSD */
 
-/*
-FUNCTION
-        <<ctanh>>, <<ctanf>>---complex hyperbolic tangent
-
-INDEX
-        ctanh
-INDEX
-        ctanhf
-
-SYNOPSIS
-       #include <complex.h>
-       double complex ctanh(double complex <[z]>);
-       float complex ctanhf(float complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the complex hyperbolic tangent of <[z]>.
-
-        <<ctanhf>> is identical to <<ctanh>>, except that it performs
-        its calculations on <<floats complex>>.
-
-RETURNS
-        These functions return the complex hyperbolic tangent value.
-
-PORTABILITY
-        <<ctanh>> and <<ctanhf>> are ISO C99
-
-QUICKREF
-        <<ctanh>> and <<ctanhf>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions implements the complex hyperbolic tangent of :math:`z`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float complex ctanhf(float complex z);
+ *     double complex ctanh(double complex z);
+ *     long double complex ctanhl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``ctanh`` computes the complex hyperbolic tangent of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    ctanh(z) \approx tanh(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``ctanh`` returns the complex hyperbolic tangent of the input value.
+ * 
+ *///
 
 #include <complex.h>
 #include <math.h>

@@ -1,75 +1,73 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __atan2(y,x)
- * Method :
- *    1. Reduce y to positive by atan2(y,x)=-atan2(-y,x).
- *    2. Reduce x to positive by (if x and y are unexceptional):
- *        ARG (x+iy) = arctan(y/x)          ... if x > 0,
- *        ARG (x+iy) = pi - arctan[y/(-x)]   ... if x < 0,
+/**
  *
- * Special cases:
+ * This family of functions implements the arc tanget of :math:`\frac{y}{x}`.
  *
- *    ATAN2((anything), NaN ) is NaN;
- *    ATAN2(NAN , (anything) ) is NaN;
- *    ATAN2(+-0, +(anything but NaN)) is +-0  ;
- *    ATAN2(+-0, -(anything but NaN)) is +-pi ;
- *    ATAN2(+-(anything but 0 and NaN), 0) is +-pi/2;
- *    ATAN2(+-(anything but INF and NaN), +INF) is +-0 ;
- *    ATAN2(+-(anything but INF and NaN), -INF) is +-pi;
- *    ATAN2(+-INF,+INF ) is +-pi/4 ;
- *    ATAN2(+-INF,-INF ) is +-3pi/4;
- *    ATAN2(+-INF, (anything but,0,NaN, and INF)) is +-pi/2;
+ * Synopsis
+ * ========
  *
- * Constants:
- * The hexadecimal values are the intended ones for the following
- * constants. The decimal values may be used, provided that the
- * compiler will convert from decimal to binary accurately enough
- * to produce the hexadecimal values shown.
- */
-
-/*
-FUNCTION
-        <<atan2>>, <<atan2f>>---arc tangent of y/x
-
-INDEX
-   atan2
-INDEX
-   atan2f
-
-SYNOPSIS
-        #include <math.h>
-        double atan2(double <[y]>,double <[x]>);
-        float atan2f(float <[y]>,float <[x]>);
-
-DESCRIPTION
-
-<<atan2>> computes the inverse tangent (arc tangent) of <[y]>/<[x]>.
-<<atan2>> produces the correct result even for angles near
-@ifnottex
-pi/2 or -pi/2
-@end ifnottex
-@tex
-$\pi/2$ or $-\pi/2$
-@end tex
-(that is, when <[x]> is near 0).
-
-<<atan2f>> is identical to <<atan2>>, save that it takes and returns
-<<float>>.
-
-RETURNS
-<<atan2>> and <<atan2f>> return a value in radians, in the range of
-@ifnottex
--pi to pi.
-@end ifnottex
-@tex
-$-\pi$ to $\pi$.
-@end tex
-
-PORTABILITY
-<<atan2>> is ANSI C.  <<atan2f>> is an extension.
-
-*/
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float atan2f(float y, float x);
+ *     double atan2(double y, double x);
+ *     long double atan2l(long double y, long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``atan2`` computes the inverse tangent (*arc tangent*) of the division of the input values.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    atan2(y, x) \approx \left\{\begin{array}{ll}
+ *                        tan^{-1}\left(\frac{y}{x}\right), & x > 0  \\
+ *                        tan^{-1}\left(\frac{y}{x}\right) + \pi, & x < 0 \wedge y > 0  \\
+ *                        tan^{-1}\left(\frac{y}{x}\right) - \pi, & x < 0 \wedge y < 0 \end{array}\right.
+ *
+ * For the other cases (which do not need formulae) refer to the output map below.
+ *
+ * Returns
+ * =======
+ *
+ * ``atan2`` returns value in radians, in the range :math:`[-\pi, \pi]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions. Does not raise ``divide-by-zero`` exception even if argument :math:`x` is zero.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +--------------+--------------------------+-----------------------------------+--------------+--------------+-----------------------------------+--------------------------+--------------+
+ * | atan2(y,x)   | y                                                                                                                                                                        |
+ * +--------------+--------------------------+-----------------------------------+--------------+--------------+-----------------------------------+--------------------------+--------------+
+ * | x            | :math:`-Inf`             | :math:`<0`                        | :math:`-0`   | :math:`+0`   | :math:`>0`                        | :math:`+Inf`             | :math:`NaN`  |
+ * +==============+==========================+===================================+==============+==============+===================================+==========================+==============+
+ * | :math:`-Inf` | :math:`-\frac{3}{4} \pi` | :math:`-\pi`                                     | :math:`+\pi`                                     | :math:`+\frac{3}{4} \pi` | :math:`qNaN` |
+ * +--------------+--------------------------+-----------------------------------+--------------+--------------+-----------------------------------+--------------------------+              +
+ * | :math:`<0`   | :math:`-\frac{\pi}{2}`   | :math:`tan^{-1}(\frac{y}{x})-\pi` | :math:`-\pi` | :math:`+\pi` | :math:`tan^{-1}(\frac{y}{x})+\pi` | :math:`+\frac{\pi}{2}`   |              |
+ * +--------------+                          +-----------------------------------+              +              +-----------------------------------+                          +              +
+ * | :math:`-0`   |                          | :math:`-\frac{\pi}{2}`            |              |              | :math:`+\frac{\pi}{2}`            |                          |              |
+ * +--------------+                          +                                   +--------------+--------------+                                   +                          +              +
+ * | :math:`+0`   |                          |                                   | :math:`-0`   | :math:`+0`   |                                   |                          |              |
+ * +--------------+                          +-----------------------------------+              +              +-----------------------------------+                          +              +
+ * | :math:`>0`   |                          | :math:`tan^{-1}(\frac{y}{x})`     |              |              | :math:`tan^{-1}(\frac{y}{x})`     |                          |              |
+ * +--------------+--------------------------+-----------------------------------+--------------+--------------+-----------------------------------+--------------------------+              +
+ * | :math:`+Inf` | :math:`-\frac{\pi}{4}`   | :math:`-0`                                       | :math:`+0`                                       | :math:`+\frac{\pi}{4}`   |              |
+ * +--------------+--------------------------+-----------------------------------+--------------+--------------+-----------------------------------+--------------------------+--------------+
+ * | :math:`NaN`  | :math:`qNaN`                                                                                                                                                             |
+ * +--------------+--------------------------+-----------------------------------+--------------+--------------+-----------------------------------+--------------------------+--------------+
+ *
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

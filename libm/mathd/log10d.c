@@ -1,68 +1,56 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* log10(x)
- * Return the base 10 logarithm of x
+/**
  *
- * Method :
- *    Let log10_2hi = leading 40 bits of log10(2) and
- *        log10_2lo = log10(2) - log10_2hi,
- *        ivln10   = 1/log(10) rounded.
- *    Then
- *        n = ilogb(x),
- *        if(n<0)  n = n+1;
- *        x = scalbn(x,-n);
- *        log10(x) := n*log10_2hi + (n*log10_2lo + ivln10*log(x))
+ * This family of functions implements the base :math:`10` logarithm.
  *
- * Note 1:
- *    To guarantee log10(10**n)=n, where 10**n is normal, the rounding
- *    mode must set to Round-to-Nearest.
- * Note 2:
- *    [1/log(10)] rounded to 53 bits has error  .198   ulps;
- *    log10 is monotonic at all binary break points.
+ * Synopsis
+ * ========
  *
- * Special cases:
- *    log10(x) is NaN with signal if x < 0;
- *    log10(+INF) is +INF with no signal; log10(0) is -INF with signal;
- *    log10(NaN) is that NaN with no signal;
- *    log10(10**N) = N  for N=0,1,...,22.
+ * .. code-block:: c
  *
- * Constants:
- * The hexadecimal values are the intended ones for the following constants.
- * The decimal values may be used, provided that the compiler will convert
- * from decimal to binary accurately enough to produce the hexadecimal values
- * shown.
- */
-
-/*
-FUNCTION
-    <<log10>>, <<log10f>>---base 10 logarithms
-
-INDEX
-log10
-INDEX
-log10f
-
-SYNOPSIS
-    #include <math.h>
-    double log10(double <[x]>);
-    float log10f(float <[x]>);
-
-DESCRIPTION
-<<log10>> returns the base 10 logarithm of <[x]>.
-It is implemented as <<log(<[x]>) / log(10)>>.
-
-<<log10f>> is identical, save that it takes and returns <<float>> values.
-
-RETURNS
-<<log10>> and <<log10f>> return the calculated value.
-
-See the description of <<log>> for information on errors.
-
-PORTABILITY
-<<log10>> is ANSI C.  <<log10f>> is an extension.
-
- */
+ *     #include <math.h>
+ *     float log10f(float x);
+ *     double log10(double x);
+ *     long double logl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``log10`` computes the base :math:`10` logarithm of the input value.
+ *
+ * TODO: Note that this description including the description of the referenced internal function depict not the current implementation, but the one to be used later (changes introduced in the MLFS mirroring FreeBSD will be taken over).
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    log10(x) \approx log_{10}(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``log10`` returns the base :math:`10` logarithm of :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is negative.
+ *
+ * Raise ``divide by zero`` exception when the input value is zero.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+---------------+---------------+---------------+---------------+---------------------+---------------+---------------------+---------------+---------------+
+ * | **x**               | :math:`-Inf`  | :math:`<0`    | :math:`-0`    | :math:`+0`    | :math:`]0,1[`       | :math:`1`     | :math:`>1`          | :math:`+Inf`  | :math:`NaN`   |
+ * +=====================+===============+===============+===============+===============+=====================+===============+=====================+===============+===============+
+ * | **log10(x)**        | :math:`qNaN`  | :math:`qNaN`  | :math:`-Inf`                  | :math:`log_{10}(x)` | :math:`+0`    | :math:`log_{10}(x)` | :math:`+Inf`  | :math:`qNaN`  |
+ * +---------------------+---------------+---------------+---------------+---------------+---------------------+---------------+---------------------+---------------+---------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

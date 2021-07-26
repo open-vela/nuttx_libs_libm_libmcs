@@ -1,16 +1,56 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __tgamma(x)
- * Gamma function. Returns gamma(x)
+/**
  *
- * Method: See __lgamma_r
- */
-
-/* double gamma(double x)
- * Return  the logarithm of the Gamma function of x or the Gamma function of x,
- * depending on the library mode.
- */
+ * This family of functions implements the gamma function of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float tgammaf(float x);
+ *     double tgamma(double x);
+ *     long double tgammal(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``tgamma`` computes the gamma function of :math:`x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    tgamma(x) \approx \Gamma(x) = \int_{0}^{\infty}e^{-t}t^{x-1}dt
+ *
+ * Returns
+ * =======
+ *
+ * ``tgamma`` returns the gamma function of :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is a negative integer or negative infinity.
+ *
+ * Raise ``divide by zero`` exception when the input value is zero.
+ *
+ * Raise ``overflow`` exception when the magnitude of the input value is too large or too small.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+---------------------------------------+-----------------------------+--------------+--------------+-------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0\ \wedge\ \notin \mathbb{Z}` | :math:`\in \mathbb{Z}_{<0}` | :math:`-0`   | :math:`+0`   | :math:`>0`        | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=======================================+=============================+==============+==============+===================+==============+==============+
+ * | **tgamma(x)**       | :math:`qNaN` | :math:`\Gamma(x)`                     | :math:`qNaN`                | :math:`-Inf` | :math:`+Inf` | :math:`\Gamma(x)` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+---------------------------------------+-----------------------------+--------------+--------------+-------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

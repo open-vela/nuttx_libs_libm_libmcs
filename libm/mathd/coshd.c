@@ -1,6 +1,53 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the hyperbolic cosine of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float coshf(float x);
+ *     double cosh(double x);
+ *     long double coshl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``cosh`` computes the hyperbolic cosine of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    cosh(x) \approx cosh(x) = \frac{e^x+e^{-x}}{2}
+ *
+ * Returns
+ * =======
+ *
+ * ``cosh`` returns the hyperbolic cosine, in the range :math:`\mathbb{F}_{>=1}`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`      | :math:`-0`   | :math:`+0`   | :math:`>0`      | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=================+==============+==============+=================+==============+==============+
+ * | **cosh(x)**         | :math:`+Inf` | :math:`cosh(x)` | :math:`1`                   | :math:`cosh(x)` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
+ * 
+ *///
+
 /* __cosh(x)
  * Method :
  * mathematically cosh(x) if defined to be (exp(x)+exp(-x))/2

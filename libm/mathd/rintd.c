@@ -1,60 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<rint>>, <<rintf>>---round to integer
-INDEX
-    rint
-INDEX
-    rintf
-
-SYNOPSIS
-    #include <math.h>
-    double rint(double <[x]>);
-    float rintf(float <[x]>);
-
-DESCRIPTION
-    The <<rint>> functions round their argument to an integer value in
-    floating-point format, using the current rounding direction.  They
-    raise the "inexact" floating-point exception if the result differs
-    in value from the argument.  See the <<nearbyint>> functions for the
-    same function with the "inexact" floating-point exception never being
-    raised.  Newlib does not directly support floating-point exceptions.
-    The <<rint>> functions are written so that the "inexact" exception is
-    raised in hardware implementations that support it, even though Newlib
-    does not provide access.
-
-RETURNS
-<[x]> rounded to an integral value, using the current rounding direction.
-
-PORTABILITY
-ANSI C, POSIX
-
-SEEALSO
-<<nearbyint>>, <<round>>
-
-*/
-
-/*
- * rint(x)
- * Return x rounded to integral value according to the prevailing
- * rounding mode.
- * Method:
- *    Using floating addition.
- *    Whenever a fraction is present, if the second or any following bit after
- *    the radix point is set, limit to the second radix point to avoid
- *    possible double rounding in the TWO52 +- steps (in case guard bits are
- *    used).  Specifically, if have any, chop off bits past the 2nd place and
- *    set the second place.
- *    (e.g.    2.0625=0b10.0001 => 0b10.01=2.25;
- *        2.3125=0b10.011  => 0b10.01=2.25;
- *        1.5625= 0b1.1001 =>  0b1.11=1.75;
- *        1.9375= 0b1.1111 =>  0b1.11=1.75.
- *    Pseudo-code:  if(x.frac & ~0b0.10) x.frac = (x.frac & 0b0.11) | 0b0.01;).
- * Exception:
- *    Inexact flag raised if x not equal to rint(x).
- */
+/**
+ *
+ * This family of functions implements the nearest integer value to :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float rintf(float x);
+ *     double rint(double x);
+ *     long double rintl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``rint`` computes the nearest integer value to :math:`x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    rint(x) = \lfloor x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``rint`` returns the nearest integer value to :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`               | :math:`-0`   | :math:`+0`   | :math:`>0`               | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==========================+==============+==============+==========================+==============+==============+
+ * | **rint(x)**         | :math:`-Inf` | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

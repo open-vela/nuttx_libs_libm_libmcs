@@ -1,14 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
- * ceil(x)
- * Return x rounded toward -inf to integral value
- * Method:
- *    Bit twiddling.
- * Exception:
- *    Inexact flag raised if x not equal to ceil(x).
- */
+/**
+ *
+ * This family of functions implements rounding towards positive infinity of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float ceilf(float x);
+ *     double ceil(double x);
+ *     long double ceill(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``ceil`` computes the input value rounded towards positive infinity.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    ceil(x) = \lceil x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``ceil`` returns the input value rounded towards positive infinity.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise exceptions.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+-------------------------+--------------+--------------+-------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`              | :math:`-0`   | :math:`+0`   | :math:`>0`              | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+=========================+==============+==============+=========================+==============+==============+
+ * | **ceil(x)**         | :math:`-Inf` | :math:`\lceil x \rceil` | :math:`x`                   | :math:`\lceil x \rceil` | :math:`+Inf` | :math:`qNaN` |
+ * +---------------------+--------------+-------------------------+--------------+--------------+-------------------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

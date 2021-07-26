@@ -1,44 +1,38 @@
 /* SPDX-License-Identifier: PublicDomain */
 /* Written by Matthias Drochner <drochner@NetBSD.org>. */
 
-/*
-FUNCTION
-        <<cimag>>, <<cimagf>>, <<cimagl>>---imaginary part
-
-INDEX
-        cimag
-INDEX
-        cimagf
-INDEX
-        cimagl
-
-SYNOPSIS
-       #include <complex.h>
-       double cimag(double complex <[z]>);
-       float cimagf(float complex <[z]>);
-       long double cimagl(long double complex <[z]>);
-
-
-DESCRIPTION
-        These functions compute the imaginary part of <[z]>.
-
-        <<cimagf>> is identical to <<cimag>>, except that it performs
-        its calculations on <<float complex>>.
-
-        <<cimagl>> is identical to <<cimag>>, except that it performs
-        its calculations on <<long double complex>>.
-
-RETURNS
-        The cimag* functions return the imaginary part value (as a real).
-
-PORTABILITY
-        <<cimag>>, <<cimagf>> and <<cimagl>> are ISO C99
-
-QUICKREF
-        <<cimag>>, <<cimagf>> and <<cimagl>> are ISO C99
-
-*/
-
+/**
+ *
+ * This family of functions returns the imaginary part of :math:`z` as a real.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <complex.h>
+ *     float cimagf(float complex z);
+ *     double cimag(double complex z);
+ *     long double cimagl(long double complex z);
+ *
+ * Description
+ * ===========
+ *
+ * ``cimag`` computes the imaginary part of :math:`z` as a real.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    cimag(z) = \Im(z)
+ *
+ * Returns
+ * =======
+ *
+ * ``cimag`` returns the imaginary part of :math:`z` as a real.
+ * 
+ *///
 
 #include <complex.h>
 #include "../common/tools.h"

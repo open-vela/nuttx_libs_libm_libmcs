@@ -1,54 +1,52 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-<<lrint>>, <<lrintf>>, <<llrint>>, <<llrintf>>---round to integer
-INDEX
-    lrint
-INDEX
-    lrintf
-INDEX
-    llrint
-INDEX
-    llrintf
-
-SYNOPSIS
-    #include <math.h>
-    long int lrint(double <[x]>);
-    long int lrintf(float <[x]>);
-    long long int llrint(double <[x]>);
-    long long int llrintf(float <[x]>);
-
-DESCRIPTION
-The <<lrint>> and <<llrint>> functions round their argument to the nearest
-integer value, using the current rounding direction.  If the rounded value is
-outside the range of the return type, the numeric result is unspecified.  A
-range error may occur if the magnitude of <[x]> is too large.
-The "inexact" floating-point exception is raised in implementations that
-support it when the result differs in value from the argument (i.e., when
-a fraction actually has been truncated).
-
-RETURNS
-<[x]> rounded to an integral value, using the current rounding direction.
-
-SEEALSO
-<<lround>>
-
-PORTABILITY
-ANSI C, POSIX
-
-*/
-
-/*
- * lrint(x)
- * Return x rounded to integral value according to the prevailing
- * rounding mode.
- * Method:
- *    Using floating addition.
- * Exception:
- *    Inexact flag raised if x not equal to lrint(x).
- */
+/**
+ *
+ * This family of functions implements the nearest integer value to :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     long int lrintf(float x);
+ *     long int lrint(double x);
+ *     long int lrintl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``lrint`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`rint` but returns ``long int`` instead of a floating point value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    lrint(x) = \lfloor x \rceil
+ *
+ * Returns
+ * =======
+ *
+ * ``lrint`` returns the nearest integer value to :math:`x`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------------------+------------------------------------+--------------------------+--------------+--------------+--------------------------+------------------------------------+--------------------------+--------------------------+
+ * | **x**               | :math:`-Inf`             | :math:`<` min :math:`\mathbb{I}_l` | :math:`<0`               | :math:`-0`   | :math:`+0`   | :math:`>0`               | :math:`>` max :math:`\mathbb{I}_l` | :math:`+Inf`             | :math:`NaN`              |
+ * +=====================+==========================+====================================+==========================+==============+==============+==========================+====================================+==========================+==========================+
+ * | **lrint(x)**        | min :math:`\mathbb{I}_l`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_l`                                      | :math:`lrint(±Inf)`      |
+ * +---------------------+--------------------------+------------------------------------+--------------------------+--------------+--------------+--------------------------+------------------------------------+--------------------------+--------------------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

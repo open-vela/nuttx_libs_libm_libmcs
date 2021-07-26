@@ -1,77 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/* __acos(x)
- * Method :
- *    acos(x)  = pi/2 - asin(x)
- *    acos(-x) = pi/2 + asin(x)
- * For |x|<=0.5
- *    acos(x) = pi/2 - (x + x*x^2*R(x^2))    (see asin.c)
- * For x>0.5
- *     acos(x) = pi/2 - (pi/2 - 2asin(sqrt((1-x)/2)))
- *        = 2asin(sqrt((1-x)/2))
- *        = 2s + 2s*z*R(z)     ...z=(1-x)/2, s=sqrt(z)
- *        = 2f + (2c + 2s*z*R(z))
- *     where f=hi part of s, and c = (z-f*f)/(s+f) is the correction term
- *     for f so that f+c ~ sqrt(z).
- * For x<-0.5
- *    acos(x) = pi - 2asin(sqrt((1-|x|)/2))
- *        = pi - 0.5*(s+s*z*R(z)), where z=(1-|x|)/2,s=sqrt(z)
+/**
  *
- * Special cases:
- *    if x is NaN, return x itself;
- *    if |x|>1, return NaN with invalid signal.
+ * This family of functions implements the arc cosine of :math:`x`.
  *
- * Function needed: sqrt
- */
-
-/*
-FUNCTION
-        <<acos>>, <<acosf>>---arc cosine
-
-INDEX
-    acos
-INDEX
-    acosf
-
-SYNOPSIS
-        #include <math.h>
-        double acos(double <[x]>);
-        float acosf(float <[x]>);
-
-DESCRIPTION
-
-    <<acos>> computes the inverse cosine (arc cosine) of the input value.
-    Arguments to <<acos>> must be in the range @minus{}1 to 1.
-
-    <<acosf>> is identical to <<acos>>, except that it performs
-    its calculations on <<floats>>.
-
-RETURNS
-    @ifnottex
-    <<acos>> and <<acosf>> return values in radians, in the range of 0 to pi.
-    @end ifnottex
-    @tex
-    <<acos>> and <<acosf>> return values in radians, in the range of <<0>> to $\pi$.
-    @end tex
-
-    If <[x]> is not between @minus{}1 and 1, the returned value is NaN
-    (not a number), and the global variable <<errno>> is set to <<EDOM>>.
-
-QUICKREF
- ansi posix rentrant
- acos     y,y,m
- acosf    n,n,m
-
-MATHREF
- acos, [-1,1], acos(arg),,,
- acos, NAN,    arg,DOMAIN,EDOM
-
-MATHREF
- acosf, [-1,1], acosf(arg),,,
- acosf, NAN,    argf,DOMAIN,EDOM
-
-*/
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float acosf(float x);
+ *     double acos(double x);
+ *     long double acosl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``acos`` computes the inverse cosine (*arc cosine*) of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    acos(x) \approx cos^{-1}(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``acos`` returns value in radians, in the range :math:`[0, \pi]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is not in the interval :math:`[-1, 1]`.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<-1`  | :math:`\in [-1,+1[` | :math:`+1`   | :math:`>+1`  | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==============+=====================+==============+==============+==============+==============+
+ * | **acos(x)**         | :math:`qNaN` | :math:`qNaN` | :math:`cos^{-1} x`  | :math:`+0`   | :math:`qNaN` | :math:`qNaN` | :math:`qNaN` |
+ * +---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

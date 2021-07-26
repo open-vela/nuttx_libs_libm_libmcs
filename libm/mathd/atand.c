@@ -1,58 +1,54 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
-/*
-FUNCTION
-        <<atan>>, <<atanf>>---arc tangent
-
-INDEX
-   atan
-INDEX
-   atanf
-
-SYNOPSIS
-        #include <math.h>
-        double atan(double <[x]>);
-        float atanf(float <[x]>);
-
-DESCRIPTION
-
-<<atan>> computes the inverse tangent (arc tangent) of the input value.
-
-<<atanf>> is identical to <<atan>>, save that it operates on <<floats>>.
-
-RETURNS
-@ifnottex
-<<atan>> returns a value in radians, in the range of -pi/2 to pi/2.
-@end ifnottex
-@tex
-<<atan>> returns a value in radians, in the range of $-\pi/2$ to $\pi/2$.
-@end tex
-
-PORTABILITY
-<<atan>> is ANSI C.  <<atanf>> is an extension.
-
-*/
-
-/* atan(x)
- * Method
- *   1. Reduce x to positive by atan(x) = -atan(-x).
- *   2. According to the integer k=4t+0.25 chopped, t=x, the argument
- *      is further reduced to one of the following intervals and the
- *      arctangent of t is evaluated by the corresponding formula:
+/**
  *
- *      [0,7/16]      atan(x) = t-t^3*(a1+t^2*(a2+...(a10+t^2*a11)...)
- *      [7/16,11/16]  atan(x) = atan(1/2) + atan( (t-0.5)/(1+t/2) )
- *      [11/16.19/16] atan(x) = atan( 1 ) + atan( (t-1)/(1+t) )
- *      [19/16,39/16] atan(x) = atan(3/2) + atan( (t-1.5)/(1+1.5t) )
- *      [39/16,INF]   atan(x) = atan(INF) + atan( -1/t )
+ * This family of functions implements the arc tangent of :math:`x`.
  *
- * Constants:
- * The hexadecimal values are the intended ones for the following
- * constants. The decimal values may be used, provided that the
- * compiler will convert from decimal to binary accurately enough
- * to produce the hexadecimal values shown.
- */
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float atanf(float x);
+ *     double atan(double x);
+ *     long double atanl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``atan`` computes the inverse tangent (*arc tangent*) of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    atan(x) \approx tan^{-1}(x)
+ *
+ * Returns
+ * =======
+ *
+ * ``atan`` returns value in radians, in the range :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+------------------------+---------------------+--------------+--------------+---------------------+------------------------+--------------+
+ * | **x**               | :math:`-Inf`           | :math:`<0`          | :math:`-0`   | :math:`+0`   | :math:`>0`          | :math:`+Inf`           | :math:`NaN`  |
+ * +=====================+========================+=====================+==============+==============+=====================+========================+==============+
+ * | **atan(x)**         | :math:`-\frac{\pi}{2}` | :math:`tan^{-1} x`  | :math:`x`                   | :math:`tan^{-1} x`  | :math:`+\frac{\pi}{2}` | :math:`qNaN` |
+ * +---------------------+------------------------+---------------------+--------------+--------------+---------------------+------------------------+--------------+
+ * 
+ *///
 
 #include <math.h>
 #include "../common/tools.h"

@@ -1,6 +1,57 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the hyperbolic arc tangent of :math:`x`.
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float atanhf(float x);
+ *     double atanh(double x);
+ *     long double atanhl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``atanh`` computes the hyperbolic inverse tangent (*hyperbolic arc tangent*) of the input value.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    atanh(x) \approx tanh^{-1}(x) = \frac{1}{2} ln \left( \frac{1+x}{1-x} \right)
+ *
+ * Returns
+ * =======
+ *
+ * ``atanh`` returns the hyperbolic inverse tangent.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Raise ``invalid operation`` exception when the input value is not in the interval :math:`[-1, 1]`.
+ *
+ * Raise ``divide by zero`` exception when the input value is :math:`-1` or :math:`+1`.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+--------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<-1`  | :math:`-1`   | :math:`\in ]-1,-0[` | :math:`-0`   | :math:`+0`   | :math:`\in ]+0,+1[` | :math:`+1`   | :math:`>+1`  | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+==============+==============+=====================+==============+==============+=====================+==============+==============+==============+==============+
+ * | **atanh(x)**        | :math:`qNaN` | :math:`qNaN` | :math:`-Inf` | :math:`tanh^{-1} x` | :math:`x`                   | :math:`tanh^{-1} x` | :math:`+Inf` | :math:`qNaN` | :math:`qNaN` | :math:`qNaN` |
+ * +---------------------+--------------+--------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+--------------+
+ * 
+ *///
+
 /* __atanh(x)
  * Method :
  *    1.Reduced x to positive by atanh(-x) = -atanh(x)

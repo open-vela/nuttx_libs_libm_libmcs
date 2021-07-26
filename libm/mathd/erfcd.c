@@ -1,6 +1,55 @@
 /* SPDX-License-Identifier: SunMicrosystems */
 /* Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved. */
 
+/**
+ *
+ * This family of functions implements the complementary error function of :math:`x` and is equal to :math:`1 -` erf(:math:`x`).
+ *
+ * Synopsis
+ * ========
+ *
+ * .. code-block:: c
+ *
+ *     #include <math.h>
+ *     float erfcf(float x);
+ *     double erfc(double x);
+ *     long double erfcl(long double x);
+ *
+ * Description
+ * ===========
+ *
+ * ``erfc`` computes the complementary error function of :math:`x`.
+ *
+ * Mathematical Function
+ * =====================
+ * 
+ * .. math::
+ *
+ *    erfc(x) \approx 1 - \frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt
+ *
+ * Returns
+ * =======
+ *
+ * ``erfc`` returns the complementary error function of :math:`x`, in the range :math:`[+0.0, 2.0]`.
+ *
+ * Exceptions
+ * ==========
+ *
+ * Does not raise useful exceptions.
+ *
+ * .. May raise ``underflow`` exception.
+ *
+ * Output map
+ * ==========
+ *
+ * +---------------------+--------------+------------------------------------------------------+--------------+--------------+------------------------------------------------------+--------------+--------------+
+ * | **x**               | :math:`-Inf` | :math:`<0`                                           | :math:`-0`   | :math:`+0`   | :math:`>0`                                           | :math:`+Inf` | :math:`NaN`  |
+ * +=====================+==============+======================================================+==============+==============+======================================================+==============+==============+
+ * | **erfc(x)**         | :math:`+2`   | :math:`1-\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt` | :math:`+1`                  | :math:`1-\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt` | :math:`+0`   | :math:`qNaN` |
+ * +---------------------+--------------+------------------------------------------------------+--------------+--------------+------------------------------------------------------+--------------+--------------+
+ * 
+ *///
+
 /*
 FUNCTION
         <<erf>>, <<erff>>, <<erfc>>, <<erfcf>>---error function

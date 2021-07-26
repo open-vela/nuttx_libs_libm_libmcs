@@ -1,0 +1,28 @@
+csin
+~~~~
+
+.. c:autodoc:: ../libm/complexd/csind.c
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-6400
+
+References
+^^^^^^^^^^
+
+* :numref:`Tbl. %s <List of math constants>`
+* :ref:`cimag`
+* :ref:`CMPLX`
+* :ref:`cos`
+* :ref:`cosh`
+* :ref:`creal`
+* :ref:`exp`
+* :ref:`fabs`
+* :ref:`sin`
+* :ref:`sinh`
