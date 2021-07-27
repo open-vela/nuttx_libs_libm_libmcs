@@ -28,7 +28,7 @@
  * 
  * .. math::
  *
- *    remquo(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remquo(x, y) \in [-|\frac{y}{2}|,|\frac{y}{2}|] \wedge quo = n
+ *    remquo(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remquo(x, y) \in \left [-\left | \frac{y}{2} \right |,\left | \frac{y}{2} \right | \right ] \wedge quo = n
  *
  * Returns
  * =======

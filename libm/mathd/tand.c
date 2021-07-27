@@ -14,15 +14,15 @@
  *     float tanf(float x);
  *     double tan(double x);
  *     long double tanl(long double x);
- *     float __tanf(float x, float y, int k)
- *     double __tan(double x, double y, int k)
+ *     float __tanf(float x, float y, int k);
+ *     double __tan(double x, double y, int k);
  *
  * Description
  * ===========
  *
  * ``tan`` computes the tangent of the input value.
  *
- * ``__tan`` is an internal function that computes the tangent of the input values. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision. If the additional input variable :math:`k` is :math:`-1`, the function shall return the negative inverse tangent of :math:`x`, if :math:`k` is :math:`1` return the tangent.
+ * ``__tan`` is an internal function that computes the tangent of the input values. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision. If the additional input variable :math:`k` is :math:`-1`, the function shall return the negative inverse tangent of :math:`x`, if :math:`k` is :math:`1` return the tangent. As ``__tan`` is an internal function, it should not be called by a user.
  *
  * Mathematical Function
  * =====================
