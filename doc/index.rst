@@ -10,14 +10,14 @@ The following pages in this documentation try to give a xenodochial introduction
    :maxdepth: 2
    :caption: Software User Manual
 
-   sum/conventions
-   sum/purpose
-   sum/general
-   sum/external
-   sum/operations-environment
-   sum/operations-manual
-   api/libm
-   sum/tutorial
+   sum/1_Conventions
+   sum/2_Purpose_of_the_Software
+   sum/3_General_Behaviour
+   sum/4_External_View_of_the_Software
+   sum/5_Operations_Environment
+   sum/6_Operations_Manual
+   sum/7_Reference_Manual
+   sum/8_Tutorial
    
 .. toctree::
    :numbered:
