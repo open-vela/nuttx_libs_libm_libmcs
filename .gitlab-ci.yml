@@ -19,9 +19,11 @@ setup:
 doc:
     stage: doc
     script:
-        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc html
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc/sdd html_sdd
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc/sum html_sum
     artifacts:
         paths:
-            - html/
+            - html_sdd/
+            - html_sum/
         expire_in: 30 days
     needs: ["setup"]
