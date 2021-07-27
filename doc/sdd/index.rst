@@ -16,12 +16,3 @@ The following pages in this documentation try to give a xenodochial introduction
    4_Software_Design_Overview
    5_Software_Design/0_Software_Design
    6_Requirements_to_Design_Components_Traceability
-   
-
-Indices and tables
-==================
-
-.. TODO
-
-* :ref:`genindex`
-* :ref:`modindex`
