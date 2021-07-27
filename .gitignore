@@ -43,5 +43,7 @@ TAGS.sub
 core
 !core/
 
+lint-libm/result/*
+lint-libm/lint-nt.exe
 lost+found
 html/
