@@ -340,7 +340,7 @@ Furthermore the library shall provide a number of constants, as such the followi
 Directory Structure and Naming Scheme
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../../figure/ml_components.svg
+.. figure:: ../../figure/ml_components.png
    :name: directory-structure
 
    Directory structure

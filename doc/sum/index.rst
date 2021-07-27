@@ -18,12 +18,3 @@ The following pages in this documentation try to give a xenodochial introduction
    6_Operations_Manual
    7_Reference_Manual
    8_Tutorial
-
-
-Indices and tables
-==================
-
-.. TODO
-
-* :ref:`genindex`
-* :ref:`modindex`
