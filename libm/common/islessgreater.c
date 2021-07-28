@@ -3,7 +3,7 @@
 
 /**
  *
- * This macro is used to test if :math:`x` is less than or greater than :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs.
+ * This macro is used to test if :math:`x` is less than or greater than :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs (this even includes ``sNaN``).
  *
  * Synopsis
  * ========
@@ -34,7 +34,7 @@
  * Exceptions
  * ==========
  *
- * Does not raise exceptions.
+ * Does not raise exceptions. This includes ``sNaN`` inputs.
  *
  * Output map
  * ==========
