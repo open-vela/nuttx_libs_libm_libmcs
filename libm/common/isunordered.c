@@ -34,7 +34,7 @@
  * Exceptions
  * ==========
  *
- * Does not raise exceptions.
+ * Does not raise exceptions. This includes ``sNaN`` inputs.
  *
  * Output map
  * ==========
