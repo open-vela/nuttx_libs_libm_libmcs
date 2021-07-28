@@ -10,6 +10,7 @@ The following pages in this documentation try to give a xenodochial introduction
    :maxdepth: 2
    :caption: Software User Manual
 
+   0_Abbreviations
    1_Conventions
    2_Purpose_of_the_Software
    3_General_Behaviour
