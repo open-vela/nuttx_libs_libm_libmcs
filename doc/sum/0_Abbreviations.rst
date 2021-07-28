@@ -1,0 +1,85 @@
+.. _ABBR:
+
+Terms, Definitions and Abbreviated Terms
+========================================
+
+.. raw:: html
+
+   <!--
+   a. The SDD shall include any additional terms, definition or abbreviated terms used
+   -->
+
+Agency
+    refers to :ref:`ESA <ABBR>`
+
+DAZ
+    Denormals are Zero (see also :ref:`FTZ <ABBR>`)
+
+denormal
+    See subnormal.
+
+DRD
+    Document Requirements Definition
+
+ECSS
+    European Cooperation for Space Standardization
+
+ESA
+    European Space Agency
+
+FPU
+    Floating Point Unit
+
+FTZ
+    Flush to Zero (see also :ref:`DAZ <ABBR>`)
+
+GCC
+    :ref:`GNU <ABBR>` Compiler Collection
+
+GNU
+    recursive acronym for "GNU's Not Unix!", GNU is an extensive collection of free software which can be used as (or as part of) an operating system
+
+ICD
+    Interface Control Document
+
+IEEE
+    Institute of Electrical and Electronics Engineers
+
+ISO
+    International Organization for Standardization
+
+POSIX
+    Portable Operating System Interface
+
+RTEMS
+    Real-Time Executive for Multiprocessor Systems
+
+SCF
+    Software Configuration File
+
+SDD
+    Software Design Document
+
+SPDX
+    Software Package Data Exchange
+
+SRF
+    Software Reuse File
+
+SRS
+    Software Requirements Specification
+
+subnormal
+    See IEEE-754 standard for the definition.
+
+SUITR
+    Software Unit- and Integration-Test Report
+
+SValR
+    Software Validation-Test Report
+
+SVR
+    Software Verification Report
+
+ULP
+    Unit in the Last Place
