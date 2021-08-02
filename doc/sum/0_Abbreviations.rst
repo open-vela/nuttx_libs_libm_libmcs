@@ -12,6 +12,9 @@ Terms, Definitions and Abbreviated Terms
 Agency
     refers to :ref:`ESA <ABBR>`
 
+CPU
+    Central Processing Unit
+
 DAZ
     Denormals are Zero (see also :ref:`FTZ <ABBR>`)
 
@@ -26,6 +29,9 @@ ECSS
 
 ESA
     European Space Agency
+
+FMA
+    Fused-Multiply-Add
 
 FPU
     Floating Point Unit
@@ -50,6 +56,9 @@ ISO
 
 POSIX
     Portable Operating System Interface
+
+RAM
+    Random Access Memory
 
 RTEMS
     Real-Time Executive for Multiprocessor Systems
