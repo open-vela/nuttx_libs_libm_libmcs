@@ -62,6 +62,8 @@ Normal Termination
 
 Each procedure in the library is executed when called and computes a result. There is no software interruption foreseen during the computation and the procedure terminates by returning the result. If there is an interrupt, e.g. a context switch caused by the underlying operating system, the correct re-schedule has to be managed by the causing operating system.
 
+.. _OperationsManualErrorConditions:
+
 Error Conditions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
