@@ -12,6 +12,8 @@ The hardware parts used by the library are the :ref:`CPU <ABBR>`, :ref:`FPU <ABB
 
 The following sections describe additional constraints which have to be considered when using the library on specific hardware platforms.
 
+.. _OperationsEnviromentHardwareConfiguration:
+
 Hardware Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -21,6 +23,8 @@ The software described here contains several mathematical procedures which execu
 #. Configure the :ref:`FPU <ABBR>` regarding subnormal numbers and other trap causing situations. See also :ref:`GeneralBehaviourSubnormalValues`.
 
 As these are platform dependent actions, their procedures cannot reasonably be described here for every platform and have to be researched in the corresponding hardware manuals.
+
+.. _OperationsEnviromentSoftwareConfiguration:
 
 Software Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~
