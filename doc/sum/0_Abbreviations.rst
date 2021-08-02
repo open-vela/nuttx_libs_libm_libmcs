@@ -39,6 +39,9 @@ FMA
 FPU
     Floating Point Unit
 
+FSR
+    :ref:`FPU <ABBR>` State Register
+
 FTZ
     Flush to Zero (see also :ref:`DAZ <ABBR>`)
 
@@ -62,6 +65,9 @@ OS
 
 POSIX
     Portable Operating System Interface
+
+PSR
+    Processor State Register
 
 RAM
     Random Access Memory
