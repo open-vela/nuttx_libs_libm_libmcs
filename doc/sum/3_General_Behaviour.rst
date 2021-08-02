@@ -14,6 +14,8 @@ What's the difference between ``NaN``, ``qNaN`` and ``sNaN``? Both ``qNaNs`` and
 
 In :ref:`Conventions`` we also differentiate between ``-NaN`` (``NaN`` where the signbit is set) and ``+NaN`` (``NaN`` where the signbit is not set). This separation does not exist anywhere within the :ref:`IEEE-754 <ABBR>` or C18 standards, ``NaNs`` are simply ``NaNs`` regardless of their sign. We however need this differentiation for the procedures :ref:`signbit` and :ref:`copysign`, as both only check the sign of a value and ignore the rest.
 
+.. _GeneralBehaviourSubnormalValues:
+
 Subnormal Values
 ~~~~~~~~~~~~~~~~
 
