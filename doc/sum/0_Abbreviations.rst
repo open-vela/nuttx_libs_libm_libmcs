@@ -12,6 +12,9 @@ Terms, Definitions and Abbreviated Terms
 Agency
     refers to :ref:`ESA <ABBR>`
 
+BSP
+    Board Support Package
+
 CPU
     Central Processing Unit
 
@@ -53,6 +56,9 @@ IEEE
 
 ISO
     International Organization for Standardization
+
+OS
+    Operating System
 
 POSIX
     Portable Operating System Interface
