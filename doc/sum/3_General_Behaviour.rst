@@ -64,6 +64,16 @@ Compliance
 
 This software is compliant to :ref:`ISO <ABBR>` C18, and :ref:`IEEE-754-2008 <ABBR>`, but not yet to :ref:`ISO <ABBR>` TS 18661-1.
 
+Rounding Mode
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The library is only qualified for the rounding mode *round to nearest, tie to even*.
+
+Platform Architecture
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+In case the :ref:`FPU <ABBR>` of the target platform is not implementing all :ref:`IEEE-754 <ABBR>` features, the :ref:`FPU <ABBR>` has to be configured appropriately otherwise the library may trap on those features. One such example is the GRFPU as seen in :ref:`GeneralBehaviourSubnormalValues`.
+
 Errno
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -74,6 +84,11 @@ Compiler
 
 In general the library is prepared to be used with a :ref:`GCC <ABBR>` toolchain. It might be necessary to change parts of the library when using a different toolchain.
 The compiler used on the library shall be able to understand the ``asm`` keyword. For example :ref:`GCC <ABBR>` has the flag ``-std=gnu99`` to enable the :ref:`GNU <ABBR>` C language extensions which contain ``asm``.
+
+Bessel functions
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The procedures :ref:`jn` and :ref:`yn` have only been qualified until an ``n`` value of 15. If you for some reason need to use them with higher values for ``n``, just change the value in the unit- and validation-tests. The other Bessel procedures (:ref:`j0`, :ref:`j1`, :ref:`y0`, and :ref:`y1`) however are fully qualified.
 
 fenv.h
 ^^^^^^
@@ -161,6 +176,8 @@ These are the expected procedures of a proper ``fenv.h`` implementation:
 
       * ``int fetestexcept(int excepts)``
 
+A typical use of the floating-point environment for critical systems will anyways be a direct writing to the floating point registers once during initialization (e.g., setting the rounding mode) thus, avoiding the interface provided by ``fenv.h``.
+
 tgmath.h
 ^^^^^^^^
 
@@ -173,6 +190,11 @@ Thread Safety and Reentrancy
 
 The library is thread safe and reentrant. For software that is using the library it has to be noted that usage of the ``signgam`` variable is not thread safe when executing the ``lgamma`` procedures on
 multiple threads at once, as each procedure call operates on the same variable. This is a limitation forced on the library by the :ref:`POSIX <ABBR>` standard that demands the availability of the ``signgam`` global variable.
+
+Other Header Files
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The library does not contain any externally available header files other than those that should be part of a ``libm`` according to the C and :ref:`POSIX <ABBR>` standards. It contains ``math.h``, ``complex.h``, ``fenv.h``, and ``tgmath.h``, although the limitations of the latter two have already been stated in this chapter. This means there will be no ``float.h`` or ``limits.h`` or any other header that does not belong into a ``libm``. All those headers need to be provided by the toolchain.
 
 Assert Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
