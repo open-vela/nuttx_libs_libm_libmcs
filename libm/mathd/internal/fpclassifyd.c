@@ -32,7 +32,7 @@
  * Returns
  * =======
  *
- * ``fpclassify`` returns constant values, see :numref:`Tbl. %s <List of math constants>` for their specific values.
+ * ``fpclassify`` returns constant values, see ``math.h`` for their specific values.
  *
  * Exceptions
  * ==========

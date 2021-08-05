@@ -1,40 +1,10 @@
-Overall Architecture
---------------------
+Purpose of the Software
+=======================
 
-.. raw:: html
+The software in this project is intended to be included in other software projects. It is designed
+and developed to be integrated in other software projects up to criticality B.
 
-   <!--
-   a. The SDD shall describe the software architectural design, from a static point of view and also, when the software to be developed has real time constraints, from a dynamic point of view, and from a behaviour point of view.
-   b. The software static architecture shall be summarized describing its components.
-   c. For real–time software, the software dynamic architecture shall be summarized describing its selected computational model.
-       NOTE: An analysable computational model generally consists in defining:
-           * the types of components (objects) participating to the real‐time behaviour, from which the system is constructed (e.g. active‐periodic, active‐sporadic, protected,passive, actors, process, blocks, drivers)
-           * the scheduling type (e.g. sequential or multithreaded), the scheduling model (e.g. cyclic or pre‐emptive, fixed or dynamic priority based), and the analytical model (e.g. Rate Monotonic Scheduling, Deadline Monotonic Scheduling, Earliest Deadline First), under which the system is executed and its associated mechanisms
-           * the means of communication between components/objects (e.g. mailboxes, entry parameters)
-           * the means of synchronization between components or objects (e.g. mutual exclusion, protected object entries, basic semaphores)
-           * If applicable , the means of distribution and internode communication (e.g. virtual nodes, Remote Procedure Call)
-
-       and (optional for non flight software):
-
-           * the means of providing timing facilities (e.g. real clock, with or without interrupt, multiple interrupting count‐down, relative or absolute delays, timers time‐out)
-           * the means of providing asynchronous transfer of control (e.g. watchdog to transfer control from anywhere to the reset sequence, software service of the underlying run‐time system to cause transfer of control within the local scope of the thread)
-
-   d. The description in <5.2>c. should consist in the following information:
-       1. type of components participating to the real time behaviour,
-       2. scheduling type (e.g. single or multi–threads),
-       3. scheduling model (e.g. pre–emptive or not, fixed or dynamic priority based),
-       4. analytical model (e.g. rate monotonic scheduling, deadline monotonic scheduling),
-       5. Tasks identification and priorities,
-       6. Means of communication and synchronization,
-       7. Time management.
-   e. The software behaviour shall be described e.g. with automata or scenarios.
-   f. The software static, dynamic and behavioural architecture shall be described in accordance with the selected design method.
-   g. The SDD shall describe the error handling and fault tolerance principles (e.g. error detection, reporting, logging, and fault containment regions.)
-   -->
-
-One of the project’s goals is having an easy access to all of the library’s procedures. To attain this goal, only the header files ``math.h`` and ``complex.h`` (if complex procedures are wanted by the given project) have to be included to use all the mathematical procedures provided by the library. These header files contain all procedure definitions, while their implementation can be found in separate ``.c`` files.
-
-A further difference to other projects is the definition of a software component. In most other projects, this library would be considered as one single component, but in the context of describing the library a component/unit is one procedure, e.g. ``sin``, ``sinf``, ``sinl``, ``cos``, ``cosf``, ``cosl``, ``atan2``, &c. Most of the procedures are implemented in one or more separate translation units. The following procedures are accessible (the list contains the names of the double precision procedures, the single precision procedure names are the same but suffixed with an ``f``, the long double precision procedure names are the same but suffixed with an ``l``):
+The library contains the following procedures which can be included with ``math.h`` (these lists only contain the name of the ``double`` procedure, you can expect all procedures (except for the Bessel functions) to have versions for ``float`` suffixed with ``f`` and ``long double`` suffixed with ``l`` (note however that ``long double`` only exists when it has the same size as ``double``)):
 
 .. table:: List of all procedures in math.h
    :name: List of math procedures
@@ -239,6 +209,8 @@ A further difference to other projects is the definition of a software component
    |                    | second kind of order :math:`n`                            |
    +--------------------+-----------------------------------------------------------+
 
+Additionally ``complex.h`` includes the following procedures:
+
 .. table:: List of all procedures in complex.h
    :name: List of complex procedures
 
@@ -300,64 +272,47 @@ A further difference to other projects is the definition of a software component
    |                    | :math:`z`                                                 |
    +--------------------+-----------------------------------------------------------+
 
-Furthermore the library shall provide a number of constants, as such the following defines are to be added to ``math.h``:
+Furthermore the library provides a number of constants, as part of ``math.h``:
 
 .. table:: List of all constant defines in math.h
    :name: List of math constants
 
-   ================ ===============================================
-   Name             Description
-   ================ ===============================================
-   ``M_E``          Value of :math:`e`
-   ``M_LOG2E``      Value of :math:`log_{2} e`
-   ``M_LOG10E``     Value of :math:`log_{10} e`
-   ``M_LN2``        Value of :math:`log_e 2`
-   ``M_LN10``       Value of :math:`log_e 10`
-   ``M_PI``         Value of :math:`\pi`
-   ``M_PI_2``       Value of :math:`\frac{\pi}{2}`
-   ``M_PI_4``       Value of :math:`\frac{\pi}{4}`
-   ``M_1_PI``       Value of :math:`\frac{1}{\pi}`
-   ``M_2_PI``       Value of :math:`\frac{2}{\pi}`
-   ``M_2_SQRTPI``   Value of :math:`\frac{2}{\sqrt{\pi}}`
-   ``M_SQRT2``      Value of :math:`\sqrt{2}`
-   ``M_SQRT1_2``    Value of :math:`\sqrt{\frac{1}{2}}`
-   ``HUGE_VAL``     Value of :math:`+Inf` (double)
-   ``HUGE_VALF``    Value of :math:`+Inf` (float)
-   ``INFINITY``     Value of :math:`+Inf`
-   ``NAN``          Value of :math:`NaN`
-   ``MAXFLOAT``     Synonym of ``FLT_MAX``
-   ``FP_INFINITE``  :math:`1`
-   ``FP_NAN``       :math:`0`
-   ``FP_NORMAL``    :math:`4`
-   ``FP_SUBNORMAL`` :math:`3`
-   ``FP_ZERO``      :math:`2`
-   ``FP_ILOGB0``    Value to return for :ref:`ilogb` (:math:`0`)
-   ``FP_ILOGBNAN``  Value to return for :ref:`ilogb` (:math:`NaN`)
-   ================ ===============================================
+   ===================== ===============================================
+   Name                  Description
+   ===================== ===============================================
+   ``M_E``               Value of :math:`e`
+   ``M_LOG2E``           Value of :math:`log_{2} e`
+   ``M_LOG10E``          Value of :math:`log_{10} e`
+   ``M_LN2``             Value of :math:`log_e 2`
+   ``M_LN10``            Value of :math:`log_e 10`
+   ``M_PI``              Value of :math:`\pi`
+   ``M_PI_2``            Value of :math:`\frac{\pi}{2}`
+   ``M_PI_4``            Value of :math:`\frac{\pi}{4}`
+   ``M_1_PI``            Value of :math:`\frac{1}{\pi}`
+   ``M_2_PI``            Value of :math:`\frac{2}{\pi}`
+   ``M_2_SQRTPI``        Value of :math:`\frac{2}{\sqrt{\pi}}`
+   ``M_SQRT2``           Value of :math:`\sqrt{2}`
+   ``M_SQRT1_2``         Value of :math:`\sqrt{\frac{1}{2}}`
+   ``HUGE_VAL``          Value of :math:`+Inf` (double)
+   ``HUGE_VALF``         Value of :math:`+Inf` (float)
+   ``HUGE_VALL``         Value of :math:`+Inf` (long double)
+   ``INFINITY``          Value of :math:`+Inf`
+   ``NAN``               Value of :math:`NaN`
+   ``MAXFLOAT``          Synonym of ``FLT_MAX``
+   ``FP_INFINITE``       :math:`1`
+   ``FP_NAN``            :math:`0`
+   ``FP_NORMAL``         :math:`4`
+   ``FP_SUBNORMAL``      :math:`3`
+   ``FP_ZERO``           :math:`2`
+   ``FP_ILOGB0``         Value to return for :ref:`ilogb` (:math:`0`)
+   ``FP_ILOGBNAN``       Value to return for :ref:`ilogb` (:math:`NaN`)
+   ``MATH_ERRNO``        :math:`1`
+   ``MATH_ERREXCEPT``    :math:`2`
+   ``math_errhandling``  ``MATH_ERREXCEPT``
+   ===================== ===============================================
 
 *Remark:* Both ``INFINITY`` and ``NAN`` expand to floats or doubles depending on the context.
 
-Directory Structure and Naming Scheme
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``math.h`` further declares the types ``double_t`` and ``float_t`` as ``double`` and ``float``.
 
-.. figure:: ../../figure/ml_components.png
-   :name: directory-structure
-
-   Directory structure
-
-The :numref:`Fig. %s <directory-structure>` shows the planned directory structure for the ``libm``. As can be seen in the figure the main directory of the ``LibmCS`` will contain five elements, the library contents are in ``libm``, the licenses of all files are in ``LICENSES``, the combined license file for the library ``COPYING.md``, the ``Makefile`` to build the library, and finally there is a ``README.md`` containing general information about the library.
-
-The ``libm`` directory contains four types of subdirectories:
-
--  ``include``: This directory contains the header files available to the users.
--  ``common``: This directory contains helper functionalities which are used by many library files, for example macros to easily switch between floating-point datums and their integer representation.
--  ``math/complex/d/f/l/fe``: These directories contain the implementation files of the mathematical functions. They are named after the header file they cater to and a suffix for the type they contain. Possible suffixes are ``d`` for ``double``-type procedures, ``f`` for ``float``-type procedures, ``fe`` for ``float``-type procedures which use ``double``-type variables/procedures as part of their implementation (thus called ``float-extended``), and ``l`` for ``long double``-type procedures. Some procedures use multiple types for their inputs/outputs but usually have a proper place in this setup; refer to :ref:`Software Components Design – Aspects of Each Component` to see where each file is placed. These directories furthermore each contain an ``internal`` directory which will be used for internal functions which are used by multiple similar functions (e.g., range reduction functions for the trigonometric procedures). Internal functions which are only used by a single function will be placed in their parent function’s file.
--  ``machine``: This directory is meant to be used for machine (hardware/toolchain) specific implementations of library functions. In this activity there will only be an example such that the user may include their own implementations for their machine.
-
-The ``LICENSES`` directory contains a file for each individual license used within the library. All library files contain an :ref:`SPDX <ABBR>`-license-identifier to refer to the licenses within this directory.
-
-The C-Functions directly representing a required procedure are named the same as the procedure (e.g., ``asin``, ``asinf``, ``asinl``). The same applies to their filenames with the exception of the ``double``-type versions which have an additional ``d`` suffix (e.g., ``asind.c``), and the ``float-extended``-type which add an ``e`` to the already existing ``f`` suffix.
-
-Internal procedures shall be named after the procedure they are mainly called by prefixed with a double underscore (e.g., ``__asin``). There is a bit more freedom in the case of multiple internal functions, but all should at least contain the double underscore prefix as well as the procedure name (in some cases it might make sense to use a conglomerate instead of a specific procedure e.g. use ``__trig_rempio2`` for the range reduction function for all trigonometric procedures). The same freedom is given for naming the files containing internal functions: the name should represent the content (e.g., ``trig.c`` contains the internal procedures used by both ``sin`` and ``cos`` as well as the range reduction function used by all three trigonometric functions).
-
-If the user were to add a separate implementation for a procedure, we suggest to add another suffix using an underscore (e.g., ``expd_table.c`` for a table based implementation of the ``exp`` procedure). Choosing between implementations should be done with changes to the ``Makefile``.
+``complex.h`` declares the types ``complex``, ``imaginary``, ``_Complex_I``, ``_Imaginary_I`` and ``I`` as ``_Complex``, ``_Imaginary``, ``const float _Complex``, ``const float _Imaginary``, and ``_Complex_I`` respectively. (Note that your toolchain (such as GCC) may not properly implement imaginary types, as such it is likely that all definitions are complex types.)

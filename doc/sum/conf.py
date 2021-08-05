@@ -21,8 +21,8 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information ----------------------------------------------
 
-project = "QlibmCS"
-copyright = "2020, GTD GmbH"
+project = "QlibmCS - SUM"
+copyright = "2021, GTD GmbH"
 author = "GTD GmbH"
 
 
@@ -46,10 +46,10 @@ numfig = True
 
 # Configuration for hawkmoth
 cautodoc_clang = "-Ilibm/include"
-cautodoc_root = os.path.abspath("../libm")
+cautodoc_root = os.path.abspath("../../libm")
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ["_templates"]
+templates_path = ["../_templates"]
 
 # -- Options for HTML output ------------------------------------------
 
@@ -62,6 +62,6 @@ html_theme = "sphinx_rtd_theme"
 # here, relative to this directory. They are copied after the builtin
 # static files, so a file named "default.css" will overwrite the builtin
 # "default.css".
-html_static_path = ["_static"]
+html_static_path = ["../_static"]
 
 html_css_files = ["css/custom.css"]

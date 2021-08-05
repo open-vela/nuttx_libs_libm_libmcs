@@ -1,6 +1,7 @@
 stages:
     - setup
     - doc
+    - pdf
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
@@ -19,9 +20,35 @@ setup:
 doc:
     stage: doc
     script:
-        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc html
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc/sdd html_sdd
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b html doc/sum html_sum
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b latex doc/sdd latex_sdd
+        - LD_LIBRARY_PATH=/usr/lib/llvm-7/lib sphinx-build -b latex doc/sum latex_sum
+        - chmod -R 777 latex_sdd
+        - chmod -R 777 latex_sum
     artifacts:
         paths:
-            - html/
+            - html_sdd/
+            - html_sum/
+            - latex_sdd/
+            - latex_sum/
         expire_in: 30 days
     needs: ["setup"]
+
+pdf:
+    stage: pdf
+    image: local.gtd-gmbh.de:4567/tools/doge:latest
+    dependencies:
+        - doc
+    script:
+        - cd latex_sdd
+        - make
+        - mv ./qlibmcs-sdd.pdf ../.
+        - cd ../latex_sum
+        - make
+        - mv ./qlibmcs-sum.pdf ../.
+    artifacts:
+        paths:
+            - ./*.pdf
+        expire_in: 30 days
+    needs: ["doc"]

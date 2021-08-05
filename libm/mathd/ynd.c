@@ -25,9 +25,7 @@
  *
  *    yn(n, x) = Y_{n}(x)
  *
- * Notice that the mathematical function represented by the procedure ``yn`` is not :math:`y_n` (which is the spherical version of the Bessel function) but :math:`Y_n`. See Wikipedia_ for more information.
- *
- * .. _Wikipedia: https://en.wikipedia.org/wiki/Bessel_function
+ * Notice that the mathematical function represented by the procedure ``yn`` is not :math:`y_n` (which is the spherical version of the Bessel function) but :math:`Y_n`. See `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
  *
  * Returns
  * =======

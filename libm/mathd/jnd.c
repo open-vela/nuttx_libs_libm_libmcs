@@ -25,10 +25,8 @@
  *
  *    jn(n, x) = J_{n}(x)
  *
- * Notice that the mathematical function represented by the procedure ``jn`` is not :math:`j_n` (which is the spherical version of the Bessel function) but :math:`J_n`. See WolframAlpha_ for what it looks like (it shows the different :math:`n` quite nicely in a 3D plot) and Wikipedia_ for more information.
- *
- * .. _WolframAlpha: https://www.wolframalpha.com/input/?i=Jn%28x%29
- * .. _Wikipedia: https://en.wikipedia.org/wiki/Bessel_function
+ * Notice that the mathematical function represented by the procedure ``jn`` is not :math:`j_n` (which is the spherical version of the Bessel function) but :math:`J_n`. See `WolframAlpha
+<https://www.wolframalpha.com/input/?i=Jn%28x%29>`_ for what it looks like (it shows the different :math:`n` quite nicely in a 3D plot) and `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
  *
  * Returns
  * =======

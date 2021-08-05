@@ -47,7 +47,7 @@
  * 
  * .. math::
  *
- *    remainder(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remainder(x, y) \in [-|\frac{y}{2}|,|\frac{y}{2}|]
+ *    remainder(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remainder(x, y) \in \left [-\left | \frac{y}{2} \right |,\left | \frac{y}{2} \right | \right ]
  *
  * Returns
  * =======
