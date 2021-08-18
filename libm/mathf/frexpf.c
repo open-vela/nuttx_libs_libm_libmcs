@@ -28,7 +28,7 @@ float frexpf(float x, int *eptr)
     *eptr = 0;
 
     if (!FLT_UWORD_IS_FINITE(ix) || FLT_UWORD_IS_ZERO(ix)) {
-        return x;    /* 0,inf,nan */
+        return x + x;                        /* 0,inf,nan */
     }
 
     if (FLT_UWORD_IS_SUBNORMAL(ix)) {        /* subnormal */
