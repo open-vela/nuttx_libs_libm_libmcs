@@ -77,7 +77,7 @@ double ldexp(double x, int exp)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     if ((isfinite(x) == 0) || (x == 0.0)) {
-        return x;
+        return x + x;
     }
 
     return scalbn(x, exp);
