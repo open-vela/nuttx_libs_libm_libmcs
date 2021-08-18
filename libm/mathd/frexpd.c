@@ -132,7 +132,7 @@ double frexp(double x, int *eptr)
     *eptr = 0;
 
     if (ix >= 0x7ff00000 || ((ix | lx) == 0)) {
-        return x;               /* 0,inf,nan */
+        return x + x;           /* 0,inf,nan */
     }
 
     if (ix < 0x00100000) {      /* subnormal */
