@@ -60,7 +60,7 @@ float remquof(float x, float y, int *quo)
         q = 0;
         goto fixup;    /* |x|<|y| return x or x-y */
     } else if (hx == hy) {
-        *quo = 1;
+        *quo = ((sxy != 0) ? -1 : 1);
         return Zero[(uint32_t)sx >> 31];  /* |x|=|y| return x*0*/
     } else {
         /* No action required */
