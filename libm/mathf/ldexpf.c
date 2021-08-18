@@ -11,7 +11,7 @@ float ldexpf(float x, int exp)
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
     if ((isfinite(x) == 0) || x == 0.0f) {
-        return x;
+        return x + x;
     }
 
     return scalbnf(x, exp);
