@@ -63,23 +63,36 @@
  *///
 
 #include <math.h>
+#include "../common/tools.h"
 
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 double fmin(double x, double y)
 {
-#ifdef __LIBMCS_FPU_DAZ
-    x *= __volatile_one;
-    y *= __volatile_one;
-#endif /* defined(__LIBMCS_FPU_DAZ) */
-
     if (isnan(x)) {
+        if (__issignaling(x) != 0 || __issignaling(y) != 0) {
+            return x * y;
+        }
+#ifdef __LIBMCS_FPU_DAZ
+        y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
         return y;
     }
 
     if (isnan(y)) {
+        if (__issignaling(x) != 0 || __issignaling(y) != 0) {
+            return x * y;
+        }
+#ifdef __LIBMCS_FPU_DAZ
+        x *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
         return x;
     }
+    
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
 
     return x < y ? x : y;
 }
