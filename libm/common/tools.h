@@ -33,6 +33,8 @@
  *     float __raise_underflowf(float x);
  *     double __raise_inexact(double x);
  *     float __raise_inexactf(float x);
+ *     int __issignaling(double x);
+ *     int __issignalingf(float x);
  *     REAL_PART(z);                            // this macros return value has the non-complex type of input `z`, the input is expected to be a complex floating-point datum
  *     IMAG_PART(z);                            // this macros return value has the non-complex type of input `z`, the input is expected to be a complex floating-point datum
  *
@@ -71,6 +73,8 @@
  *
  * ``__raise_inexact`` is a function to force the :ref:`FPU <ABBR>` to generate an ``inexact`` exception. Even though the library usually does not care about this exception for qualification purposes, the library still tries to conform to the standards (mainly POSIX) in regards to where the exception shall be raised intentionally. In those places this function is used.
  *
+ * ``__issignaling`` is a function to check if a value is a signaling NaN.
+ *
  * ``REAL_PART`` is a macro to extract only the real part of a complex floating-point datum.
  *
  * ``IMAG_PART`` is a macro to extract only the imaginary part of a complex floating-point datum.
@@ -96,6 +100,7 @@
  *    \_\_raise\_overflow(x) &= \left\{\begin{array}{ll} -Inf, & x \in \mathbb{F}^{-} \\ +Inf, & otherwise \end{array}\right.  \\
  *    \_\_raise\_underflow(x) &= \left\{\begin{array}{ll} -0.0, & x \in \mathbb{F}^{-} \\ +0.0, & otherwise \end{array}\right.  \\
  *    \_\_raise\_inexact(x) &= x  \\
+ *    \_\_issignaling(x) &= \left\{\begin{array}{ll} 1, & x = sNaN \\ 0, & otherwise \end{array}\right.  \\
  *    REAL\_PART(z) &= \Re(z)  \\
  *    IMAG\_PART(z) &= \Im(z)
  *
@@ -133,6 +138,8 @@
  * ``__raise_underflow`` returns ``-0.0`` for negative inputs and ``+0.0`` for positive inputs.
  *
  * ``__raise_inexact`` returns the input value.
+ *
+ * ``__issignaling`` returns ``1`` if the input value is a signaling ``NaN``, else ``0``.
  *
  * ``REAL_PART`` returns the real part of the input as a floating-point datum of the adequate size.
  *
@@ -327,6 +334,27 @@ static inline float __raise_underflowf(float x) {
 static inline float __raise_inexactf(float x) {
     volatile float huge = 1.0e30f;
     return ((huge - 1.0e-30f) != 0) ? x : 0.0f;
+}
+
+static inline int __issignaling(double x) {
+    uint32_t hx;
+    GET_HIGH_WORD(hx, x);
+    if (isnan(x) && (hx & 0x00080000) == 0) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+static inline int __issignalingf(double x) {
+    uint32_t ix;
+    GET_FLOAT_WORD(ix, x);
+    if (FLT_UWORD_IS_NAN(ix & 0x7fffffff) && (ix & 0x00400000) == 0) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 #ifndef __LIBMCS_EXCLUDE_COMPLEX
