@@ -134,7 +134,7 @@ double pow(double x, double y)
 
     /* y==zero: x**0 = 1 unless x is snan */
     if ((iy | ly) == 0) {
-        if (isnan(x) && (ix & 0x00080000) == 0) {
+        if (__issignaling(x) != 0) {
             return x + y;
         }
 
@@ -144,7 +144,7 @@ double pow(double x, double y)
     /* x|y==NaN return NaN unless x==1 then return 1 */ /* For performance: don't use isnan */
     if (ix > 0x7ff00000 || ((ix == 0x7ff00000) && (lx != 0)) ||
         iy > 0x7ff00000 || ((iy == 0x7ff00000) && (ly != 0))) {
-        if (((hx - 0x3ff00000) | lx) == 0 && (iy & 0x00080000) != 0) {
+        if (((hx - 0x3ff00000) | lx) == 0 && __issignaling(y) == 0) {
             return one;
         } else {
             return x + y;
