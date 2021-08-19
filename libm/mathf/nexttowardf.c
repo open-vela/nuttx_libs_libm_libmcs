@@ -20,6 +20,11 @@ union fshape {
 
 float nexttowardf(float x, long double y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= (long double)__volatile_one;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     union fshape ux;
     uint32_t e;
 
@@ -34,7 +39,11 @@ float nexttowardf(float x, long double y)
     ux.value = x;
 
     if (x == 0) {
-        ux.bits = 1;
+#ifdef __LIBMCS_FPU_DAZ
+        ux.bits = 0x00800000U;  /* return +-minnormal */
+#else
+        ux.bits = 1U;           /* return +-minsubnormal */
+#endif /* defined(__LIBMCS_FPU_DAZ) */
 
         if (signbit(y) != 0) {
             ux.bits |= 0x80000000U;
@@ -62,7 +71,15 @@ float nexttowardf(float x, long double y)
 
     /* raise underflow if ux.value is subnormal or zero */
     if (e == 0) {
+#ifdef __LIBMCS_FPU_DAZ
+        ux.bits = 0U;           /* return +-0.0 */
+
+        if (signbit(x) != 0) {
+            ux.bits |= 0x80000000U;
+        }
+#else
         (void) __raise_underflowf(x);
+#endif /* defined(__LIBMCS_FPU_DAZ) */
     }
 
     return ux.value;
