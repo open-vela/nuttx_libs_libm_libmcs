@@ -116,11 +116,6 @@ ivln2_l  =  1.92596299112661746887e-08;  /* 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail*/
 
 double pow(double x, double y)
 {
-#ifdef __LIBMCS_FPU_DAZ
-    x *= __volatile_one;
-    y *= __volatile_one;
-#endif /* defined(__LIBMCS_FPU_DAZ) */
-
     double z, ax, z_h, z_l, p_h, p_l;
     double _y1, t1, t2, r, s, sign, t, u, v, w;
     int32_t i, j, k, yisint, n;
@@ -133,7 +128,11 @@ double pow(double x, double y)
     iy = hy & 0x7fffffff;
 
     /* y==zero: x**0 = 1 unless x is snan */
+#ifdef __LIBMCS_FPU_DAZ
+    if (iy < 0x00100000U) {
+#else
     if ((iy | ly) == 0) {
+#endif /* defined(__LIBMCS_FPU_DAZ) */
         if (__issignaling(x) != 0) {
             return x + y;
         }
@@ -150,6 +149,16 @@ double pow(double x, double y)
             return x + y;
         }
     }
+
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_one;
+    y *= __volatile_one;
+    
+    EXTRACT_WORDS(hx, lx, x);
+    EXTRACT_WORDS(hy, ly, y);
+    ix = hx & 0x7fffffff;
+    iy = hy & 0x7fffffff;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
 
     /* determine if y is an odd int when x < 0
      * yisint = 0    ... y is not an integer
