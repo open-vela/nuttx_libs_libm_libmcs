@@ -7,6 +7,11 @@
 
 float nextafterf(float x, float y)
 {
+#ifdef __LIBMCS_FPU_DAZ
+    x *= __volatile_onef;
+    y *= __volatile_onef;
+#endif /* defined(__LIBMCS_FPU_DAZ) */
+
     int32_t hx, hy, ix, iy;
 
     GET_FLOAT_WORD(hx, x);
@@ -22,8 +27,12 @@ float nextafterf(float x, float y)
         if (ix == iy) {
             return x;                  /* x=y, return x */
         }
-        SET_FLOAT_WORD(x, (hy & 0x80000000U) | 1U);
+#ifdef __LIBMCS_FPU_DAZ
+        SET_FLOAT_WORD(x, (hy & 0x80000000U) | 0x00800000U);    /* return +-minnormal */
+#else
+        SET_FLOAT_WORD(x, (hy & 0x80000000U) | 1U);             /* return +-minsubnormal */
         (void) __raise_underflowf(x);
+#endif /* defined(__LIBMCS_FPU_DAZ) */
         return x;
     } else if (hx >= 0) {              /* x > 0 */
         if (hx > hy) {                 /* x > y, x -= ulp */
@@ -46,7 +55,12 @@ float nextafterf(float x, float y)
     }
 
     if (hy < 0x00800000) {            /* underflow */
+#ifdef __LIBMCS_FPU_DAZ
+        SET_FLOAT_WORD(x, hx & 0x80000000U);    /* return +-0.0 */
+        return x;
+#else
         (void) __raise_underflowf(x);
+#endif /* defined(__LIBMCS_FPU_DAZ) */
     }
 
     SET_FLOAT_WORD(x, hx);
