@@ -64,7 +64,7 @@ float powf(float x, float y)
 
     /* x|y==NaN return NaN unless x==1 then return 1 */
     if (FLT_UWORD_IS_NAN(ix) || FLT_UWORD_IS_NAN(iy)) {
-        if (hx == 0x3f800000 && __issignalingf(y) != 0) {
+        if (hx == 0x3f800000 && __issignalingf(y) == 0) {
             return one;
         } else {
             return x + y;

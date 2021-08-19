@@ -346,7 +346,7 @@ static inline int __issignaling(double x) {
         return 0;
     }
 }
-static inline int __issignalingf(double x) {
+static inline int __issignalingf(float x) {
     uint32_t ix;
     GET_FLOAT_WORD(ix, x);
     if (FLT_UWORD_IS_NAN(ix & 0x7fffffff) && (ix & 0x00400000) == 0) {
