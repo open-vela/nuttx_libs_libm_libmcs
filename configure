@@ -6,6 +6,40 @@
 sizecheck=sizeoftypes.c
 user_make=user_make.mk
 
+usage()
+{
+	echo "Usage: configure [ --cross-compile CROSS_COMPILE ] [ --compilation-flags CFLAGS ] [ --[enable/disable]-denormal-handling ] [ --[enable/disable]-long-double-procedures ] [ --[enable/disable]-complex-procedures ] [ --[big/little]-endian ]"
+	exit 2
+}
+
+PARSED_ARGUMENTS=$(getopt -a -n configure -o h --long cross-compile:,compilation-flags:,enable-denormal-handling,disable-denormal-handling,enable-long-double-procedures,disable-long-double-procedures,enable-complex-procedures,disable-complex-procedures,big-endian,little-endian -- "$@")
+VALID_ARGUMENTS=$?
+if [ "$VALID_ARGUMENTS" != "0" ]; then
+	usage
+fi
+
+echo "Arguments are: $PARSED_ARGUMENTS"
+eval set -- "$PARSED_ARGUMENTS"
+while :
+do
+	case "$1" in
+		-h)	usage ;;
+		--cross-compile) CROSS_COMPILE="$2" ; shift 2 ;;
+		--compilation-flags) extra_cflags="$2" ; shift 2 ;;
+		--enable-denormal-handling) WANT_DAZ=1 ; shift ;;
+		--disable-denormal-handling) WANT_DAZ=0 ; shift ;;
+		--enable-long-double-procedures) WANT_LD=1 ; shift ;;
+		--disable-long-double-procedures) WANT_LD=0 ; shift ;;
+		--enable-complex-procedures) WANT_COMPLEX=1 ; shift ;;
+		--disable-complex-procedures) WANT_COMPLEX=0 ; shift ;;
+		--big-endian) BIG_ENDIAN=1 ; shift ;;
+		--little-endian) BIG_ENDIAN=0 ; shift ;;
+		--) shift ; break ;;
+		*) echo "Unexpected option: $1"
+		   usage ;;
+	esac
+done
+
 # Delete old user_make.mk if there is any
 [ -f "${user_make}" ] && rm ${user_make}
 
@@ -14,14 +48,15 @@ echo "Creating minimal .c file to check type sizes."
 printf "double d_data[16];\\nlong double l_data[16];\\nlong int li_data[16];" > ${sizecheck}
 
 # Ask user for toolchain
-echo "Please enter the path to your compiler toolchain including prefix (e.g. /opt/rtems-4.11/bin/sparc-rtems-), leave empty if compiling on & for host:"
+if [ -z ${CROSS_COMPILE+x} ]; then echo "Please enter the path to your compiler toolchain including prefix (e.g. /opt/rtems-4.11/bin/sparc-rtems-), leave empty if compiling on & for host:"; fi
 while true
 do
-	read -r CROSS_COMPILE
+	if [ -z ${CROSS_COMPILE+x} ]; then read -r CROSS_COMPILE; fi
 	CC=${CROSS_COMPILE}gcc
 	CC_version=$($CC --version)
 	if [[ "$CC_version" == "" ]]; then
-		echo "No compiler found at specified location. Try again:"
+		echo "No compiler found at specified location. Try entering path+prefix of your toolchain again:"
+		read -r CROSS_COMPILE
 	else
 		break
 	fi
@@ -30,25 +65,30 @@ echo "Found compiler:"
 echo "${CC_version}"
 
 # Ask for CFLAGS
-echo "Please enter additional compiler flags (e.g. -mlong-double-64):"
+if [ -z ${extra_cflags+x} ]; then echo "Please enter additional compiler flags (e.g. -mlong-double-64):"; fi
 while true
 do
-	read -r extra_cflags
+	if [ -z ${extra_cflags+x} ]; then read -r extra_cflags; fi
 	if $($CC -c ${sizecheck} ${extra_cflags}); then
 		break
 	else
 		echo "Your compiler did not recognise all your flags. Try again:"
+		read -r extra_cflags
 	fi
 done
 
 # Ask user for DAZ/FTZ
-echo "Does your platform by default use, or is configured to use, DAZ/FTZ (Denormals Are Zero / Flush To Zero) mode (e.g. your platform has an older GRFPU which does not support subnormals)?"
-select yn in "Yes" "No"; do
-	case $yn in
-		Yes ) extra_cflags="${extra_cflags} -DLIBMCS_FPU_DAZ"; break;;
-		No ) break;;
-	esac
-done
+if [ -z ${WANT_DAZ+x} ]; then
+	echo "Does your platform by default use, or is configured to use, DAZ/FTZ (Denormals Are Zero / Flush To Zero) mode (e.g. your platform has an older GRFPU which does not support subnormals)?"
+	select yn in "Yes" "No"; do
+		case $yn in
+			Yes ) extra_cflags="${extra_cflags} -DLIBMCS_FPU_DAZ"; break;;
+			No ) break;;
+		esac
+	done
+elif [ ${WANT_DAZ} -eq 1 ]; then
+	extra_cflags="${extra_cflags} -DLIBMCS_FPU_DAZ";
+fi
 
 # Build and run type sizes check to assign defines
 echo "Build and run type sizes check to assign defines."
@@ -66,13 +106,17 @@ else
 	long_double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "l_data" | awk '{print $2/16*8}')
 	if [ "$long_double_size" -eq "64" ]; then
 		echo "Found long double to be 64bit.";
-		echo "Do you want long double procedures? If 'No' is chosen long double procedures will not be compiled into the library, and will not need to be qualified.";
-		select yn in "Yes" "No"; do
-			case $yn in
-				Yes ) extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BITS"; break;;
-				No ) break;;
-			esac
-		done
+		if [ -z ${WANT_LD+x} ]; then
+			echo "Do you want long double procedures? If 'No' is chosen long double procedures will not be compiled into the library, and will not need to be qualified.";
+			select yn in "Yes" "No"; do
+				case $yn in
+					Yes ) extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BITS"; break;;
+					No ) break;;
+				esac
+			done
+		elif [ ${WANT_LD} -eq 1 ]; then
+			extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BITS";
+		fi
 	else
 		echo "Found long double to be not 64bit. The library will not have long double procedures.";
 	fi
@@ -82,13 +126,19 @@ fi
 echo "Check toolchain for endianness."
 endianness=$($CC -dM -E - < /dev/null | grep "__BYTE_ORDER__" | awk '{print $3}')
 if [ "$endianness" != "__ORDER_LITTLE_ENDIAN__" ] && [ "$endianness" != "__ORDER_BIG_ENDIAN__" ] ; then
-	echo "Your toolchain does not define endianness (__BYTE_ORDER__ is not defined as either __ORDER_BIG_ENDIAN__ or __ORDER_LITTLE_ENDIAN__). Which endianness is appropriate for your target platform (e.g. SPARCs are usually Big Endian)?";
-	select endian in "Little Endian" "Big Endian"; do
-		case $endian in
-			"Little Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"; break;;
-			"Big Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_BIG_ENDIAN__"; break;;
-		esac
-	done
+	if [ -z ${BIG_ENDIAN+x} ]; then
+		echo "Your toolchain does not define endianness (__BYTE_ORDER__ is not defined as either __ORDER_BIG_ENDIAN__ or __ORDER_LITTLE_ENDIAN__). Which endianness is appropriate for your target platform (e.g. SPARCs are usually Big Endian)?";
+		select endian in "Little Endian" "Big Endian"; do
+			case $endian in
+				"Little Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"; break;;
+				"Big Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_BIG_ENDIAN__"; break;;
+			esac
+		done
+	elif [ ${BIG_ENDIAN} -eq 1 ]; then
+		extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_BIG_ENDIAN__"
+	elif [ ${BIG_ENDIAN} -eq 0 ]; then
+		extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"
+	fi
 else
 	echo "Found endianness to be ${endianness}.";
 fi
@@ -102,13 +152,20 @@ echo "EXTRA_CFLAGS += ${extra_cflags}"; } > ${user_make}
 echo "Added the following extra compilation flags to make: ${extra_cflags}"
 
 # Ask user for complex procedures
-echo "Do you want complex procedures? If 'No' is chosen complex procedures will not be compiled into the library, and will not need to be qualified."
-select yn in "Yes" "No"; do
-	case $yn in
-		Yes ) echo "WANT_COMPLEX = 1" >> ${user_make}; echo "See user manual (SUM) for the limitations and inaccuracies in complex procedures!"; break;;
-		No ) echo "WANT_COMPLEX = 0" >> ${user_make}; break;;
-	esac
-done
+if [ -z ${WANT_COMPLEX+x} ]; then
+	echo "Do you want complex procedures? If 'No' is chosen complex procedures will not be compiled into the library, and will not need to be qualified."
+	select yn in "Yes" "No"; do
+		case $yn in
+			Yes ) echo "WANT_COMPLEX = 1" >> ${user_make}; echo "See user manual (SUM) for the limitations and inaccuracies in complex procedures!"; break;;
+			No ) echo "WANT_COMPLEX = 0" >> ${user_make}; break;;
+		esac
+	done
+elif [ ${WANT_COMPLEX} -eq 1 ]; then
+	echo "WANT_COMPLEX = 1" >> ${user_make}
+	echo "See user manual (SUM) for the limitations and inaccuracies in complex procedures!"
+elif [ ${WANT_COMPLEX} -eq 0 ]; then
+	echo "WANT_COMPLEX = 0" >> ${user_make}
+fi
 
 # Cleanup
 rm ${sizecheck}
