@@ -17,7 +17,7 @@ float fminf(float x, float y)
     }
 
     if (isnan(y)) {
-        if (__issignalingf(x) != 0 || __issignalingf(y) != 0) {
+        if (__issignalingf(y) != 0) {
             return x * y;
         }
 #ifdef __LIBMCS_FPU_DAZ

@@ -82,7 +82,7 @@ double fmax(double x, double y)
     }
 
     if (isnan(y)) {
-        if (__issignaling(x) != 0 || __issignaling(y) != 0) {
+        if (__issignaling(y) != 0) {
             return x * y;
         }
 #ifdef __LIBMCS_FPU_DAZ
