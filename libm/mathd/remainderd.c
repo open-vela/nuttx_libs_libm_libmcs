@@ -114,7 +114,7 @@ double remainder(double x, double p)
     if ((hx >= 0x7ff00000) || (hp >= 0x7ff00000)) { /* x or p not finite */
         if (isnan(x) || isnan(p)) {                 /* x or p is NaN */
             return x + p;
-        } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
+        } else if (hx == 0x7ff00000) {              /* x is infinite */
             return __raise_invalid();
         } else {
             /* No action required */
