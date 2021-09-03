@@ -139,7 +139,7 @@ double remquo(double x, double y, int *quo)
     if ((hx >= 0x7ff00000) || (hy >= 0x7ff00000)) { /* x or y not finite */
         if (isnan(x) || isnan(y)) {                 /* x or y is NaN */
             return x + y;
-        } else if (hx == 0x7ff00000 && lx == 0) {   /* x is infinite */
+        } else if (hx == 0x7ff00000) {              /* x is infinite */
             return __raise_invalid();
         } else {
             /* No action required */
