@@ -33,10 +33,6 @@ float complex catanf(float complex z)
     t = y - 1.0f;
     a = x2 + (t * t);
 
-    if (a == 0.0f) {
-        goto ovrf;
-    }
-
     t = y + 1.0f;
     a = (x2 + (t * t)) / a;
     /* w = tmp + (0.25f * logf(a)) * I; */
