@@ -222,19 +222,12 @@ static double __sin_pi(double x)
         y   = 2.0 * (y - floor(y)); /* y = |x| mod 2.0 */
         n   = (int32_t)(y * 4.0);
     } else {
-        if (ix >= 0x43400000) {
-            y = zero;
-            n = 0;                  /* y must be even */
-        } else {
-            if (ix < 0x43300000) {
-                z = y + two52;      /* exact */
-            }
+        z = y + two52;              /* exact */
 
-            GET_LOW_WORD(n, z);
-            n &= 1;
-            y  = n;
-            n <<= 2;
-        }
+        GET_LOW_WORD(n, z);
+        n &= 1;
+        y  = n;
+        n <<= 2;
     }
 
     switch (n) {
