@@ -96,24 +96,17 @@ static float __sin_pif(float x)
      */
     z = floorf(y);
 
-    if (z != y) {             /* inexact anyway */
+    if (z != y) {                       /* inexact anyway */
         y  *= 0.5f;
-        y   = 2.0f * (y - floorf(y));  /* y = |x| mod 2.0 */
+        y   = 2.0f * (y - floorf(y));   /* y = |x| mod 2.0 */
         n   = (int32_t)(y * 4.0f);
     } else {
-        if (ix >= 0x4b800000) {
-            y = zero;
-            n = 0;                 /* y must be even */
-        } else {
-            if (ix < 0x4b000000) {
-                z = y + two23;    /* exact */
-            }
+        z = y + two23;                  /* exact */
 
-            GET_FLOAT_WORD(n, z);
-            n &= 1;
-            y  = n;
-            n <<= 2;
-        }
+        GET_FLOAT_WORD(n, z);
+        n &= 1;
+        y  = n;
+        n <<= 2;
     }
 
     switch (n) {
