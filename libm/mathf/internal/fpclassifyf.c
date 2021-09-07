@@ -9,15 +9,16 @@ int __fpclassifyf(float x)
     uint32_t w;
 
     GET_FLOAT_WORD(w, x);
-    w &= 0x7fffffffU;
 
-    if (w == 0x00000000U) {
+    if (w == 0x00000000U || w == 0x80000000U) {
         return FP_ZERO;
-    } else if (w >= 0x00800000U && w <= 0x7f7fffffU) {
+    } else if ((w >= 0x00800000U && w <= 0x7f7fffffU) ||
+               (w >= 0x80800000U && w <= 0xff7fffffU)) {
         return FP_NORMAL;
-    } else if (w <= 0x007fffffU) {
+    } else if ((w <= 0x007fffffU) ||
+               (w >= 0x80000001U && w <= 0x807fffffU)) {
         return FP_SUBNORMAL;
-    } else if (w == 0x7f800000U) {
+    } else if (w == 0x7f800000U || w == 0xff800000U) {
         return FP_INFINITE;
     } else {
         return FP_NAN;
