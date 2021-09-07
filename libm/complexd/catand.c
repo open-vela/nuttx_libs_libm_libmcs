@@ -68,10 +68,6 @@ double complex catan(double complex z)
     t = y - 1.0;
     a = x2 + (t * t);
 
-    if (a == 0.0) {
-        goto ovrf;
-    }
-
     t = y + 1.0;
     a = (x2 + (t * t)) / a;
     /* w = tmp + (0.25 * log(a)) * I; */
