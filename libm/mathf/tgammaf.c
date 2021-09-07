@@ -21,9 +21,11 @@ float tgammaf(float x)
     int signgam_local = 0;
     float y = 0.0f;
     
-    if (x == 0.0f) {                            /* tgamma(+-0) = +-Inf */
+    if (isnan(x) != 0) {                        /* tgamma(NaN) = NaN */
+        return x + x;
+    } else if (x == 0.0f) {                     /* tgamma(+-0) = +-Inf */
         return __raise_div_by_zerof(x);
-    } else if (floorf(x) == x && isless(x, 0.0f) != 0) {    /* tgamma(negative integer, -Inf) = NaN */
+    } else if (floorf(x) == x && x < 0.0f) {    /* tgamma(negative integer, -Inf) = NaN */
         return __raise_invalidf();
     } else {
         /* No action required */
