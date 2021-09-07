@@ -67,9 +67,11 @@ double tgamma(double x)
     int signgam_local = 0;
     double y = 0.0;
     
-    if (x == 0.0) {                         /* tgamma(+-0) = +-Inf */
+    if (isnan(x) != 0) {                    /* tgamma(NaN) = NaN */
+        return x + x;
+    } else if (x == 0.0) {                  /* tgamma(+-0) = +-Inf */
         return __raise_div_by_zero(x);
-    } else if (floor(x) == x && isless(x, 0.0) != 0) {  /* tgamma(negative integer, -Inf) = NaN */
+    } else if (floor(x) == x && x < 0.0) {  /* tgamma(negative integer, -Inf) = NaN */
         return __raise_invalid();
     } else {
         /* No action required */
