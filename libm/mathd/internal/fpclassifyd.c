@@ -58,20 +58,15 @@ int __fpclassifyd(double x)
     uint32_t msw, lsw;
 
     EXTRACT_WORDS(msw, lsw, x);
+    msw &= 0x7fffffffU;
 
-    if ((msw == 0x00000000U && lsw == 0x00000000U) ||
-        (msw == 0x80000000U && lsw == 0x00000000U)) {
+    if (msw == 0x00000000U && lsw == 0x00000000U) {
         return FP_ZERO;
-    } else if ((msw >= 0x00100000U && msw <= 0x7fefffffU) ||
-               (msw >= 0x80100000U && msw <= 0xffefffffU)) {
+    } else if (msw >= 0x00100000U && msw <= 0x7fefffffU) {
         return FP_NORMAL;
-    } else if ((msw <= 0x000fffffU) ||
-               (msw >= 0x80000000U && msw <= 0x800fffffU))
-        /* zero is already handled above */
-    {
+    } else if (msw <= 0x000fffffU) {    /* zero is already handled above */
         return FP_SUBNORMAL;
-    } else if ((msw == 0x7ff00000U && lsw == 0x00000000U) ||
-               (msw == 0xfff00000U && lsw == 0x00000000U)) {
+    } else if (msw == 0x7ff00000U && lsw == 0x00000000U) {
         return FP_INFINITE;
     } else {
         return FP_NAN;
