@@ -246,10 +246,6 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
     jx =  nx - 1;
     jv = (e0 - 3) / 24;
 
-    if (jv < 0) {
-        jv = 0;
-    }
-
     q0 =  e0 - 24 * (jv + 1);
 
     /* set up f[0] to f[jx+jk] where f[jx+jk] = ipio2[jv+jk] */
