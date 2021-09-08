@@ -81,10 +81,6 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
     jx =  nx - 1;
     jv = (e0 - 3) / 8;
 
-    if (jv < 0) {
-        jv = 0;
-    }
-
     q0 =  e0 - 8 * (jv + 1);
 
     /* set up f[0] to f[jx+jk] where f[jx+jk] = ipio2[jv+jk] */
