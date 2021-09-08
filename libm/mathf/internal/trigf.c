@@ -400,7 +400,7 @@ int32_t __rem_pio2f(float x, float *y)
 
     tx[2] = z;
 
-    for (nx = 3; nx>0; --nx) { /* skip zero term */
+    for (nx = 3; nx>1; --nx) { /* skip zero term */
         if (tx[nx-1]!=zero) {
             break;
         }
