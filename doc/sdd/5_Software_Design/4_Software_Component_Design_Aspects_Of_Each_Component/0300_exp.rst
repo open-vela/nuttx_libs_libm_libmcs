@@ -73,7 +73,6 @@ Requirements
 ^^^^^^^^^^^^
 
 * REQ-ML-0800
-* REQ-ML-0802
 * REQ-ML-0831
 * REQ-ML-0832
 * REQ-ML-0833
