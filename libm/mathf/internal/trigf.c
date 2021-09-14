@@ -163,10 +163,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
 
             if (ih == 2) {
                 z = one - z;
-
-                if (carry != 0) {
-                    z -= scalbnf(one, (int32_t)q0);
-                }
+                z -= scalbnf(one, (int32_t)q0);
             }
         }
 
