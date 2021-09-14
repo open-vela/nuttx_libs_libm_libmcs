@@ -88,13 +88,21 @@ float log1pf(float x)
 
     if (hu == 0) { /* |f| < 2**-20 */
         if (f == zero) {
-            c += k * ln2_lo;
-            return k * ln2_hi + c;
+            if (k == 0) {
+                return zero;
+            } else {
+                c += k * ln2_lo;
+                return k * ln2_hi + c;
+            }
         }
 
         R = hfsq * (1.0f - 0.66666666666666666f * f);
 
-        return k * ln2_hi - ((R - (k * ln2_lo + c)) - f);
+        if (k == 0) {
+            return f - R;
+        } else {
+            return k * ln2_hi - ((R - (k * ln2_lo + c)) - f);
+        }
     }
 
     if (k == 0) {
