@@ -211,15 +211,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
     } else { /* break z into 8-bit if necessary */
         z = scalbnf(z, -(int32_t)q0);
 
-        if (z >= two8) {
-            fw = (float)((int32_t)(twon8 * z));
-            iq[jz] = (int32_t)(z - two8 * fw);
-            jz += 1;
-            q0 += 8;
-            iq[jz] = (int32_t) fw;
-        } else {
-            iq[jz] = (int32_t) z ;
-        }
+        iq[jz] = (int32_t) z ;
     }
 
     /* convert integer "bit" chunk to floating-point value */
