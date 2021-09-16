@@ -21,6 +21,12 @@ Requirements
 
 * REQ-ML-5500
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/common/isnormal.c
+
 References
 ^^^^^^^^^^
 

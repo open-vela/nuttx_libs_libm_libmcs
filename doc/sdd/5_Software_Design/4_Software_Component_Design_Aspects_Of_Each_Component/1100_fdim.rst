@@ -38,5 +38,12 @@ Requirements
 * REQ-ML-2630
 * REQ-ML-2640
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/fdimd.c
+* libm/mathf/fdimf.c
+
 References
 ^^^^^^^^^^

@@ -32,6 +32,13 @@ Requirements
 * REQ-ML-2540
 * REQ-ML-2550
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/expm1d.c
+* libm/mathf/expm1f.c
+
 References
 ^^^^^^^^^^
 

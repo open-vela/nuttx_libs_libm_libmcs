@@ -78,6 +78,13 @@ Requirements
 * REQ-ML-0833
 * REQ-ML-0834
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/expd.c
+* libm/mathf/expf.c
+
 References
 ^^^^^^^^^^
 

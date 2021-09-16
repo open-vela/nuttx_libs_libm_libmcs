@@ -32,6 +32,13 @@ Requirements
 * REQ-ML-3240
 * REQ-ML-3250
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/exp2d.c
+* libm/mathf/exp2f.c
+
 References
 ^^^^^^^^^^
 

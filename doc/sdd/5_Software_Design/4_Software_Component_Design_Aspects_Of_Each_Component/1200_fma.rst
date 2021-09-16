@@ -37,5 +37,12 @@ Requirements
 * REQ-ML-2510
 * REQ-ML-2520
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/fmad.c
+* libm/mathf/fmaf.c
+
 References
 ^^^^^^^^^^

@@ -325,6 +325,13 @@ Requirements
 * REQ-ML-0885
 * REQ-ML-0886
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/powd.c
+* libm/mathf/powf.c
+
 References
 ^^^^^^^^^^
 

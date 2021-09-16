@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-6300
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/ccosd.c
+* libm/complexf/ccosf.c
+
 References
 ^^^^^^^^^^
 

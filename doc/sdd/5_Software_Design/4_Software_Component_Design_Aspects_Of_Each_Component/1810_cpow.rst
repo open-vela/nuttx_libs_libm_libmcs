@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-7500
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/cpowd.c
+* libm/complexf/cpowf.c
+
 References
 ^^^^^^^^^^
 

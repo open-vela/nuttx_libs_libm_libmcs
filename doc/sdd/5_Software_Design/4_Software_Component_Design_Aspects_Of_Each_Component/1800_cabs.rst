@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-7400
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/cabsd.c
+* libm/complexf/cabsf.c
+
 References
 ^^^^^^^^^^
 

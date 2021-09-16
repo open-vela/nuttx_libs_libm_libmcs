@@ -29,5 +29,12 @@ Requirements
 * REQ-ML-2600
 * REQ-ML-2610
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/tanhd.c
+* libm/mathf/tanhf.c
+
 References
 ^^^^^^^^^^

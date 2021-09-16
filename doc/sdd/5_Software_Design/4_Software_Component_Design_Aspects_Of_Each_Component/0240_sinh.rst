@@ -29,6 +29,13 @@ Requirements
 * REQ-ML-2120
 * REQ-ML-2140
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/sinhd.c
+* libm/mathf/sinhf.c
+
 References
 ^^^^^^^^^^
 

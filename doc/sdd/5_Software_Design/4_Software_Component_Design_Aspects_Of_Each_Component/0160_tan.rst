@@ -147,6 +147,13 @@ Requirements
 * REQ-ML-0530
 * REQ-ML-0550
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/tand.c
+* libm/mathf/tanf.c
+
 References
 ^^^^^^^^^^
 

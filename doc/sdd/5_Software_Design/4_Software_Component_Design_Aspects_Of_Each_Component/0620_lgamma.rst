@@ -37,6 +37,13 @@ Requirements
 * REQ-ML-3840
 * REQ-ML-3850
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/lgammad.c
+* libm/mathf/lgammaf.c
+
 References
 ^^^^^^^^^^
 

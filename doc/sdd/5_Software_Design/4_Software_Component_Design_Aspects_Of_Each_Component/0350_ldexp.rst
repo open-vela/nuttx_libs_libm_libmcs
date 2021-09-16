@@ -35,6 +35,13 @@ Requirements
 * REQ-ML-4130
 * REQ-ML-4140
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/ldexpd.c
+* libm/mathf/ldexpf.c
+
 References
 ^^^^^^^^^^
 

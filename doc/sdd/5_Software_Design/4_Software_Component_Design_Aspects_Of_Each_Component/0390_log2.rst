@@ -35,6 +35,13 @@ Requirements
 * REQ-ML-3340
 * REQ-ML-3350
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/log2d.c
+* libm/mathf/log2f.c
+
 References
 ^^^^^^^^^^
 

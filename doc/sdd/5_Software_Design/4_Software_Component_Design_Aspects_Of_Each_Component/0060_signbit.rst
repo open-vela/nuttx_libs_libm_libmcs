@@ -21,6 +21,13 @@ Requirements
 
 * REQ-ML-1360
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/internal/signbitd.c
+* libm/mathf/internal/signbitf.c
+
 References
 ^^^^^^^^^^
 
