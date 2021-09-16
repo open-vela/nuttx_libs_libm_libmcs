@@ -61,6 +61,13 @@ Requirements
 * REQ-ML-1270
 * REQ-ML-1271
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/hypotd.c
+* libm/mathf/hypotf.c
+
 References
 ^^^^^^^^^^
 

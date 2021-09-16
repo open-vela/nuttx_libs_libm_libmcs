@@ -13,6 +13,12 @@ Requirements
 
 * REQ-ML-3850
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/common/signgam.c
+
 References
 ^^^^^^^^^^
 

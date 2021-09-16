@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-7200
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/cexpd.c
+* libm/complexf/cexpf.c
+
 References
 ^^^^^^^^^^
 

@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-7800
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/cimagd.c
+* libm/complexf/cimagf.c
+
 References
 ^^^^^^^^^^
 

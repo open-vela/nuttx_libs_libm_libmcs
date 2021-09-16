@@ -29,5 +29,12 @@ Requirements
 * REQ-ML-4020
 * REQ-ML-4040
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/frexpd.c
+* libm/mathf/frexpf.c
+
 References
 ^^^^^^^^^^
