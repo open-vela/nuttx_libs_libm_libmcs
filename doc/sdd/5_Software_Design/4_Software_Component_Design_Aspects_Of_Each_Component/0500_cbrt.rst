@@ -29,5 +29,12 @@ Requirements
 * REQ-ML-2320
 * REQ-ML-2340
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/cbrtd.c
+* libm/mathf/cbrtf.c
+
 References
 ^^^^^^^^^^

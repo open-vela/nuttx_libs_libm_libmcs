@@ -32,6 +32,13 @@ Requirements
 
 * REQ-ML-4670
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/llrintd.c
+* libm/mathf/llrintf.c
+
 References
 ^^^^^^^^^^
 

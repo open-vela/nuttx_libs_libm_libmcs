@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-6800
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/catanhd.c
+* libm/complexf/catanhf.c
+
 References
 ^^^^^^^^^^
 

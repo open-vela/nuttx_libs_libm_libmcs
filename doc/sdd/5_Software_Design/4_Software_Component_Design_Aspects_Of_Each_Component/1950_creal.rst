@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-8200
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/creald.c
+* libm/complexf/crealf.c
+
 References
 ^^^^^^^^^^
 

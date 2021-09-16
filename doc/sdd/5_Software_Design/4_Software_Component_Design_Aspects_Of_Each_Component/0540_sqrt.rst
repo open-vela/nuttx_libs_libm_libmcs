@@ -99,6 +99,13 @@ Requirements
 * REQ-ML-0730
 * REQ-ML-0740
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/sqrtd.c
+* libm/mathf/sqrtf.c
+
 References
 ^^^^^^^^^^
 

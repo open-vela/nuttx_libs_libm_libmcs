@@ -122,6 +122,13 @@ Requirements
 * REQ-ML-0685
 * REQ-ML-0686
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/atan2d.c
+* libm/mathf/atan2f.c
+
 References
 ^^^^^^^^^^
 
