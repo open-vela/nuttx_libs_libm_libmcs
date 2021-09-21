@@ -20,8 +20,6 @@
  *
  * ``log10`` computes the base :math:`10` logarithm of the input value.
  *
- * TODO: Note that this description including the description of the referenced internal function depict not the current implementation, but the one to be used later (changes introduced in the MLFS mirroring FreeBSD will be taken over).
- *
  * Mathematical Function
  * =====================
  * 

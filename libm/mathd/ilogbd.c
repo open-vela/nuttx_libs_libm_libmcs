@@ -54,7 +54,11 @@
  * | **ilogb(x)**        | min :math:`\mathbb{I}`                                                                                   | :math:`\lfloor {\log_2 |x|} \rfloor`                             | max :math:`\mathbb{I}`                                                                                   | max :math:`\mathbb{I}`      |
  * +---------------------+----------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+--------------+--------------+
  * 
- * TODO: Check usefulness of this output map as well as the exception, as I think the magnitude of the result can only exceed the integer range if the size of ``int`` is smaller than [-1074,1023]. So the POSIX/C/etc. issues may not apply to our use-cases.
+ * .. raw:: html
+ * 
+ *    <!--
+ *    TODO: Check usefulness of this output map as well as the exception, as I think the magnitude of the result can only exceed the integer range if the size of ``int`` is smaller than [-1074,1023]. So the POSIX/C/etc. issues may not apply to our use-cases.
+ *    -->
  *
  *///
 
