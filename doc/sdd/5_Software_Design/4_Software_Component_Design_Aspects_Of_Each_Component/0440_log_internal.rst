@@ -5,11 +5,13 @@ Internal Logarithm Functions
 
 .. c:autodoc:: ../libm/mathd/internal/log1pmfd.h
 
-TODO: Subsections belonging into the implementation file shall be added when the file exists.
+.. raw:: html
 
-TODO: Recheck/Redo the procedures that use this function, :ref:`log2` and :ref:`log10`. See https://github.com/freebsd/freebsd-src/search?q=k_log1p
+   <!--
+    TODO: Subsections belonging into the implementation file shall be added when the file exists.
 
-TODO: Find out why :ref:`log1p` does not use it, or why the others don't use :ref:`log1p`. Is it just for inlining?
+    TODO: Recheck/Redo the procedures that use this function, :ref:`log2` and :ref:`log10`. See https://github.com/freebsd/freebsd-src/search?q=k_log1p
+    -->
 
 Special cases
 ^^^^^^^^^^^^^
