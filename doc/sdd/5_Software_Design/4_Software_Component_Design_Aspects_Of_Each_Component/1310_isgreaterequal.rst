@@ -26,12 +26,6 @@ Requirements
 * REQ-ML-5100
 * REQ-ML-5110
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/common/isgreaterequal.c
-
 References
 ^^^^^^^^^^
 

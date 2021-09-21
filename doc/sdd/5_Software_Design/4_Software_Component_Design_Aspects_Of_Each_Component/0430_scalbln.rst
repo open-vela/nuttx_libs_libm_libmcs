@@ -28,13 +28,6 @@ Requirements
 
 * REQ-ML-4250
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/scalblnd.c
-* libm/mathf/scalblnf.c
-
 References
 ^^^^^^^^^^
 

@@ -13,12 +13,5 @@ Requirements
 
 * REQ-ML-8000
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/complex.h
-* libm/complexd/conjd.c
-* libm/complexf/conjf.c
-
 References
 ^^^^^^^^^^

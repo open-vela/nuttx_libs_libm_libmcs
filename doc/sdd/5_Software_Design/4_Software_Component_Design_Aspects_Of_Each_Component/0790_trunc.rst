@@ -52,13 +52,6 @@ Requirements
 * REQ-ML-1070
 * REQ-ML-1071
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/truncd.c
-* libm/mathf/truncf.c
-
 References
 ^^^^^^^^^^
 

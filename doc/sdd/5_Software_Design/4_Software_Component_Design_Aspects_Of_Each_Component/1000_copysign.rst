@@ -23,13 +23,6 @@ Requirements
 * REQ-ML-1380
 * REQ-ML-1381
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/copysignd.c
-* libm/mathf/copysignf.c
-
 References
 ^^^^^^^^^^
 

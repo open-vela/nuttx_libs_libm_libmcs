@@ -36,13 +36,6 @@ Requirements
 
 * REQ-ML-5700
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/internal/fpclassifyd.c
-* libm/mathf/internal/fpclassifyf.c
-
 References
 ^^^^^^^^^^
 

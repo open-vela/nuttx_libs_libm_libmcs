@@ -29,13 +29,6 @@ Requirements
 * REQ-ML-4320
 * REQ-ML-4340
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/ilogbd.c
-* libm/mathf/ilogbf.c
-
 References
 ^^^^^^^^^^
 

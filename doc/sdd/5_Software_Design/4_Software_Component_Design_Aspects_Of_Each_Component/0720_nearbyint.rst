@@ -29,13 +29,6 @@ Requirements
 * REQ-ML-4520
 * REQ-ML-4540
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/nearbyintd.c
-* libm/mathf/nearbyintf.c
-
 References
 ^^^^^^^^^^
 

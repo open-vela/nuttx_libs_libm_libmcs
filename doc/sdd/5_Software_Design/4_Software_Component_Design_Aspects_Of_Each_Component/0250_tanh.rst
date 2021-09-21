@@ -29,12 +29,5 @@ Requirements
 * REQ-ML-2820
 * REQ-ML-2840
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/tanhd.c
-* libm/mathf/tanhf.c
-
 References
 ^^^^^^^^^^

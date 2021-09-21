@@ -19,12 +19,6 @@ Requirements
 * REQ-ML-4900
 * REQ-ML-4910
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/common/isunordered.c
-
 References
 ^^^^^^^^^^
 

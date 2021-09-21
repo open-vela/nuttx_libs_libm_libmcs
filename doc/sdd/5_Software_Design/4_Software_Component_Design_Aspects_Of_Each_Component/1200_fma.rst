@@ -37,12 +37,5 @@ Requirements
 * REQ-ML-2712
 * REQ-ML-2715
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/fmad.c
-* libm/mathf/fmaf.c
-
 References
 ^^^^^^^^^^
