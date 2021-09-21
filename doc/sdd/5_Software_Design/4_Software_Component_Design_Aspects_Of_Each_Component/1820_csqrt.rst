@@ -13,12 +13,6 @@ Requirements
 
 * REQ-ML-7600
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/complex.h
-* libm/complexd/csqrtd.c
-* libm/complexf/csqrtf.c
 References
 ^^^^^^^^^^
 

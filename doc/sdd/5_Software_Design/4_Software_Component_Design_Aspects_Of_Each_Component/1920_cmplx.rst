@@ -13,12 +13,6 @@ Requirements
 
 * REQ-ML-7900
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/complex.h
-* libm/common/cmplx.c
-
 References
 ^^^^^^^^^^
 

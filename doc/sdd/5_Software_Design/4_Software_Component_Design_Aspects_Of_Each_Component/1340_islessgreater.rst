@@ -26,12 +26,6 @@ Requirements
 * REQ-ML-5400
 * REQ-ML-5410
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/common/islessgreater.c
-
 References
 ^^^^^^^^^^
 

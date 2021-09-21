@@ -21,12 +21,6 @@ Requirements
 
 * REQ-ML-1340
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/common/isnan.c
-
 References
 ^^^^^^^^^^
 

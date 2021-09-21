@@ -31,13 +31,6 @@ Requirements
 * REQ-ML-3930
 * REQ-ML-3940
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/remainderd.c
-* libm/mathf/remainderf.c
-
 References
 ^^^^^^^^^^
 

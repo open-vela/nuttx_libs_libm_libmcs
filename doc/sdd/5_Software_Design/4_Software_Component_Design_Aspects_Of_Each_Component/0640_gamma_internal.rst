@@ -22,14 +22,6 @@ Requirements
 
 Internal functions do not directly implement requirements.
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/mathd/internal/gammad.c
-* libm/mathd/internal/gammad.h
-* libm/mathf/internal/gammaf.c
-* libm/mathf/internal/gammaf.h
-
 References
 ^^^^^^^^^^
 

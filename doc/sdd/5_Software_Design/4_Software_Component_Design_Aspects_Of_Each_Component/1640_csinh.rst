@@ -13,13 +13,6 @@ Requirements
 
 * REQ-ML-7000
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/complex.h
-* libm/complexd/csinhd.c
-* libm/complexf/csinhf.c
-
 References
 ^^^^^^^^^^
 

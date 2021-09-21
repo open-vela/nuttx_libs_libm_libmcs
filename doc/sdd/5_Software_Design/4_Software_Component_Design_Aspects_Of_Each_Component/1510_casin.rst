@@ -13,13 +13,6 @@ Requirements
 
 * REQ-ML-6100
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/complex.h
-* libm/complexd/casind.c
-* libm/complexf/casinf.c
-
 References
 ^^^^^^^^^^
 

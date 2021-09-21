@@ -63,13 +63,6 @@ Requirements
 * REQ-ML-1031
 * REQ-ML-1032
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/roundd.c
-* libm/mathf/roundf.c
-
 References
 ^^^^^^^^^^
 

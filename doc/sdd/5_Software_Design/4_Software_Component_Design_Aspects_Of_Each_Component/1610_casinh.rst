@@ -13,13 +13,6 @@ Requirements
 
 * REQ-ML-6700
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/complex.h
-* libm/complexd/casinhd.c
-* libm/complexf/casinhf.c
-
 References
 ^^^^^^^^^^
 

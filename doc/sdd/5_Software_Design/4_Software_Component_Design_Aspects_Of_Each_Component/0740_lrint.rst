@@ -36,13 +36,6 @@ Requirements
 * REQ-ML-4659
 * REQ-ML-4662
 
-Source Code Files
-^^^^^^^^^^^^^^^^^
-
-* libm/include/math.h
-* libm/mathd/lrintd.c
-* libm/mathf/lrintff.c
-
 References
 ^^^^^^^^^^
 
