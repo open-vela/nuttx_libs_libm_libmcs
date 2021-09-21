@@ -1,7 +1,11 @@
 Bindings for LibmCS
 ========================
 
-TODO: Is this chapter accurate to the current state at all?
+.. raw:: html
+
+   <!--
+   TODO: Is this chapter accurate to the current state at all?
+    -->
 
 To enable the usage of the library from Matlab and using the Ada programming language we wish to provide some best practices and examples. This will cover the usage of library functions, but not the macros and constants as those are not directly accessible, they can however be easily wrapped with C-functions that return the result/value of the macros and constants. These functions can then be placed into Matlab/Ada the same as all other functions.
 
@@ -72,15 +76,27 @@ Using the Wrapper from Simulink
 
 Create a new Model. Go to ``Simulation -> Model Configuration Parameters -> Simulation Target``. Under ``Additional Build Information -> Libraries`` enter the path to the library's ``libm.a``. In the reserved name field enter the function which shall not be used from the default libm, in this example ``sin``. The options are shown in the figure:
 
-TODO: Add figure. ./Figure/config1.PNG Caption{Simulink: Replacement Configuration Part 1}
+.. raw:: html
+
+   <!--
+   TODO: Add figure. ./Figure/config1.PNG Caption{Simulink: Replacement Configuration Part 1}
+    -->
 
 Go to ``Simulation -> Model Configuration Parameters -> Code Generation -> Custom Code`` and check the checkbox reading "Use the same custom code settings as simulation target". The options are shown in the figure:
 
-TODO: Add figure. ./Figure/config2.PNG Caption{Simulink: Replacement Configuration Part 2}
+.. raw:: html
+
+   <!--
+   TODO: Add figure. ./Figure/config2.PNG Caption{Simulink: Replacement Configuration Part 2}
+    -->
 
 Now add a Constant Block, a Matlab Function Block and a Scope Block to your model, so it looks like shown in the figure:
 
-TODO: Add figure. ./Figure/simulink.PNG Caption{Simulink:  Minimal Simulink Model}
+.. raw:: html
+
+   <!--
+   TODO: Add figure. ./Figure/simulink.PNG Caption{Simulink:  Minimal Simulink Model}
+    -->
 
 Double-click the Matlab Function Block and type in your Matlab Code calling the previously defined Wrapper:
 
