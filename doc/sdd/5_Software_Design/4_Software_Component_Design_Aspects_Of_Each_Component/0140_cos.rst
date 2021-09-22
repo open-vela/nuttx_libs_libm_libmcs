@@ -50,10 +50,17 @@ Requirements
 ^^^^^^^^^^^^
 
 * REQ-ML-0300
-* REQ-ML-0303
 * REQ-ML-0310
 * REQ-ML-0320
 * REQ-ML-0330
+
+
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/cosd.c
+* libm/mathf/cosf.c
 
 References
 ^^^^^^^^^^

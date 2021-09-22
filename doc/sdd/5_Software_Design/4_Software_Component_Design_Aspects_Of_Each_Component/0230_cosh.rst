@@ -29,6 +29,13 @@ Requirements
 * REQ-ML-2220
 * REQ-ML-2240
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/coshd.c
+* libm/mathf/coshf.c
+
 References
 ^^^^^^^^^^
 

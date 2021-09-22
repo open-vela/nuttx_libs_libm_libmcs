@@ -35,6 +35,13 @@ Requirements
 * REQ-ML-3140
 * REQ-ML-3141
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/atanhd.c
+* libm/mathf/atanhf.c
+
 References
 ^^^^^^^^^^
 

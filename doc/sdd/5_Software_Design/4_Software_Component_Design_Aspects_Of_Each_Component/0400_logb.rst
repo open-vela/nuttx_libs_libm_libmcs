@@ -29,6 +29,13 @@ Requirements
 * REQ-ML-3520
 * REQ-ML-3540
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/logbd.c
+* libm/mathf/logbf.c
+
 References
 ^^^^^^^^^^
 

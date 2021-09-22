@@ -60,6 +60,14 @@ Requirements
 
 Internal functions do not directly implement requirements.
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/mathd/internal/log1pmfd.h
+* libm/mathf/internal/log1pmff.h
+* libm/mathd/internal/log1pmfd.c
+* libm/mathf/internal/log1pmff.c
+
 References
 ^^^^^^^^^^
 

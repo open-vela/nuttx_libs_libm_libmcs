@@ -38,6 +38,13 @@ Requirements
 * REQ-ML-1250
 * REQ-ML-1252
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/fmaxd.c
+* libm/mathf/fmaxf.c
+
 References
 ^^^^^^^^^^
 

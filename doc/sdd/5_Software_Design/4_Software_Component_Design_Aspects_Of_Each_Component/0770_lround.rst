@@ -36,6 +36,13 @@ Requirements
 * REQ-ML-8330
 * REQ-ML-8340
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/lroundd.c
+* libm/mathf/lroundf.c
+
 References
 ^^^^^^^^^^
 

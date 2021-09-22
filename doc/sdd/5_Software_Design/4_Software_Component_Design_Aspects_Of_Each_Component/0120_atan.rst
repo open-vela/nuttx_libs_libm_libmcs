@@ -124,10 +124,16 @@ Requirements
 ^^^^^^^^^^^^
 
 * REQ-ML-0600
-* REQ-ML-0602
 * REQ-ML-0610
 * REQ-ML-0620
 * REQ-ML-0621
+
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/atand.c
+* libm/mathf/atanf.c
 
 References
 ^^^^^^^^^^

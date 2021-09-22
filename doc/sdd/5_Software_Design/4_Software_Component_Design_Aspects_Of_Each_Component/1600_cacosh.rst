@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-6600
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/cacoshd.c
+* libm/complexf/cacoshf.c
+
 References
 ^^^^^^^^^^
 

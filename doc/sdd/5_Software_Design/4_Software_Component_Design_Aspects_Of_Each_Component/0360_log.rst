@@ -117,6 +117,13 @@ Requirements
 * REQ-ML-0930
 * REQ-ML-0931
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/logd.c
+* libm/mathf/logf.c
+
 References
 ^^^^^^^^^^
 

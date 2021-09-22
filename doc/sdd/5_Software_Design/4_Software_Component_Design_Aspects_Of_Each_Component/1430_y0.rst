@@ -35,6 +35,13 @@ Requirements
 * REQ-ML-8620
 * REQ-ML-8621
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/internal/besseld.h
+* libm/mathd/y0d.c
+
 References
 ^^^^^^^^^^
 
