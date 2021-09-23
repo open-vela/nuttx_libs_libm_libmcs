@@ -8,7 +8,7 @@ user_make=user_make.mk
 
 usage()
 {
-	echo "Usage: configure [ --cross-compile CROSS_COMPILE ] [ --compilation-flags CFLAGS ] [ --[enable/disable]-denormal-handling ] [ --[enable/disable]-long-double-procedures ] [ --[enable/disable]-complex-procedures ] [ --[big/little]-endian ]"
+	echo "Usage: configure [ --cross-compile CROSS_COMPILE ] [ --compilation-flags CFLAGS ] [ --enable-denormal-handling ] [ --disable-denormal-handling ] [ --enable-long-double-procedures ] [ --disable-long-double-procedures ] [ --enable-complex-procedures ] [ --disable-complex-procedures ] [ --big-endian ] [ --little-endian ]"
 	exit 2
 }
 
