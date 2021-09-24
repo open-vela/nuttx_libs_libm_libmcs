@@ -21,6 +21,12 @@ Requirements
 
 * REQ-ML-1300
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/common/isfinite.c
+
 References
 ^^^^^^^^^^
 

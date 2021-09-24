@@ -75,6 +75,13 @@ Requirements
 * REQ-ML-0980
 * REQ-ML-0981
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/log10d.c
+* libm/mathf/log10f.c
+
 References
 ^^^^^^^^^^
 

@@ -35,6 +35,13 @@ Requirements
 * REQ-ML-3440
 * REQ-ML-3450
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/log1pd.c
+* libm/mathf/log1pf.c
+
 References
 ^^^^^^^^^^
 
