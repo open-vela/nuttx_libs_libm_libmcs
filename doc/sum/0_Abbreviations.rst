@@ -104,6 +104,3 @@ SVR
 
 ULP
     Unit in the Last Place
-
-YAML
-    YAML Ain't Markup Language (formerly: Yet Another Markup Language)
