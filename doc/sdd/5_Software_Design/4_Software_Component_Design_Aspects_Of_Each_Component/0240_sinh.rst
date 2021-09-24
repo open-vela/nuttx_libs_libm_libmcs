@@ -1,0 +1,51 @@
+sinh
+~~~~
+
+.. c:autodoc:: ../libm/mathd/sinhd.c
+
+Special cases
+^^^^^^^^^^^^^
+
++--------------------------+--------------------------+
+| x                        | Result                   |
++==========================+==========================+
+| :math:`±0`               | :math:`x`                |
++--------------------------+--------------------------+
+| :math:`±Inf`             | :math:`x`                |
++--------------------------+--------------------------+
+| :math:`NaN`              | :math:`qNaN`             |
++--------------------------+--------------------------+
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-2100
+* REQ-ML-2110
+* REQ-ML-2120
+* REQ-ML-2140
+
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/sinhd.c
+* libm/mathf/sinhf.c
+
+References
+^^^^^^^^^^
+
+.. * :ref:`__ccoshsinh <internal_ctrig>`
+* :ref:`ccos`
+* :ref:`ccosh`
+* :ref:`csin`
+* :ref:`csinh`
+* :ref:`ctan`
+* :ref:`ctanh`
+* :ref:`exp`
+* :ref:`expm1`
+* :ref:`fabs`

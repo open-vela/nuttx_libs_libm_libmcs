@@ -1,0 +1,44 @@
+j0
+~~~
+
+.. c:autodoc:: ../libm/mathd/j0d.c
+
+Special cases
+^^^^^^^^^^^^^
+
++--------------------------------------+--------------------------------------+
+| x                                    | Result                               |
++======================================+======================================+
+| :math:`±Inf`                         | :math:`+0`                           |
++--------------------------------------+--------------------------------------+
+| :math:`NaN`                          | :math:`qNaN`                         |
++--------------------------------------+--------------------------------------+
+
+Mathematical Approach
+^^^^^^^^^^^^^^^^^^^^^
+
+Here there be dragons. (TODO)
+
+Requirements
+^^^^^^^^^^^^
+
+* REQ-ML-8500
+* REQ-ML-8510
+* REQ-ML-8520
+
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/internal/besseld.h
+* libm/mathd/j0d.c
+
+References
+^^^^^^^^^^
+
+* :ref:`cos`
+* :ref:`fabs`
+* :ref:`jn`
+* :ref:`sin`
+* :ref:`sqrt`
+* :ref:`y0`

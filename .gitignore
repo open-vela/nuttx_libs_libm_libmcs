@@ -17,18 +17,20 @@
 *.swp
 *.tmp
 
+build*
+
 .deps
 .libs
 
 autom4te.cache
 config.cache
-config.h
 config.intl
 config.log
 config.status
 libtool
 POTFILES
 *-POTFILES
+user_make.mk
 
 tags
 TAGS
@@ -41,4 +43,7 @@ TAGS.sub
 core
 !core/
 
+lint-libm/result/*
+lint-libm/lint-nt.exe
 lost+found
+html/

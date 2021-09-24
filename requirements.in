@@ -1,0 +1,7 @@
+pip-tools
+sphinx
+sphinx-rtd-theme
+sphinx-mathjax-offline
+hawkmoth
+clang==6.0.0.2
+matplotlib
