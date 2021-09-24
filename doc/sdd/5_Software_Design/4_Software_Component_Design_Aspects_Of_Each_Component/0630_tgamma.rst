@@ -35,6 +35,13 @@ Requirements
 * REQ-ML-5840
 * REQ-ML-5841
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/tgammad.c
+* libm/mathf/tgammaf.c
+
 References
 ^^^^^^^^^^
 

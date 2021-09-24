@@ -13,6 +13,13 @@ Requirements
 
 * REQ-ML-7700
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/complex.h
+* libm/complexd/cargd.c
+* libm/complexf/cargf.c
+
 References
 ^^^^^^^^^^
 

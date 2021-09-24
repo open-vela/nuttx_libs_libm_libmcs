@@ -32,6 +32,13 @@ Requirements
 
 * REQ-ML-8400
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/llroundd.c
+* libm/mathf/llroundf.c
+
 References
 ^^^^^^^^^^
 

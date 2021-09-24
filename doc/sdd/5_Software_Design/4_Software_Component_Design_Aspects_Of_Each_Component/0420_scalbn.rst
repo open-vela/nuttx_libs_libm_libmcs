@@ -64,6 +64,13 @@ Requirements
 * REQ-ML-4230
 * REQ-ML-4240
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/scalbnd.c
+* libm/mathf/scalbnf.c
+
 References
 ^^^^^^^^^^
 

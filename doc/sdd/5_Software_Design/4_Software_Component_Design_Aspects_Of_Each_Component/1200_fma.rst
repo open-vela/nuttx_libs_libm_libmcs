@@ -33,9 +33,16 @@ Requirements
 ^^^^^^^^^^^^
 
 * REQ-ML-2700
-* REQ-ML-2710
-* REQ-ML-2712
-* REQ-ML-2715
+* REQ-ML-2500
+* REQ-ML-2510
+* REQ-ML-2520
+
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/mathd/fmad.c
+* libm/mathf/fmaf.c
 
 References
 ^^^^^^^^^^

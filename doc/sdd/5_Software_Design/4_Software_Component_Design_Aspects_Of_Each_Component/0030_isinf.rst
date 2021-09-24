@@ -21,6 +21,12 @@ Requirements
 
 * REQ-ML-1320
 
+Source Code Files
+^^^^^^^^^^^^^^^^^
+
+* libm/include/math.h
+* libm/common/isinf.c
+
 References
 ^^^^^^^^^^
 
