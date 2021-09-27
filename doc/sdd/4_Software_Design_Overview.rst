@@ -51,7 +51,9 @@ Interfaces Context
    b. The description in <4.4>a. should be based on system block diagram or context diagram to illustrate the relationship between this system and other systems.
    -->
 
-The :ref:`ICD <ABBR>` :ref:`[RD02] <RD>` provides information on the function signatures of all library procedures. The library is meant to be included in other software projects.
+No :ref:`ICD <ABBR>` will be provided for this project and its contents are part of the :ref:`SUM <ABBR>` and this :ref:`SDD <ABBR>`. All of the :ref:`ICDs <ABBR>` contents required by :ref:`ECSS <ABBR>` are part of these two documents without any loss.
+
+Section :ref:`Software Components Design – Aspects of Each Component` provides information on the function signatures of all library procedures. The library is meant to be included in other software projects.
 
 The interface provided is that of a C library that can be compiled to an object file to be statically or dynamically linked to the calling software.
 

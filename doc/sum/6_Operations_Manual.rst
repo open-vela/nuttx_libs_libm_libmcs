@@ -4,16 +4,23 @@ Operations Manual
 Set-up and Initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+In short:
+
+* call ``configure``
+* call ``make``
+
 The first step to include the mathematical library into another software project is to build the static library from the library source code. For this procedure, a configuration script and a Makefile are prepared.
 
-First the user has to run the configuration script. During configuration you will be asked ...
+First the user has to run the configuration script which will interactively ask for several configuration items. To reduce the number of questions asked interactively the ``configure`` script can be called with flags. During configuration you will be asked ...
 
-* ... for the path to the compilation toolchain.
-* ... for additional compilation flags.
-* ... whether the platform does not support subnormals and as such uses a non-standard :ref:`FTZ/DAZ <ABBR>` mode.
-* ... whether you want ``long double`` procedures (this will only be asked if the toolchain informs the configuration script that ``long double`` are 64 bit in size).
-* ... for your platforms endianess (this will only be asked if the toolchain does not provide the answer).
-* ... whether you want complex procedures.
+* ... for the path to the compilation toolchain. (Flag: ``--cross-compile <CROSS_COMPILE>``)
+* ... for additional compilation flags. (Flag: ``--compilation-flags <CFLAGS>``)
+* ... whether the platform does not support subnormals and as such uses a non-standard :ref:`FTZ/DAZ <ABBR>` mode. (Flag: ``--enable-denormal-handling`` or ``--disable-denormal-handling``)
+* ... whether you want ``long double`` procedures (this will only be asked if the toolchain informs the configuration script that ``long double`` are 64 bit in size). (Flag: ``--enable-long-double-procedures`` or ``--disable-long-double-procedures``)
+* ... for your platforms endianess (this will only be asked if the toolchain does not provide the answer). (Flag: ``--big-endian`` or ``--little-endian``)
+* ... whether you want complex procedures. (Flag: ``--enable-complex-procedures`` or ``--disable-complex-procedures``)
+
+The configuration creates a secondary Makefile ``user_make.mk``, which will then be used by the primary Makefile. As such it should not be moved elsewhere (if it is not where it should be the primary Makefile will assume ``configure`` has not been executed and display an error). It contains flags and variables based on the choices made during ``configure`` as well as an additional variable which tells the primary Makefile that the configuration was properly finished.
 
 The Makefile provides the following targets:
 
@@ -33,10 +40,19 @@ The targets ``all``, ``debug``, ``release``, and ``clean`` can be modified using
 
 The resulting libraries can be found in the ``build-ARCH/bin`` directory, with ``ARCH`` being the provided constant, or if not provided defaults to the target defined by :ref:`GCC <ABBR>` (this can be inspected with the shell command ``gcc -v``). The intermediate object files can be found in the ``build-ARCH/obj`` directory.
 
+After finishing the build `make` will also create a build info file within the ``build-ARCH`` directory. This file is aptly named ``build_info.yml`` and contains the following information in :ref:`YAML <ABBR>` format:
+
+* timestamp on when the build was made,
+* path to the compiler, information provided by the compiler (such as version), compilation flags, includes,
+* git information: branch name, commit hash, check if the commit is clean or if changes were made (dirty),
+* sha256 of the generated libm.a
+
+Both of the files ``build_info.yml`` and ``user_make.mk`` provide information to MAXI while creating the final reports, as such they need to stay at the path they were generated at. The same applies to the ``libm.a`` itself.
+
 Getting Started
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the last section, the code of the mathematical library is prepared in a static library. To use the library, the library header files have to be included in the user's source code. The useable header files are ``math.h``, and ``complex.h``. The complex procedures however will only exist if they wer chosen to during configuration.
+In the last section, the code of the mathematical library is prepared in a static library. To use the library, the library header files have to be included in the user's source code. The useable header files are ``math.h``, and ``complex.h``. The complex procedures however will only exist if they were chosen to during configuration.
 
 Mode Selection and Control
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
