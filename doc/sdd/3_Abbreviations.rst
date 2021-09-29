@@ -45,5 +45,8 @@ SRS
 subnormal
     See IEEE-754 standard for the definition.
 
+SUM
+    Software Users Manual
+
 ULP
     Unit in the Last Place
