@@ -1,6 +1,6 @@
 The QLibmCS is provided under:
 
-	SPDX-License-Identifier: GTD-GmbH-BSD
+	SPDX-License-Identifier: GTDGmbH
 
 Being under the terms of the following licenses: 
 
