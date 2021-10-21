@@ -6,9 +6,7 @@ cacosh
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement based on :ref:`clog` and :ref:`csqrt`.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

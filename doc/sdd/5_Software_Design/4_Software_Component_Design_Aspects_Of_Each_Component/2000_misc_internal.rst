@@ -15,9 +15,7 @@ The floating-point to integer conversion (and vice-versa) procedures do not have
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement based on bit-fiddling and tricks for forcing the FPU to do as it should.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

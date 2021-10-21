@@ -6,9 +6,7 @@ catanh
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement based on :ref:`catan`.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
