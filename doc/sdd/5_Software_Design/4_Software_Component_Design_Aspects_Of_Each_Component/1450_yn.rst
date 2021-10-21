@@ -23,9 +23,7 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-#. Check for special cases and handle them.
-#. For :math:`n` is zero or one use :ref:`y0` and :ref:`y1`.
-#. For :math:`n > 1` use forward recursion starting from the values of :math:`y0(x)` and  :math:`y1(x)`.
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

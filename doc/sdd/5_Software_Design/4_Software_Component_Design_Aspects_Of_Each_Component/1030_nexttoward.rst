@@ -31,7 +31,7 @@ Mathematical Approach
 
 The approach is to call :ref:`nextafter`.
 
-Float: Implement based on bit-fiddling.
+Float: Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
