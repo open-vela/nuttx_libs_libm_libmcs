@@ -4,14 +4,7 @@
 #include <math.h>
 #include "../common/tools.h"
 
-#ifndef __LIBMCS_LONG_DOUBLE_IS_64BITS
-
-float nexttowardf(float x, long double y)
-{
-    return nextafterf(x, (float) y);
-}
-
-#else
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 union fshape {
     float value;
@@ -85,8 +78,6 @@ float nexttowardf(float x, long double y)
     return ux.value;
 }
 
-#endif /* __LIBMCS_LONG_DOUBLE_IS_64BITS */
-
 #ifdef __LIBMCS_DOUBLE_IS_32BITS
 
 double nexttoward(double x, long double y)
@@ -95,3 +86,5 @@ double nexttoward(double x, long double y)
 }
 
 #endif /* defined(_DOUBLE_IS_32BITS) */
+
+#endif /* __LIBMCS_LONG_DOUBLE_IS_64BITS */
