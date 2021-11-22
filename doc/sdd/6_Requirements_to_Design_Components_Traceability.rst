@@ -362,16 +362,16 @@ The :numref:`Tbl. %s <req-upward>` contains the traceability of the software com
    all                                        REQ-ML-1800
    all                                        REQ-ML-1900
    all                                        REQ-ML-2000
-   Makefile/configure                         REQ-ML-0024
-   Makefile/configure                         REQ-ML-0025
-   Makefile/configure                         REQ-ML-0026
-   Makefile/configure                         REQ-ML-0027
-   Makefile/configure                         REQ-ML-0028
-   Makefile/configure                         REQ-ML-0090
-   Makefile/configure                         REQ-ML-0100
-   Makefile/configure                         REQ-ML-0115
-   Makefile/configure                         REQ-ML-0180
-   Makefile/configure                         REQ-ML-1901
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0024
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0025
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0026
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0027
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0028
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0090
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0100
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0115
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-0180
+   :ref:`Makefile`/:ref:`configure`           REQ-ML-1901
    :ref:`Interfaces Context`                  REQ-ML-0010
    :ref:`Interfaces Context`                  REQ-ML-0011
    :ref:`Software Design - General <General>` REQ-ML-1499
@@ -399,22 +399,22 @@ The :numref:`Tbl. %s <req-downward>` contains the traceability of the :ref:`SRS 
    REQ-ML-0020    all
    REQ-ML-0021    all
    REQ-ML-0022    :ref:`Errno`
-   REQ-ML-0024    Makefile/configure
-   REQ-ML-0025    Makefile/configure
-   REQ-ML-0026    Makefile/configure
-   REQ-ML-0027    Makefile/configure
-   REQ-ML-0028    Makefile/configure
+   REQ-ML-0024    :ref:`Makefile`/:ref:`configure`
+   REQ-ML-0025    :ref:`Makefile`/:ref:`configure`
+   REQ-ML-0026    :ref:`Makefile`/:ref:`configure`
+   REQ-ML-0027    :ref:`Makefile`/:ref:`configure`
+   REQ-ML-0028    :ref:`Makefile`/:ref:`configure`
    REQ-ML-0029    :ref:`Handling of Subnormal Numbers`
    REQ-ML-0061    all
    REQ-ML-0062    all
    REQ-ML-0063    all
    REQ-ML-0064    all
-   REQ-ML-0090    Makefile/configure
-   REQ-ML-0100    Makefile/configure
+   REQ-ML-0090    :ref:`Makefile`/:ref:`configure`
+   REQ-ML-0100    :ref:`Makefile`/:ref:`configure`
    REQ-ML-0110    all
    REQ-ML-0112    all
-   REQ-ML-0115    Makefile/configure
-   REQ-ML-0180    Makefile/configure
+   REQ-ML-0115    :ref:`Makefile`/:ref:`configure`
+   REQ-ML-0180    :ref:`Makefile`/:ref:`configure`
    REQ-ML-0200    sin
    REQ-ML-0210    sin
    REQ-ML-0220    sin
@@ -545,7 +545,7 @@ The :numref:`Tbl. %s <req-downward>` contains the traceability of the :ref:`SRS 
    REQ-ML-1600    all
    REQ-ML-1800    all
    REQ-ML-1900    all
-   REQ-ML-1901    Makefile/configure
+   REQ-ML-1901    :ref:`Makefile`/:ref:`configure`
    REQ-ML-2000    all
    REQ-ML-2100    sinh
    REQ-ML-2110    sinh
