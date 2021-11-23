@@ -23,9 +23,7 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement similarly to :ref:`log10` using :ref:`__log1pmf <internal_log>`.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

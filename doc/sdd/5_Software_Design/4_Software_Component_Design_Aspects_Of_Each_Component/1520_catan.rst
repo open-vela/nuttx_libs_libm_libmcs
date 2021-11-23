@@ -6,9 +6,7 @@ catan
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement based on :ref:`atan2`.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
