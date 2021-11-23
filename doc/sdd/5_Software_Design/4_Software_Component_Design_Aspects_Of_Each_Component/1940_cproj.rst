@@ -6,9 +6,7 @@ cproj
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement based on :ref:`copysign`.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

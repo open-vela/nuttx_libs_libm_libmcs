@@ -304,3 +304,12 @@ Miscellaneous Internal Functions
    :maxdepth: 1
 
    2000_misc_internal.rst
+
+Build and Configuration Files
+"""""""""""""""""""""""""""""
+
+.. toctree::
+   :maxdepth: 1
+
+   3000_configure.rst
+   3100_makefile.rst

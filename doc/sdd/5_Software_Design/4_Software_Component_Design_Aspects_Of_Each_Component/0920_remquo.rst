@@ -21,9 +21,7 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Implement similarly to :ref:`remainder`, and calculate the quotient while at it.
-
-.. Here there be dragons. (TODO)
+Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
