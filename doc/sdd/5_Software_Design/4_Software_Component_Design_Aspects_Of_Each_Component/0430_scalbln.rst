@@ -21,7 +21,9 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement similarly to :ref:`scalbn`.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

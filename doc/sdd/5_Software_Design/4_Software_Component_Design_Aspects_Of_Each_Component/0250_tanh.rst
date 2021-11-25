@@ -19,7 +19,12 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :math:`tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}` using :ref:`expm1`:
+
+#. Reduce to positive as :math:`tanh(-x) = -tanh(x)`
+#. For :math:`0 <= x <=  1`: :math:`tanh(x) = -\frac{t}{t + 2} \wedge t = expm1(-2x)`
+#. For :math:`1 <= x <=  22`: :math:`tanh(x) = 1 - \frac{2}{t + 2} \wedge t = expm1(2x)`
+#. For :math:`22 <= x`: :math:`tanh(x) = 1`
 
 Requirements
 ^^^^^^^^^^^^
