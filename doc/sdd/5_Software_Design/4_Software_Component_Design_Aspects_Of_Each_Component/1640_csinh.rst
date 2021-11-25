@@ -6,7 +6,9 @@ csinh
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :ref:`cos`, :ref:`sin`, :ref:`cosh`, and :ref:`cosh`.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
