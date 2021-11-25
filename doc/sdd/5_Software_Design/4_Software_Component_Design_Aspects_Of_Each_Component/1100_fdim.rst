@@ -27,7 +27,7 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+If :math:`x` is greater than :math:`y` return :math:`x - y`, otherwise return :math:`0`.
 
 Requirements
 ^^^^^^^^^^^^

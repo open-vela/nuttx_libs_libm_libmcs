@@ -23,7 +23,11 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :math:`cosh^{-1}(x) = ln(x + \sqrt{x^2-1})` using :ref:`log`, :ref:`log1p`, and :ref:`sqrt`:
+
+#. For large :math:`x` (:math:`x > 2^{28}`): :math:`acosh(x) = log(x) + log(2)`
+#. For :math:`x > 2`: :math:`acosh(x) = log\Big(\frac{2x - 1}{x + \sqrt{x^2 - 1}}\Big)`
+#. For smaller :math:`x`: :math:`acosh(x) = log1p(t + \sqrt{2t+t^2}) \wedge t = x - 1`
 
 Requirements
 ^^^^^^^^^^^^

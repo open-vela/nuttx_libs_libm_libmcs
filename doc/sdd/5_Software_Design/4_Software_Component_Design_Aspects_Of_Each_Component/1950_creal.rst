@@ -6,7 +6,9 @@ creal
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Return the real part of the input.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

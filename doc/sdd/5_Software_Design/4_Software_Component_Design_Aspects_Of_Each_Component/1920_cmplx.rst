@@ -6,7 +6,9 @@ CMPLX
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Use inherent procedures in accordance with C standard compliant toolchains.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
