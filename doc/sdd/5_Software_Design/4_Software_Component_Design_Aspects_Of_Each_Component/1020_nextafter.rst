@@ -29,7 +29,9 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on bit-fiddling.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

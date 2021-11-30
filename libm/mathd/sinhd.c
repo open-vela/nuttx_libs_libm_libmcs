@@ -50,67 +50,6 @@
  * 
  *///
 
-/* __sinh(x)
- * Method :
- * mathematically sinh(x) if defined to be (exp(x)-exp(-x))/2
- *    1. Replace x by |x| (sinh(-x) = -sinh(x)).
- *    2.
- *                                               E + E/(E+1)
- *        0        <= x <= 22     :  sinh(x) := --------------, E=expm1(x)
- *                                       2
- *
- *        22       <= x <= lnovft :  sinh(x) := exp(x)/2
- *        lnovft   <= x <= ln2ovft:  sinh(x) := exp(x/2)/2 * exp(x/2)
- *        ln2ovft  <  x           :  sinh(x) := x*shuge (overflow)
- *
- * Special cases:
- *    sinh(x) is |x| if x is +INF, -INF, or NaN.
- *    only sinh(0)=0 is exact for finite x.
- */
-
-/*
-FUNCTION
-        <<sinh>>, <<sinhf>>---hyperbolic sine
-
-INDEX
-    sinh
-INDEX
-    sinhf
-
-SYNOPSIS
-        #include <math.h>
-        double sinh(double <[x]>);
-        float  sinhf(float <[x]>);
-
-DESCRIPTION
-    <<sinh>> computes the hyperbolic sine of the argument <[x]>.
-    Angles are specified in radians.   <<sinh>>(<[x]>) is defined as
-    @ifnottex
-    . (exp(<[x]>) - exp(-<[x]>))/2
-    @end ifnottex
-    @tex
-    $${e^x - e^{-x}}\over 2$$
-    @end tex
-
-    <<sinhf>> is identical, save that it takes and returns <<float>> values.
-
-RETURNS
-    The hyperbolic sine of <[x]> is returned.
-
-    When the correct result is too large to be representable (an
-    overflow),  <<sinh>> returns <<HUGE_VAL>> with the
-    appropriate sign, and sets the global value <<errno>> to
-    <<ERANGE>>.
-
-PORTABILITY
-    <<sinh>> is ANSI C.
-    <<sinhf>> is an extension.
-
-QUICKREF
-    sinh ansi pure
-    sinhf - pure
-*/
-
 #include <math.h>
 #include "../common/tools.h"
 

@@ -51,50 +51,6 @@
  *///
 
 /*
-FUNCTION
-       <<frexp>>, <<frexpf>>---split floating-point number
-INDEX
-    frexp
-INDEX
-    frexpf
-
-SYNOPSIS
-    #include <math.h>
-        double frexp(double <[val]>, int *<[exp]>);
-        float frexpf(float <[val]>, int *<[exp]>);
-
-DESCRIPTION
-    All nonzero, normal numbers can be described as <[m]> * 2**<[p]>.
-    <<frexp>> represents the double <[val]> as a mantissa <[m]>
-    and a power of two <[p]>. The resulting mantissa will always
-    be greater than or equal to <<0.5>>, and less than <<1.0>> (as
-    long as <[val]> is nonzero). The power of two will be stored
-    in <<*>><[exp]>.
-
-@ifnottex
-<[m]> and <[p]> are calculated so that
-<[val]> is <[m]> times <<2>> to the power <[p]>.
-@end ifnottex
-@tex
-<[m]> and <[p]> are calculated so that
-$ val = m \times 2^p $.
-@end tex
-
-<<frexpf>> is identical, other than taking and returning
-floats rather than doubles.
-
-RETURNS
-<<frexp>> returns the mantissa <[m]>. If <[val]> is <<0>>, infinity,
-or Nan, <<frexp>> will set <<*>><[exp]> to <<0>> and return <[val]>.
-
-PORTABILITY
-<<frexp>> is ANSI.
-<<frexpf>> is an extension.
-
-
-*/
-
-/*
  * for non-zero x
  *    x = frexp(arg,&exp);
  * return a double fp quantity x such that 0.5 <= |x| <1.0

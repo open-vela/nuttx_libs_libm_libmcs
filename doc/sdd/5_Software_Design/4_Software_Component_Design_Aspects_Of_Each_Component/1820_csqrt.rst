@@ -6,7 +6,9 @@ csqrt
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :ref:`sqrt`.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
@@ -19,6 +21,7 @@ Source Code Files
 * libm/include/complex.h
 * libm/complexd/csqrtd.c
 * libm/complexf/csqrtf.c
+
 References
 ^^^^^^^^^^
 

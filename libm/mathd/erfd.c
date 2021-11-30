@@ -50,51 +50,6 @@
  * 
  *///
 
-/*
-FUNCTION
-        <<erf>>, <<erff>>, <<erfc>>, <<erfcf>>---error function
-INDEX
-    erf
-INDEX
-    erff
-INDEX
-    erfc
-INDEX
-    erfcf
-
-SYNOPSIS
-    #include <math.h>
-    double erf(double <[x]>);
-    float erff(float <[x]>);
-    double erfc(double <[x]>);
-    float erfcf(float <[x]>);
-
-DESCRIPTION
-    <<erf>> calculates an approximation to the ``error function'',
-    which estimates the probability that an observation will fall within
-    <[x]> standard deviations of the mean (assuming a normal
-    distribution).
-    @tex
-    The error function is defined as
-    $${2\over\sqrt\pi}\times\int_0^x e^{-t^2}dt$$
-     @end tex
-
-    <<erfc>> calculates the complementary probability; that is,
-    <<erfc(<[x]>)>> is <<1 - erf(<[x]>)>>.  <<erfc>> is computed directly,
-    so that you can use it to avoid the loss of precision that would
-    result from subtracting large probabilities (on large <[x]>) from 1.
-
-    <<erff>> and <<erfcf>> differ from <<erf>> and <<erfc>> only in the
-    argument and result types.
-
-RETURNS
-    For positive arguments, <<erf>> and all its variants return a
-    probability---a number between 0 and 1.
-
-PORTABILITY
-    None of the variants of <<erf>> are ANSI C.
-*/
-
 /* double erf(double x)
  * double erfc(double x)
  *                 x

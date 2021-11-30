@@ -50,41 +50,6 @@
  * 
  *///
 
-/*
-FUNCTION
-    <<expm1>>, <<expm1f>>---exponential minus 1
-INDEX
-    expm1
-INDEX
-    expm1f
-
-SYNOPSIS
-    #include <math.h>
-    double expm1(double <[x]>);
-    float expm1f(float <[x]>);
-
-DESCRIPTION
-    <<expm1>> and <<expm1f>> calculate the exponential of <[x]>
-    and subtract 1, that is,
-    @ifnottex
-    e raised to the power <[x]> minus 1 (where e
-    @end ifnottex
-    @tex
-    $e^x - 1$ (where $e$
-    @end tex
-    is the base of the natural system of logarithms, approximately
-    2.71828).  The result is accurate even for small values of
-    <[x]>, where using <<exp(<[x]>)-1>> would lose many
-    significant digits.
-
-RETURNS
-    e raised to the power <[x]>, minus 1.
-
-PORTABILITY
-    Neither <<expm1>> nor <<expm1f>> is required by ANSI C or by
-    the System V Interface Definition (Issue 2).
-*/
-
 /* expm1(x)
  * Returns exp(x)-1, the exponential of x minus 1.
  *
