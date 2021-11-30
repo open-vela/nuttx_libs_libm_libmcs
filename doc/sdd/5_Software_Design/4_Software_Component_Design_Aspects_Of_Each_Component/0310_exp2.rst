@@ -21,7 +21,9 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :ref:`pow`.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
