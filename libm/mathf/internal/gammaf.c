@@ -159,7 +159,7 @@ float __lgammaf(float x, int *signgamp)
         return __raise_div_by_zerof(zero);
     }
 
-    if (ix < 0x1c800000) { /* |x|<2**-70, return -log(|x|) */
+    if (ix < 0x30800000) { /* |x|<2**-30, return -log(|x|) */
         if (hx < 0) {
             *signgamp = -1;
             return -logf(-x);
