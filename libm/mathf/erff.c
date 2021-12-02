@@ -63,7 +63,7 @@ float erff(float x)
         }
     }
 
-    if (ix >= 0x40c00000) {        /* inf>|x|>=6 */
+    if (ix >= 0x40800000) {        /* inf>|x|>=4 */
         if (hx >= 0) {
             return __raise_inexactf(one);
         } else {
