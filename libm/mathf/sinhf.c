@@ -49,12 +49,12 @@ float sinhf(float x)
         return h * (t + t / (t + one));
     }
 
-    /* |x| in [22, log(maxdouble)] return 0.5*exp(|x|) */
+    /* |x| in [22, log(maxfloat)] return 0.5*exp(|x|) */
     if (ix <= FLT_UWORD_LOG_MAX) {
         return h * expf(fabsf(x));
     }
 
-    /* |x| in [log(maxdouble), overflowthresold] */
+    /* |x| in [log(maxfloat), overflowthresold] */
     if (ix <= FLT_UWORD_LOG_2MAX) {
         w = expf(0.5f * fabsf(x));
         t = h * w;
