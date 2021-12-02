@@ -79,7 +79,7 @@ float erfcf(float x)
         }
 
         GET_FLOAT_WORD(ix, x);
-        SET_FLOAT_WORD(z, ix & 0xfffff000U);
+        SET_FLOAT_WORD(z, ix & 0xffffc000U);
         r  =  expf(-z * z - 0.5625f) * expf((z - x) * (z + x) + R / S);
 
         if (hx > 0) {
