@@ -69,6 +69,9 @@ POSIX
 PSR
     Processor State Register
 
+QG
+    Qualification Guideline
+    
 RAM
     Random Access Memory
 
