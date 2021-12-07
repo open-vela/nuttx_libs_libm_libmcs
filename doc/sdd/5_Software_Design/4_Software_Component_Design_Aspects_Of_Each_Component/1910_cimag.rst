@@ -6,7 +6,9 @@ cimag
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Return the imaginary part of the input.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

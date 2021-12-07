@@ -24,7 +24,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    nexttoward(x, y) = \left\{\begin{array}{ll} y, & x = y \\ \text{min} \{z | z \in \mathbb{F} \wedge z > x\}, & x < y \\ \text{max} \{z | z \in \mathbb{F} \wedge z < x\}, & otherwise \end{array}\right.
@@ -70,12 +70,12 @@
 
 #include <math.h>
 
+#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
+
 double nexttoward(double x, long double y)
 {
     return nextafter(x, (double) y);
 }
-
-#ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
 
 long double nexttowardl(long double x, long double y)
 {

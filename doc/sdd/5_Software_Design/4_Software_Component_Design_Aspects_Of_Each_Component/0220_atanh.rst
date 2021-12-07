@@ -23,7 +23,11 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :math:`tanh^{-1}(x) = \frac{1}{2} ln \left( \frac{1+x}{1-x} \right)` using :ref:`log1p`:
+
+#. Reduce to positive as :math:`tanh^{-1}(-x) = -tanh^{-1}(x)`
+#. For :math:`x >= \frac{1}{2}`: :math:`atanh(x) = \frac{1}{2} log\Big(1 + \frac{2x}{1 - x}\Big) = \frac{1}{2} log1p\Big(\frac{2x}{1 - x}\Big)`
+#. Otherwise: :math:`atanh(x) = \frac{1}{2} log1p\Big(2x + \frac{2x^2}{1-x}\Big)`
 
 Requirements
 ^^^^^^^^^^^^
