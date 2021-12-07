@@ -52,42 +52,6 @@
  * 
  *///
 
-/*
-FUNCTION
-<<log1p>>, <<log1pf>>---log of <<1 + <[x]>>>
-
-INDEX
-    log1p
-INDEX
-    log1pf
-
-SYNOPSIS
-    #include <math.h>
-    double log1p(double <[x]>);
-    float log1pf(float <[x]>);
-
-DESCRIPTION
-<<log1p>> calculates
-@tex
-$ln(1+x)$,
-@end tex
-the natural logarithm of <<1+<[x]>>>.  You can use <<log1p>> rather
-than `<<log(1+<[x]>)>>' for greater precision when <[x]> is very
-small.
-
-<<log1pf>> calculates the same thing, but accepts and returns
-<<float>> values rather than <<double>>.
-
-RETURNS
-<<log1p>> returns a <<double>>, the natural log of <<1+<[x]>>>.
-<<log1pf>> returns a <<float>>, the natural log of <<1+<[x]>>>.
-
-PORTABILITY
-Neither <<log1p>> nor <<log1pf>> is required by ANSI C or by the System V
-Interface Definition (Issue 2).
-
-*/
-
 /* double log1p(double x)
  *
  * Method :

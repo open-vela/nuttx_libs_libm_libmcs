@@ -6,7 +6,9 @@ cexp
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :ref:`cos`, :ref:`sin`, and :ref:`exp`.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^
