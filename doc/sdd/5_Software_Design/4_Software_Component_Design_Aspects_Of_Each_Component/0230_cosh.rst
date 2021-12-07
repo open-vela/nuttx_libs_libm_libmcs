@@ -19,7 +19,12 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :math:`cosh(x) = \frac{e^x+e^{-x}}{2}` using :ref:`exp` and :ref:`expm1`:
+
+#. Reduce to positive as :math:`cosh(-x) = cosh(x)`
+#. For :math:`0 <= x <= \frac{ln(2)}{2}`: :math:`cosh(x) = 1 + \frac{(exp(x) - 1)^2}{2 \cdot exp(x)}`
+#. For :math:`\frac{ln(2)}{2} <= x <= 22`: :math:`cosh(x) = \frac{exp(x) + \frac{1}{exp(x)}}{2}`
+#. For :math:`22 <= x`: :math:`cosh(x) = \frac{exp(x)}{2}`
 
 Requirements
 ^^^^^^^^^^^^
