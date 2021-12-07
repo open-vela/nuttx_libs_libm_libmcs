@@ -17,3 +17,5 @@ The library is a reuse of the mathematical library contained in ``newlib`` calle
 In the process of improving the reused software several design and implementation changes have to be made to the library.
 
 This document follows in structure and content the :ref:`DRD <ABBR>` in ECSS-E-ST-40 :ref:`[AD01] <AD>`, but because of the type of the reused software some required items have to be redefined for an appropriate design description or are not relevant. The reinterpreting/redefining of items is done at the start of each section. All items not relevant in this context are mentioned at the end of each section to be compliant with :ref:`ECSS <ABBR>`.
+
+The source code is designed to be compliant to the mandatory and required rules depicted in MISRA C:2012 :ref:`[AD04] <AD>`.

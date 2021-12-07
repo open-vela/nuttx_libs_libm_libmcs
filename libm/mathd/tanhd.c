@@ -50,63 +50,6 @@
  * 
  *///
 
-/*
-
-FUNCTION
-        <<tanh>>, <<tanhf>>---hyperbolic tangent
-
-INDEX
-tanh
-INDEX
-tanhf
-
-SYNOPSIS
-        #include <math.h>
-        double tanh(double <[x]>);
-        float tanhf(float <[x]>);
-
-DESCRIPTION
-
-<<tanh>> computes the hyperbolic tangent of
-the argument <[x]>.  Angles are specified in radians.
-
-<<tanh(<[x]>)>> is defined as
-. sinh(<[x]>)/cosh(<[x]>)
-
-<<tanhf>> is identical, save that it takes and returns <<float>> values.
-
-RETURNS
-The hyperbolic tangent of <[x]> is returned.
-
-PORTABILITY
-<<tanh>> is ANSI C.  <<tanhf>> is an extension.
-
-*/
-
-/* Tanh(x)
- * Return the Hyperbolic Tangent of x
- *
- * Method :
- *                       x    -x
- *                      e  - e
- *    0. tanh(x) is defined to be -----------
- *                       x    -x
- *                      e  + e
- *    1. reduce x to non-negative by tanh(-x) = -tanh(x).
- *    2.  0      <= x <= 2**-55 : tanh(x) := x*(one+x)
- *                            -t
- *        2**-55 <  x <=  1     : tanh(x) := -----; t = expm1(-2x)
- *                           t + 2
- *                             2
- *        1      <= x <=  22.0  : tanh(x) := 1-  ----- ; t=expm1(2x)
- *                           t + 2
- *        22.0   <  x <= INF    : tanh(x) := 1.
- *
- * Special cases:
- *    tanh(NaN) is NaN;
- *    only tanh(0)=0 is exact for finite argument.
- */
-
 #include <math.h>
 #include "../common/tools.h"
 

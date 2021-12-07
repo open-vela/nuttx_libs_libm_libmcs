@@ -48,66 +48,6 @@
  * 
  *///
 
-/* __cosh(x)
- * Method :
- * mathematically cosh(x) if defined to be (exp(x)+exp(-x))/2
- *    1. Replace x by |x| (cosh(x) = cosh(-x)).
- *    2.
- *                                                [ exp(x) - 1 ]^2
- *        0        <= x <= ln2/2  :  cosh(x) := 1 + -------------------
- *                                          2*exp(x)
- *
- *                                          exp(x) +  1/exp(x)
- *        ln2/2    <= x <= 22     :  cosh(x) := -------------------
- *                                         2
- *        22       <= x <= lnovft :  cosh(x) := exp(x)/2
- *        lnovft   <= x <= ln2ovft:  cosh(x) := exp(x/2)/2 * exp(x/2)
- *        ln2ovft  <  x           :  cosh(x) := overflow
- *
- * Special cases:
- *    cosh(x) is |x| if x is +INF, -INF, or NaN.
- *    only cosh(0)=1 is exact for finite x.
- */
-
-/*
-
-FUNCTION
-        <<cosh>>, <<coshf>>---hyperbolic cosine
-
-SYNOPSIS
-        #include <math.h>
-        double cosh(double <[x]>);
-        float coshf(float <[x]>);
-
-DESCRIPTION
-
-    <<cosh>> computes the hyperbolic cosine of the argument <[x]>.
-    <<cosh(<[x]>)>> is defined as
-    @ifnottex
-    . (exp(x) + exp(-x))/2
-    @end ifnottex
-    @tex
-    $${(e^x + e^{-x})} \over 2$$
-    @end tex
-
-    Angles are specified in radians.
-
-    <<coshf>> is identical, save that it takes and returns <<float>>.
-
-RETURNS
-    The computed value is returned.  When the correct value would create
-    an overflow,  <<cosh>> returns the value <<HUGE_VAL>> with the
-    appropriate sign, and the global value <<errno>> is set to <<ERANGE>>.
-
-PORTABILITY
-    <<cosh>> is ANSI.
-    <<coshf>> is an extension.
-
-QUICKREF
-    cosh ansi pure
-    coshf - pure
-*/
-
 #include <math.h>
 #include "../common/tools.h"
 
