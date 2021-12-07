@@ -105,6 +105,10 @@ double scalbn(double x, int n)
         return x + x;             /* NaN or Inf */
     }
 
+    if (n > 50000) {
+        return __raise_overflow(x);         /*overflow */
+    }
+
     k = k + n;
 
     if (k >  0x7fe) {
@@ -117,11 +121,7 @@ double scalbn(double x, int n)
     }
 
     if (k <= -54) {
-        if (n > 50000) {          /* in case integer overflow in n+k */
-            return __raise_overflow(x);     /*overflow */
-        } else {
-            return __raise_underflow(x);    /*underflow*/
-        }
+        return __raise_underflow(x);        /*underflow*/
     }
 
     k += 54;                      /* subnormal result */
