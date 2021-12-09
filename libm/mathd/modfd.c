@@ -3,8 +3,7 @@
 
 /**
  *
- * This family of functions splits the input value into integral and fractional
- * part.
+ * This family of functions splits the input value into integral and fractional part.
  *
  * Synopsis
  * ========
@@ -19,12 +18,11 @@
  * Description
  * ===========
  *
- * ``modf`` splits the input value into integral and fractional part, each of
- * which have the same sign.
+ * ``modf`` splits the input value into integral and fractional part, each of which have the same sign.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    modf(x) = x - iptr \wedge \left\{\begin{array}{ll} iptr = \lfloor x \rfloor, & x \geq 0  \\ iptr = \lceil x \rceil, & otherwise \end{array}\right.
@@ -32,9 +30,7 @@
  * Returns
  * =======
  *
- * ``modf`` returns the fractional part of :math:`x` in the range
- * :math:`]-1.0,1.0[` and puts the integral part into the output pointer
- * :math:`*iptr`.
+ * ``modf`` returns the fractional part of :math:`x` in the range :math:`]-1.0,1.0[` and puts the integral part into the output pointer :math:`*iptr`.
  *
  * Exceptions
  * ==========

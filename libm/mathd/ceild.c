@@ -3,8 +3,7 @@
 
 /**
  *
- * This family of functions implements rounding towards positive infinity of
- * :math:`x`.
+ * This family of functions implements rounding towards positive infinity of :math:`x`.
  *
  * Synopsis
  * ========
@@ -23,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    ceil(x) = \lceil x \rceil
@@ -46,7 +45,7 @@
  * +=====================+==============+=========================+==============+==============+=========================+==============+==============+
  * | **ceil(x)**         | :math:`-Inf` | :math:`\lceil x \rceil` | :math:`x`                   | :math:`\lceil x \rceil` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+-------------------------+--------------+--------------+-------------------------+--------------+--------------+
- *
+ * 
  *///
 
 #include <math.h>

@@ -3,9 +3,7 @@
 
 /**
  *
- * This macro is used to test if :math:`x` is a finite floating-point value. It
- * can be called with ``float``, ``double`` or ``long double`` input. This
- * macro is implemented in ``math.h``.
+ * This macro is used to test if :math:`x` is a finite floating-point value. It can be called with ``float``, ``double`` or ``long double`` input. This macro is implemented in ``math.h``.
  *
  * Synopsis
  * ========
@@ -18,12 +16,11 @@
  * Description
  * ===========
  *
- * ``isfinite`` tests whether the input value is finite (neither infinite nor
- * :math:`NaN`) or not.
+ * ``isfinite`` tests whether the input value is finite (neither infinite nor :math:`NaN`) or not.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    isfinite(x) = \left\{\begin{array}{ll} 1, & x \in \mathbb{F} \setminus \left \{ \pm Inf, NaN \right \} \\
@@ -41,7 +38,7 @@
  *
  * Output map
  * ==========
- *
+ * 
  * +---------------------+--------------+------------------------------------------------------------------+--------------+-------------+
  * | **x**               | :math:`-Inf` | :math:`\in \mathbb{F} \setminus \left \{ \pm Inf, NaN \right \}` | :math:`+Inf` | :math:`NaN` |
  * +=====================+==============+==================================================================+==============+=============+
@@ -49,4 +46,4 @@
  * +---------------------+--------------+------------------------------------------------------------------+--------------+-------------+
  *
  *///
-
+ 

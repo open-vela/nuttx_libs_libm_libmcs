@@ -18,13 +18,11 @@
  * Description
  * ===========
  *
- * ``lround`` computes the nearest integer value to :math:`x`. Functionally the
- * same procedure as :ref:`round` but returns ``long int`` instead of a
- * floating point value.
+ * ``lround`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`round` but returns ``long int`` instead of a floating point value.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    lround(x) = \lfloor x \rceil
@@ -37,10 +35,7 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the correct result is not
- * representable as the output type. This is the case when the input value is
- * infinite or :math:`NaN`, or the magnitude of the result is too large to be
- * represented.
+ * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
  *
  * Output map
  * ==========
@@ -50,7 +45,7 @@
  * +=====================+==========================+====================================+==========================+==============+==============+==========================+====================================+==========================+==========================+
  * | **lround(x)**       | min :math:`\mathbb{I}_l`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_l`                                      | :math:`lround(±Inf)`     |
  * +---------------------+--------------------------+------------------------------------+--------------------------+--------------+--------------+--------------------------+------------------------------------+--------------------------+--------------------------+
- *
+ * 
  *///
 
 #include <math.h>

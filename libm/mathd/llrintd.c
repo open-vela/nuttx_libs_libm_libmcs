@@ -19,13 +19,11 @@
  * Description
  * ===========
  *
- * ``llrint`` computes the nearest integer value to :math:`x`. Functionally the
- * same procedure as :ref:`lrint` but returns ``long long int`` instead of
- * ``long int``.
+ * ``llrint`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`lrint` but returns ``long long int`` instead of ``long int``.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    llrint(x) = \lfloor x \rceil
@@ -38,10 +36,7 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the correct result is not
- * representable as the output type. This is the case when the input value is
- * infinite or :math:`NaN`, or the magnitude of the result is too large to be
- * represented.
+ * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
  *
  * Output map
  * ==========
@@ -51,7 +46,7 @@
  * +=====================+==========================+=======================================+==========================+==============+==============+==========================+=======================================+==========================+==========================+
  * | **llrint(x)**       | min :math:`\mathbb{I}_{ll}`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_{ll}`                                      | :math:`llrint(±Inf)`     |
  * +---------------------+--------------------------+---------------------------------------+--------------------------+--------------+--------------+--------------------------+---------------------------------------+--------------------------+--------------------------+
- *
+ * 
  *///
 
 #include <math.h>

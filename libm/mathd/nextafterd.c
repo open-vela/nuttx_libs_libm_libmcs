@@ -3,8 +3,7 @@
 
 /**
  *
- * This family of functions computes the next floating-point value after
- * :math:`x` in direction of :math:`y`.
+ * This family of functions computes the next floating-point value after :math:`x` in direction of :math:`y`.
  *
  * Synopsis
  * ========
@@ -23,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    nextafter(x, y) = \left\{\begin{array}{ll} y, & x = y \\ \text{min} \{z | z \in \mathbb{F} \wedge z > x\}, & x < y \\ \text{max} \{z | z \in \mathbb{F} \wedge z < x\}, & otherwise \end{array}\right.
@@ -31,15 +30,12 @@
  * Returns
  * =======
  *
- * ``nextafter`` returns the the next floating-point value after :math:`x` in
- * direction of :math:`y`.
+ * ``nextafter`` returns the the next floating-point value after :math:`x` in direction of :math:`y`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of :math:`x` is the largest
- * finite value representable in the type and :math:`y` is infinite with the
- * same sign as :math:`x`.
+ * Raise ``overflow`` exception when the magnitude of :math:`x` is the largest finite value representable in the type and :math:`y` is infinite with the same sign as :math:`x`.
  *
  * .. May raise ``underflow`` exception.
  *

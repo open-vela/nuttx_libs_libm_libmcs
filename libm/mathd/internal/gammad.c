@@ -3,9 +3,7 @@
 
 /**
  *
- * This family of functions is a set of functions used by the gamma function
- * procedures as internal functions. Only ``__lgamma`` is accessible via
- * ``gammad.h`` (``gammaf.h``), but should not be accessed directly by a user.
+ * This family of functions is a set of functions used by the gamma function procedures as internal functions. Only ``__lgamma`` is accessible via ``gammad.h`` (``gammaf.h``), but should not be accessed directly by a user.
  *
  * Synopsis
  * ========
@@ -21,18 +19,13 @@
  * Description
  * ===========
  *
- * ``__lgamma`` computes the natural logarithm of the gamma function of
- * :math:`x` and places the sign of the gamma function in the out-pointer
- * :math:`signgamp`.
+ * ``__lgamma`` computes the natural logarithm of the gamma function of :math:`x` and places the sign of the gamma function in the out-pointer :math:`signgamp`.
  *
- * ``__sin_pi`` computes the sine of the input value after it was multiplied by
- * :math:`\pi`. The procedure is only called in the range
- * :math:`[-2^{52},-2^{-70}]`, calling it outside of this range may result in
- * unexpected results.
+ * ``__sin_pi`` computes the sine of the input value after it was multiplied by :math:`\pi`. The procedure is only called in the range :math:`[-2^{52},-2^{-70}]`, calling it outside of this range may result in unexpected results.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    \_\_sin\_pi(x) &\approx sin(\pi \cdot x)  \\
@@ -42,9 +35,7 @@
  * Returns
  * =======
  *
- * ``__lgamma`` returns the natural logarithm of the gamma function of
- * :math:`x` and places the sign of the gamma function in the out-pointer
- * :math:`signgamp`.
+ * ``__lgamma`` returns the natural logarithm of the gamma function of :math:`x` and places the sign of the gamma function in the out-pointer :math:`signgamp`.
  *
  * ``__sin_pi`` returns the sine of :math:`\pi \cdot x`.
  *
@@ -58,8 +49,7 @@
  * Output map
  * ==========
  *
- * The output maps are in the respective external functions :ref:`lgamma` and
- * :ref:`tgamma`.
+ * The output maps are in the respective external functions :ref:`lgamma` and :ref:`tgamma`.
  *
  *///
 
