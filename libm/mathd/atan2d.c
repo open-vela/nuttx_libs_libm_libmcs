@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``atan2`` computes the inverse tangent (*arc tangent*) of the division of the input values.
+ * ``atan2`` computes the inverse tangent (*arc tangent*) of the division of
+ * the input values.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    atan2(y, x) \approx \left\{\begin{array}{ll}
@@ -40,7 +41,8 @@
  * Exceptions
  * ==========
  *
- * Does not raise useful exceptions. Does not raise ``divide-by-zero`` exception even if argument :math:`x` is zero.
+ * Does not raise useful exceptions. Does not raise ``divide-by-zero``
+ * exception even if argument :math:`x` is zero.
  *
  * .. May raise ``underflow`` exception.
  *

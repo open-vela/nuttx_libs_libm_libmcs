@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``asinh`` computes the hyperbolic inverse sine (*hyperbolic arc sine*) of the input value.
+ * ``asinh`` computes the hyperbolic inverse sine (*hyperbolic arc sine*) of
+ * the input value.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    asinh(x) \approx sinh^{-1}(x) = ln \left( x + \sqrt{x^2+1} \right)
@@ -47,7 +48,7 @@
  * +=====================+======================+======================+==============+==============+======================+======================+======================+
  * | **asinh(x)**        | :math:`-Inf`         | :math:`sinh^{-1}(x)` | :math:`x`                   | :math:`sinh^{-1}(x)` | :math:`+Inf`         | :math:`qNaN`         |
  * +---------------------+----------------------+----------------------+--------------+--------------+----------------------+----------------------+----------------------+
- * 
+ *
  *///
 
 #include <math.h>
