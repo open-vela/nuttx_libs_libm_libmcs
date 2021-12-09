@@ -24,4 +24,4 @@ double ldexp(double x, int exp)
     return (double) ldexpf((float) x, exp);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

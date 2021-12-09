@@ -667,4 +667,4 @@ double __sin(double x, double y, int iy)
     }
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -55,4 +55,4 @@ double __redupi(double x)
     return t;
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

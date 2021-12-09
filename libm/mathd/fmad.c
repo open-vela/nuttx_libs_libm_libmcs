@@ -114,5 +114,5 @@ long double fmal(long double x, long double y, long double z)
     return (long double) fma((double) x, (double) y, (double) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

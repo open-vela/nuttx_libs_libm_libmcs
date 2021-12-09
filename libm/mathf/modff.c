@@ -59,4 +59,4 @@ double modf(double x, double *iptr)
     return (double) modff((float) x, (float *) iptr);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

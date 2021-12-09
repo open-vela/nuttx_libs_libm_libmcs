@@ -42,4 +42,4 @@ double complex cpow(double complex x, double complex y)
     return (double complex) cpowf((float complex) x, (float complex) y);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

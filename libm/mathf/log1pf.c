@@ -111,4 +111,4 @@ double log1p(double x)
     return (double) log1pf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
