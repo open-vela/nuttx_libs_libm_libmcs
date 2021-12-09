@@ -55,7 +55,7 @@ Use the following constants as calculation/return values:
       e^r = 1 - \frac{r \cdot c}{c - 2} - r
 
 #. If no argument reduction was necessary in step 7, return :math:`e^r`.
-#. Use the formula 
+#. Use the formula
 
    .. math::
       :label: formula_exp_3

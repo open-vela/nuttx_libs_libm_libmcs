@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the absolute value ot the complex argument :math:`z`.
+ * This family of functions implements the absolute value ot the complex
+ * argument :math:`z`.
  *
  * Synopsis
  * ========
@@ -18,11 +19,12 @@
  * Description
  * ===========
  *
- * ``cabs`` computes the absolute value (also called norm, modulus, or magnitude) of the input value.
+ * ``cabs`` computes the absolute value (also called norm, modulus, or
+ * magnitude) of the input value.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cabs(z) \approx |z|
@@ -31,7 +33,7 @@
  * =======
  *
  * ``cabs`` returns the absolute value of :math:`z`.
- * 
+ *
  *///
 
 #include <complex.h>

@@ -16,11 +16,13 @@
  * Description
  * ===========
  *
- * ``isunordered`` tests whether :math:`x` or :math:`y` are ``NaN`` as ``NaN`` values are neither less than, greater than, nor equal to another value, and as such cannot be ordered.
+ * ``isunordered`` tests whether :math:`x` or :math:`y` are ``NaN`` as ``NaN``
+ * values are neither less than, greater than, nor equal to another value, and
+ * as such cannot be ordered.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    isunordered(x, y) = \left\{\begin{array}{ll} 1, & x = \text{NaN} \vee y = \text{NaN} \\

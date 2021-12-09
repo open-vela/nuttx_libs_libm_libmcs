@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * This family of functions multiplies the input value :math:`x` by an integral
+ * power of :math:`2`.
  *
  * Synopsis
  * ========
@@ -18,13 +19,15 @@
  * Description
  * ===========
  *
- * ``scalbln`` multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * ``scalbln`` multiplies the input value :math:`x` by an integral power of
+ * :math:`2`.
  *
- * ``scalbln`` and :ref:`scalbn` have the same functionality. The difference is that :ref:`scalbn` uses an ``int`` for :math:`n`.
+ * ``scalbln`` and :ref:`scalbn` have the same functionality. The difference is
+ * that :ref:`scalbn` uses an ``int`` for :math:`n`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    scalbln(x, n) \approx x \cdot 2^{n}
@@ -32,7 +35,8 @@
  * Returns
  * =======
  *
- * ``scalbln`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`n`.
+ * ``scalbln`` returns the input value :math:`x` multiplied by :math:`2`
+ * powered by the input value :math:`n`.
  *
  * Exceptions
  * ==========

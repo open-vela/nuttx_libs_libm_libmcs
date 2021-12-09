@@ -91,7 +91,7 @@ The following is a depiction of the directory structure:
             if the appropriate changes are made to the Makefile. Example structure if the user
             were to add a procedure to directly call a hardware square root instruction on a SPARC
             V8 platform:
-            
+
             sparc_v8/
                mathd/
                   sqrtd.c

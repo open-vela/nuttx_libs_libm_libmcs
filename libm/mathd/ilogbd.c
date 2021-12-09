@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions computes the binary exponent of the input value as a signed integer.
+ * This family of functions computes the binary exponent of the input value as
+ * a signed integer.
  *
  * Synopsis
  * ========
@@ -20,11 +21,13 @@
  *
  * ``ilogb`` computes the binary exponent of the input value as a signed integer.
  *
- * ``ilogb`` and :ref:`logb` have the same functionality, but ``ilogb`` returns the binary exponent as a signed integer while :ref:`logb` returns a floating-point value.
+ * ``ilogb`` and :ref:`logb` have the same functionality, but ``ilogb`` returns
+ * the binary exponent as a signed integer while :ref:`logb` returns a
+ * floating-point value.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    ilogb(x) \approx \lfloor {\log_2 |x|} \rfloor
@@ -32,12 +35,16 @@
  * Returns
  * =======
  *
- * ``ilogb`` returns the binary exponent of the input value, in the range :math:`\mathbb{I}`.
+ * ``ilogb`` returns the binary exponent of the input value, in the range
+ * :math:`\mathbb{I}`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the correct result is not representable as an integer. This is the case when the input value is zero, infinite or :math:`NaN`, or the magnitude of the result is too large to be represented as an integer.
+ * Raise ``invalid operation`` exception when the correct result is not
+ * representable as an integer. This is the case when the input value is zero,
+ * infinite or :math:`NaN`, or the magnitude of the result is too large to be
+ * represented as an integer.
  *
  * Output map
  * ==========
@@ -47,17 +54,20 @@
  * +=====================+========================+==========================================================================================================+==================================================================+==========================================================================================================+==============+==============+
  * | **ilogb(x)**        | max :math:`\mathbb{I}` | max :math:`\mathbb{I}`                                                                                   | :math:`\lfloor {\log_2 |x|} \rfloor`                             | min :math:`\mathbb{I}`                                                                                   | min :math:`\mathbb{I}`      |
  * +---------------------+------------------------+----------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+--------------+--------------+
- * 
+ *
  * +---------------------+----------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+--------------+--------------+
  * | **x**               | :math:`>0 \wedge \lfloor {\log_2 |x|} \rfloor \notin \mathbb{I} \wedge \lfloor {\log_2 |x|} \rfloor < 0` | :math:`<0 \wedge \lfloor {\log_2 |x|} \rfloor \in \mathbb{I}`    | :math:`>0 \wedge \lfloor {\log_2 |x|} \rfloor \notin \mathbb{I} \wedge \lfloor {\log_2 |x|} \rfloor > 0` | :math:`+Inf` | :math:`NaN`  |
  * +=====================+==========================================================================================================+==================================================================+==========================================================================================================+==============+==============+
  * | **ilogb(x)**        | min :math:`\mathbb{I}`                                                                                   | :math:`\lfloor {\log_2 |x|} \rfloor`                             | max :math:`\mathbb{I}`                                                                                   | max :math:`\mathbb{I}`      |
  * +---------------------+----------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------+--------------+--------------+
- * 
+ *
  * .. raw:: html
- * 
+ *
  *    <!--
- *    TODO: Check usefulness of this output map as well as the exception, as I think the magnitude of the result can only exceed the integer range if the size of ``int`` is smaller than [-1074,1023]. So the POSIX/C/etc. issues may not apply to our use-cases.
+ *    TODO: Check usefulness of this output map as well as the exception, as I
+ *    think the magnitude of the result can only exceed the integer range if
+ *    the size of ``int`` is smaller than [-1074,1023]. So the POSIX/C/etc.
+ *    issues may not apply to our use-cases.
  *    -->
  *
  *///

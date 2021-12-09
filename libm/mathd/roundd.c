@@ -18,11 +18,13 @@
  * Description
  * ===========
  *
- * ``round`` computes the nearest integer value to :math:`x`. Half-way cases are rounded away from zero (which is the only difference to :ref:`nearbyint`, :ref:`rint`).
+ * ``round`` computes the nearest integer value to :math:`x`. Half-way cases
+ * are rounded away from zero (which is the only difference to
+ * :ref:`nearbyint`, :ref:`rint`).
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    round(x) = \lfloor x \rceil
@@ -45,7 +47,7 @@
  * +=====================+==============+==========================+==============+==============+==========================+==============+==============+
  * | **round(x)**        | :math:`-Inf` | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+--------------------------+--------------+--------------+--------------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
