@@ -74,5 +74,5 @@ long double complex cprojl(long double complex z)
     return (long double complex) cproj((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

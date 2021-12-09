@@ -81,5 +81,5 @@ long double complex cpowl(long double complex x, long double complex y)
     return (long double complex) cpow((double complex) x, (double complex) y);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

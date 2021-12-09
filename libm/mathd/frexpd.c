@@ -114,5 +114,5 @@ long double frexpl(long double x, int *eptr)
     return (long double) frexp((double) x, eptr);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

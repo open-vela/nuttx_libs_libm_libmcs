@@ -68,4 +68,4 @@ double scalbln(double x, long int n)
     return (double) scalblnf((float) x, n);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

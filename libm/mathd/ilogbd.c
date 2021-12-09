@@ -123,5 +123,5 @@ int ilogbl(long double x)
     return ilogb((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

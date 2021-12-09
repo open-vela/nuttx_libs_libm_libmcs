@@ -27,4 +27,4 @@ double copysign(double x, double y)
     return (double) copysignf((float) x, (float) y);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

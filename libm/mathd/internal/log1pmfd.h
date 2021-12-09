@@ -38,6 +38,6 @@ static inline double __log1pmf(double f)
     return s * (hfsq + R);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
 
 #endif /* !LIBMCS_LOG1PMFD_H */

@@ -43,4 +43,4 @@ int ilogb(double x)
     return ilogbf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -141,4 +141,4 @@ double j1(double x)
     return (x * 0.5 + r / s);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

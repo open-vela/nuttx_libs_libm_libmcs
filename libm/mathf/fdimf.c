@@ -24,4 +24,4 @@ double fdim(double x, double y)
     return (double) fdimf((float) x, (float) y);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
