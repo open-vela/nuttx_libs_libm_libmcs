@@ -99,10 +99,14 @@ double scalbln(double x, long int n)
         return x + x;               /* NaN or Inf */
     }
 
+    if (n > 50000) {
+        return __raise_overflow(x);     /*overflow*/
+    }
+
     k = k + n;
 
-    if (n > 50000 || k >  0x7fe) {
-        return __raise_overflow(x);    /*overflow*/
+    if (k >  0x7fe) {
+        return __raise_overflow(x);     /*overflow*/
     }
 
     if (n < -50000) {
