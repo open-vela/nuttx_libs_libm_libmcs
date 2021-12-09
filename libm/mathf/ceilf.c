@@ -64,4 +64,4 @@ double ceil(double x)
     return (double) ceilf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

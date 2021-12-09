@@ -19,7 +19,11 @@ Special cases
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-Here there be dragons. (TODO)
+Implement based on :math:`sinh(x) = \frac{e^x-e^{-x}}{2}` using :ref:`exp` and :ref:`expm1`:
+
+#. Reduce to positive as :math:`sinh(-x) = -sinh(x)`
+#. For :math:`0 <= x <=  22`: :math:`sinh(x) = \frac{expm1(x) + \frac{expm1(x)}{exp(x)}}{2}`
+#. For :math:`22 <= x`: :math:`sinh(x) = \frac{exp(x)}{2}`
 
 Requirements
 ^^^^^^^^^^^^

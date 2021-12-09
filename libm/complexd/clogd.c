@@ -2,7 +2,8 @@
 
 /**
  *
- * This family of functions implements the complex natural logarithm function, that is :math:`ln(z)`.
+ * This family of functions implements the complex natural logarithm function,
+ * that is :math:`ln(z)`.
  *
  * Synopsis
  * ========
@@ -17,11 +18,12 @@
  * Description
  * ===========
  *
- * ``clog`` computes the complex natural logarithm of :math:`z`, with a branch cut along the negative real axis.
+ * ``clog`` computes the complex natural logarithm of :math:`z`, with a branch
+ * cut along the negative real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    clog(z) \approx ln(z)
@@ -29,8 +31,10 @@
  * Returns
  * =======
  *
- * ``clog`` returns the complex natural logarithm of the input value in the output range of a strip mathematically unbounded along the real axis and in the interval :math:`[-\pi i, \pi i]` along the imaginary axis.
- * 
+ * ``clog`` returns the complex natural logarithm of the input value in the
+ * output range of a strip mathematically unbounded along the real axis and in
+ * the interval :math:`[-\pi i, \pi i]` along the imaginary axis.
+ *
  *///
 
 #include <complex.h>
@@ -62,5 +66,5 @@ long double complex clogl(long double complex z)
     return (long double complex) clog((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

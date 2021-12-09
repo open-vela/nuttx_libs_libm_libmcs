@@ -51,4 +51,4 @@ double frexp(double x, int *eptr)
     return (double) frexpf((float) x, eptr);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

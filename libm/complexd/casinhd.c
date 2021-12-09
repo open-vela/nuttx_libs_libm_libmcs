@@ -2,7 +2,8 @@
 
 /**
  *
- * This family of functions implements the complex hyperbolic arc sine of :math:`z`.
+ * This family of functions implements the complex hyperbolic arc sine of
+ * :math:`z`.
  *
  * Synopsis
  * ========
@@ -17,11 +18,13 @@
  * Description
  * ===========
  *
- * ``casinh`` computes the complex hyperbolic inverse sine (*arc sine*) of the input value, with branch cuts outside the interval :math:`[-i, +i]` along the imaginary axis.
+ * ``casinh`` computes the complex hyperbolic inverse sine (*arc sine*) of the
+ * input value, with branch cuts outside the interval :math:`[-i, +i]` along
+ * the imaginary axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    casinh(z) \approx sinh^{-1}(z)
@@ -29,8 +32,11 @@
  * Returns
  * =======
  *
- * ``casinh`` returns the complex hyperbolic inverse sine of the input value in the output range of a strip mathematically unbounded along the real axis and in the interval :math:`[-\frac{\pi}{2}i, \frac{\pi}{2}i]` along the imaginary axis.
- * 
+ * ``casinh`` returns the complex hyperbolic inverse sine of the input value in
+ * the output range of a strip mathematically unbounded along the real axis and
+ * in the interval :math:`[-\frac{\pi}{2}i, \frac{\pi}{2}i]` along the
+ * imaginary axis.
+ *
  *///
 
 #include <complex.h>
@@ -42,7 +48,7 @@ double complex casinh(double complex z)
 #ifdef __LIBMCS_FPU_DAZ
     z *= __volatile_one;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
-    
+
     double complex w;
     double complex tmp;
 
@@ -60,5 +66,5 @@ long double complex casinhl(long double complex z)
     return (long double complex) casinh((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

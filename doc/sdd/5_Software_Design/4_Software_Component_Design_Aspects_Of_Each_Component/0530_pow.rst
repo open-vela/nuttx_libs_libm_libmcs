@@ -114,9 +114,9 @@ Use the following constants as calculation values:
 
          #. Set :math:`j` to the ``highword`` of :math:`y` shifted right by :math:`(20 - k)`.
          #. For :math:`(j` shifted left by :math:`(20 - k))` equals the ``highword`` of :math:`y`, set :math:`yisint` to :math:`(2 -` last bit of :math:`j)`.
-         
+
       #. For the float version of this procedure skip the previous two steps and their substeps and replace them with:
-      
+
          #. Let :math:`k` be the binary exponent of :math:`y`.
          #. Set :math:`j` to the integer representation of :math:`y` shifted right by :math:`(23 - k)`.
          #. For :math:`(j` shifted left by :math:`(23 - k))` equals the integer representation of :math:`y`, set :math:`yisint` to :math:`(2 -` last bit of :math:`j)`.
@@ -207,7 +207,7 @@ Use the following constants as calculation values:
 
       #. :math:`t_{h} = ax + bp` with ``lowword`` (float: lowest 12 bits) set to all zeroes.
       #. :math:`t_{l} = ax - (t_{h}-bp)`.
-      
+
       For float replace :math:`s_{h}` in formula :math:numref:`formula_pow_1` with :math:`s_{h} = \bigg(\frac{ax-bp}{ax+bp}\bigg)` with the lowest 12 bits set to all zeroes.
 
    #. Compute the logarithm of :math:`ax` with the following approximation (the theory behind the approximation is similar (smaller polynomial and in range :math:`[\frac{\sqrt{3}}{2}, \sqrt{3}]`) to the one expressed for :ref:`log` and will not be presented here):
@@ -229,7 +229,7 @@ Use the following constants as calculation values:
       with
 
       #. :math:`dp_h` and :math:`dp_l` are zero if :math:`k` is zero, otherwise they have the values described at the beginning.
-      
+
       For float replace :math:`t_{h}` in formula :math:numref:`formula_pow_2` with :math:`t_{h} = 3 + s_{h}^2 + r` with the lowest 12 bits set to all zeroes, and replace :math:`p_{h}` with :math:`p_{h} = s_{h} \cdot t_{h} + (s_{l} \cdot t_{h} + t_{l} \cdot s)` with the lowest 12 bits set to all zeroes.
 
 #. Split :math:`y` into :math:`y1 + y2`:
@@ -279,7 +279,7 @@ Use the following constants as calculation values:
          t1                    &= z - z^2 \cdot (P1 + z^2 \cdot (P2 + z^2 \cdot (P3 + z^2 \cdot (P4 + z^2 \cdot P5)))) \\
          r                     &= \frac{z \cdot t1}{t1-2}-(w+z \cdot w) \\
          e^{m \cdot log_2(x)}  &= 1 - (r-z)
-      
+
       For float replace :math:`t` in formula :math:numref:`formula_pow_4` with :math:`t = p_l + p_h` with the lowest 12 bits set to all zeroes.
 
 #. For (exponent of :math:`e^{m \cdot log_2(x)} + n) <= 0`:

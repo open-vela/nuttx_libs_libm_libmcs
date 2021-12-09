@@ -46,6 +46,10 @@ float scalbnf(float x, int n)
         }
     }
 
+    if (n > OVERFLOW_INT) {
+        return __raise_overflowf(x);         /*overflow */
+    }
+
     k = k + n;
 
     if (k > FLT_LARGEST_EXP) {
@@ -58,11 +62,7 @@ float scalbnf(float x, int n)
     }
 
     if (k < FLT_SMALLEST_EXP) {
-        if (n > OVERFLOW_INT) {   /* in case integer overflow in n+k */
-            return __raise_overflowf(x);     /*overflow */
-        } else {
-            return __raise_underflowf(x);    /*underflow*/
-        }
+        return __raise_underflowf(x);        /*underflow*/
     }
 
     k += 25;                /* subnormal result */
@@ -77,4 +77,4 @@ double scalbn(double x, int n)
     return (double) scalbnf((float) x, n);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

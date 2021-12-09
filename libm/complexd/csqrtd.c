@@ -17,11 +17,12 @@
  * Description
  * ===========
  *
- * ``csqrt`` computes the complex square root of the input value, with a branch cut along the negative real axis.
+ * ``csqrt`` computes the complex square root of the input value, with a branch
+ * cut along the negative real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    csqrt(z) \approx \sqrt{z}
@@ -29,8 +30,9 @@
  * Returns
  * =======
  *
- * ``csqrt`` returns the complex square root of the input value, in the range of the right halfplane (including the imaginary axis).
- * 
+ * ``csqrt`` returns the complex square root of the input value, in the range
+ * of the right halfplane (including the imaginary axis).
+ *
  *///
 
 #include <complex.h>
@@ -120,5 +122,5 @@ long double complex csqrtl(long double complex z)
     return (long double complex) csqrt((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

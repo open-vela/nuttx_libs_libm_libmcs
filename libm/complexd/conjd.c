@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    conj(z) = \Re(z) - \Im(z) \cdot i
@@ -31,7 +31,7 @@
  * =======
  *
  * ``conj`` returns the complex conjugate of :math:`z`.
- * 
+ *
  *///
 
 /*
@@ -88,5 +88,5 @@ long double complex conjl(long double complex z)
     return (long double complex) conj((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

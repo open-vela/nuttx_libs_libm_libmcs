@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cimag(z) = \Im(z)
@@ -31,7 +31,7 @@
  * =======
  *
  * ``cimag`` returns the imaginary part of :math:`z` as a real.
- * 
+ *
  *///
 
 #include <complex.h>
@@ -53,5 +53,5 @@ long double cimagl(long double complex z)
     return (long double) cimag((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

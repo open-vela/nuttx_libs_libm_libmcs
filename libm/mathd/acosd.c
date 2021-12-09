@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    acos(x) \approx cos^{-1}(x)
@@ -35,7 +35,8 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the input value is not in the interval :math:`[-1, 1]`.
+ * Raise ``invalid operation`` exception when the input value is not in the
+ * interval :math:`[-1, 1]`.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -47,7 +48,7 @@
  * +=====================+==============+==============+=====================+==============+==============+==============+==============+
  * | **acos(x)**         | :math:`qNaN` | :math:`qNaN` | :math:`cos^{-1} x`  | :math:`+0`   | :math:`qNaN` | :math:`qNaN` | :math:`qNaN` |
  * +---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -93,7 +94,7 @@ double acos(double x)
                 return __raise_inexact(pi);    /* acos(-1)= pi */
             }
         }
-        
+
         if (isnan(x)) {
             return x + x;
         }
@@ -140,5 +141,5 @@ long double acosl(long double x)
     return (long double) acos((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

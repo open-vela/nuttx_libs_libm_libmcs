@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements rounding towards negative infinity of :math:`x`.
+ * This family of functions implements rounding towards negative infinity of
+ * :math:`x`.
  *
  * Synopsis
  * ========
@@ -22,7 +23,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    floor(x) = \lfloor x \rfloor
@@ -45,7 +46,7 @@
  * +=====================+==============+===========================+==============+==============+===========================+==============+==============+
  * | **floor(x)**        | :math:`-Inf` | :math:`\lfloor x \rfloor` | :math:`x`                   | :math:`\lfloor x \rfloor` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+---------------------------+--------------+--------------+---------------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -137,5 +138,5 @@ long double floorl(long double x)
     return (long double) floor((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

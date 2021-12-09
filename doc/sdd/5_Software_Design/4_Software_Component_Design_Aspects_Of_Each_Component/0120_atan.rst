@@ -111,7 +111,10 @@ Use the following constants as calculation/return values:
 .. raw:: html
 
    <!--
-   TODO: We might need to find out why the specific values were chosen for the range reduction. The k=4*x+0.25 approach seems to want to have a new range every time 4*x+0.25 reaches a new specific integer (2, 3, 5, 10), could be because they are the highest integer values for which x falls below 0.5, 1, 1.5 and 2.
+   TODO: We might need to find out why the specific values were chosen for the range reduction. The
+   k=4*x+0.25 approach seems to want to have a new range every time 4*x+0.25 reaches a new specific
+   integer (2, 3, 5, 10), could be because they are the highest integer values for which x falls
+   below 0.5, 1, 1.5 and 2.
     -->
 
 .. [#] Test with ``highword`` :math:`<` ``0x3FDC0000``. (float: use integer representation of :math:`x >=` ``0x3EE00000``).

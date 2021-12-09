@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * This family of functions multiplies the input value :math:`x` by an integral
+ * power of :math:`2`.
  *
  * Synopsis
  * ========
@@ -20,11 +21,13 @@
  *
  * ``ldexp`` multiplies the input value :math:`x` by an integral power of :math:`2`.
  *
- * ``ldexp`` and :ref:`scalbn` have the same functionality. In theory their definition could be different, but this only applies to architectures which do not use a binary system, which by now are assumed to be an obscurity.
+ * ``ldexp`` and :ref:`scalbn` have the same functionality. In theory their
+ * definition could be different, but this only applies to architectures which
+ * do not use a binary system, which by now are assumed to be an obscurity.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    ldexp(x, exp) \approx x \cdot 2^{exp}
@@ -32,7 +35,8 @@
  * Returns
  * =======
  *
- * ``ldexp`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`exp`.
+ * ``ldexp`` returns the input value :math:`x` multiplied by :math:`2` powered
+ * by the input value :math:`exp`.
  *
  * Exceptions
  * ==========
@@ -90,5 +94,5 @@ long double ldexpl(long double x, int exp)
     return (long double) ldexp((double) x, exp);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

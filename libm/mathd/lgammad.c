@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the natural logarithm of the gamma function of :math:`x`.
+ * This family of functions implements the natural logarithm of the gamma
+ * function of :math:`x`.
  *
  * Synopsis
  * ========
@@ -22,7 +23,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    lgamma(x) \approx \ln{|\Gamma(x)|} = \ln{\left|\int_{0}^{\infty}e^{-t}t^{x-1}dt\right|}
@@ -35,9 +36,11 @@
  * Exceptions
  * ==========
  *
- * Raise ``divide by zero`` exception when the input value is a negative integer or zero.
+ * Raise ``divide by zero`` exception when the input value is a negative
+ * integer or zero.
  *
- * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ * Raise ``overflow`` exception when the magnitude of the input value is too
+ * large.
  *
  * Output map
  * ==========
@@ -47,7 +50,7 @@
  * +=====================+==============+=======================================+=============================+==============+==============+==========================+==============+==========================+==============+==========================+==============+==============+
  * | **lgamma(x)**       | :math:`+Inf` | :math:`\ln{|\Gamma(x)|}`              | :math:`+Inf`                | :math:`+Inf`                | :math:`\ln{|\Gamma(x)|}` | :math:`+0`   | :math:`\ln{|\Gamma(x)|}` | :math:`+0`   | :math:`\ln{|\Gamma(x)|}` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+---------------------------------------+-----------------------------+--------------+--------------+--------------------------+--------------+--------------------------+--------------+--------------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -71,5 +74,5 @@ long double lgammal(long double x)
     return (long double) lgamma((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -36,10 +36,11 @@ The documents listed below were used to prepare this document and contain backgr
 .. table:: Reference Documents
    :name: reference_documents
 
-   ============== ================ ========= ======================================================
+   ============== ================ ========= ========================================================
    Reference      Identification   Issue     Title
-   ============== ================ ========= ======================================================
+   ============== ================ ========= ========================================================
    RD01           ES-SRS.00-ML     \-        Software Requirements Specification
    RD02           ED-ICD.00-ML     \-        Interface Control Document
    RD03           ISO/IEC 9899     2018      Programming languages - C
-   ============== ================ ========= ======================================================
+   RD04           MISRA C:2012     03/2013   Guidelines for the use of C language in critical systems
+   ============== ================ ========= ========================================================

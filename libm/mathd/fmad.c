@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions fuses the multiplication of :math:`x` and :math:`y` with the addition of :math:`z`.
+ * This family of functions fuses the multiplication of :math:`x` and :math:`y`
+ * with the addition of :math:`z`.
  *
  * Synopsis
  * ========
@@ -18,11 +19,12 @@
  * Description
  * ===========
  *
- * ``fma`` computes the multiplication of :math:`x` and :math:`y` with the addition of :math:`z`.
+ * ``fma`` computes the multiplication of :math:`x` and :math:`y` with the
+ * addition of :math:`z`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    fma(x, y, z) = x \cdot y + z
@@ -30,12 +32,16 @@
  * Returns
  * =======
  *
- * ``fma`` returns the multiplication of :math:`x` and :math:`y` with the addition of :math:`z`.
+ * ``fma`` returns the multiplication of :math:`x` and :math:`y` with the
+ * addition of :math:`z`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when either :math:`x` or :math:`y` is zero and the other is infinity (regardless of the value in :math:`z`), or when :math:`x \cdot y` is infinity and :math:`z` is infinity with the opposite sign.
+ * Raise ``invalid operation`` exception when either :math:`x` or :math:`y` is
+ * zero and the other is infinity (regardless of the value in :math:`z`), or
+ * when :math:`x \cdot y` is infinity and :math:`z` is infinity with the
+ * opposite sign.
  *
  * Raise ``overflow`` exception if the result overflows.
  *
@@ -108,5 +114,5 @@ long double fmal(long double x, long double y, long double z)
     return (long double) fma((double) x, (double) y, (double) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

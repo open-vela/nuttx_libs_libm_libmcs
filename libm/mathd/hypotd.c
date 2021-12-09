@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``hypot`` computes the length of the hypothenuse of a rightangled triangle where the legs have the lengths :math:`x` and :math:`y`.
+ * ``hypot`` computes the length of the hypothenuse of a rightangled triangle
+ * where the legs have the lengths :math:`x` and :math:`y`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    hypot(x, y) \approx \sqrt{x^2 + y^2}
@@ -35,7 +36,8 @@
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of the input values is too large.
+ * Raise ``overflow`` exception when the magnitude of the input values is too
+ * large.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -187,5 +189,5 @@ long double hypotl(long double x, long double y)
     return (long double) hypot((double) x, (double) y);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

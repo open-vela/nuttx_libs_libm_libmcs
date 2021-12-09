@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    tgamma(x) \approx \Gamma(x) = \int_{0}^{\infty}e^{-t}t^{x-1}dt
@@ -35,11 +35,13 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the input value is a negative integer or negative infinity.
+ * Raise ``invalid operation`` exception when the input value is a negative
+ * integer or negative infinity.
  *
  * Raise ``divide by zero`` exception when the input value is zero.
  *
- * Raise ``overflow`` exception when the magnitude of the input value is too large or too small.
+ * Raise ``overflow`` exception when the magnitude of the input value is too
+ * large or too small.
  *
  * Output map
  * ==========
@@ -49,7 +51,7 @@
  * +=====================+==============+=======================================+=============================+==============+==============+===================+==============+==============+
  * | **tgamma(x)**       | :math:`qNaN` | :math:`\Gamma(x)`                     | :math:`qNaN`                | :math:`-Inf` | :math:`+Inf` | :math:`\Gamma(x)` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+---------------------------------------+-----------------------------+--------------+--------------+-------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -66,7 +68,7 @@ double tgamma(double x)
 
     int signgam_local = 0;
     double y = 0.0;
-    
+
     if (isnan(x) != 0) {                    /* tgamma(NaN) = NaN */
         return x + x;
     } else if (x == 0.0) {                  /* tgamma(+-0) = +-Inf */
@@ -93,5 +95,5 @@ long double tgammal(long double x)
     return (long double) tgamma((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

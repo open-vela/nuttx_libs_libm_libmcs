@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    asin(x) \approx sin^{-1}(x)
@@ -30,12 +30,14 @@
  * Returns
  * =======
  *
- * ``asin`` returns value in radians, in the range :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]`.
+ * ``asin`` returns value in radians, in the range :math:`[-\frac{\pi}{2},
+ * \frac{\pi}{2}]`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the input value is not in the interval :math:`[-1, 1]`.
+ * Raise ``invalid operation`` exception when the input value is not in the
+ * interval :math:`[-1, 1]`.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -47,7 +49,7 @@
  * +=====================+==============+==============+=====================+==============+==============+=====================+==============+==============+==============+
  * | **asin(x)**         | :math:`qNaN` | :math:`qNaN` | :math:`sin^{-1} x`  | :math:`x`                   | :math:`sin^{-1} x`  | :math:`qNaN` | :math:`qNaN` | :math:`qNaN` |
  * +---------------------+--------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -150,5 +152,5 @@ long double asinl(long double x)
     return (long double) asin((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -8,7 +8,8 @@ extern "C"{
 #include "../common/config.h"
 
 /*
- * These macros define the errno and exception behaviour of the library. This library enforces the use of math_errhandling as MATH_ERREXCEPT.
+ * These macros define the errno and exception behaviour of the library. This
+ * library enforces the use of math_errhandling as MATH_ERREXCEPT.
  * See ISO C18 standard §7.12 wrt. math_errhandling.
  */
 #define MATH_ERRNO          1
@@ -19,7 +20,7 @@ typedef float  float_t;
 typedef double double_t;
 
 #define MAXFLOAT            3.40282347e+38F
-        
+
 #define M_E                 2.7182818284590452354
 #define M_LOG2E             1.4426950408889634074
 #define M_LOG10E            0.43429448190325182765
@@ -33,7 +34,7 @@ typedef double double_t;
 #define M_2_SQRTPI          1.12837916709551257390
 #define M_SQRT2             1.41421356237309504880
 #define M_SQRT1_2           0.70710678118654752440
-        
+
 #define HUGE_VAL            (__infd)
 #define HUGE_VALF           (__inff)
 #define HUGE_VALL           ((long double) HUGE_VAL)
@@ -42,15 +43,15 @@ typedef double double_t;
 /* Global constants that contain infinities. */
 extern const float __inff;
 extern const double __infd;
-    
+
 #define NAN                 (nanf(""))
-    
+
 #define FP_NAN              0
 #define FP_INFINITE         1
 #define FP_ZERO             2
 #define FP_SUBNORMAL        3
 #define FP_NORMAL           4
-    
+
 #define FP_ILOGB0           (-INT_MAX)
 #define FP_ILOGBNAN         INT_MAX
 
@@ -294,12 +295,13 @@ extern float                fmaf(float, float, float);
     /* Long double float-multiply-add function */
     extern long double      fmal(long double, long double, long double);
 
-    /* nexttoward procedures, they're seperated from the manipulation functions due to containing long double inputs for all procedures */
+    /* nexttoward procedures, they're seperated from the manipulation functions
+     * due to containing long double inputs for all procedures */
     extern float            nexttowardf(float, long double);
     extern double           nexttoward(double, long double);
     extern long double      nexttowardl(long double, long double);
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
 
 /* signgam global variable used by the lgamma procedures to return the sign of gamma */
 #define signgam (__signgam)

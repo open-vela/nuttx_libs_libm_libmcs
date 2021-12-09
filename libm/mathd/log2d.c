@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    log2(x) \approx log_{2}(x)
@@ -47,7 +47,7 @@
  * +=====================+===============+===============+===============+===============+=====================+===============+=====================+===============+===============+
  * | **log2(x)**         | :math:`qNaN`  | :math:`qNaN`  | :math:`-Inf`                  | :math:`log_{2}(x)`  | :math:`+0`    | :math:`log_{2}(x)`  | :math:`+Inf`  | :math:`qNaN`  |
  * +---------------------+---------------+---------------+---------------+---------------+---------------------+---------------+---------------------+---------------+---------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -163,5 +163,5 @@ long double log2l(long double x)
     return (long double) log2((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

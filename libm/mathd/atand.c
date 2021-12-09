@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    atan(x) \approx tan^{-1}(x)
@@ -47,7 +47,7 @@
  * +=====================+========================+=====================+==============+==============+=====================+========================+==============+
  * | **atan(x)**         | :math:`-\frac{\pi}{2}` | :math:`tan^{-1} x`  | :math:`x`                   | :math:`tan^{-1} x`  | :math:`+\frac{\pi}{2}` | :math:`qNaN` |
  * +---------------------+------------------------+---------------------+--------------+--------------+---------------------+------------------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -167,5 +167,5 @@ long double atanl(long double x)
     return (long double) atan((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cbrt(x) \approx \sqrt[3]{x}
@@ -45,7 +45,7 @@
  * +=====================+==============+=====================+==============+==============+=====================+==============+==============+
  * | **cbrt(x)**         | :math:`-Inf` | :math:`\sqrt[3]{x}` | :math:`x`                   | :math:`\sqrt[3]{x}` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -132,5 +132,5 @@ long double cbrtl(long double x)
     return (long double) cbrt((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

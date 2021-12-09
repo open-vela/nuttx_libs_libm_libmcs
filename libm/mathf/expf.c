@@ -23,7 +23,7 @@ P3        =   6.6137559770e-05f, /* 0x388ab355 */
 P4        =  -1.6533901999e-06f, /* 0xb5ddea0e */
 P5        =   4.1381369442e-08f; /* 0x3331bb4c */
 
-float expf(float x)    /* default IEEE double exp */
+float expf(float x)    /* default IEEE float exp */
 {
 #ifdef __LIBMCS_FPU_DAZ
     x *= __volatile_onef;
@@ -108,4 +108,4 @@ double exp(double x)
     return (double) expf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * This family of functions multiplies the input value :math:`x` by an integral
+ * power of :math:`2`.
  *
  * Synopsis
  * ========
@@ -18,13 +19,15 @@
  * Description
  * ===========
  *
- * ``scalbln`` multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * ``scalbln`` multiplies the input value :math:`x` by an integral power of
+ * :math:`2`.
  *
- * ``scalbln`` and :ref:`scalbn` have the same functionality. The difference is that :ref:`scalbn` uses an ``int`` for :math:`n`.
+ * ``scalbln`` and :ref:`scalbn` have the same functionality. The difference is
+ * that :ref:`scalbn` uses an ``int`` for :math:`n`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    scalbln(x, n) \approx x \cdot 2^{n}
@@ -32,7 +35,8 @@
  * Returns
  * =======
  *
- * ``scalbln`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`n`.
+ * ``scalbln`` returns the input value :math:`x` multiplied by :math:`2`
+ * powered by the input value :math:`n`.
  *
  * Exceptions
  * ==========
@@ -99,10 +103,14 @@ double scalbln(double x, long int n)
         return x + x;               /* NaN or Inf */
     }
 
+    if (n > 50000) {
+        return __raise_overflow(x);     /*overflow*/
+    }
+
     k = k + n;
 
-    if (n > 50000 || k >  0x7fe) {
-        return __raise_overflow(x);    /*overflow*/
+    if (k >  0x7fe) {
+        return __raise_overflow(x);     /*overflow*/
     }
 
     if (n < -50000) {
@@ -130,5 +138,5 @@ long double scalblnl(long double x, long int n)
     return (long double) scalbln((double) x, n);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

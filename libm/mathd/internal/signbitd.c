@@ -3,7 +3,9 @@
 
 /**
  *
- * This macro returns a non-zero value if the sign bit of :math:`x` is set. It can be called with ``float``, ``double`` or ``long double`` input. This macro is implemented in ``math.h``.
+ * This macro returns a non-zero value if the sign bit of :math:`x` is set. It
+ * can be called with ``float``, ``double`` or ``long double`` input. This
+ * macro is implemented in ``math.h``.
  *
  * Synopsis
  * ========
@@ -20,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    signbit(x) = \left\{\begin{array}{ll} 1, & x \in \mathbb{F}^{-} \\
@@ -29,7 +31,8 @@
  * Returns
  * =======
  *
- * ``signbit`` returns :math:`1` if the sign bit of :math:`x` is set, otherwise :math:`0`.
+ * ``signbit`` returns :math:`1` if the sign bit of :math:`x` is set, otherwise
+ * :math:`0`.
  *
  * Exceptions
  * ==========

@@ -19,11 +19,13 @@
  * Description
  * ===========
  *
- * ``llround`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`lround` but returns ``long long int`` instead of ``long int``.
+ * ``llround`` computes the nearest integer value to :math:`x`. Functionally
+ * the same procedure as :ref:`lround` but returns ``long long int`` instead of
+ * ``long int``.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    llround(x) = \lfloor x \rceil
@@ -36,7 +38,10 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
+ * Raise ``invalid operation`` exception when the correct result is not
+ * representable as the output type. This is the case when the input value is
+ * infinite or :math:`NaN`, or the magnitude of the result is too large to be
+ * represented.
  *
  * Output map
  * ==========
@@ -46,7 +51,7 @@
  * +=====================+==========================+=======================================+==========================+==============+==============+==========================+=======================================+==========================+==========================+
  * | **llround(x)**      | min :math:`\mathbb{I}_{ll}`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_{ll}`                                      | :math:`llround(±Inf)`    |
  * +---------------------+--------------------------+---------------------------------------+--------------------------+--------------+--------------+--------------------------+---------------------------------------+--------------------------+--------------------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -128,5 +133,5 @@ long long int llroundl(long double x)
     return llround((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

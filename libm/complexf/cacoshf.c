@@ -22,4 +22,4 @@ double complex cacosh(double complex z)
     return (double complex) cacoshf((float complex) z);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

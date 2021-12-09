@@ -20,7 +20,7 @@ float tgammaf(float x)
 
     int signgam_local = 0;
     float y = 0.0f;
-    
+
     if (isnan(x) != 0) {                        /* tgamma(NaN) = NaN */
         return x + x;
     } else if (x == 0.0f) {                     /* tgamma(+-0) = +-Inf */
@@ -30,7 +30,7 @@ float tgammaf(float x)
     } else {
         /* No action required */
     }
-    
+
     y = expf(__lgammaf(x, &signgam_local));
 
     if (signgam_local < 0) {
@@ -47,4 +47,4 @@ double tgamma(double x)
     return (double) tgammaf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

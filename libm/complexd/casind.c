@@ -17,11 +17,12 @@
  * Description
  * ===========
  *
- * ``casin`` computes the complex inverse sine (*arc sine*) of the input value, with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
+ * ``casin`` computes the complex inverse sine (*arc sine*) of the input value,
+ * with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    casin(z) \approx sin^{-1}(z)
@@ -29,8 +30,11 @@
  * Returns
  * =======
  *
- * ``casin`` returns the complex inverse sine of the input value in the output range of a strip mathematically unbounded along the imaginary axis and in the interval :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` radians along the real axis.
- * 
+ * ``casin`` returns the complex inverse sine of the input value in the output
+ * range of a strip mathematically unbounded along the imaginary axis and in
+ * the interval :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` radians along the real
+ * axis.
+ *
  *///
 
 #include <complex.h>
@@ -72,5 +76,5 @@ long double complex casinl(long double complex z)
     return (long double complex) casin((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

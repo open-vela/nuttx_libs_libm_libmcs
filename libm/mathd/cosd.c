@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cos(x) \approx cos(x)
@@ -45,7 +45,7 @@
  * +=====================+================+================+================+================+================+================+================+
  * | **cos(x)**          | :math:`qNaN`   | :math:`cos(x)` | :math:`1`                       | :math:`cos(x)` | :math:`qNaN`   | :math:`qNaN`   |
  * +---------------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -68,7 +68,7 @@ double cos(double x)
 
     /* |x| ~< pi/4 */
     ix &= 0x7fffffff;
-    
+
     if(ix <= 0x3fe921fb) {
         if(ix < 0x3e46a09e) {        /* if x < 2**-27 * sqrt(2) */
             if (x == 0.0) {          /* return 1 inexact except 0 */
@@ -77,7 +77,7 @@ double cos(double x)
                 return __raise_inexactf(1.0);
             }
         }
-        
+
         return __cos(x, z);
     }
 
@@ -117,5 +117,5 @@ long double cosl(long double x)
     return (long double) cos((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

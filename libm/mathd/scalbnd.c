@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * This family of functions multiplies the input value :math:`x` by an integral
+ * power of :math:`2`.
  *
  * Synopsis
  * ========
@@ -18,15 +19,19 @@
  * Description
  * ===========
  *
- * ``scalbn`` multiplies the input value :math:`x` by an integral power of :math:`2`.
+ * ``scalbn`` multiplies the input value :math:`x` by an integral power of
+ * :math:`2`.
  *
- * ``scalbn`` and :ref:`ldexp` have the same functionality. In theory their definition could be different, but this only applies to architectures which do not use a binary system, which by now are assumed to be an obscurity.
+ * ``scalbn`` and :ref:`ldexp` have the same functionality. In theory their
+ * definition could be different, but this only applies to architectures which
+ * do not use a binary system, which by now are assumed to be an obscurity.
  *
- * ``scalbn`` and :ref:`scalbln` have the same functionality. The difference is that :ref:`scalbln` uses a ``long int`` for :math:`n`.
+ * ``scalbn`` and :ref:`scalbln` have the same functionality. The difference is
+ * that :ref:`scalbln` uses a ``long int`` for :math:`n`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    scalbn(x, n) \approx x \cdot 2^{n}
@@ -34,7 +39,8 @@
  * Returns
  * =======
  *
- * ``scalbn`` returns the input value :math:`x` multiplied by :math:`2` powered by the input value :math:`n`.
+ * ``scalbn`` returns the input value :math:`x` multiplied by :math:`2` powered
+ * by the input value :math:`n`.
  *
  * Exceptions
  * ==========
@@ -105,6 +111,10 @@ double scalbn(double x, int n)
         return x + x;             /* NaN or Inf */
     }
 
+    if (n > 50000) {
+        return __raise_overflow(x);         /*overflow */
+    }
+
     k = k + n;
 
     if (k >  0x7fe) {
@@ -117,11 +127,7 @@ double scalbn(double x, int n)
     }
 
     if (k <= -54) {
-        if (n > 50000) {          /* in case integer overflow in n+k */
-            return __raise_overflow(x);     /*overflow */
-        } else {
-            return __raise_underflow(x);    /*underflow*/
-        }
+        return __raise_underflow(x);        /*underflow*/
     }
 
     k += 54;                      /* subnormal result */
@@ -136,5 +142,5 @@ long double scalbnl(long double x, int n)
     return (long double) scalbn((double) x, n);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

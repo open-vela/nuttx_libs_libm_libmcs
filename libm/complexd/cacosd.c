@@ -17,11 +17,13 @@
  * Description
  * ===========
  *
- * ``cacos`` computes the complex inverse cosine (*arc cosine*) of the input value, with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
+ * ``cacos`` computes the complex inverse cosine (*arc cosine*) of the input
+ * value, with branch cuts outside the interval :math:`[-1, +1]` along the real
+ * axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cacos(z) \approx cos^{-1}(z)
@@ -29,8 +31,10 @@
  * Returns
  * =======
  *
- * ``cacos`` returns the complex inverse cosine of the input value in the output range of a strip mathematically unbounded along the imaginary axis and in the interval :math:`[0, \pi]` radians along the real axis.
- * 
+ * ``cacos`` returns the complex inverse cosine of the input value in the
+ * output range of a strip mathematically unbounded along the imaginary axis
+ * and in the interval :math:`[0, \pi]` radians along the real axis.
+ *
  *///
 
 #include <complex.h>
@@ -63,5 +67,5 @@ long double complex cacosl(long double complex z)
     return (long double complex) cacos((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -13,9 +13,13 @@ The special cases are in the external functions :ref:`lgamma` and :ref:`tgamma`.
 Mathematical Approach
 ^^^^^^^^^^^^^^^^^^^^^
 
-``__lgamma``: Here there be dragons. (TODO)
+``__lgamma``: Implement based on a rational approximation.
 
-``__sin_pi``: Here there be dragons. (TODO)
+.. Here there be dragons. (TODO)
+
+``__sin_pi``: Implement based on :ref:`__cos <internal_trig>`, and :ref:`__sin <internal_trig>`.
+
+.. Here there be dragons. (TODO)
 
 Requirements
 ^^^^^^^^^^^^

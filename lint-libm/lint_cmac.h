@@ -18,7 +18,7 @@
 #define __DBL_DIG__ 15
 #define __SIZEOF_INT__ 4
 #define __SIZEOF_POINTER__ 4
-#define __USER_LABEL_PREFIX__ 
+#define __USER_LABEL_PREFIX__
 #define __STDC_HOSTED__ 1
 #define __LDBL_HAS_INFINITY__ 1
 #define __FLT_EPSILON__ 1.19209290e-7F
@@ -48,7 +48,7 @@
 #define __DBL_MIN__ 2.2250738585072014e-308
 #define __USE_INIT_FINI__ 1
 #define __DEC128_MIN__ 1E-6143DL
-#define __REGISTER_PREFIX__ 
+#define __REGISTER_PREFIX__
 #define __DBL_HAS_DENORM__ 1
 #define __NO_INLINE__ 1
 #define __FLT_MANT_DIG__ 24

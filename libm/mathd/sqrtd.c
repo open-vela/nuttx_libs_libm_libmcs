@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    sqrt(x) \approx \sqrt{x}
@@ -45,7 +45,7 @@
  * +=====================+==============+==================+==============+==============+==================+==============+==============+
  * | **sqrt(x)**         | :math:`qNaN` | :math:`qNaN`     | :math:`x`                   | :math:`\sqrt{x}` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+------------------+--------------+--------------+------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -195,5 +195,5 @@ long double sqrtl(long double x)
     return (long double) sqrt((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

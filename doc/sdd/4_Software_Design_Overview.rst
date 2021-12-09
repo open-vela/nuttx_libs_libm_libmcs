@@ -57,6 +57,8 @@ Section :ref:`Software Components Design – Aspects of Each Component` provides
 
 The interface provided is that of a C library that can be compiled to an object file to be statically or dynamically linked to the calling software.
 
+The library and all its components are compliant to the IEEE 754-2019 (Information technology – Microprocessor Systems – Floating-Point arithmetic), IEEE 1003.1-2017 (POSIX) and ISO/IEC 9899 (Programming languages – C) standards.
+
 Long Lifetime Software
 ----------------------
 

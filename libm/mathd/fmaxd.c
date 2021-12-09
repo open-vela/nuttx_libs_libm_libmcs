@@ -71,30 +71,14 @@
 
 double fmax(double x, double y)
 {
-    if (isnan(x)) {
-        if (__issignaling(x) != 0 || __issignaling(y) != 0) {
-            return x * y;
-        }
-#ifdef __LIBMCS_FPU_DAZ
-        y *= __volatile_one;
-#endif /* defined(__LIBMCS_FPU_DAZ) */
-        return x;
-    }
-
-    if (isnan(y)) {
-        if (__issignaling(y) != 0) {
-            return x * y;
-        }
-#ifdef __LIBMCS_FPU_DAZ
-        x *= __volatile_one;
-#endif /* defined(__LIBMCS_FPU_DAZ) */
-        return y;
-    }
-
 #ifdef __LIBMCS_FPU_DAZ
     x *= __volatile_one;
     y *= __volatile_one;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
+
+    if (isnan(x) || isnan(y)) {
+        return x * y;
+    }
 
     return x > y ? x : y;
 }
@@ -106,5 +90,5 @@ long double fmaxl(long double x, long double y)
     return (long double) fmax((double) x, (double) y);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    log10(x) \approx log_{10}(x)
@@ -47,7 +47,7 @@
  * +=====================+===============+===============+===============+===============+=====================+===============+=====================+===============+===============+
  * | **log10(x)**        | :math:`qNaN`  | :math:`qNaN`  | :math:`-Inf`                  | :math:`log_{10}(x)` | :math:`+0`    | :math:`log_{10}(x)` | :math:`+Inf`  | :math:`qNaN`  |
  * +---------------------+---------------+---------------+---------------+---------------+---------------------+---------------+---------------------+---------------+---------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -142,5 +142,5 @@ long double log10l(long double x)
     return (long double) log10((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

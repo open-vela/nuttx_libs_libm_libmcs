@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``frexp`` splits the input value into the normalized fraction of :math:`x` and its integral power of :math:`2`.
+ * ``frexp`` splits the input value into the normalized fraction of :math:`x`
+ * and its integral power of :math:`2`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    frexp(x) = \frac{x}{2^{eptr}} \wedge frexp(x) \in [0.5,1[
@@ -30,7 +31,9 @@
  * Returns
  * =======
  *
- * ``frexp`` returns the normalized fraction of :math:`x` in the range :math:`[0.5,1[` and puts the integral power of :math:`2` into the output pointer :math:`*eptr`.
+ * ``frexp`` returns the normalized fraction of :math:`x` in the range
+ * :math:`[0.5,1[` and puts the integral power of :math:`2` into the output
+ * pointer :math:`*eptr`.
  *
  * Exceptions
  * ==========
@@ -49,50 +52,6 @@
  * +---------------------+--------------+----------------------------------+--------------+--------------+----------------------------------+--------------+--------------+
  *
  *///
-
-/*
-FUNCTION
-       <<frexp>>, <<frexpf>>---split floating-point number
-INDEX
-    frexp
-INDEX
-    frexpf
-
-SYNOPSIS
-    #include <math.h>
-        double frexp(double <[val]>, int *<[exp]>);
-        float frexpf(float <[val]>, int *<[exp]>);
-
-DESCRIPTION
-    All nonzero, normal numbers can be described as <[m]> * 2**<[p]>.
-    <<frexp>> represents the double <[val]> as a mantissa <[m]>
-    and a power of two <[p]>. The resulting mantissa will always
-    be greater than or equal to <<0.5>>, and less than <<1.0>> (as
-    long as <[val]> is nonzero). The power of two will be stored
-    in <<*>><[exp]>.
-
-@ifnottex
-<[m]> and <[p]> are calculated so that
-<[val]> is <[m]> times <<2>> to the power <[p]>.
-@end ifnottex
-@tex
-<[m]> and <[p]> are calculated so that
-$ val = m \times 2^p $.
-@end tex
-
-<<frexpf>> is identical, other than taking and returning
-floats rather than doubles.
-
-RETURNS
-<<frexp>> returns the mantissa <[m]>. If <[val]> is <<0>>, infinity,
-or Nan, <<frexp>> will set <<*>><[exp]> to <<0>> and return <[val]>.
-
-PORTABILITY
-<<frexp>> is ANSI.
-<<frexpf>> is an extension.
-
-
-*/
 
 /*
  * for non-zero x
@@ -155,5 +114,5 @@ long double frexpl(long double x, int *eptr)
     return (long double) frexp((double) x, eptr);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

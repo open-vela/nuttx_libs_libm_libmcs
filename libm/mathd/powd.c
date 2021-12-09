@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the value of :math:`x` raised to the power of :math:`y`.
+ * This family of functions implements the value of :math:`x` raised to the
+ * power of :math:`y`.
  *
  * Synopsis
  * ========
@@ -22,7 +23,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    pow(x, y) \approx x^y
@@ -35,9 +36,11 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when :math:`x` is finite and negative and :math:`y` is finite and not an integer value.
+ * Raise ``invalid operation`` exception when :math:`x` is finite and negative
+ * and :math:`y` is finite and not an integer value.
  *
- * Raise ``divide by zero`` exception when :math:`x` is zero and :math:`y` is a negative odd integer value.
+ * Raise ``divide by zero`` exception when :math:`x` is zero and :math:`y` is a
+ * negative odd integer value.
  *
  * Raise ``overflow`` exception when the magnitude of the result is too large.
  *
@@ -84,9 +87,9 @@
 #ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 static const double
-bp[]     = {1.0, 1.5,},
-dp_h[]   = { 0.0, 5.84962487220764160156e-01,}, /* 0x3FE2B803, 0x40000000 */
-dp_l[]   = { 0.0, 1.35003920212974897128e-08,}, /* 0x3E4CFDEB, 0x43CFD006 */
+bp[]     = {1.0, 1.5},
+dp_h[]   = { 0.0, 5.84962487220764160156e-01}, /* 0x3FE2B803, 0x40000000 */
+dp_l[]   = { 0.0, 1.35003920212974897128e-08}, /* 0x3E4CFDEB, 0x43CFD006 */
 zero     =  0.0,
 one      =  1.0,
 two      =  2.0,
@@ -153,7 +156,7 @@ double pow(double x, double y)
 #ifdef __LIBMCS_FPU_DAZ
     x *= __volatile_one;
     y *= __volatile_one;
-    
+
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
     ix = hx & 0x7fffffff;
@@ -436,5 +439,5 @@ long double powl(long double x, long double y)
     return (long double) pow((double) x, (double) y);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

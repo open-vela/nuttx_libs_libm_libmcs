@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    sin(x) \approx sin(x)
@@ -47,7 +47,7 @@
  * +=====================+================+================+================+================+================+================+================+
  * | **sin(x)**          | :math:`qNaN`   | :math:`sin(x)` | :math:`x`                       | :math:`sin(x)` | :math:`qNaN`   | :math:`qNaN`   |
  * +---------------------+----------------+----------------+----------------+----------------+----------------+----------------+----------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -79,7 +79,7 @@ double sin(double x)
                 return __raise_inexact(x);
             }
         }
-        
+
         return __sin(x, z, 0);
     }
 
@@ -119,5 +119,5 @@ long double sinl(long double x)
     return (long double) sin((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

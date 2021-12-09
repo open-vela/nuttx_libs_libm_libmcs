@@ -21,7 +21,8 @@ Lg6 = 1.531383769920937332e-01,  /* 0x3FC39A09D078C69F */
 Lg7 = 1.479819860511658591e-01;  /* 0x3FC2F112DF3E5244 */
 
 /*
- * We always inline __log1pmf(), since doing so produces a substantial performance improvement (~40% on amd64).
+ * We always inline __log1pmf(), since doing so produces a substantial
+ * performance improvement (~40% on amd64).
  */
 static inline double __log1pmf(double f)
 {
@@ -37,6 +38,6 @@ static inline double __log1pmf(double f)
     return s * (hfsq + R);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
 
 #endif /* !LIBMCS_LOG1PMFD_H */

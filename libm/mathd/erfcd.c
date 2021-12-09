@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the complementary error function of :math:`x` and is equal to :math:`1 -` erf(:math:`x`).
+ * This family of functions implements the complementary error function of
+ * :math:`x` and is equal to :math:`1 -` erf(:math:`x`).
  *
  * Synopsis
  * ========
@@ -22,7 +23,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    erfc(x) \approx 1 - \frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt
@@ -30,7 +31,8 @@
  * Returns
  * =======
  *
- * ``erfc`` returns the complementary error function of :math:`x`, in the range :math:`[+0.0, 2.0]`.
+ * ``erfc`` returns the complementary error function of :math:`x`, in the range
+ * :math:`[+0.0, 2.0]`.
  *
  * Exceptions
  * ==========
@@ -47,53 +49,8 @@
  * +=====================+==============+======================================================+==============+==============+======================================================+==============+==============+
  * | **erfc(x)**         | :math:`+2`   | :math:`1-\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt` | :math:`+1`                  | :math:`1-\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt` | :math:`+0`   | :math:`qNaN` |
  * +---------------------+--------------+------------------------------------------------------+--------------+--------------+------------------------------------------------------+--------------+--------------+
- * 
+ *
  *///
-
-/*
-FUNCTION
-        <<erf>>, <<erff>>, <<erfc>>, <<erfcf>>---error function
-INDEX
-    erf
-INDEX
-    erff
-INDEX
-    erfc
-INDEX
-    erfcf
-
-SYNOPSIS
-    #include <math.h>
-    double erf(double <[x]>);
-    float erff(float <[x]>);
-    double erfc(double <[x]>);
-    float erfcf(float <[x]>);
-
-DESCRIPTION
-    <<erf>> calculates an approximation to the ``error function'',
-    which estimates the probability that an observation will fall within
-    <[x]> standard deviations of the mean (assuming a normal
-    distribution).
-    @tex
-    The error function is defined as
-    $${2\over\sqrt\pi}\times\int_0^x e^{-t^2}dt$$
-     @end tex
-
-    <<erfc>> calculates the complementary probability; that is,
-    <<erfc(<[x]>)>> is <<1 - erf(<[x]>)>>.  <<erfc>> is computed directly,
-    so that you can use it to avoid the loss of precision that would
-    result from subtracting large probabilities (on large <[x]>) from 1.
-
-    <<erff>> and <<erfcf>> differ from <<erf>> and <<erfc>> only in the
-    argument and result types.
-
-RETURNS
-    For positive arguments, <<erf>> and all its variants return a
-    probability---a number between 0 and 1.
-
-PORTABILITY
-    None of the variants of <<erf>> are ANSI C.
-*/
 
 /* double erf(double x)
  * double erfc(double x)
@@ -292,5 +249,5 @@ long double erfcl(long double x)
     return (long double) erfc((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

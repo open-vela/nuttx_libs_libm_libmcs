@@ -18,11 +18,13 @@
  * Description
  * ===========
  *
- * ``lrint`` computes the nearest integer value to :math:`x`. Functionally the same procedure as :ref:`rint` but returns ``long int`` instead of a floating point value.
+ * ``lrint`` computes the nearest integer value to :math:`x`. Functionally the
+ * same procedure as :ref:`rint` but returns ``long int`` instead of a floating
+ * point value.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    lrint(x) = \lfloor x \rceil
@@ -35,7 +37,10 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the correct result is not representable as the output type. This is the case when the input value is infinite or :math:`NaN`, or the magnitude of the result is too large to be represented.
+ * Raise ``invalid operation`` exception when the correct result is not
+ * representable as the output type. This is the case when the input value is
+ * infinite or :math:`NaN`, or the magnitude of the result is too large to be
+ * represented.
  *
  * Output map
  * ==========
@@ -45,7 +50,7 @@
  * +=====================+==========================+====================================+==========================+==============+==============+==========================+====================================+==========================+==========================+
  * | **lrint(x)**        | min :math:`\mathbb{I}_l`                                      | :math:`\lfloor x \rceil` | :math:`x`                   | :math:`\lfloor x \rceil` | max :math:`\mathbb{I}_l`                                      | :math:`lrint(±Inf)`      |
  * +---------------------+--------------------------+------------------------------------+--------------------------+--------------+--------------+--------------------------+------------------------------------+--------------------------+--------------------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -150,5 +155,5 @@ long int lrintl(long double x)
     return lrint((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

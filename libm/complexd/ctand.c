@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    ctan(z) \approx tan(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``ctan`` returns the complex tangent of the input value.
- * 
+ *
  *///
 
 #include <complex.h>
@@ -116,5 +116,5 @@ long double complex ctanl(long double complex z)
     return (long double complex) ctan((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

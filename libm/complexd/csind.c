@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    csin(z) \approx sin(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``csin`` returns the complex sine of the input value.
- * 
+ *
  *///
 
 #include <complex.h>
@@ -61,5 +61,5 @@ long double complex csinl(long double complex z)
     return (long double complex) csin((double complex) z);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

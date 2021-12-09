@@ -3,7 +3,9 @@
 
 /**
  *
- * This macro is used to test if :math:`x` is a normal floating-point value. It can be called with ``float``, ``double`` or ``long double`` input. This macro is implemented in ``math.h``.
+ * This macro is used to test if :math:`x` is a normal floating-point value. It
+ * can be called with ``float``, ``double`` or ``long double`` input. This
+ * macro is implemented in ``math.h``.
  *
  * Synopsis
  * ========
@@ -20,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    isnormal(x) = \left\{\begin{array}{ll} 1, & x \in \mathbb{F} \setminus (\left \{ \pm 0.0, \pm Inf, NaN \right \} \cup \mathbb{S}) \\
@@ -46,4 +48,4 @@
  * +---------------------+--------------+---------------------------------------------------------------------------------------------+-----------------+------------------------+--------------+-------------+
  *
  *///
- 
+

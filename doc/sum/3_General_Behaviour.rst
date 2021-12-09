@@ -3,7 +3,7 @@ General Behaviour
 
 All procedures can handle all input values of its respective types, including special values such as ``NaNs`` or infinities. Pointers used to output additional return values are under the user’s control, using misplaced or ``NULL`` pointers may cause unwanted behaviour or even a crash of the system. The ``NULL`` pointers are handled appropriately by the library, but no action can be taken against using misplaced pointers.
 
-NaN Types
+NaN Values
 ~~~~~~~~~
 
 As can be seen in :ref:`Conventions` there exist different types of ``NaNs``.
@@ -14,6 +14,8 @@ What's the difference between ``NaN``, ``qNaN`` and ``sNaN``? Both ``qNaNs`` and
 
 In :ref:`Conventions`` we also differentiate between ``-NaN`` (``NaN`` where the signbit is set) and ``+NaN`` (``NaN`` where the signbit is not set). This separation does not exist anywhere within the :ref:`IEEE-754 <ABBR>` or C18 standards, ``NaNs`` are simply ``NaNs`` regardless of their sign. We however need this differentiation for the procedures :ref:`signbit` and :ref:`copysign`, as both only check the sign of a value and ignore the rest.
 
+The ``nan (const char *payload)``, ``nanf (const char *payload)``, and ``nanl (const char *payload)`` functions of the library are not fully ISO C compliant as they return a fix defined ``NaN`` regardless of the function parameter. The rationale for this is to keep the LibmCS standalone, without any dependency to other standard C library functions. A workaround is proposed in the section describing these functions.
+
 .. _GeneralBehaviourSubnormalValues:
 
 Subnormal Values
@@ -23,7 +25,7 @@ The library regards subnormals the same as any other value, meaning when a proce
 
 In case the :ref:`FPU <ABBR>` does not fully support subnormals the user should enable the define ``LIBMCS_FPU_DAZ`` while running the library's configuration when prompted to make the decision. This forces every input value to first be checked by the :ref:`FPU <ABBR>` for being a subnormal, and if it is, act according to the implementation of the :ref:`FPU <ABBR>`.
 
-One example of such a non-supporting :ref:`FPU <ABBR>` is the :ref:`GRFPU <ABBR>` from Cobham Gaisler. The :ref:`GRFPU <ABBR>` causes a trap if subnormal numbers occur and the :ref:`GRFPU <ABBR>` is not configured to use non-standard mode [#]_. If the non-standard mode is enabled however, the :ref:`FPU <ABBR>` behaves in a :ref:`DAZ <ABBR>` and :ref:`FTZ <ABBR>` way. This means when ``LIBMCS_FPU_DAZ`` is defined, every call to the library's procedures with a subnormal input will either cause a trap (in standard mode) or behave as if the input was zero (in non-standard mode).
+One example of such a non-supporting :ref:`FPU <ABBR>` is the :ref:`GRFPU <ABBR>` from CAES/Gaisler. The :ref:`GRFPU <ABBR>` causes a trap if subnormal numbers occur and the :ref:`GRFPU <ABBR>` is not configured to use non-standard mode [#]_. If the non-standard mode is enabled however, the :ref:`FPU <ABBR>` behaves in a :ref:`DAZ <ABBR>` and :ref:`FTZ <ABBR>` way. This means when ``LIBMCS_FPU_DAZ`` is defined, every call to the library's procedures with a subnormal input will either cause a trap (in standard mode) or behave as if the input was zero (in non-standard mode).
 
 If the user's :ref:`FPU <ABBR>` behaves as the :ref:`GRFPU <ABBR>` we suggest using the standard mode during production and switching to non-standard mode after sufficient testing (or if the user decides that subnormals are part of normal behaviour). This has the benefit that errors can be found more easily during production (as subnormal numbers in most cases should be an error in the source code), and not causing a trap on the final product in the odd case that a subnormal still appears.
 
@@ -46,23 +48,27 @@ Limitations of the Libm
 Qualification Status
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This software release is qualified to :ref:`ECSS <ABBR>` Cat. B, but only for the following configuration:
+This software release is qualified to :ref:`ECSS <ABBR>` category B, but only for the following configuration:
 
-#. target GR-CPCI-AT697 ("Compact PCI LEON2-FT (AT697E) Development Board") with compilation toolchain used for EUCLID, based on EDISOFT's :ref:`RTEMS <ABBR>` 4.8 (including :ref:`GCC <ABBR>` 4.2.1), and
-#. target GR-CPCI-LEON4-N2X ("Quad-Core LEON4 Next Generation Microprocessor Evaluation Board") with a compilation toolchain based on OAR's :ref:`RTEMS <ABBR>` 4.11 (including :ref:`GCC <ABBR>` 4.9.3),
-#. using DMON (2.0.11.5) to connect to the targets,
+#. target GR-CPCI-AT697 ("Compact PCI LEON2-FT (AT697E) Development Board") with a compiler toolchain based on EDISOFT's :ref:`RTEMS <ABBR>` 4.8 (including :ref:`GCC <ABBR>` 4.2.1), and
+#. target GR-CPCI-LEON4-N2X ("Quad-Core LEON4 Next Generation Microprocessor Evaluation Board") with a compiler toolchain based on OAR's :ref:`RTEMS <ABBR>` 4.11 (including :ref:`GCC <ABBR>` 4.9.3),
+#. using DMON (2.0.11.13) to connect to the targets,
 #. build as per build instructions in :ref:`Operations Environment` and :ref:`Operations Manual` as well as using the configuration and Makefile included in the release,
 #. ``LIBMCS_DOUBLE_IS_32BITS`` is not defined,
 #. the :ref:`FPU's <ABBR>` rounding direction is set to *round to nearest with tie to even*.
 
 The general configuration status of the library can be found in the :ref:`SCF <ABBR>` and the specific qualification evidences (for the above configuration) are in the :ref:`SUITR <ABBR>`, :ref:`SValR <ABBR>`, and :ref:`SVR <ABBR>`. All life-cycle documents apart from the specific qualification evidences are part of the qualification kit provided to the user.
 
-If this release is intended to be used in a different configuration then the one given above, then the qualification status needs to be reassessed in a :ref:`SRF <ABBR>`.
+If this release is intended to be used in a different configuration then the one given above, then the qualification status needs to be reassessed in a :ref:`SRF <ABBR>` and a delta-qualification carried out following the :ref:`QG <ABBR>` OP-QG.00-ML.
 
 Compliance
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This software is compliant to :ref:`ISO <ABBR>` C18, and :ref:`IEEE-754-2008 <ABBR>`, but not yet to :ref:`ISO <ABBR>` TS 18661-1.
+This software is compliant to :ref:`ISO <ABBR>` C18 (ISO/IEC 9899:2018), :ref:`IEEE-754-2019 <ABBR>`, POSIX (IEEE Std 1003.1-2017), and MISRA C:2012.
+
+The use of some library macros will issue justifiable MISRA C non-compliances. These MISRA C non-compliances have been justified within the qualification of the LibmCS but in the case of macros, these non-compliances will be visible while compiling the software that is using the LibmCS.
+
+Compliance to :ref:`ISO <ABBR>` TS 18661-1 is not yet met.
 
 Rounding Mode
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -72,7 +78,7 @@ The library is only qualified for the rounding mode *round to nearest, tie to ev
 Platform Architecture
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-In case the :ref:`FPU <ABBR>` of the target platform is not implementing all :ref:`IEEE-754 <ABBR>` features, the :ref:`FPU <ABBR>` has to be configured appropriately otherwise the library may trap on those features. One such example is the GRFPU as seen in :ref:`GeneralBehaviourSubnormalValues`.
+In case the :ref:`FPU <ABBR>` of the target platform is not implementing all :ref:`IEEE-754 <ABBR>` features, the :ref:`FPU <ABBR>` has to be configured appropriately otherwise the library may trap on those missing features. One such example is the GRFPU as seen in :ref:`GeneralBehaviourSubnormalValues`.
 
 Errno
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -117,7 +123,7 @@ A custom ``fenv.h`` file needs to contain the following defines and constants:
    * ``FE_TONEAREST``
    * ``FE_TOWARDSZERO``
    * ``FE_UPWARD``
-   
+
 * Constant pointer to access the environment in the given hardware environment, the type is ``fenv_t*`` and should be used as input for the functions ``fesetenv`` and ``fegetenv``:
 
    * ``FE_DFL_ENV``
@@ -194,7 +200,7 @@ multiple threads at once, as each procedure call operates on the same variable. 
 Other Header Files
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The library does not contain any externally available header files other than those that should be part of a ``libm`` according to the C and :ref:`POSIX <ABBR>` standards. It contains ``math.h``, ``complex.h``, ``fenv.h``, and ``tgmath.h``, although the limitations of the latter two have already been stated in this chapter. This means there will be no ``float.h`` or ``limits.h`` or any other header that does not belong into a ``libm``. All those headers need to be provided by the toolchain.
+The library does not contain any externally available header files other than those that should be part of a ``libm`` according to the ISO C and :ref:`POSIX <ABBR>` standards. It contains ``math.h``, ``complex.h``, ``fenv.h``, and ``tgmath.h``, although the limitations of the latter two have already been stated in this chapter. This means there will be no ``float.h`` or ``limits.h`` or any other header that does not belong into a ``libm``. All those headers need to be provided by the toolchain.
 
 Assert Usage
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

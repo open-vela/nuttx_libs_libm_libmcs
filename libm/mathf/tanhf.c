@@ -63,4 +63,4 @@ double tanh(double x)
     return (double) tanhf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

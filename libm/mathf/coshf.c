@@ -42,12 +42,12 @@ float coshf(float x)
         return half * t + half / t;
     }
 
-    /* |x| in [22, log(maxdouble)] return half*exp(|x|) */
+    /* |x| in [22, log(maxfloat)] return half*exp(|x|) */
     if (ix <= FLT_UWORD_LOG_MAX) {
         return half * expf(fabsf(x));
     }
 
-    /* |x| in [log(maxdouble), overflowthresold] */
+    /* |x| in [log(maxfloat), overflowthresold] */
     if (ix <= FLT_UWORD_LOG_2MAX) {
         w = expf(half * fabsf(x));
         t = half * w;
@@ -65,4 +65,4 @@ double cosh(double x)
     return (double) coshf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

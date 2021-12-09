@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the exponential function, that is :math:`e` powered by :math:`x`.
+ * This family of functions implements the exponential function, that is
+ * :math:`e` powered by :math:`x`.
  *
  * Synopsis
  * ========
@@ -22,7 +23,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    exp(x) \approx e^x
@@ -30,12 +31,14 @@
  * Returns
  * =======
  *
- * ``exp`` returns :math:`e` powered by :math:`x`, in the range :math:`\mathbb{F}^{+}_0`.
+ * ``exp`` returns :math:`e` powered by :math:`x`, in the range
+ * :math:`\mathbb{F}^{+}_0`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ * Raise ``overflow`` exception when the magnitude of the input value is too
+ * large.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -47,7 +50,7 @@
  * +=====================+==============+==============+==============+==============+==============+==============+==============+
  * | **exp(x)**          | :math:`+0`   | :math:`e^x`  | :math:`+1`                  | :math:`e^x`  | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>
@@ -170,5 +173,5 @@ long double expl(long double x)
     return (long double) exp((double) x);
 }
 
-#endif /* defined(_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

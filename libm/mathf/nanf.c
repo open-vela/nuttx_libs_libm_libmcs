@@ -7,7 +7,7 @@
 float nanf(const char *payload)
 {
     (void)payload;
-    
+
     float x;
     SET_FLOAT_WORD(x,0x7FCF067D);
     return x;
@@ -20,4 +20,4 @@ double nan(const char *payload)
     return (double) nanf(payload);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
