@@ -20,4 +20,4 @@ double complex conj(double complex z)
     return (double complex) conjf((float complex) z);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -45,4 +45,4 @@ long int lround(double x)
     return lroundf((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

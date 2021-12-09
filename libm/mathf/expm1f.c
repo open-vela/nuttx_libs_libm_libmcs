@@ -143,4 +143,4 @@ double expm1(double x)
     return (double) expm1f((float) x);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

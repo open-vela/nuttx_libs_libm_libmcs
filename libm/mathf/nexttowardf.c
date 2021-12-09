@@ -85,6 +85,6 @@ double nexttoward(double x, long double y)
     return (double) nexttowardf((float) x, y);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
 
 #endif /* __LIBMCS_LONG_DOUBLE_IS_64BITS */
