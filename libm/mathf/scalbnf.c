@@ -46,10 +46,6 @@ float scalbnf(float x, int n)
         }
     }
 
-    if (n > OVERFLOW_INT) {
-        return __raise_overflowf(x);         /*overflow */
-    }
-
     k = k + n;
 
     if (k > FLT_LARGEST_EXP) {
@@ -62,7 +58,11 @@ float scalbnf(float x, int n)
     }
 
     if (k < FLT_SMALLEST_EXP) {
-        return __raise_underflowf(x);        /*underflow*/
+        if (n > OVERFLOW_INT) {   /* in case integer overflow in n+k */
+            return __raise_overflowf(x);     /*overflow */
+        } else {
+            return __raise_underflowf(x);    /*underflow*/
+        }
     }
 
     k += 25;                /* subnormal result */

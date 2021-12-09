@@ -33,14 +33,10 @@ float scalblnf(float x, long int n)
         return x + x;    /* NaN or Inf */
     }
 
-    if (n > 50000) {
-        return __raise_overflowf(x);     /*overflow*/
-    }
-
     k = k + n;
 
-    if (k >  0xfe) {
-        return __raise_overflowf(x);     /*overflow*/
+    if (n > 50000 || k >  0xfe) {
+        return __raise_overflowf(x);    /* overflow  */
     }
 
     if (n < -50000) {
