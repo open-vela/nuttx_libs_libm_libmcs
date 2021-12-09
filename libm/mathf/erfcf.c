@@ -62,7 +62,7 @@ float erfcf(float x)
         }
     }
 
-    if (ix < 0x41e00000) {        /* |x|<28 */
+    if (ix < 0x41220000) {        /* |x|<10.125 */
         x = fabsf(x);
         s = one / (x * x);
 
@@ -79,7 +79,7 @@ float erfcf(float x)
         }
 
         GET_FLOAT_WORD(ix, x);
-        SET_FLOAT_WORD(z, ix & 0xfffff000U);
+        SET_FLOAT_WORD(z, ix & 0xffffc000U);
         r  =  expf(-z * z - 0.5625f) * expf((z - x) * (z + x) + R / S);
 
         if (hx > 0) {
