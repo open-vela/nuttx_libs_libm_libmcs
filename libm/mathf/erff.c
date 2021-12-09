@@ -63,7 +63,7 @@ float erff(float x)
         }
     }
 
-    if (ix >= 0x40c00000) {        /* inf>|x|>=6 */
+    if (ix >= 0x40800000) {        /* inf>|x|>=4 */
         if (hx >= 0) {
             return __raise_inexactf(one);
         } else {
@@ -83,7 +83,7 @@ float erff(float x)
     }
 
     GET_FLOAT_WORD(ix, x);
-    SET_FLOAT_WORD(z, ix & 0xfffff000U);
+    SET_FLOAT_WORD(z, ix & 0xffffc000U);
     r  =  expf(-z * z - 0.5625f) * expf((z - x) * (z + x) + R / S);
 
     if (hx >= 0) {
