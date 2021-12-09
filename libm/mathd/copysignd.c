@@ -18,12 +18,11 @@
  * Description
  * ===========
  *
- * ``copysign`` computes the value with the magnitude of :math:`x` and sign of
- * :math:`y`.
+ * ``copysign`` computes the value with the magnitude of :math:`x` and sign of :math:`y`.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    copysign(x, y) = |x| \cdot sgn\ y
@@ -31,8 +30,7 @@
  * Returns
  * =======
  *
- * ``copysign`` returns the value with the magnitude of :math:`x` and sign of
- * :math:`y`.
+ * ``copysign`` returns the value with the magnitude of :math:`x` and sign of :math:`y`.
  *
  * Exceptions
  * ==========

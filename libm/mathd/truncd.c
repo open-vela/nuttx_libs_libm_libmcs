@@ -3,8 +3,7 @@
 
 /**
  *
- * This family of functions implements the nearest integer value towards zero
- * from :math:`x`.
+ * This family of functions implements the nearest integer value towards zero from :math:`x`.
  *
  * Synopsis
  * ========
@@ -23,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    trunc(x) = \left\{\begin{array}{ll} \lfloor x \rfloor, & x \in \mathbb{F}^{+} \\ \lceil x \rceil, & otherwise \end{array}\right.
@@ -46,7 +45,7 @@
  * +=====================+==============+===========================+==============+==============+===========================+==============+==============+
  * | **trunc(x)**        | :math:`-Inf` | :math:`\lceil x \rceil`   | :math:`x`                   | :math:`\lfloor x \rfloor` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+---------------------------+--------------+--------------+---------------------------+--------------+--------------+
- *
+ * 
  *///
 
 #include <math.h>

@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    sinh(x) \approx sinh(x) = \frac{e^x-e^{-x}}{2}
@@ -35,8 +35,7 @@
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of the input value is too
- * large.
+ * Raise ``overflow`` exception when the magnitude of the input value is too large.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -48,7 +47,7 @@
  * +=====================+==============+=================+==============+==============+=================+==============+==============+
  * | **sinh(x)**         | :math:`-Inf` | :math:`sinh(x)` | :math:`x`                   | :math:`sinh(x)` | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+-----------------+--------------+--------------+-----------------+--------------+--------------+
- *
+ * 
  *///
 
 #include <math.h>

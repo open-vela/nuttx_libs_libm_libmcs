@@ -3,8 +3,7 @@
 
 /**
  *
- * This family of functions implements the value of :math:`x` raised to the
- * power of :math:`y`.
+ * This family of functions implements the value of :math:`x` raised to the power of :math:`y`.
  *
  * Synopsis
  * ========
@@ -23,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    pow(x, y) \approx x^y
@@ -36,11 +35,9 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when :math:`x` is finite and negative
- * and :math:`y` is finite and not an integer value.
+ * Raise ``invalid operation`` exception when :math:`x` is finite and negative and :math:`y` is finite and not an integer value.
  *
- * Raise ``divide by zero`` exception when :math:`x` is zero and :math:`y` is a
- * negative odd integer value.
+ * Raise ``divide by zero`` exception when :math:`x` is zero and :math:`y` is a negative odd integer value.
  *
  * Raise ``overflow`` exception when the magnitude of the result is too large.
  *
@@ -156,7 +153,7 @@ double pow(double x, double y)
 #ifdef __LIBMCS_FPU_DAZ
     x *= __volatile_one;
     y *= __volatile_one;
-
+    
     EXTRACT_WORDS(hx, lx, x);
     EXTRACT_WORDS(hy, ly, y);
     ix = hx & 0x7fffffff;

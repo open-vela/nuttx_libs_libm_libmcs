@@ -2,8 +2,7 @@
 
 /**
  *
- * This family of functions evaluates the value of the projection of the
- * complex argument :math:`z` onto the Riemann sphere.
+ * This family of functions evaluates the value of the projection of the complex argument :math:`z` onto the Riemann sphere.
  *
  * Synopsis
  * ========
@@ -18,12 +17,11 @@
  * Description
  * ===========
  *
- * ``cproj`` computes the value of the projection of :math:`z` onto the Riemann
- * sphere.
+ * ``cproj`` computes the value of the projection of :math:`z` onto the Riemann sphere.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    cproj(z) = \left\{\begin{array}{ll} z, & \Re(z) \neq \pm Inf \wedge \Im(z) \neq \pm Inf \\ +Inf \pm 0i, & otherwise \end{array}\right.
@@ -31,9 +29,8 @@
  * Returns
  * =======
  *
- * ``cproj`` returns the value of the projection of :math:`z` onto the Riemann
- * sphere.
- *
+ * ``cproj`` returns the value of the projection of :math:`z` onto the Riemann sphere.
+ * 
  *///
 
 #include <complex.h>

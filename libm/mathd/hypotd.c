@@ -18,12 +18,11 @@
  * Description
  * ===========
  *
- * ``hypot`` computes the length of the hypothenuse of a rightangled triangle
- * where the legs have the lengths :math:`x` and :math:`y`.
+ * ``hypot`` computes the length of the hypothenuse of a rightangled triangle where the legs have the lengths :math:`x` and :math:`y`.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    hypot(x, y) \approx \sqrt{x^2 + y^2}
@@ -36,8 +35,7 @@
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of the input values is too
- * large.
+ * Raise ``overflow`` exception when the magnitude of the input values is too large.
  *
  * .. May raise ``underflow`` exception.
  *

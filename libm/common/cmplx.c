@@ -3,8 +3,7 @@
 
 /**
  *
- * This family of macros is used to create a complex value out of the two
- * inputs where :math:`x` is real and :math:`y` is the imaginary part.
+ * This family of macros is used to create a complex value out of the two inputs where :math:`x` is real and :math:`y` is the imaginary part.
  *
  * Synopsis
  * ========
@@ -19,12 +18,11 @@
  * Description
  * ===========
  *
- * ``CMPLX`` creates a complex value out of the two inputs where :math:`x` is
- * real and :math:`y` is the imaginary part.
+ * ``CMPLX`` creates a complex value out of the two inputs where :math:`x` is real and :math:`y` is the imaginary part.
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    CMPLX(x, y) = x + iy
@@ -32,7 +30,6 @@
  * Returns
  * =======
  *
- * ``CMPLX`` returns a complex value where :math:`x` is real and :math:`y` is
- * the imaginary part.
+ * ``CMPLX`` returns a complex value where :math:`x` is real and :math:`y` is the imaginary part.
  *
  *///

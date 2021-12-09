@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- *
+ * 
  * .. math::
  *
  *    exp2(x) \approx 2^x
@@ -30,14 +30,12 @@
  * Returns
  * =======
  *
- * ``exp2`` returns :math:`2` powered by :math:`x`, in the range
- * :math:`\mathbb{F}^{+}_0`.
+ * ``exp2`` returns :math:`2` powered by :math:`x`, in the range :math:`\mathbb{F}^{+}_0`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of the input value is too
- * large.
+ * Raise ``overflow`` exception when the magnitude of the input value is too large.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -49,7 +47,7 @@
  * +=====================+==============+==============+==============+==============+==============+==============+==============+
  * | **exp2(x)**         | :math:`+0`   | :math:`2^x`  | :math:`+1`                  | :math:`2^x`  | :math:`+Inf` | :math:`qNaN` |
  * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
- *
+ * 
  *///
 
 #include <math.h>
