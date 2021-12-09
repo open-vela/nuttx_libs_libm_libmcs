@@ -308,7 +308,7 @@ float powf(float x, float y)
 
     t = p_l + p_h;
     GET_FLOAT_WORD(is, t);
-    SET_FLOAT_WORD(t, is & 0xfffff000U);
+    SET_FLOAT_WORD(t, is & 0xffff8000U);
     u = t * lg2_h;
     v = (p_l - (t - p_h)) * lg2 + t * lg2_l;
     z = u + v;
