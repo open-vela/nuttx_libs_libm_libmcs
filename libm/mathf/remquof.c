@@ -86,9 +86,9 @@ float remquof(float x, float y, int *quo)
             }
         }
     }
-    
+
     _quo &= 0x7;
-    
+
     *quo = sq ? -_quo : _quo;
 
     GET_FLOAT_WORD(hx, x);

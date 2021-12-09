@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    ctan(z) \approx tan(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``ctan`` returns the complex tangent of the input value.
- * 
+ *
  *///
 
 #include <complex.h>
