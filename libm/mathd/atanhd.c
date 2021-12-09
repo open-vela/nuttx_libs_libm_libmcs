@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``atanh`` computes the hyperbolic inverse tangent (*hyperbolic arc tangent*) of the input value.
+ * ``atanh`` computes the hyperbolic inverse tangent (*hyperbolic arc tangent*)
+ * of the input value.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    atanh(x) \approx tanh^{-1}(x) = \frac{1}{2} ln \left( \frac{1+x}{1-x} \right)
@@ -35,9 +36,11 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when the input value is not in the interval :math:`[-1, 1]`.
+ * Raise ``invalid operation`` exception when the input value is not in the
+ * interval :math:`[-1, 1]`.
  *
- * Raise ``divide by zero`` exception when the input value is :math:`-1` or :math:`+1`.
+ * Raise ``divide by zero`` exception when the input value is :math:`-1` or
+ * :math:`+1`.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -49,7 +52,7 @@
  * +=====================+==============+==============+==============+=====================+==============+==============+=====================+==============+==============+==============+==============+
  * | **atanh(x)**        | :math:`qNaN` | :math:`qNaN` | :math:`-Inf` | :math:`tanh^{-1} x` | :math:`x`                   | :math:`tanh^{-1} x` | :math:`+Inf` | :math:`qNaN` | :math:`qNaN` | :math:`qNaN` |
  * +---------------------+--------------+--------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>

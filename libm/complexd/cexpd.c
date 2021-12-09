@@ -2,7 +2,8 @@
 
 /**
  *
- * This family of functions implements the complex exponential function, that is :math:`e` powered by :math:`z`.
+ * This family of functions implements the complex exponential function, that
+ * is :math:`e` powered by :math:`z`.
  *
  * Synopsis
  * ========
@@ -21,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cexp(z) \approx e^z
@@ -30,7 +31,7 @@
  * =======
  *
  * ``cexp`` returns :math:`e` powered by :math:`z`.
- * 
+ *
  *///
 
 #include <complex.h>

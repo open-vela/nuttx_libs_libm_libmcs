@@ -4,7 +4,7 @@
 #ifndef LIBMCS_CONFIG_H
 #define LIBMCS_CONFIG_H
 
-/* If an FPU is not standard compliant for subnormal values, use the define LIBMCS_FPU_DAZ to force 
+/* If an FPU is not standard compliant for subnormal values, use the define LIBMCS_FPU_DAZ to force
  * each procedure to first multiply the input value(s) by 1, therefore using the FPUs defined
  * behaviour for subnormal values as follows:
  * If the FPU is standard compliant for subnormals, the multiplication does not cause any

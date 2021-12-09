@@ -3,7 +3,9 @@
 
 /**
  *
- * This family of functions implements the floating-point remainder :math:`x\ REM\ y` and puts the quotient (or at least the 3 least significant bits) into the outpointer.
+ * This family of functions implements the floating-point remainder :math:`x\
+ * REM\ y` and puts the quotient (or at least the 3 least significant bits)
+ * into the outpointer.
  *
  * Synopsis
  * ========
@@ -18,14 +20,20 @@
  * Description
  * ===========
  *
- * ``remquo`` computes the floating-point remainder :math:`r = x\ REM\ y = x - n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is the integral value nearest to :math:`\frac{x}{y}`.
- :math:`n` is then put into the output pointer :math:`*quo`. If :math:`n` is too large to be represented in an ``integer``, only the three least significant bits of :math:`n` are correct.
+ * ``remquo`` computes the floating-point remainder :math:`r = x\ REM\ y = x -
+ * n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is
+ * the integral value nearest to :math:`\frac{x}{y}`.
  *
- * ``remquo`` and ``remainder`` are functionally equivalent concerning the return value, ``remquo`` only adds an additional output.
+ * :math:`n` is then put into the output pointer :math:`*quo`. If :math:`n` is
+ * too large to be represented in an ``integer``, only the three least
+ * significant bits of :math:`n` are correct.
+ *
+ * ``remquo`` and ``remainder`` are functionally equivalent concerning the
+ * return value, ``remquo`` only adds an additional output.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    remquo(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remquo(x, y) \in \left [-\left | \frac{y}{2} \right |,\left | \frac{y}{2} \right | \right ] \wedge quo = n
@@ -33,12 +41,14 @@
  * Returns
  * =======
  *
- * ``remquo`` returns the floating-point remainder :math:`x\ REM\ y`. The quotient :math:`n` is put into :math:`*quo`.
+ * ``remquo`` returns the floating-point remainder :math:`x\ REM\ y`. The
+ * quotient :math:`n` is put into :math:`*quo`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when :math:`x` is infinite or :math:`y` is zero.
+ * Raise ``invalid operation`` exception when :math:`x` is infinite or
+ * :math:`y` is zero.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -180,9 +190,9 @@ double remquo(double x, double y, int *quo)
             }
         }
     }
-    
+
     _quo &= 0x7;
-    
+
     *quo = sq ? -_quo : _quo;
 
     GET_HIGH_WORD(hx, x);

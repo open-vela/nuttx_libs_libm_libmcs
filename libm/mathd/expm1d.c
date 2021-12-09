@@ -3,7 +3,9 @@
 
 /**
  *
- * This family of functions implements the exponential function minus :math:`1`, that is :math:`e` powered by :math:`x` before subtracting :math:`1`.
+ * This family of functions implements the exponential function minus
+ * :math:`1`, that is :math:`e` powered by :math:`x` before subtracting
+ * :math:`1`.
  *
  * Synopsis
  * ========
@@ -18,11 +20,12 @@
  * Description
  * ===========
  *
- * ``expm1`` computes :math:`e` powered by the input value subtracted by :math:`1`.
+ * ``expm1`` computes :math:`e` powered by the input value subtracted by
+ * :math:`1`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    expm1(x) \approx e^x - 1
@@ -30,12 +33,14 @@
  * Returns
  * =======
  *
- * ``expm1`` returns :math:`e` powered by :math:`x` subtracted by :math:`1`, in the range :math:`\mathbb{F}_{>=-1}`.
+ * ``expm1`` returns :math:`e` powered by :math:`x` subtracted by :math:`1`, in
+ * the range :math:`\mathbb{F}_{>=-1}`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of the input value is too large.
+ * Raise ``overflow`` exception when the magnitude of the input value is too
+ * large.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -47,7 +52,7 @@
  * +=====================+===============+===============+===============+===============+===============+===============+===============+
  * | **expm1(x)**        | :math:`-1`    | :math:`e^x-1` | :math:`+0`                    | :math:`e^x-1` | :math:`+Inf`  | :math:`qNaN`  |
  * +---------------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+
- * 
+ *
  *///
 
 /* expm1(x)

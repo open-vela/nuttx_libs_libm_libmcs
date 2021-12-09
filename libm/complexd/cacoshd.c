@@ -17,11 +17,13 @@
  * Description
  * ===========
  *
- * ``cacosh`` computes the complex hyperbolic inverse cosine (*arc cosine*) of the input value, with a branch cut at values less than :math:`+1` along the real axis.
+ * ``cacosh`` computes the complex hyperbolic inverse cosine (*arc cosine*) of
+ * the input value, with a branch cut at values less than :math:`+1` along the
+ * real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cacosh(z) \approx cosh^{-1}(z)
@@ -29,8 +31,10 @@
  * Returns
  * =======
  *
- * ``cacosh`` returns the complex hyperbolic inverse cosine of the input value in the output range of a half-strip of non-negative values along the real axis and in the interval :math:`[-\pi i, +\pi i]` along the imaginary axis.
- * 
+ * ``cacosh`` returns the complex hyperbolic inverse cosine of the input value
+ * in the output range of a half-strip of non-negative values along the real
+ * axis and in the interval :math:`[-\pi i, +\pi i]` along the imaginary axis.
+ *
  *///
 
 #include <complex.h>

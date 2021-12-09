@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the Bessel function of the first kind of order 0.
+ * This family of functions implements the Bessel function of the first kind of
+ * order 0.
  *
  * Synopsis
  * ========
@@ -20,13 +21,17 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    j0(x) = J_{0}(x)
  *
- * Notice that the mathematical function represented by the procedure ``j0`` is not :math:`j_0` (which is the spherical version of the Bessel function) but :math:`J_0`. See `WolframAlpha
-<https://www.wolframalpha.com/input/?i=J0%28x%29>`_ for what it looks like and `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
+ * Notice that the mathematical function represented by the procedure ``j0`` is
+ * not :math:`j_0` (which is the spherical version of the Bessel function) but
+ * :math:`J_0`. See `WolframAlpha
+ * <https://www.wolframalpha.com/input/?i=J0%28x%29>`_ for what it looks like
+ * and `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more
+ * information.
  *
  * Returns
  * =======
@@ -48,7 +53,7 @@
  * +=====================+==============+==============+==============+==============+==============+==============+==============+
  * | **j0(x)**           | :math:`+0`   | :math:`J_{0}(x)`                                          | :math:`+0`   | :math:`qNaN` |
  * +---------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>

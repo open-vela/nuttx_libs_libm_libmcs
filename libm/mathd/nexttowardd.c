@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions computes the next floating-point value after :math:`x` in direction of :math:`y`.
+ * This family of functions computes the next floating-point value after
+ * :math:`x` in direction of :math:`y`.
  *
  * Synopsis
  * ========
@@ -18,9 +19,17 @@
  * Description
  * ===========
  *
- * ``nexttoward`` computes the next floating-point value after :math:`x` in direction of :math:`y`.
+ * ``nexttoward`` computes the next floating-point value after :math:`x` in
+ * direction of :math:`y`.
  *
- * ``nexttoward`` is functionally equivalent to :ref:`nextafter` but uses ``long double`` for the :math:`y` input. As the library only supports 64bit ``long double`` the procedure ``nexttoward`` is just calling :ref:`nextafter` as the types are the same, but for ``nexttowardf`` there is an actual difference as :math:`y` can be chosen to be so close to :math:`x` that it would be the same value in ``float`` but isn't in (effectively) ``double``. This results in ``nexttowardf`` having it's own implementation while ``nexttoward`` does not.
+ * ``nexttoward`` is functionally equivalent to :ref:`nextafter` but uses
+ * ``long double`` for the :math:`y` input. As the library only supports 64bit
+ * ``long double`` the procedure ``nexttoward`` is just calling
+ * :ref:`nextafter` as the types are the same, but for ``nexttowardf`` there is
+ * an actual difference as :math:`y` can be chosen to be so close to :math:`x`
+ * that it would be the same value in ``float`` but isn't in (effectively)
+ * ``double``. This results in ``nexttowardf`` having it's own implementation
+ * while ``nexttoward`` does not.
  *
  * Mathematical Function
  * =====================
@@ -32,12 +41,15 @@
  * Returns
  * =======
  *
- * ``nexttoward`` returns the the next floating-point value after :math:`x` in direction of :math:`y`.
+ * ``nexttoward`` returns the the next floating-point value after :math:`x` in
+ * direction of :math:`y`.
  *
  * Exceptions
  * ==========
  *
- * Raise ``overflow`` exception when the magnitude of :math:`x` is the largest finite value representable in the type and :math:`y` is infinite with the same sign as :math:`x`.
+ * Raise ``overflow`` exception when the magnitude of :math:`x` is the largest
+ * finite value representable in the type and :math:`y` is infinite with the
+ * same sign as :math:`x`.
  *
  * .. May raise ``underflow`` exception.
  *

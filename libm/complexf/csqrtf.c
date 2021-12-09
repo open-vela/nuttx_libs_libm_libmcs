@@ -23,7 +23,7 @@ float complex csqrtf(float complex z)
         } else {
             w = CMPLXF(sqrtf(x), y);
         }
-        
+
         return w;
     }
 

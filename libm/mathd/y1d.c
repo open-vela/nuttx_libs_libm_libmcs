@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the Bessel function of the second kind of order 1.
+ * This family of functions implements the Bessel function of the second kind
+ * of order 1.
  *
  * Synopsis
  * ========
@@ -20,13 +21,17 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    y1(x) = Y_{1}(x)
  *
- * Notice that the mathematical function represented by the procedure ``y1`` is not :math:`y_1` (which is the spherical version of the Bessel function) but :math:`Y_1`. See `WolframAlpha
-<https://www.wolframalpha.com/input/?i=Y_1%28x%29>`_ for what it looks like and `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
+ * Notice that the mathematical function represented by the procedure ``y1`` is
+ * not :math:`y_1` (which is the spherical version of the Bessel function) but
+ * :math:`Y_1`. See `WolframAlpha
+ * <https://www.wolframalpha.com/input/?i=Y_1%28x%29>`_ for what it looks like
+ * and `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more
+ * information.
  *
  * Returns
  * =======
@@ -50,7 +55,7 @@
  * +=====================+==============+==================+==============+==============+==================+==============+==============+
  * | **y1(x)**           | :math:`qNaN`                    | :math:`-Inf`                | :math:`Y_{1}(x)` | :math:`+0`   | :math:`qNaN` |
  * +---------------------+--------------+------------------+--------------+--------------+------------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>

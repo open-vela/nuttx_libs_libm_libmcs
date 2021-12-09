@@ -2,7 +2,8 @@
 
 /**
  *
- * This family of functions implements the complex hyperbolic arc tangent of :math:`z`.
+ * This family of functions implements the complex hyperbolic arc tangent of
+ * :math:`z`.
  *
  * Synopsis
  * ========
@@ -17,11 +18,13 @@
  * Description
  * ===========
  *
- * ``catanh`` computes the complex hyperbolic inverse tangent (*arc tangent*) of the input value, with branch cuts outside the interval :math:`[-1, +1]` along the real axis.
+ * ``catanh`` computes the complex hyperbolic inverse tangent (*arc tangent*)
+ * of the input value, with branch cuts outside the interval :math:`[-1, +1]`
+ * along the real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    catanh(z) \approx tanh^{-1}(z)
@@ -29,8 +32,11 @@
  * Returns
  * =======
  *
- * ``catanh`` returns the complex hyperbolic inverse tangent of the input value in the output range of a strip mathematically unbounded along the real axis and in the interval :math:`[-\frac{\pi}{2}i, \frac{\pi}{2}i]` along the imaginary axis.
- * 
+ * ``catanh`` returns the complex hyperbolic inverse tangent of the input value
+ * in the output range of a strip mathematically unbounded along the real axis
+ * and in the interval :math:`[-\frac{\pi}{2}i, \frac{\pi}{2}i]` along the
+ * imaginary axis.
+ *
  *///
 
 #include <complex.h>

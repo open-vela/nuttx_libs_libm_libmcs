@@ -3,7 +3,9 @@
 
 /**
  *
- * This macro is used to test if :math:`x` is an infinite floating-point value. It can be called with ``float``, ``double`` or ``long double`` input. This macro is implemented in ``math.h``.
+ * This macro is used to test if :math:`x` is an infinite floating-point value.
+ * It can be called with ``float``, ``double`` or ``long double`` input. This
+ * macro is implemented in ``math.h``.
  *
  * Synopsis
  * ========
@@ -20,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    isinf(x) = \left\{\begin{array}{ll} 1, & x = \pm Inf  \\
@@ -38,7 +40,7 @@
  *
  * Output map
  * ==========
- * 
+ *
  * +---------------------+--------------+------------------------------------------------------------------+--------------+-------------+
  * | **x**               | :math:`-Inf` | :math:`\in \mathbb{F} \setminus \left \{ \pm Inf, NaN \right \}` | :math:`+Inf` | :math:`NaN` |
  * +=====================+==============+==================================================================+==============+=============+
@@ -46,4 +48,4 @@
  * +---------------------+--------------+------------------------------------------------------------------+--------------+-------------+
  *
  *///
- 
+

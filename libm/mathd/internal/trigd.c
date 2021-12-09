@@ -3,7 +3,10 @@
 
 /**
  *
- * This family of functions is a set of functions used by multiple trigonometric procedures as internal functions. Except for the internal range reduction the other functions are accessible via ``trigd.h`` (``trigf.h``), but should not be accessed directly by a user.
+ * This family of functions is a set of functions used by multiple
+ * trigonometric procedures as internal functions. Except for the internal
+ * range reduction the other functions are accessible via ``trigd.h``
+ * (``trigf.h``), but should not be accessed directly by a user.
  *
  * Synopsis
  * ========
@@ -22,21 +25,55 @@
  * Description
  * ===========
  *
- * ``__cos`` computes the cosine of the input value. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision.
+ * ``__cos`` computes the cosine of the input value. The sum of both input
+ * parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`,
+ * :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value
+ * in raw precision while the second parameter :math:`y` contains a tail for
+ * higher precision.
  *
- * ``__sin`` computes the sine of the input value. The sum of both input parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`, :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value in raw precision while the second parameter :math:`y` contains a tail for higher precision. The third parameter :math:`iy` signals if the parameter :math:`y` is :math:`0`.
+ * ``__sin`` computes the sine of the input value. The sum of both input
+ * parameters :math:`x` and :math:`y` is bounded to [:math:`-\frac{\pi}{4}`,
+ * :math:`\frac{\pi}{4}`]. The first parameter :math:`x` is the requested value
+ * in raw precision while the second parameter :math:`y` contains a tail for
+ * higher precision. The third parameter :math:`iy` signals if the parameter
+ * :math:`y` is :math:`0`.
  *
- * ``__rem_pio2`` returns the quadrant the input angle lies in, and place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array :math:`*y` (which consists of two values, the remainder and its tail, hereafter called :math:`y_0` and :math:`y_1`). The return value can be converted to the angle quadrant by taking just its last two bits. If the last two bits are :math:`00`, the input value is represented in [:math:`-45^{\circ}`, :math:`45^{\circ}`], if they are :math:`01`, it is in [:math:`45^{\circ}`, :math:`135^{\circ}`], if they are :math:`10`, it is in [:math:`135^{\circ}`, :math:`225^{\circ}`], and if they are :math:`11`, it is in [:math:`225^{\circ}`, :math:`315^{\circ}`]. The last two bits of the return value are the only relevant part. In some cases the return value also equals the number of reductions (by :math:`\frac{\pi}{2}`) necessary to reduce the value - this is not always the case, as the return value would often overflow due to the limited size of ``int32_t``.
+ * ``__rem_pio2`` returns the quadrant the input angle lies in, and place the
+ * remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array
+ * :math:`*y` (which consists of two values, the remainder and its tail,
+ * hereafter called :math:`y_0` and :math:`y_1`). The return value can be
+ * converted to the angle quadrant by taking just its last two bits. If the
+ * last two bits are :math:`00`, the input value is represented in
+ * [:math:`-45^{\circ}`, :math:`45^{\circ}`], if they are :math:`01`, it is in
+ * [:math:`45^{\circ}`, :math:`135^{\circ}`], if they are :math:`10`, it is in
+ * [:math:`135^{\circ}`, :math:`225^{\circ}`], and if they are :math:`11`, it
+ * is in [:math:`225^{\circ}`, :math:`315^{\circ}`]. The last two bits of the
+ * return value are the only relevant part. In some cases the return value also
+ * equals the number of reductions (by :math:`\frac{\pi}{2}`) necessary to
+ * reduce the value - this is not always the case, as the return value would
+ * often overflow due to the limited size of ``int32_t``.
  *
- * ``__rem_pio2_internal`` returns the quadrant the input angle lies in (see ``__rem_pio2`` on how to convert the return value into the quadrant), and place the remainder of :math:`x` (scaled :math:`x` which consists of up to three values, hereafter called :math:`x_0`, :math:`x_1` and :math:`x_2`, original :math:`x = x_0 \cdot 2^{e0} + x_1 \cdot 2^{e0-24} + x_2 \cdot 2^{e0-48}`) divided by :math:`\frac{\pi}{4}` in the output array (which consists of two values, the remainder and its tail,  :math:`y_0` and :math:`y_1`). The variable :math:`nx` needs to be provided with the size of the array for :math:`x`.
+ * ``__rem_pio2_internal`` returns the quadrant the input angle lies in (see
+ * ``__rem_pio2`` on how to convert the return value into the quadrant), and
+ * place the remainder of :math:`x` (scaled :math:`x` which consists of up to
+ * three values, hereafter called :math:`x_0`, :math:`x_1` and :math:`x_2`,
+ * original :math:`x = x_0 \cdot 2^{e0} + x_1 \cdot 2^{e0-24} + x_2 \cdot
+ * 2^{e0-48}`) divided by :math:`\frac{\pi}{4}` in the output array (which
+ * consists of two values, the remainder and its tail,  :math:`y_0` and
+ * :math:`y_1`). The variable :math:`nx` needs to be provided with the size of
+ * the array for :math:`x`.
  *
- * Although ``__rem_pio2`` and ``__rem_pio2_internal`` seem to do the same, they work on different ranges. ``__rem_pio2`` first checks if the input is rather close to the target interval, if it isn't it calls ``__rem_pio2_internal``.
+ * Although ``__rem_pio2`` and ``__rem_pio2_internal`` seem to do the same,
+ * they work on different ranges. ``__rem_pio2`` first checks if the input is
+ * rather close to the target interval, if it isn't it calls
+ * ``__rem_pio2_internal``.
  *
- * *Note:* The variables ``prec`` and ``*ipio2`` are to be removed during the rework and are therefore not part of the description.
+ * *Note:* The variables ``prec`` and ``*ipio2`` are to be removed during the
+ * rework and are therefore not part of the description.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    \_\_cos(x) &\approx cos(x)  \\
@@ -51,9 +88,13 @@
  *
  * ``__sin`` returns the sine of :math:`x + y`.
  *
- * ``__rem_pio2`` returns the quadrant the input angle lies in, and place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array :math:`*y`. See description above.
+ * ``__rem_pio2`` returns the quadrant the input angle lies in, and place the
+ * remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array
+ * :math:`*y`. See description above.
  *
- * ``__rem_pio2_internal`` returns the quadrant the input angle lies in, and place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the output array :math:`*y`. See description above.
+ * ``__rem_pio2_internal`` returns the quadrant the input angle lies in, and
+ * place the remainder of :math:`x` divided by :math:`\frac{\pi}{4}` in the
+ * output array :math:`*y`. See description above.
  *
  * Exceptions
  * ==========
