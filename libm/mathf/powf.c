@@ -30,8 +30,8 @@ lg2_h    =  6.93145752e-01f,   /* 0x3f317200 */
 lg2_l    =  1.42860654e-06f,   /* 0x35bfbe8c */
 ovt      =  4.2995665694e-08f, /* -(128-log2(ovfl+.5ulp)) */
 cp       =  9.6179670095e-01f, /* 0x3f76384f =2/(3ln2) */
-cp_h     =  9.6179199219e-01f, /* 0x3f763800 =head of cp */
-cp_l     =  4.7017383622e-06f, /* 0x369dc3a0 =tail of cp_h */
+cp_h     =  9.6191406250e-01f, /* 0x3f764000 =12b of cp */
+cp_l     = -1.1736857402e-04f, /* 0xb8f623c6 =tail of cp_h */
 ivln2    =  1.4426950216e+00f, /* 0x3fb8aa3b =1/ln2 */
 ivln2_h  =  1.4426879883e+00f, /* 0x3fb8aa00 =16b 1/ln2*/
 ivln2_l  =  7.0526075433e-06f; /* 0x36eca570 =1/ln2 tail*/
@@ -219,7 +219,8 @@ float powf(float x, float y)
         GET_FLOAT_WORD(is, s_h);
         SET_FLOAT_WORD(s_h, is & 0xfffff000U);
         /* t_h=ax+bp[k] High */
-        SET_FLOAT_WORD(t_h, ((ix >> 1) | 0x20000000) + 0x0040000 + (k << 21));
+        is = ((ix >> 1) & 0xfffff000U) | 0x20000000;
+        SET_FLOAT_WORD(t_h, is + 0x00400000 + (k << 21));
         t_l = ax - (t_h - bp[k]);
         s_l = v * ((u - s_h * t_h) - s_h * t_l);
         /* compute log(ax) */
@@ -307,7 +308,7 @@ float powf(float x, float y)
 
     t = p_l + p_h;
     GET_FLOAT_WORD(is, t);
-    SET_FLOAT_WORD(t, is & 0xfffff000U);
+    SET_FLOAT_WORD(t, is & 0xffff8000U);
     u = t * lg2_h;
     v = (p_l - (t - p_h)) * lg2 + t * lg2_l;
     z = u + v;
