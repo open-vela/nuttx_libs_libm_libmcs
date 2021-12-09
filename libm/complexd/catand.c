@@ -17,11 +17,13 @@
  * Description
  * ===========
  *
- * ``catan`` computes the complex inverse tangent (*arc tangent*) of the input value, with branch cuts outside the interval :math:`[-i, +i]` along the imaginary axis.
+ * ``catan`` computes the complex inverse tangent (*arc tangent*) of the input
+ * value, with branch cuts outside the interval :math:`[-i, +i]` along the
+ * imaginary axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    catan(z) \approx tan^{-1}(z)
@@ -29,8 +31,11 @@
  * Returns
  * =======
  *
- * ``catan`` returns the complex inverse tangent of the input value in the output range of a strip mathematically unbounded along the imaginary axis and in the interval :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` radians along the real axis.
- * 
+ * ``catan`` returns the complex inverse tangent of the input value in the
+ * output range of a strip mathematically unbounded along the imaginary axis
+ * and in the interval :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` radians along
+ * the real axis.
+ *
  *///
 
 #include <complex.h>

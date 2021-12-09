@@ -2,7 +2,8 @@
 
 /**
  *
- * This family of functions implements the value of complex :math:`x` raised to the power of complex :math:`y`.
+ * This family of functions implements the value of complex :math:`x` raised to
+ * the power of complex :math:`y`.
  *
  * Synopsis
  * ========
@@ -17,11 +18,13 @@
  * Description
  * ===========
  *
- * ``cpow`` computes the value of complex :math:`x` raised to the power of complex :math:`y`, with a branch cut for the first parameter along the negative real axis.
+ * ``cpow`` computes the value of complex :math:`x` raised to the power of
+ * complex :math:`y`, with a branch cut for the first parameter along the
+ * negative real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cpow(x, y) \approx x^y
@@ -29,7 +32,8 @@
  * Returns
  * =======
  *
- * ``cpow`` returns the value of complex :math:`x` raised to the power of complex :math:`y`.
+ * ``cpow`` returns the value of complex :math:`x` raised to the power of
+ * complex :math:`y`.
  *
  *///
 

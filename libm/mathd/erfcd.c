@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the complementary error function of :math:`x` and is equal to :math:`1 -` erf(:math:`x`).
+ * This family of functions implements the complementary error function of
+ * :math:`x` and is equal to :math:`1 -` erf(:math:`x`).
  *
  * Synopsis
  * ========
@@ -22,7 +23,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    erfc(x) \approx 1 - \frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt
@@ -30,7 +31,8 @@
  * Returns
  * =======
  *
- * ``erfc`` returns the complementary error function of :math:`x`, in the range :math:`[+0.0, 2.0]`.
+ * ``erfc`` returns the complementary error function of :math:`x`, in the range
+ * :math:`[+0.0, 2.0]`.
  *
  * Exceptions
  * ==========
@@ -47,9 +49,9 @@
  * +=====================+==============+======================================================+==============+==============+======================================================+==============+==============+
  * | **erfc(x)**         | :math:`+2`   | :math:`1-\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt` | :math:`+1`                  | :math:`1-\frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}dt` | :math:`+0`   | :math:`qNaN` |
  * +---------------------+--------------+------------------------------------------------------+--------------+--------------+------------------------------------------------------+--------------+--------------+
- * 
+ *
  *///
- 
+
 /* double erf(double x)
  * double erfc(double x)
  *                 x

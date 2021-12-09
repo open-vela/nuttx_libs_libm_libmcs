@@ -3,7 +3,9 @@
 
 /**
  *
- * This macro is used to classify :math:`x`. It can be called with ``float``, ``double`` or ``long double`` input. This macro is implemented in ``math.h``.
+ * This macro is used to classify :math:`x`. It can be called with ``float``,
+ * ``double`` or ``long double`` input. This macro is implemented in
+ * ``math.h``.
  *
  * Synopsis
  * ========
@@ -16,11 +18,12 @@
  * Description
  * ===========
  *
- * ``fpclassify`` returns different constants depending on whether the input is subnormal, normal, zero, infinite or :math:`NaN`.
+ * ``fpclassify`` returns different constants depending on whether the input is
+ * subnormal, normal, zero, infinite or :math:`NaN`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    fpclassify(x) = \left\{\begin{array}{ll} FP\_ZERO, & x = \pm 0.0 \\

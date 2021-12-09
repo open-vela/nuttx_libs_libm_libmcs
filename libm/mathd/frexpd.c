@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``frexp`` splits the input value into the normalized fraction of :math:`x` and its integral power of :math:`2`.
+ * ``frexp`` splits the input value into the normalized fraction of :math:`x`
+ * and its integral power of :math:`2`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    frexp(x) = \frac{x}{2^{eptr}} \wedge frexp(x) \in [0.5,1[
@@ -30,7 +31,9 @@
  * Returns
  * =======
  *
- * ``frexp`` returns the normalized fraction of :math:`x` in the range :math:`[0.5,1[` and puts the integral power of :math:`2` into the output pointer :math:`*eptr`.
+ * ``frexp`` returns the normalized fraction of :math:`x` in the range
+ * :math:`[0.5,1[` and puts the integral power of :math:`2` into the output
+ * pointer :math:`*eptr`.
  *
  * Exceptions
  * ==========

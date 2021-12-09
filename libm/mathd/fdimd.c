@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the positive difference value of :math:`x` subtracted by :math:`y`.
+ * This family of functions implements the positive difference value of
+ * :math:`x` subtracted by :math:`y`.
  *
  * Synopsis
  * ========
@@ -18,11 +19,12 @@
  * Description
  * ===========
  *
- * ``fdim`` computes the positive difference value of :math:`x` subtracted by :math:`y`.
+ * ``fdim`` computes the positive difference value of :math:`x` subtracted by
+ * :math:`y`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    fdim(x, y) \approx \left\{\begin{array}{ll} x - y, & x > y \\ 0, & otherwise \end{array}\right.
@@ -30,7 +32,8 @@
  * Returns
  * =======
  *
- * ``fdim`` returns the positive difference value of :math:`x` subtracted by :math:`y`.
+ * ``fdim`` returns the positive difference value of :math:`x` subtracted by
+ * :math:`y`.
  *
  * Exceptions
  * ==========
