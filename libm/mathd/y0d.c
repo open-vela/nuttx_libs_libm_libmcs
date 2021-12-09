@@ -159,4 +159,4 @@ double y0(double x)
     return (u / v + tpi * (j0(x) * log(x)));
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

@@ -157,4 +157,4 @@ double y1(double x)
     return (x * (u / v) + tpi * (j1(x) * log(x) - one / x));
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */

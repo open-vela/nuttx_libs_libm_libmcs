@@ -116,6 +116,6 @@ static inline double __erf_Sb(double s)
     return one + s * (sb1 + s * (sb2 + s * (sb3 + s * (sb4 + s * (sb5 + s * (sb6 + s * sb7))))));
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
 
 #endif /* !LIBMCS_ERRORFUNCTIOND_H */

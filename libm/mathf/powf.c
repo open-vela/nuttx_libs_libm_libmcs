@@ -336,4 +336,4 @@ double pow(double x, double y)
     return (double) powf((float) x, (float) y);
 }
 
-#endif /* defined(_DOUBLE_IS_32BITS) */
+#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
