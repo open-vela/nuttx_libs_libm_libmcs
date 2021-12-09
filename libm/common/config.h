@@ -1,6 +1,5 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
-/* TBD Check if license/copyright should be SunMicrosystems */
 
 #ifndef LIBMCS_CONFIG_H
 #define LIBMCS_CONFIG_H
