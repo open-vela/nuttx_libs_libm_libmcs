@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``carg`` computes the argument (also called phase angle) of the input value, with a branch cut along the negative real axis.
+ * ``carg`` computes the argument (also called phase angle) of the input value,
+ * with a branch cut along the negative real axis.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    carg(z) \approx \varphi (z) = \tan^{-1} \frac{\Im(z)}{\Re(z)}
@@ -30,8 +31,9 @@
  * Returns
  * =======
  *
- * ``carg`` returns the argument of the input value in the interval :math:`[-\pi, \pi]`.
- * 
+ * ``carg`` returns the argument of the input value in the interval
+ * :math:`[-\pi, \pi]`.
+ *
  *///
 
 #include <complex.h>

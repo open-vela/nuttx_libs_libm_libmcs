@@ -3,7 +3,9 @@
 
 /**
  *
- * This macro is used to test if :math:`x` is less than or equal to :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs (this even includes ``sNaN``).
+ * This macro is used to test if :math:`x` is less than or equal to :math:`y`
+ * without throwing an ``invalid operation`` exception on ``NaN`` inputs (this
+ * even includes ``sNaN``).
  *
  * Synopsis
  * ========
@@ -16,11 +18,14 @@
  * Description
  * ===========
  *
- * ``islessequal`` tests whether :math:`x` is less than or equal to :math:`y` without throwing an ``invalid operation`` exception on ``NaN`` inputs. Not throwing an exception is the only difference to using a relational comparison operator.
+ * ``islessequal`` tests whether :math:`x` is less than or equal to :math:`y`
+ * without throwing an ``invalid operation`` exception on ``NaN`` inputs. Not
+ * throwing an exception is the only difference to using a relational
+ * comparison operator.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    islessequal(x, y) = \left\{\begin{array}{ll} 1, & x \leq y \\

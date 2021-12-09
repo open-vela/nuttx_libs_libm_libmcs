@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    csinh(z) \approx sinh(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``csinh`` returns the complex hyperbolic sine of the input value.
- * 
+ *
  *///
 
 #include <complex.h>

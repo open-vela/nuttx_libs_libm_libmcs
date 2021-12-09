@@ -18,9 +18,12 @@
  * Description
  * ===========
  *
- * ``remainder`` computes the floating-point remainder :math:`r = x\ REM\ y = x - n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is the integral value nearest to :math:`\frac{x}{y}`.
+ * ``remainder`` computes the floating-point remainder :math:`r = x\ REM\ y = x
+ * - n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is
+ *   the integral value nearest to :math:`\frac{x}{y}`.
  *
- * The ``fmod`` and ``remainder`` procedures are rather similar, but not the same, see examples:
+ * The ``fmod`` and ``remainder`` procedures are rather similar, but not the
+ * same, see examples:
  *
  * +----------------+----------------+----------------+----------------+
  * | x              | y              | fmod           | remainder      |
@@ -44,7 +47,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    remainder(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge remainder(x, y) \in \left [-\left | \frac{y}{2} \right |,\left | \frac{y}{2} \right | \right ]
@@ -57,7 +60,8 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when :math:`x` is infinite or :math:`y` is zero.
+ * Raise ``invalid operation`` exception when :math:`x` is infinite or
+ * :math:`y` is zero.
  *
  * .. May raise ``underflow`` exception.
  *

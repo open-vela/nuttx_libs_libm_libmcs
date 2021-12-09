@@ -51,7 +51,7 @@ Use the following constants as calculation/return values:
 
       .. math::
          :label: formula_asin_1
-      
+
          sin^{-1}(x) &= x + \frac{1}{2} \frac{x^3}{3} + \frac{1 \cdot 3}{2 \cdot 4} \frac{x^5}{5} + ... \\
                      &= \sum\limits_{i=0}^{\infty} \frac{\binom{2i}{i} \cdot x^{2i+1}}{4^i \cdot (2i+1)}
 
@@ -59,7 +59,7 @@ Use the following constants as calculation/return values:
 
       .. math::
          :label: formula_asin_2
-      
+
          asin(x) &= x + x \cdot x^2 \cdot R(x^2) \nonumber \\
          R(x^2)  &= \frac{asin(x)-x}{x^3}
 
@@ -73,7 +73,7 @@ Use the following constants as calculation/return values:
 
       The error of this approximation is smaller than :math:`2^{-58.75}`.
    #. Return :math:`x + x \cdot R(t)`.
-   
+
 #. Use the identity (set :math:`x = |x|`, use :ref:`fabs` to calculate the absolute value [#]_)
 
    .. math::
