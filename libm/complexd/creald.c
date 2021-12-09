@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    creal(z) = \Re(z)
@@ -31,7 +31,7 @@
  * =======
  *
  * ``creal`` returns the real part of :math:`z` as a real.
- * 
+ *
  *///
 
 #include <complex.h>
