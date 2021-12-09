@@ -123,7 +123,7 @@ A custom ``fenv.h`` file needs to contain the following defines and constants:
    * ``FE_TONEAREST``
    * ``FE_TOWARDSZERO``
    * ``FE_UPWARD``
-   
+
 * Constant pointer to access the environment in the given hardware environment, the type is ``fenv_t*`` and should be used as input for the functions ``fesetenv`` and ``fegetenv``:
 
    * ``FE_DFL_ENV``

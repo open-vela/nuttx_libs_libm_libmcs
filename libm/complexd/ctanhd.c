@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    ctanh(z) \approx tanh(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``ctanh`` returns the complex hyperbolic tangent of the input value.
- * 
+ *
  *///
 
 #include <complex.h>
