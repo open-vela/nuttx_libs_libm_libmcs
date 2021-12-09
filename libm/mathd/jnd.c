@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the Bessel function of the first kind of order :math:`n`.
+ * This family of functions implements the Bessel function of the first kind of
+ * order :math:`n`.
  *
  * Synopsis
  * ========
@@ -16,22 +17,28 @@
  * Description
  * ===========
  *
- * ``jn`` computes the Bessel value of :math:`x` of the first kind of order :math:`n`.
+ * ``jn`` computes the Bessel value of :math:`x` of the first kind of order
+ * :math:`n`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    jn(n, x) = J_{n}(x)
  *
- * Notice that the mathematical function represented by the procedure ``jn`` is not :math:`j_n` (which is the spherical version of the Bessel function) but :math:`J_n`. See `WolframAlpha
-<https://www.wolframalpha.com/input/?i=Jn%28x%29>`_ for what it looks like (it shows the different :math:`n` quite nicely in a 3D plot) and `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
+ * Notice that the mathematical function represented by the procedure ``jn`` is
+ * not :math:`j_n` (which is the spherical version of the Bessel function) but
+ * :math:`J_n`. See `WolframAlpha
+ * <https://www.wolframalpha.com/input/?i=Jn%28x%29>`_ for what it looks like
+ * (it shows the different :math:`n` quite nicely in a 3D plot) and `Wikipedia
+ * <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
  *
  * Returns
  * =======
  *
- * ``jn`` returns the Bessel value of :math:`x` of the first kind of order :math:`n`.
+ * ``jn`` returns the Bessel value of :math:`x` of the first kind of order
+ * :math:`n`.
  *
  * Exceptions
  * ==========
@@ -62,7 +69,7 @@
  * +--------------------------+--------------------------+--------------------------+
  * | :math:`NaN`              | :math:`qNaN`                                        |
  * +--------------------------+--------------------------+--------------------------+
- * 
+ *
  *///
 
 #include <math.h>

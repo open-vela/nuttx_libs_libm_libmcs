@@ -22,7 +22,10 @@
  *
  * The return ``qNaN`` is ``0x7FF80000000D067D`` as ``double`` (float: ``0x7FCF067D``).
  *
- * This procedure is not C standard compliant as the payload parameter is ignored. If your platform/toolchain provides ``strtod`` as a workaround the call ``strtod("NAN(char-sequence)", NULL);`` can be used as a replacement if that functionality is wanted (same with ``strtof`` and ``strtold``).
+ * This procedure is not C standard compliant as the payload parameter is
+ * ignored. If your platform/toolchain provides ``strtod`` as a workaround the
+ * call ``strtod("NAN(char-sequence)", NULL);`` can be used as a replacement if
+ * that functionality is wanted (same with ``strtof`` and ``strtold``).
  *
  * Returns
  * =======
@@ -33,7 +36,7 @@
  * ==========
  *
  * Does not raise exceptions.
- * 
+ *
  *///
 
 #include <math.h>

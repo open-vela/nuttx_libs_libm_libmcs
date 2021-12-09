@@ -86,4 +86,4 @@ Error Conditions
 There is no error condition handling in the library. The ``errno`` variable proposed by the :ref:`ISO <ABBR>` C standard is not set by the library. Error states may only be caused by the used hardware and must be handled by the user's software. For example the following errors may occur:
 
 * Any :ref:`FPU <ABBR>` can produce traps depending on its configuration. See :ref:`OperationsEnviromentHardwareConfiguration` for more information.
-* The program stack can overflow if the stack size limit is exceeded by calling one of the provided procedures, even though their memory footprint is rather low.  
+* The program stack can overflow if the stack size limit is exceeded by calling one of the provided procedures, even though their memory footprint is rather low.

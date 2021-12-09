@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    csin(z) \approx sin(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``csin`` returns the complex sine of the input value.
- * 
+ *
  *///
 
 #include <complex.h>

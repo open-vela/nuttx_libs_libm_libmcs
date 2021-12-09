@@ -71,7 +71,7 @@ PSR
 
 QG
     Qualification Guideline
-    
+
 RAM
     Random Access Memory
 

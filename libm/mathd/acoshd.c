@@ -18,11 +18,12 @@
  * Description
  * ===========
  *
- * ``acosh`` computes the hyperbolic inverse cosine (*hyperbolic arc cosine*) of the input value.
+ * ``acosh`` computes the hyperbolic inverse cosine (*hyperbolic arc cosine*)
+ * of the input value.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    acosh(x) \approx cosh^{-1}(x) = ln \left( x + \sqrt{x^2-1} \right)
@@ -30,7 +31,8 @@
  * Returns
  * =======
  *
- * ``acosh`` returns the hyperbolic inverse cosine, in the range :math:`\mathbb{F}^{+}`.
+ * ``acosh`` returns the hyperbolic inverse cosine, in the range
+ * :math:`\mathbb{F}^{+}`.
  *
  * Exceptions
  * ==========
@@ -45,7 +47,7 @@
  * +=====================+======================+======================+======================+======================+======================+======================+
  * | **acosh(x)**        | :math:`qNaN`         | :math:`qNaN`         | :math:`+0`           | :math:`cosh^{-1}(x)` | :math:`+Inf`         | :math:`qNaN`         |
  * +---------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+
- * 
+ *
  *///
 
 #include <math.h>

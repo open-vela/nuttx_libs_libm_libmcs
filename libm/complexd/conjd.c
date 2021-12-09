@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    conj(z) = \Re(z) - \Im(z) \cdot i
@@ -31,7 +31,7 @@
  * =======
  *
  * ``conj`` returns the complex conjugate of :math:`z`.
- * 
+ *
  *///
 
 /*

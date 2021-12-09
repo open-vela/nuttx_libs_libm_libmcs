@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    cimag(z) = \Im(z)
@@ -31,7 +31,7 @@
  * =======
  *
  * ``cimag`` returns the imaginary part of :math:`z` as a real.
- * 
+ *
  *///
 
 #include <complex.h>

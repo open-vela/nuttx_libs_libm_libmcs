@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the floating-point remainder of :math:`x` divided by :math:`y`.
+ * This family of functions implements the floating-point remainder of
+ * :math:`x` divided by :math:`y`.
  *
  * Synopsis
  * ========
@@ -18,9 +19,11 @@
  * Description
  * ===========
  *
- * ``fmod`` computes the floating-point remainder of :math:`x` divided by :math:`y`.
+ * ``fmod`` computes the floating-point remainder of :math:`x` divided by
+ * :math:`y`.
  *
- * The ``fmod`` and ``remainder`` procedures are rather similar, but not the same, see examples:
+ * The ``fmod`` and ``remainder`` procedures are rather similar, but not the
+ * same, see examples:
  *
  * +----------------+----------------+----------------+----------------+
  * | x              | y              | fmod           | remainder      |
@@ -44,7 +47,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    fmod(x, y) = x - n \cdot y \wedge n \in \mathbb{Z} \wedge |fmod(x, y)| < |y| \wedge \frac{f(x, y)}{|f(x, y)|} = \frac{x}{|x|}
@@ -57,7 +60,8 @@
  * Exceptions
  * ==========
  *
- * Raise ``invalid operation`` exception when :math:`x` is infinite or :math:`y` is zero.
+ * Raise ``invalid operation`` exception when :math:`x` is infinite or
+ * :math:`y` is zero.
  *
  * .. May raise ``underflow`` exception.
  *

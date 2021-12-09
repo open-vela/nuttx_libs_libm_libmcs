@@ -21,7 +21,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    ccos(z) \approx cos(z)
@@ -30,7 +30,7 @@
  * =======
  *
  * ``ccos`` returns the complex cosine of the input value.
- * 
+ *
  *///
 
 #include <complex.h>

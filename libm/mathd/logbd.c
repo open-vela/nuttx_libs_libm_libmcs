@@ -20,11 +20,13 @@
  *
  * ``logb`` computes the binary exponent of the input value.
  *
- * ``logb`` and :ref:`ilogb` have the same functionality, but ``logb`` returns the binary exponent as a floating-point value while :ref:`ilogb` returns a signed integer.
+ * ``logb`` and :ref:`ilogb` have the same functionality, but ``logb`` returns
+ * the binary exponent as a floating-point value while :ref:`ilogb` returns a
+ * signed integer.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    logb(x) \approx \lfloor {\log_2 |x|} \rfloor

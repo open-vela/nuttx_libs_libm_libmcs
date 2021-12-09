@@ -3,7 +3,8 @@
 
 /**
  *
- * This family of functions implements the Bessel function of the second kind of order :math:`n`.
+ * This family of functions implements the Bessel function of the second kind
+ * of order :math:`n`.
  *
  * Synopsis
  * ========
@@ -16,21 +17,26 @@
  * Description
  * ===========
  *
- * ``yn`` computes the Bessel value of :math:`x` of the second kind of order :math:`n`.
+ * ``yn`` computes the Bessel value of :math:`x` of the second kind of order
+ * :math:`n`.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    yn(n, x) = Y_{n}(x)
  *
- * Notice that the mathematical function represented by the procedure ``yn`` is not :math:`y_n` (which is the spherical version of the Bessel function) but :math:`Y_n`. See `Wikipedia <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
+ * Notice that the mathematical function represented by the procedure ``yn`` is
+ * not :math:`y_n` (which is the spherical version of the Bessel function) but
+ * :math:`Y_n`. See `Wikipedia
+ * <https://en.wikipedia.org/wiki/Bessel_function>`_ for more information.
  *
  * Returns
  * =======
  *
- * ``yn`` returns the Bessel value of :math:`x` of the second kind of order :math:`n`.
+ * ``yn`` returns the Bessel value of :math:`x` of the second kind of order
+ * :math:`n`.
  *
  * Exceptions
  * ==========
@@ -63,7 +69,7 @@
  * +--------------------------+-------------------------------+-------------------------------+
  * | :math:`NaN`              | :math:`qNaN`                                                  |
  * +--------------------------+-------------------------------+-------------------------------+
- * 
+ *
  *///
 
 #include <math.h>

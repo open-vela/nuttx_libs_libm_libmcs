@@ -22,7 +22,7 @@
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    fabs(x) = |x|
@@ -32,7 +32,8 @@
  *
  * ``fabs`` returns the absolute value of the input value.
  *
- * ``fabs`` does not differentiate between different types of ``NaN``, as such if the input is ``sNaN`` so will the output, only the sign bit may change.
+ * ``fabs`` does not differentiate between different types of ``NaN``, as such
+ * if the input is ``sNaN`` so will the output, only the sign bit may change.
  *
  * Exceptions
  * ==========
@@ -49,7 +50,7 @@
  * +=====================+==============+=====================+==============+==============+=====================+==============+==============+==============+
  * | **fabs(x)**         | :math:`+Inf` | :math:`-x`          | :math:`+0`                  | :math:`x`           | :math:`+Inf` | :math:`qNaN` | :math:`sNaN` |
  * +---------------------+--------------+---------------------+--------------+--------------+---------------------+--------------+--------------+--------------+
- * 
+ *
  *///
 
 #include <math.h>

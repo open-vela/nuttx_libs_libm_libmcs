@@ -3,7 +3,9 @@
 
 /**
  *
- * This file contains a set of functions used by multiple procedures as internal functions. These procedures should not be accessed directly by a user. Note that all procedures are either macors or inline procedures.
+ * This file contains a set of functions used by multiple procedures as
+ * internal functions. These procedures should not be accessed directly by a
+ * user. Note that all procedures are either macors or inline procedures.
  *
  * Synopsis
  * ========
@@ -41,47 +43,77 @@
  * Description
  * ===========
  *
- * ``EXTRACT_WORDS`` is a macro to extract two integer words from a double floating-point datum.
+ * ``EXTRACT_WORDS`` is a macro to extract two integer words from a double
+ * floating-point datum.
  *
- * ``GET_HIGH_WORD`` is a macro to extract only the highword of the two integer words from a double floating-point datum.
+ * ``GET_HIGH_WORD`` is a macro to extract only the highword of the two integer
+ * words from a double floating-point datum.
  *
- * ``GET_LOW_WORD`` is a macro to extract only the lowword of the two integer words from a double floating-point datum.
+ * ``GET_LOW_WORD`` is a macro to extract only the lowword of the two integer
+ * words from a double floating-point datum.
  *
- * ``INSERT_WORDS`` is a macro to insert two integer words into a double floating-point datum.
+ * ``INSERT_WORDS`` is a macro to insert two integer words into a double
+ * floating-point datum.
  *
- * ``SET_HIGH_WORD`` is a macro to insert only the highword of the two integer words into a double floating-point datum.
+ * ``SET_HIGH_WORD`` is a macro to insert only the highword of the two integer
+ * words into a double floating-point datum.
  *
- * ``SET_LOW_WORD`` is a macro to insert only the lowword of the two integer words into a double floating-point datum.
+ * ``SET_LOW_WORD`` is a macro to insert only the lowword of the two integer
+ * words into a double floating-point datum.
  *
- * ``GET_FLOAT_WORD`` is a macro to extract the integer representation from a single floating-point datum.
+ * ``GET_FLOAT_WORD`` is a macro to extract the integer representation from a
+ * single floating-point datum.
  *
- * ``SET_FLOAT_WORD`` is a macro to insert the integer representation into a single floating-point datum.
+ * ``SET_FLOAT_WORD`` is a macro to insert the integer representation into a
+ * single floating-point datum.
  *
- * ``SAFE_LEFT_SHIFT`` is a macro to avoid undefined behaviour that can arise if the amount of a left shift is exactly equal to the size of the shifted operand. If the amount is equal to the size the macro returns 0.
+ * ``SAFE_LEFT_SHIFT`` is a macro to avoid undefined behaviour that can arise
+ * if the amount of a left shift is exactly equal to the size of the shifted
+ * operand. If the amount is equal to the size the macro returns 0.
  *
- * ``SAFE_RIGHT_SHIFT`` is a macro to avoid undefined behaviour that can arise if the amount of a right shift is exactly equal to the size of the shifted operand. If the amount is equal to the size the macro returns 0.
+ * ``SAFE_RIGHT_SHIFT`` is a macro to avoid undefined behaviour that can arise
+* if the amount of a right shift is exactly equal to the size of the shifted
+* operand. If the amount is equal to the size the macro returns 0.
  *
- * ``__forced_calculation`` is a function to force the execution of the input to go throught the :ref:`FPU <ABBR>`. The input for this function is usually an arithmetic operation and not a single value. At the moment the function is only used by others within this file and not expected to be called from outside.
+ * ``__forced_calculation`` is a function to force the execution of the input
+ * to go throught the :ref:`FPU <ABBR>`. The input for this function is usually
+ * an arithmetic operation and not a single value. At the moment the function
+ * is only used by others within this file and not expected to be called from
+ * outside.
  *
- * ``__raise_invalid`` is a function to force the :ref:`FPU <ABBR>` to generate an ``invalid operation`` exception.
+ * ``__raise_invalid`` is a function to force the :ref:`FPU <ABBR>` to generate
+ * an ``invalid operation`` exception.
  *
- * ``__raise_div_by_zero`` is a function to force the :ref:`FPU <ABBR>` to generate an ``divide by zero`` exception.
+ * ``__raise_div_by_zero`` is a function to force the :ref:`FPU <ABBR>` to
+ * generate an ``divide by zero`` exception.
  *
- * ``__raise_overflow`` is a function to force the :ref:`FPU <ABBR>` to generate an ``overflow`` exception.
+ * ``__raise_overflow`` is a function to force the :ref:`FPU <ABBR>` to
+ * generate an ``overflow`` exception.
  *
- * ``__raise_underflow`` is a function to force the :ref:`FPU <ABBR>` to generate an ``underflow`` exception. Even though the library usually does not care about this exception for qualification purposes, the library still tries to conform to the standards (mainly POSIX) in regards to where the exception shall be raised intentionally. In those places this function is used.
+ * ``__raise_underflow`` is a function to force the :ref:`FPU <ABBR>` to
+ * generate an ``underflow`` exception. Even though the library usually does
+ * not care about this exception for qualification purposes, the library still
+ * tries to conform to the standards (mainly POSIX) in regards to where the
+ * exception shall be raised intentionally. In those places this function is
+ * used.
  *
- * ``__raise_inexact`` is a function to force the :ref:`FPU <ABBR>` to generate an ``inexact`` exception. Even though the library usually does not care about this exception for qualification purposes, the library still tries to conform to the standards (mainly POSIX) in regards to where the exception shall be raised intentionally. In those places this function is used.
+ * ``__raise_inexact`` is a function to force the :ref:`FPU <ABBR>` to generate
+ * an ``inexact`` exception. Even though the library usually does not care
+ * about this exception for qualification purposes, the library still tries to
+ * conform to the standards (mainly POSIX) in regards to where the exception
+ * shall be raised intentionally. In those places this function is used.
  *
  * ``__issignaling`` is a function to check if a value is a signaling NaN.
  *
- * ``REAL_PART`` is a macro to extract only the real part of a complex floating-point datum.
+ * ``REAL_PART`` is a macro to extract only the real part of a complex
+ * floating-point datum.
  *
- * ``IMAG_PART`` is a macro to extract only the imaginary part of a complex floating-point datum.
+ * ``IMAG_PART`` is a macro to extract only the imaginary part of a complex
+ * floating-point datum.
  *
  * Mathematical Function
  * =====================
- * 
+ *
  * .. math::
  *
  *    EXTRACT\_WORDS_{ix0}(d) &= \text{highword of } d  \\
@@ -107,50 +139,69 @@
  * Returns
  * =======
  *
- * ``EXTRACT_WORDS`` has no return value. It places the two extracted integer words into the parameters ``ix0`` and ``ix1``.
+ * ``EXTRACT_WORDS`` has no return value. It places the two extracted integer
+ * words into the parameters ``ix0`` and ``ix1``.
  *
- * ``GET_HIGH_WORD`` has no return value. It places the extracted integer word into the parameter ``i``.
+ * ``GET_HIGH_WORD`` has no return value. It places the extracted integer word
+ * into the parameter ``i``.
  *
- * ``GET_LOW_WORD`` has no return value. It places the extracted integer word into the parameter ``i``.
+ * ``GET_LOW_WORD`` has no return value. It places the extracted integer word
+ * into the parameter ``i``.
  *
- * ``INSERT_WORDS`` has no return value. It places the created double floating-point datum into the parameter ``d``.
+ * ``INSERT_WORDS`` has no return value. It places the created double
+ * floating-point datum into the parameter ``d``.
  *
- * ``SET_HIGH_WORD`` has no return value. It places the created double floating-point datum into the parameter ``d``.
+ * ``SET_HIGH_WORD`` has no return value. It places the created double
+ * floating-point datum into the parameter ``d``.
  *
- * ``SET_LOW_WORD`` has no return value. It places the created double floating-point datum into the parameter ``d``.
+ * ``SET_LOW_WORD`` has no return value. It places the created double
+ * floating-point datum into the parameter ``d``.
  *
- * ``GET_FLOAT_WORD`` has no return value. It places the extracted integer word into the parameter ``i``.
+ * ``GET_FLOAT_WORD`` has no return value. It places the extracted integer word
+ * into the parameter ``i``.
  *
- * ``SET_FLOAT_WORD`` has no return value. It places the created single floating-point datum into the parameter ``d``.
+ * ``SET_FLOAT_WORD`` has no return value. It places the created single
+ * floating-point datum into the parameter ``d``.
  *
- * ``SAFE_LEFT_SHIFT`` returns the value ``op`` left shifted by ``amt`` if ``amt`` is smaller than the size of ``op``, otherwise it returns zero.
+ * ``SAFE_LEFT_SHIFT`` returns the value ``op`` left shifted by ``amt`` if
+ * ``amt`` is smaller than the size of ``op``, otherwise it returns zero.
  *
- * ``SAFE_RIGHT_SHIFT`` returns the value ``op`` right shifted by ``amt`` if ``amt`` is smaller than the size of ``op``, otherwise it returns zero.
+ * ``SAFE_RIGHT_SHIFT`` returns the value ``op`` right shifted by ``amt`` if
+ * ``amt`` is smaller than the size of ``op``, otherwise it returns zero.
  *
- * ``__forced_calculation`` returns the input value, or rather the result of the arithmetic calculation used as an input.
+ * ``__forced_calculation`` returns the input value, or rather the result of
+ * the arithmetic calculation used as an input.
  *
  * ``__raise_invalid`` returns ``NaN``.
  *
- * ``__raise_div_by_zero`` returns ``-Inf`` for negative inputs and ``+Inf`` for positive inputs.
+ * ``__raise_div_by_zero`` returns ``-Inf`` for negative inputs and ``+Inf``
+ * for positive inputs.
  *
- * ``__raise_overflow`` returns ``-Inf`` for negative inputs and ``+Inf`` for positive inputs.
+ * ``__raise_overflow`` returns ``-Inf`` for negative inputs and ``+Inf`` for
+ * positive inputs.
  *
- * ``__raise_underflow`` returns ``-0.0`` for negative inputs and ``+0.0`` for positive inputs.
+ * ``__raise_underflow`` returns ``-0.0`` for negative inputs and ``+0.0`` for
+ * positive inputs.
  *
  * ``__raise_inexact`` returns the input value.
  *
- * ``__issignaling`` returns ``1`` if the input value is a signaling ``NaN``, else ``0``.
+ * ``__issignaling`` returns ``1`` if the input value is a signaling ``NaN``,
+ * else ``0``.
  *
- * ``REAL_PART`` returns the real part of the input as a floating-point datum of the adequate size.
+ * ``REAL_PART`` returns the real part of the input as a floating-point datum
+ * of the adequate size.
  *
- * ``IMAG_PART`` returns the imaginary part of the input as a floating-point datum of the adequate size.
+ * ``IMAG_PART`` returns the imaginary part of the input as a floating-point
+ * datum of the adequate size.
  *
  * Exceptions
  * ==========
  *
  * The macros do not raise exceptions.
  *
- * The functions raise the exceptions they are named after, it is their sole purpose. Additionally the procedures ``__raise_overflow`` and ``__raise_underflow`` may raise ``inexact``.
+ * The functions raise the exceptions they are named after, it is their sole
+ * purpose. Additionally the procedures ``__raise_overflow`` and
+ * ``__raise_underflow`` may raise ``inexact``.
  *
  *///
 
@@ -384,7 +435,7 @@ static inline int __issignalingf(float x) {
 
     #define REAL_PART(z)    ((z).parts[0])
     #define IMAG_PART(z)    ((z).parts[1])
-    
+
 #endif /* !__LIBMCS_EXCLUDE_COMPLEX */
 
 #endif /* !LIBMCS_TOOLS_H */
