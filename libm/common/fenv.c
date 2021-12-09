@@ -3,8 +3,6 @@
 
 #include "fenv.h"
 
-#error TBD add error message that fenv.h/fenv.c shall not be used as is.
-
 int feclearexcept(int excepts)
 {
     return -1;
