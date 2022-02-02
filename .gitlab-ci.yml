@@ -2,6 +2,7 @@ stages:
     - setup
     - doc
     - pdf
+    - pages
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
@@ -12,7 +13,7 @@ setup:
     stage: setup
     image: docker:stable
     before_script:
-        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+        - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     script:
         - docker build -t $CI_REGISTRY_IMAGE -f Dockerfile .
         - docker push $CI_REGISTRY_IMAGE
@@ -52,3 +53,21 @@ pdf:
             - ./*.pdf
         expire_in: 30 days
     needs: ["doc"]
+
+pages:
+  stage: pages
+  image:
+    name: pandoc/core:2.16.2
+    entrypoint: [""]
+  dependencies:
+      - doc
+  needs: ["doc"]
+  script:
+    - mkdir public
+    - cp doc/index.html public
+    - pandoc -s -o public/README.html --metadata title="QLibmCS Readme" README.md
+    - mv html_sum public/sum
+    - mv html_sdd public/sdd
+  artifacts:
+    paths:
+      - public
