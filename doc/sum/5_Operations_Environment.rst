@@ -60,4 +60,6 @@ Additionally we have tested the following compilation flags which caused no prob
 
 In case the used architecture and toolchain support :ref:`FMA <ABBR>` instructions we advise using the flag ``-mno-fused-madd`` as the library was not tested for compatibility with said instruction.
 
+Remember to also add flags that alter the sizes of different types such as ``long double`` or ``long int`` to those appropriate for your hardware, for example ``-mlong-double-64`` can be set for x86 targets that typically use 80-bit ``long double``. These flags are different depending on the toolchain and should be in line with the rest of your software.
+
 .. [#] The flag ``-mhard-float`` is the default behaviour for SPARC compilations with :ref:`GCC <ABBR>`.
