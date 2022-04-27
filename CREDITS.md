@@ -37,9 +37,9 @@ N: Joseph Myers
 E: joseph@codesourcery.com
 D: Misc contributions
 
-N: Kwok C Ng
+N: Kwok Choi Ng
 E: kwok.ng@sun.com
-D: Most double implementations of elementary functions (through FDLIBM)
+D: Most double implementations of elementary transcendental functions (through FDLIBM)
 
 N: Keith Packard
 E: keithp@keithp.com
