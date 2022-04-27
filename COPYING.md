@@ -1,4 +1,4 @@
-The QLibmCS is provided under:
+The LibmCS is provided under:
 
 	SPDX-License-Identifier: GTDGmbH
 
@@ -9,5 +9,6 @@ Being under the terms of the following licenses:
 	LICENSES/RedHat.md
 	LICENSES/RichFelker.md
 	LICENSES/SunMicrosystems.md
+	LICENSES/GTDGmbH.md
 
-All contributions to the QLibmCS are subject to this COPYING file.
+All contributions to the LibmCS are subject to this COPYING file.
