@@ -136,6 +136,7 @@
 #define    nearbyint(__x)       __tg_simple(__x, nearbyint)
 #define    nextafter(__x, __y)  __tg_simple2(__x, __y, nextafter)
 /* not yet implemented even for _LDBL_EQ_DBL platforms */
+#define	   nexttoward(__x, __y)	    __tg_simplev(__x, nexttoward, __x, __y)
 #define    remainder(__x, __y)      __tg_simple2(__x, __y, remainder)
 #define    remquo(__x, __y, __z)    __tg_impl_simple(__x, __x, __y, remquo, remquof, remquol,   \
                                                      __x, __y, __z)
