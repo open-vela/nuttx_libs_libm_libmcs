@@ -25,6 +25,10 @@ N: Rich Felker
 E: -
 D: nexttowardf
 
+N: Jeff Johnston
+E: jjohnston@redhat.com
+D: Misc fixes, tests, and contributions
+
 N: Andreas Jung
 E: andreas.jung@esa.int
 D: Fixes, testing, and qualification to ECSS space software standards
