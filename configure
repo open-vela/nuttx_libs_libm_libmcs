@@ -12,7 +12,7 @@ usage()
 	exit 2
 }
 
-PARSED_ARGUMENTS=$(getopt -a -n configure -o h --long cross-compile:,compilation-flags:,enable-denormal-handling,disable-denormal-handling,enable-long-double-procedures,disable-long-double-procedures,enable-complex-procedures,disable-complex-procedures,big-endian,little-endian -- "$@")
+PARSED_ARGUMENTS=$(getopt -a -n configure -o h --long help,cross-compile:,compilation-flags:,enable-denormal-handling,disable-denormal-handling,enable-long-double-procedures,disable-long-double-procedures,enable-complex-procedures,disable-complex-procedures,big-endian,little-endian -- "$@")
 VALID_ARGUMENTS=$?
 if [ "$VALID_ARGUMENTS" != "0" ]; then
 	usage
@@ -24,6 +24,7 @@ while :
 do
 	case "$1" in
 		-h)	usage ;;
+		--help)	usage ;;
 		--cross-compile) CROSS_COMPILE="$2" ; shift 2 ;;
 		--compilation-flags) extra_cflags="$2" ; shift 2 ;;
 		--enable-denormal-handling) WANT_DAZ=1 ; shift ;;
