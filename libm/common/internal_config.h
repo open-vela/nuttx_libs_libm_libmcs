@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
-#ifndef LIBMCS_CONFIG_H
-#define LIBMCS_CONFIG_H
+#ifndef LIBMCS_INTERNAL_CONFIG_H
+#define LIBMCS_INTERNAL_CONFIG_H
 
 /* If an FPU is not standard compliant for subnormal values, use the define LIBMCS_FPU_DAZ to force
  * each procedure to first multiply the input value(s) by 1, therefore using the FPUs defined
@@ -153,4 +153,4 @@
     #endif
 #endif
 
-#endif /* !LIBMCS_CONFIG_H */
+#endif /* !LIBMCS_INTERNAL_CONFIG_H */

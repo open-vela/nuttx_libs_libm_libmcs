@@ -31,7 +31,7 @@ The following is a depiction of the directory structure:
                file. You're currently reading one of them.
       libm/
          common/
-            config.h
+            internal_config.h
                Header file that contains the configuration of the library, or rather converts the
                choices the user has made during configuration into defines used by the library.
             fenv.c
