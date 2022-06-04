@@ -5,10 +5,49 @@
 # Filenames
 sizecheck=sizeoftypes.c
 user_make=user_make.mk
+user_config=libm/include/config.h
+makefile_in=Makefile.in
+makefile_out=Makefile
 
 usage()
 {
-	echo "Usage: configure [ --cross-compile CROSS_COMPILE ] [ --compilation-flags CFLAGS ] [ --enable-denormal-handling ] [ --disable-denormal-handling ] [ --enable-long-double-procedures ] [ --disable-long-double-procedures ] [ --enable-complex-procedures ] [ --disable-complex-procedures ] [ --big-endian ] [ --little-endian ]"
+	echo "Usage: configure [--help] [ --cross-compile CROSS_COMPILE ] [ --compilation-flags CFLAGS ] [ --enable-denormal-handling ] [ --disable-denormal-handling ] [ --enable-long-double-procedures ] [ --disable-long-double-procedures ] [ --enable-complex-procedures ] [ --disable-complex-procedures ] [ --big-endian ] [ --little-endian ]"
+	exit 2
+}
+
+help_message()
+{
+	echo "Usage: configure [--help] [ --cross-compile CROSS_COMPILE ] [ --compilation-flags CFLAGS ] [ --enable-denormal-handling ] [ --disable-denormal-handling ] [ --enable-long-double-procedures ] [ --disable-long-double-procedures ] [ --enable-complex-procedures ] [ --disable-complex-procedures ] [ --big-endian ] [ --little-endian ]"
+	echo ""
+	echo "This configuration file offers the following flags to directly answer the"
+	echo "questions otherwise asked within:"
+	echo "    --cross-compile <CROSS_COMPILE>"
+	echo "        Tells the Makefile which toolchain suffix to use for the compilation,"
+	echo "        linking, etc. For example 'sparc-rtems-'."
+	echo "    --compilation-flags <CFLAGS>"
+	echo "        Adds additional flags to the compilation. For example '-mlong-double-64'"
+	echo "        to get 64 bit long doubles on x86 targets using gcc."
+	echo "    --enable-denormal-handling"
+	echo "    --disable-denormal-handling"
+	echo "        Enables/Disables the use of DAZ/FTZ mode for handling denormal numbers."
+	echo "        This hingly depends on the user's hardware, so please check whether your"
+	echo "        platform supports/requires the use of DAZ/FTZ."
+	echo "    --enable-long-double-procedures"
+	echo "    --disable-long-double-procedures"
+	echo "        Enables/Disables the compilation of long double procedures. Disabling"
+	echo "        them causes the Makefile to not build long double procedures into the"
+	echo "        libm. Long double procedures can only be enabled if the platform supports"
+	echo "        and is configured with long double with a size of 64bit."
+	echo "    --enable-complex-procedures"
+	echo "    --disable-complex-procedures"
+	echo "        Enables/Disables the compilation of complex procedures. Disabling them"
+	echo "        causes the Makefile to not build complex procedures into the libm"
+	echo "        (everything that is usually included with complex.h)."
+	echo "    --big-endian"
+	echo "    --little-endian"
+	echo "        Manually inform the compiler which endianess the platform uses. This"
+	echo "        question only needs to be answered if the toolchain compiler does not"
+	echo "        provide the answer itself."
 	exit 2
 }
 
@@ -23,8 +62,8 @@ eval set -- "$PARSED_ARGUMENTS"
 while :
 do
 	case "$1" in
-		-h)	usage ;;
-		--help)	usage ;;
+		-h)	help_message ;;
+		--help)	help_message ;;
 		--cross-compile) CROSS_COMPILE="$2" ; shift 2 ;;
 		--compilation-flags) extra_cflags="$2" ; shift 2 ;;
 		--enable-denormal-handling) WANT_DAZ=1 ; shift ;;
@@ -41,8 +80,10 @@ do
 	esac
 done
 
-# Delete old user_make.mk if there is any
+# Delete old files created by configure if there are any
 [ -f "${user_make}" ] && rm ${user_make}
+[ -f "${user_config}" ] && rm ${user_config}
+[ -f "${makefile_out}" ] && rm ${makefile_out}
 
 # Create .c file to check type sizes
 echo "Creating minimal .c file to check type sizes."
