@@ -87,7 +87,7 @@ done
 
 # Create .c file to check type sizes
 echo "Creating minimal .c file to check type sizes."
-printf "double d_data[16];\\nlong double l_data[16];\\nlong int li_data[16];" > ${sizecheck}
+printf "double d_data[16];\\nlong double l_data[16];\\nlong int li_data[16];\\n" > ${sizecheck}
 
 # Ask user for toolchain
 if [ -z ${CROSS_COMPILE+x} ]; then echo "Please enter the path to your compiler toolchain including prefix (e.g. /opt/rtems-4.11/bin/sparc-rtems-), leave empty if compiling on & for host:"; fi
@@ -124,8 +124,8 @@ if [ -z ${WANT_DAZ+x} ]; then
 	echo "Does your platform by default use, or is configured to use, DAZ/FTZ (Denormals Are Zero / Flush To Zero) mode (e.g. your platform has an older GRFPU which does not support subnormals)?"
 	select yn in "Yes" "No"; do
 		case $yn in
-			Yes ) extra_cflags="${extra_cflags} -DLIBMCS_FPU_DAZ"; break;;
-			No ) break;;
+			Yes ) WANT_DAZ=1; extra_cflags="${extra_cflags} -DLIBMCS_FPU_DAZ"; break;;
+			No ) WANT_DAZ=0; break;;
 		esac
 	done
 elif [ ${WANT_DAZ} -eq 1 ]; then
@@ -139,12 +139,18 @@ long_int_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "li_data" 
 if [ "$long_int_size" -eq "32" ]; then
 	extra_cflags="${extra_cflags} -DLIBMCS_LONG_IS_32BITS";
 	echo "Found long int to be 32bit.";
+    LONG_INT_32=1;
+else
+    LONG_INT_32=0;
 fi
 double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "d_data" | awk '{print $2/16*8}')
 if [ "$double_size" -eq "32" ]; then
 	extra_cflags="${extra_cflags} -DLIBMCS_DOUBLE_IS_32BITS";
 	echo "Found double to be 32bit.";
+    DOUBLE_32=1;
+    WANT_LD=0;
 else
+    DOUBLE_32=0;
 	long_double_size=$("${CROSS_COMPILE}"nm -S -t d ${sizecheck%.*}.o | grep "l_data" | awk '{print $2/16*8}')
 	if [ "$long_double_size" -eq "64" ]; then
 		echo "Found long double to be 64bit.";
@@ -152,8 +158,8 @@ else
 			echo "Do you want long double procedures? If 'No' is chosen long double procedures will not be compiled into the library, and will not need to be qualified.";
 			select yn in "Yes" "No"; do
 				case $yn in
-					Yes ) extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BITS"; break;;
-					No ) break;;
+					Yes ) WANT_LD=1; extra_cflags="${extra_cflags} -DLIBMCS_LONG_DOUBLE_IS_64BITS"; break;;
+					No ) WANT_LD=0; break;;
 				esac
 			done
 		elif [ ${WANT_LD} -eq 1 ]; then
@@ -161,6 +167,7 @@ else
 		fi
 	else
 		echo "Found long double to be not 64bit. The library will not have long double procedures.";
+        WANT_LD=0;
 	fi
 fi
 
@@ -172,8 +179,8 @@ if [ "$endianness" != "__ORDER_LITTLE_ENDIAN__" ] && [ "$endianness" != "__ORDER
 		echo "Your toolchain does not define endianness (__BYTE_ORDER__ is not defined as either __ORDER_BIG_ENDIAN__ or __ORDER_LITTLE_ENDIAN__). Which endianness is appropriate for your target platform (e.g. SPARCs are usually Big Endian)?";
 		select endian in "Little Endian" "Big Endian"; do
 			case $endian in
-				"Little Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"; break;;
-				"Big Endian" ) extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_BIG_ENDIAN__"; break;;
+				"Little Endian" ) BIG_ENDIAN=0; extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"; break;;
+				"Big Endian" ) BIG_ENDIAN=1; extra_cflags="${extra_cflags} -D__BYTE_ORDER__=__ORDER_BIG_ENDIAN__"; break;;
 			esac
 		done
 	elif [ ${BIG_ENDIAN} -eq 1 ]; then
@@ -198,8 +205,8 @@ if [ -z ${WANT_COMPLEX+x} ]; then
 	echo "Do you want complex procedures? If 'No' is chosen complex procedures will not be compiled into the library, and will not need to be qualified."
 	select yn in "Yes" "No"; do
 		case $yn in
-			Yes ) echo "WANT_COMPLEX = 1" >> ${user_make}; echo "See user manual (SUM) for the limitations and inaccuracies in complex procedures!"; break;;
-			No ) echo "WANT_COMPLEX = 0" >> ${user_make}; break;;
+			Yes ) WANT_COMPLEX=1; echo "WANT_COMPLEX = 1" >> ${user_make}; echo "See user manual (SUM) for the limitations and inaccuracies in complex procedures!"; break;;
+			No ) WANT_COMPLEX=0; echo "WANT_COMPLEX = 0" >> ${user_make}; break;;
 		esac
 	done
 elif [ ${WANT_COMPLEX} -eq 1 ]; then
@@ -209,7 +216,41 @@ elif [ ${WANT_COMPLEX} -eq 0 ]; then
 	echo "WANT_COMPLEX = 0" >> ${user_make}
 fi
 
+# Create config.h
+printf "/* SPDX-License-Identifier: GTDGmbH */\\n/* Copyright 2020-2022 by GTD GmbH. */\\n" > ${user_config}
+printf "\\n#ifndef LIBMCS_CONFIG_H\\n#define LIBMCS_CONFIG_H\\n\\n" >> ${user_config}
+if [ ${WANT_DAZ} -eq 1 ]; then
+	printf "#ifndef LIBMCS_FPU_DAZ\\n    #define LIBMCS_FPU_DAZ\\n#endif /* !LIBMCS_FPU_DAZ */\\n" >> ${user_config}
+else
+	printf "#ifdef LIBMCS_FPU_DAZ\\n    #undef LIBMCS_FPU_DAZ\\n#endif /* LIBMCS_FPU_DAZ */\\n" >> ${user_config}
+fi
+if [ ${LONG_INT_32} -eq 1 ]; then
+	printf "#ifndef LIBMCS_LONG_IS_32BITS\\n    #define LIBMCS_LONG_IS_32BITS\\n#endif /* !LIBMCS_LONG_IS_32BITS */\\n" >> ${user_config}
+fi
+if [ ${DOUBLE_32} -eq 1 ]; then
+	printf "#ifndef LIBMCS_DOUBLE_IS_32BITS\\n    #define LIBMCS_DOUBLE_IS_32BITS\\n#endif /* !LIBMCS_DOUBLE_IS_32BITS */\\n" >> ${user_config}
+fi
+if [ ${WANT_LD} -eq 1 ]; then
+	printf "#ifndef LIBMCS_LONG_DOUBLE_IS_64BITS\\n    #define LIBMCS_LONG_DOUBLE_IS_64BITS\\n#endif /* !LIBMCS_LONG_DOUBLE_IS_64BITS */\\n" >> ${user_config}
+else
+	printf "#ifdef LIBMCS_LONG_DOUBLE_IS_64BITS\\n    #undef LIBMCS_LONG_DOUBLE_IS_64BITS\\n#endif /* LIBMCS_LONG_DOUBLE_IS_64BITS */\\n" >> ${user_config}
+fi
+if [ ${WANT_COMPLEX} -eq 0 ]; then
+	printf "#ifndef LIBMCS_NO_COMPLEX\\n    #define LIBMCS_NO_COMPLEX\\n#endif /* !LIBMCS_NO_COMPLEX */\\n" >> ${user_config}
+fi
+if ! [ -z ${BIG_ENDIAN+x} ]; then
+    printf "#ifndef __BYTE_ORDER__\\n" >> ${user_config}
+    if [ ${BIG_ENDIAN} -eq 1 ]; then
+        printf "    #define __BYTE_ORDER__ __ORDER_BIG_ENDIAN__\\n" >> ${user_config}
+    else
+        printf "    #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__\\n" >> ${user_config}
+    fi
+    printf "#endif /* __BYTE_ORDER__ */\\n" >> ${user_config}
+fi
+printf "\\n#endif /* !LIBMCS_CONFIG_H */\\n" >> ${user_config}
+
 # Cleanup
 rm ${sizecheck}
 rm ${sizecheck%.*}.o
 echo "CONFIGURE_SUCCESS = 1" >> ${user_make}
+cp ${makefile_in} ${makefile_out}
