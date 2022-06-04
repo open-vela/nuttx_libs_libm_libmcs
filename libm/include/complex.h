@@ -15,7 +15,8 @@
 extern "C"{
 #endif
 
-#include "../common/internal_config.h"
+#include "config.h"
+#include "internal_config.h"
 
 #define complex _Complex
 #define _Complex_I __extension__ 1.0fi
