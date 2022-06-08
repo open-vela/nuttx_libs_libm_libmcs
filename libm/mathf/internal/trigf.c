@@ -9,6 +9,18 @@
 /* In the float version, the input parameter x contains 8 bit
    integers, not 24 bit integers.  113 bit precision is not supported.  */
 
+/*
+ * Constants:
+ * The hexadecimal values are the intended ones for the following
+ * constants. The decimal values may be used, provided that the
+ * compiler will convert from decimal to binary accurately enough
+ * to produce the hexadecimal values shown.
+ */
+
+/*
+ * Single precision array, obtained by cutting pi/2
+ * into 8 bits chunks.
+ */
 static const float PIo2[] = {
     1.5703125000e+00f, /* 0x3fc90000 */
     4.5776367188e-04f, /* 0x39f00000 */
@@ -25,6 +37,12 @@ static const float PIo2[] = {
 
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi
+ *
+ * The integer array contains the (8*i)-th to (8*i+7)-th
+ * bit of 2/pi after binary point. The corresponding
+ * floating value is
+ *
+ *            ipio2[i] * 2^(-8(i+1)).
  */
 static const int32_t ipio2[] = {
     0xA2, 0xF9, 0x83, 0x6E, 0x4E, 0x44, 0x15, 0x29, 0xFC,
@@ -51,27 +69,45 @@ static const int32_t ipio2[] = {
     0x73, 0xA8, 0xC9, 0x60, 0xE2, 0x7B, 0xC0, 0x8C, 0x6B,
 };
 
-static const float
-zero   = 0.0f,
-one    = 1.0f,
-two8   =  2.5600000000e+02f, /* 0x43800000 */
-twon8  =  3.9062500000e-03f; /* 0x3b800000 */
+static const float zero   = 0.0f;
+static const float one    = 1.0f;
+static const float two8   = 0x1p+08; /* 2.5600000000e+02f    0x43800000 */
+static const float twon8  = 0x1p-08; /* 3.9062500000e-03f    0x3b800000 */
 
 static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
 {
-    int32_t jz, jx, jv, jp, jk, carry, n, i, j, k, m, q0, ih;
-    int32_t iq[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    int32_t jk = 7;     /* precision setting
+                           jk+1 is the initial number of terms of ipio2[] needed in the computation. */
+    int32_t jp = jk;    /* stores the initial value of jk until the final result computation */
 
-    float z, fw;
-    float f[20]  = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-                     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-    float fq[20] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-                     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
-    float q[20]  = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-                     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+    int32_t k;          /* number of additional ipio2 terms needed for recomputation */
+    int32_t i, j, m;    /* general purpose indexes and variables */
+    int32_t jz, jx, jv; /* other specific indexes */
+    int32_t carry;      /* indicates whether there is a contribution of q when computing the complementary angle */
+    int32_t ih;         /* variable that indicates the position of the angle within the resulting quadrant.
+                           If ih is positive then q[] is >= 0.5, hence it acts as the "signbit" of the result,
+                           which will be positive for negative angles within the quadrant. */
 
-    bool recompute;
+
+    double  q[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,    /* value of q = x/(pi/2) = x*(2/pi) */
+                       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    int32_t q0;                                           /* the corresponding exponent of q[0]. Note that the exponent for q[i] would be q0-8*i */
+
+    int32_t n;                                            /* indicates the octant where the angle falls into; it is used to get the quadrant */
+    double  z;                                            /* high order fractional part of q, down to the q0 bit */
+    int32_t iq[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,      /* lower order 8 bit chunks of fractional part of q in inverted order. */
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };    /* iq starts after the q0 bits which are in z                           */
+
+    double fw;                                                                 /* temporary variable to compute q, iq, and fq           */
+    double f[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* ipio2[] terms taken fro computation in floating point */
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    double fq[20] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* final product of q*pi/2 in fq[0],..,fq[jk];                                */
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };      /* computing the fractional value [0,1] within the quadrant back into radians */
+
+
+
+    bool recompute;   /* variable used to signalize that a recomputation is needed as the current selection of ipio2[] terms has led to loss of significance.
+                         The recomputation will take more terms of ipio2[]. */
 
     /* initialize jk*/
     jk = 7;
@@ -104,7 +140,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
     do {
         recompute = false;
 
-        /* distill q[] into iq[] reversingly */
+        /* distill the lower part of q[] into iq[] reversingly and leave the higher part in z */
         for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
             fw    = (float)((int32_t)(twon8 * z));
             iq[i] = (int32_t)(z - two8 * fw);
@@ -131,11 +167,12 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
             /* No action required */
         }
 
+        /* for the cases that the angle is in the upper side of the quadrant, the complementary is computed */
         if (ih > 0) { /* q > 0.5 */
             n += 1;
             carry = 0;
 
-            for (i = 0; i < jz ; i++) { /* compute 1-q */
+            for (i = 0; i < jz ; i++) { /* compute 1-q by computing the complementary of iq */
                 j = iq[i];
 
                 if (carry == 0) {
@@ -161,13 +198,21 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
                 }
             }
 
-            if (ih == 2) {
+            if (ih == 2) { /* compute the complementary of z */
                 z = one - z;
-                z -= scalbnf(one, (int32_t)q0);
+
+                if (carry != 0) { /* in case that iq[] does have a contribution, subtract the order of magnitude
+                                     of this contribution from the complement of z so that z + iq can be computed. */
+                    z -= scalbnf(one, (int32_t)q0);
+                    /* Given the following decimal example of: z = 0.7 and iq = 0.01 for the angle z + iq = 0.71
+                       the complements would be z = 1 - z = 0.3 and iq = 0.1 - iq = 0.09
+                       now, z needs to be decremented by 0.1; z = z - 0.1 so that z + iq = 0.2 + 0.09 = 0.29
+                       which is the correct complement of the original angle 0.71 */
+                }
             }
         }
 
-        /* check if recomputation is needed */
+        /* check if recomputation is needed in case of loss of significance in z and iq[] */
         if (z == zero) {
             j = 0;
 
