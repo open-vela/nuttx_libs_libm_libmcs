@@ -217,9 +217,8 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
 
     bool recompute;   /* variable used to signalize that a recomputation is needed as the current selection of ipio2[] terms has led to loss of significance.
                          The recomputation will take more terms of ipio2[]. */
+    bool exhausted;   /* variable used to signalize that the available ipio2 precision has been exhausted making no further recomputing possible */
 
-    /* initialize jk*/
-    jk = 4;
     jp = jk;
 
     /* determine jx,jv,q0, note that 3>q0 */
@@ -249,6 +248,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
 
     do {
         recompute = false;
+        exhausted = false;
 
         /* distill the lower part of q[] into iq[] reversingly and leave the higher part in z */
         for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
@@ -323,7 +323,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
         }
 
         /* check if recomputation is needed in case of loss of significance in z and iq[] */
-        if (z == zero) {
+        if (z == zero && !exhausted) {
             j = 0;
 
             for (i = jz - 1; i >= jk; i--) {
@@ -331,11 +331,15 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
             }
 
             if (j == 0) { /* need recomputation */
-                for (k = 1; iq[jk - k] == 0; k++) { /* k = no. of terms needed */
+                for (k = 1; (jk - k >= 0) && (iq[jk - k] == 0); k++) { /* k = no. of terms needed */
                 }
 
                 for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
-                    f[jx + i] = (double) ipio2[jv + i];
+                    if (jv + i < 66) { /* don't pull more terms of ipio2[] than available */
+                        f[jx + i] = (double) ipio2[jv + i];
+                    } else {
+                        exhausted = true;
+                    }
 
                     for (j = 0, fw = 0.0; j <= jx; j++) {
                         fw += x[j] * f[jx + i - j];
@@ -348,7 +352,9 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
                 recompute = true;
             }
         }
-    } while (recompute);
+    } while (recompute); /* The original authors of the algorithm Payne and Hanek estimate the
+                            amount of needed recomputing to be low. Currently only 2 recomputes
+                            are observed at most */
 
     /* chop off zero terms */
     if (z == 0.0) {
