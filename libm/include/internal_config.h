@@ -20,10 +20,10 @@
     static volatile float __volatile_onef = 1.0f;
 #endif /* LIBMCS_FPU_DAZ */
 
-/* Define to tell the libm to exclude complex procedures. */
-#ifdef LIBMCS_EXCLUDE_COMPLEX
-    #define __LIBMCS_EXCLUDE_COMPLEX
-#endif /* LIBMCS_EXCLUDE_COMPLEX */
+/* Define to tell the libm to not exclude complex procedures. */
+#ifdef LIBMCS_WANT_COMPLEX
+    #define __LIBMCS_WANT_COMPLEX
+#endif /* LIBMCS_WANT_COMPLEX */
 
 /* Define to tell the libm to be built for 32bit doubles. */
 #ifdef LIBMCS_DOUBLE_IS_32BITS

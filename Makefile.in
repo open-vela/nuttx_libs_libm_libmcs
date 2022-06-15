@@ -213,8 +213,7 @@ SRC =   libm/common/signgam.c \
 
 ifeq ($(WANT_COMPLEX),1)
     SRC += $(CSRC)
-else
-    EXTRA_CFLAGS += -DLIBMCS_EXCLUDE_COMPLEX
+    EXTRA_CFLAGS += -DLIBMCS_WANT_COMPLEX
 endif
 
 SRC_ROOT = .
