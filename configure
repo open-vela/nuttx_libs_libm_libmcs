@@ -235,8 +235,10 @@ if [ ${WANT_LD} -eq 1 ]; then
 else
 	printf "#ifdef LIBMCS_LONG_DOUBLE_IS_64BITS\\n    #undef LIBMCS_LONG_DOUBLE_IS_64BITS\\n#endif /* LIBMCS_LONG_DOUBLE_IS_64BITS */\\n" >> ${user_config}
 fi
-if [ ${WANT_COMPLEX} -eq 0 ]; then
-	printf "#ifndef LIBMCS_NO_COMPLEX\\n    #define LIBMCS_NO_COMPLEX\\n#endif /* !LIBMCS_NO_COMPLEX */\\n" >> ${user_config}
+if [ ${WANT_COMPLEX} -eq 1 ]; then
+	printf "#ifndef LIBMCS_WANT_COMPLEX\\n    #define LIBMCS_WANT_COMPLEX\\n#endif /* !LIBMCS_WANT_COMPLEX */\\n" >> ${user_config}
+else
+	printf "#ifdef LIBMCS_WANT_COMPLEX\\n    #undef LIBMCS_WANT_COMPLEX\\n#endif /* LIBMCS_WANT_COMPLEX */\\n" >> ${user_config}
 fi
 if ! [ -z ${BIG_ENDIAN+x} ]; then
     printf "#ifndef __BYTE_ORDER__\\n" >> ${user_config}
