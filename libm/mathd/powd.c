@@ -132,7 +132,7 @@ double pow(double x, double y)
 
     /* y==zero: x**0 = 1 unless x is snan */
 #ifdef __LIBMCS_FPU_DAZ
-    if (iy < 0x00100000U) {
+    if (iy < 0x00100000) {
 #else
     if ((iy | ly) == 0) {
 #endif /* defined(__LIBMCS_FPU_DAZ) */
