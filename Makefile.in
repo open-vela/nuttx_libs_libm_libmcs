@@ -302,7 +302,7 @@ cleanall:
 	@echo "[RM] build-*"
 	$(Q)$(RM) build-*
 
-distclean:
+distclean: cleanall
 	@echo "[RM] user_make.mk"
 	$(Q)$(RM) user_make.mk
 	@echo "[RM] config.h"
@@ -328,4 +328,4 @@ help:
 	@echo "    cleanall:"
 	@echo "        Removes all build directories of the library."
 	@echo "    distclean:"
-	@echo "        Removes all files created by 'configure'."
+	@echo "        Removes all files created by 'configure' and all builds."
