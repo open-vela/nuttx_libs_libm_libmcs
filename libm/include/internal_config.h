@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: GTDGmbH */
 /* Copyright 2020-2021 by GTD GmbH. */
 
-#ifndef LIBMCS_CONFIG_H
-#define LIBMCS_CONFIG_H
+#ifndef LIBMCS_INTERNAL_CONFIG_H
+#define LIBMCS_INTERNAL_CONFIG_H
 
 /* If an FPU is not standard compliant for subnormal values, use the define LIBMCS_FPU_DAZ to force
  * each procedure to first multiply the input value(s) by 1, therefore using the FPUs defined
@@ -20,10 +20,10 @@
     static volatile float __volatile_onef = 1.0f;
 #endif /* LIBMCS_FPU_DAZ */
 
-/* Define to tell the libm to exclude complex procedures. */
-#ifdef LIBMCS_EXCLUDE_COMPLEX
-    #define __LIBMCS_EXCLUDE_COMPLEX
-#endif /* LIBMCS_EXCLUDE_COMPLEX */
+/* Define to tell the libm to not exclude complex procedures. */
+#ifdef LIBMCS_WANT_COMPLEX
+    #define __LIBMCS_WANT_COMPLEX
+#endif /* LIBMCS_WANT_COMPLEX */
 
 /* Define to tell the libm to be built for 32bit doubles. */
 #ifdef LIBMCS_DOUBLE_IS_32BITS
@@ -153,4 +153,4 @@
     #endif
 #endif
 
-#endif /* !LIBMCS_CONFIG_H */
+#endif /* !LIBMCS_INTERNAL_CONFIG_H */

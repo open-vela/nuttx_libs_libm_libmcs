@@ -92,7 +92,7 @@ Test coverage is not set using `configure`, it can be enabled by adding `COVERAG
 | `release`   | Builds the library. Equivalent to `all` with the additional flag `-DNDEBUG` set.                                                   |
 | `clean`     | Removes the build directory of the library of the current ARCH. (ARCH can be set manually or is extracted from using the compiler) |
 | `cleanall`  | Removes all build directories of the library.                                                                                      |
-| `distclean` | Removes the `user_make.mk` file (and other files possibly created by `configure`).                                                 |
+| `distclean` | Removes all files created by 'configure' and all builds.                                                                           |
 
 Note: LibmCS does not have an `install` target.
 
