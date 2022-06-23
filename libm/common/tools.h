@@ -205,9 +205,9 @@
 
 #include <math.h>
 
-#ifndef __LIBMCS_EXCLUDE_COMPLEX
+#ifdef __LIBMCS_WANT_COMPLEX
     #include <complex.h>
-#endif /* !__LIBMCS_EXCLUDE_COMPLEX */
+#endif /* __LIBMCS_WANT_COMPLEX */
 
 /* A union which permits us to convert between a double and two 32 bit
    ints.  */
@@ -396,7 +396,7 @@ static inline int __issignalingf(float x) {
     }
 }
 
-#ifndef __LIBMCS_EXCLUDE_COMPLEX
+#ifdef __LIBMCS_WANT_COMPLEX
     /*
      * Quoting from ISO/IEC 9899:TC2:
      *
@@ -424,6 +424,6 @@ static inline int __issignalingf(float x) {
     #define REAL_PART(z)    ((z).parts[0])
     #define IMAG_PART(z)    ((z).parts[1])
 
-#endif /* !__LIBMCS_EXCLUDE_COMPLEX */
+#endif /* __LIBMCS_WANT_COMPLEX */
 
 #endif /* !LIBMCS_TOOLS_H */

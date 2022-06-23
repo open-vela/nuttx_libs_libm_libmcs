@@ -5,7 +5,8 @@
 extern "C"{
 #endif
 
-#include "../common/config.h"
+#include "config.h"
+#include "internal_config.h"
 
 /*
  * These macros define the errno and exception behaviour of the library. This

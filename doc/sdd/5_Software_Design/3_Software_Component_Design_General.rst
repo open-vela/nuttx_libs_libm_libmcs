@@ -53,7 +53,6 @@ The library is limited in that it only offers ``long double`` procedures when ``
 .. code:: c
 
    #include <math.h>
-   #include "../common/config.h"
 
    #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
    long double acoshl (long double x)
