@@ -335,7 +335,8 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
                 }
 
                 for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
-                    if (jv + i < 66) { /* don't pull more terms of ipio2[] than available */
+                    if ((jv + i < 66) &&             /* don't pull more terms of ipio2[] than available */
+                        (jx + i < 20)) {             /* and don't overflow f[] */
                         f[jx + i] = (double) ipio2[jv + i];
                     } else {
                         exhausted = true;
