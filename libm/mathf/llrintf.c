@@ -82,4 +82,4 @@ long long int llrint(double x)
     return llrintf((float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

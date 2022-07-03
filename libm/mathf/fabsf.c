@@ -24,4 +24,4 @@ double fabs(double x)
     return (double) fabsf((float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

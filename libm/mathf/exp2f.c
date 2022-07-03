@@ -20,4 +20,4 @@ double exp2(double x)
     return (double) exp2f((float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

@@ -27,4 +27,4 @@ double complex cacos(double complex z)
     return (double complex) cacosf((float complex) z);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */
