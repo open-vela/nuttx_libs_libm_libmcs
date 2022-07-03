@@ -20,4 +20,4 @@ double nan(const char *payload)
     return (double) nanf(payload);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

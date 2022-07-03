@@ -119,5 +119,5 @@ long double sinl(long double x)
     return (long double) sin((double) x);
 }
 
-#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */

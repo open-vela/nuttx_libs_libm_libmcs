@@ -133,4 +133,4 @@ double atan2(double y, double x)
     return (double) atan2f((float) y, (float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */
