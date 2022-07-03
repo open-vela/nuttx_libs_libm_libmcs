@@ -21,4 +21,4 @@ double fma(double x, double y, double z)
     return (double) fmaf((float) x, (float) y, (float) z);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */
