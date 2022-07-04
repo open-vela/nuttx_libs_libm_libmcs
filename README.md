@@ -95,3 +95,7 @@ Test coverage is not set using `configure`, it can be enabled by adding `COVERAG
 | `distclean` | Removes the `user_make.mk` file (and other files possibly created by `configure`).                                                 |
 
 Note: LibmCS does not have an `install` target.
+
+## How to Contribute
+
+To learn how to contribute to the LibmCS please read the CONTRIBUTING.md file.
