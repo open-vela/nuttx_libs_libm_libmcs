@@ -19,8 +19,8 @@
  *     double __sin(double x, double y, int iy)
  *     int32_t __rem_pio2f(float x, float *y)
  *     int32_t __rem_pio2(double x, double *y)
- *     int __rem_pio2_internalf(float *x, float *y, int e0, int nx, int prec, const int32_t *ipio2)
- *     int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const int32_t *ipio2)
+ *     int __rem_pio2_internalf(float *x, float *y, int e0, int nx)
+ *     int __rem_pio2_internal(double *x, double *y, int e0, int nx)
  *
  * Description
  * ===========
