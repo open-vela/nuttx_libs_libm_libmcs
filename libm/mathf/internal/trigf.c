@@ -108,6 +108,7 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
 
     bool recompute;   /* variable used to signalize that a recomputation is needed as the current selection of ipio2[] terms has led to loss of significance.
                          The recomputation will take more terms of ipio2[]. */
+    bool exhausted;   /* variable used to signalize that the available ipio2 precision has been exhausted making no further recomputing possible */
 
     jp = jk;
 
