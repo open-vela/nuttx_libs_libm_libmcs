@@ -89,20 +89,20 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
                            which will be positive for negative angles within the quadrant. */
 
 
-    double  q[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,    /* value of q = x/(pi/2) = x*(2/pi) */
-                       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    float  q[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,    /* value of q = x/(pi/2) = x*(2/pi) */
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     int32_t q0;                                           /* the corresponding exponent of q[0]. Note that the exponent for q[i] would be q0-8*i */
 
     int32_t n;                                            /* indicates the octant where the angle falls into; it is used to get the quadrant */
-    double  z;                                            /* high order fractional part of q, down to the q0 bit */
+    float   z;                                            /* high order fractional part of q, down to the q0 bit */
     int32_t iq[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,      /* lower order 8 bit chunks of fractional part of q in inverted order. */
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };    /* iq starts after the q0 bits which are in z                           */
 
-    double fw;                                                                 /* temporary variable to compute q, iq, and fq           */
-    double f[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* ipio2[] terms taken fro computation in floating point */
-                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    double fq[20] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* final product of q*pi/2 in fq[0],..,fq[jk];                                */
-                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };      /* computing the fractional value [0,1] within the quadrant back into radians */
+    float fw;                                                                 /* temporary variable to compute q, iq, and fq           */
+    float f[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* ipio2[] terms taken fro computation in floating point */
+                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    float fq[20] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* final product of q*pi/2 in fq[0],..,fq[jk];                                */
+                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };      /* computing the fractional value [0,1] within the quadrant back into radians */
 
 
 
