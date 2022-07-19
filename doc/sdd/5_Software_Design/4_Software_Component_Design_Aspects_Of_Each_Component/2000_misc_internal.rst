@@ -38,5 +38,3 @@ Exception raising procedures are used in a lot of other procedures. They are use
 Floating-point to integer conversion (and vice-versa) procedures are used in a lot of other procedures. They are used whenever the `Mathematical Approach` of the procedure makes use of, or manipulates, the hexadecimal representation of floating-point datums, for example for checking/extracting/manipulating the sign/exponent/mantissa. They are used quite liberally.
 
 ``SAFE_RIGHT_SHIFT`` is used by :ref:`lrint`, :ref:`llrint`, :ref:`lround` and :ref:`llround`.
-
-``SAFE_LEFT_SHIFT`` is currently not used by any procedure within the library, it is kept for completeness and possible future uses.
