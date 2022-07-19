@@ -3,8 +3,11 @@
 
 /**
  *
- * This family of functions implements the Bessel function of the first kind of
+ * This function implements the Bessel function of the first kind of
  * order :math:`n`.
+ *
+ * .. warning::
+ *    The implementation contains a potentially unbounded while loop.
  *
  * Synopsis
  * ========
