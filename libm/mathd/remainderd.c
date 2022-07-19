@@ -97,65 +97,65 @@
 
 static const double zero = 0.0;
 
-double remainder(double x, double y)
+double remainder(double x, double p)
 {
 #ifdef __LIBMCS_FPU_DAZ
     x *= __volatile_one;
-    y *= __volatile_one;
+    p *= __volatile_one;
 #endif /* defined(__LIBMCS_FPU_DAZ) */
 
-    int32_t hx, hy;
-    uint32_t sx, lx, ly;
-    double y_half;
+    int32_t hx, hp;
+    uint32_t sx, lx, lp;
+    double p_half;
 
     EXTRACT_WORDS(hx, lx, x);
-    EXTRACT_WORDS(hy, ly, y);
+    EXTRACT_WORDS(hp, lp, p);
     sx = hx & 0x80000000U;
-    hy &= 0x7fffffff;
+    hp &= 0x7fffffff;
     hx &= 0x7fffffff;
 
     /* purge off exception values */
-    if ((hx >= 0x7ff00000) || (hy >= 0x7ff00000)) { /* x or y not finite */
-        if (isnan(x) || isnan(y)) {                 /* x or y is NaN */
-            return x + y;
+    if ((hx >= 0x7ff00000) || (hp >= 0x7ff00000)) { /* x or p not finite */
+        if (isnan(x) || isnan(p)) {                 /* x or p is NaN */
+            return x + p;
         } else if (hx == 0x7ff00000) {              /* x is infinite */
             return __raise_invalid();
         } else {
             /* No action required */
         }
-    } else if ((hy | ly) == 0) {                    /* y = 0 */
+    } else if ((hp | lp) == 0) {                    /* p = 0 */
         return __raise_invalid();
     } else {
         /* No action required */
     }
 
-    if (hy <= 0x7fdfffff) {
-        x = fmod(x, 2 * y);                         /* now x < 2y */
+    if (hp <= 0x7fdfffff) {
+        x = fmod(x, p + p);                         /* now x < 2p */
     }
 
-    if (((hx - hy) | (lx - ly)) == 0) {             /* x equals y */
+    if (((hx - hp) | (lx - lp)) == 0) {             /* x equals p */
         return zero * x;
     }
 
     x  = fabs(x);
-    y  = fabs(y);
+    p  = fabs(p);
 
-    if (hy < 0x00200000) {
-        if (x + x > y) {
-            x -= y;
+    if (hp < 0x00200000) {
+        if (x + x > p) {
+            x -= p;
 
-            if (x + x >= y) {
-                x -= y;
+            if (x + x >= p) {
+                x -= p;
             }
         }
     } else {
-        y_half = 0.5 * y;
+        p_half = 0.5 * p;
 
-        if (x > y_half) {
-            x -= y;
+        if (x > p_half) {
+            x -= p;
 
-            if (x >= y_half) {
-                x -= y;
+            if (x >= p_half) {
+                x -= p;
             }
         }
     }
