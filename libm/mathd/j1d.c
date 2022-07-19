@@ -3,7 +3,7 @@
 
 /**
  *
- * This function implements the Bessel function of the first kind of
+ * This family of functions implements the Bessel function of the first kind of
  * order 1.
  *
  * Synopsis
