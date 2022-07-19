@@ -213,7 +213,8 @@ SRC =   libm/common/signgam.c \
 
 ifeq ($(WANT_COMPLEX),1)
     SRC += $(CSRC)
-    EXTRA_CFLAGS += -DLIBMCS_WANT_COMPLEX
+else
+    EXTRA_CFLAGS += -DLIBMCS_EXCLUDE_COMPLEX
 endif
 
 SRC_ROOT = .
@@ -245,10 +246,8 @@ OBJ = $(addprefix $(OBJ_ROOT)/, $(SRC:.c=.o))
 .SUFFIXES:
 .SUFFIXES: .o .c
 
-.PHONY: all debug release clean cleanall distclean install check_config help
+.PHONY: all debug release clean cleanall distclean install check_config
 all: $(OUT) $(BUILD_INFO)
-	@echo "[CP] include"
-	$(Q)$(CP) -r $(SRC_ROOT)/libm/include/ $(BUILD_ROOT)/include/
 
 check_config:
 	@[ "1" == "$(CONFIGURE_SUCCESS)" ] || (echo "Either configuration was faulty or not done, please run configure" && exit 1)
@@ -305,27 +304,8 @@ cleanall:
 distclean:
 	@echo "[RM] user_make.mk"
 	$(Q)$(RM) user_make.mk
-	@echo "[RM] config.h"
-	$(Q)$(RM) libm/include/config.h
 	$(Q)$(RM) sizeoftypes.c
 	$(Q)$(RM) sizeoftypes.o
-	$(Q)$(RM) Makefile
 
 install:
 	@echo "LibmCS cannot be installed."
-
-help:
-	@echo "LibmCS make has the following targets:"
-	@echo "    all:"
-	@echo "        Builds the library. This is the default target."
-	@echo "    debug:"
-	@echo "        Builds the library. Currently equivalent to 'all'."
-	@echo "    release:"
-	@echo "        Builds the library. Equivalent to 'all' with the additional flag '-DNDEBUG' set."
-	@echo "    clean:"
-	@echo "        Removes the build directory of the library of the current ARCH. (ARCH can be set"
-	@echo "        manually or is extracted from using the compiler)"
-	@echo "    cleanall:"
-	@echo "        Removes all build directories of the library."
-	@echo "    distclean:"
-	@echo "        Removes all files created by 'configure'."
