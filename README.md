@@ -81,7 +81,7 @@ Of special note here is also that the library needs to know which endianness the
 
 #### Test Coverage
 
-Test coverage is not set using `configure`, it can be enabled by adding `COVERAGE=1` to the `make` call.
+Test coverage is not set using `configure`, it can be enabled by adding `COVERAGE=1` to the `make` call. Note that `configure` still has to be run first before `make` also for this case.
 
 #### Make Targets
 

@@ -6,7 +6,7 @@
 
 Report bugs by creating a GitLab Issue with the following information:
 
-1. Give the Issue a meaninfull title
+1. Give the Issue a meaningfull title
 2. Write a brief description of the issue you have
 3. Describe the issue details answering the following quiestions:
     - What are the steps to reproduce the *bug*?
