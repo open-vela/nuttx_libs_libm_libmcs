@@ -143,7 +143,7 @@ float crealf(float complex);
     long double complex cprojl(long double complex);
     long double creall(long double complex);
 
-#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
 
 /* The C11 CMPLX macros are compiler dependant and only available starting at
  * GCC 4.7+ or with clang! If need be define them yourself. */
@@ -152,13 +152,13 @@ float crealf(float complex);
     #define CMPLXF(x, y)    ((float complex){(float) x, (float) y})
     #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
         #define CMPLXL(x, y)    ((long double complex){(long double) x, (long double) y})
-    #endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+    #endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
 #elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7))
     #define CMPLX(x, y)     __builtin_complex ((double) (x), (double) (y))
     #define CMPLXF(x, y)    __builtin_complex ((float) (x), (float) (y))
     #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS
         #define CMPLXL(x, y)    __builtin_complex ((long double) (x), (long double) (y))
-    #endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+    #endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
 #else
     /* Due to the used compiler being too old the library cannot provide fully
      * C11 standard compliant macros CMPLX, CMPLXF, CMPLXL. The library
@@ -196,7 +196,7 @@ float crealf(float complex);
 
             return (z.f);
         }
-    #endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+    #endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
 #endif
 
 #ifdef __cplusplus

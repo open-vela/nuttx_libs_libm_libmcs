@@ -18,4 +18,4 @@ double creal(double complex z)
     return (double) crealf((float complex) z);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */
