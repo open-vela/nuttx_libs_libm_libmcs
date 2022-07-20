@@ -213,8 +213,7 @@ SRC =   libm/common/signgam.c \
 
 ifeq ($(WANT_COMPLEX),1)
     SRC += $(CSRC)
-else
-    EXTRA_CFLAGS += -DLIBMCS_EXCLUDE_COMPLEX
+    EXTRA_CFLAGS += -DLIBMCS_WANT_COMPLEX
 endif
 
 SRC_ROOT = .
@@ -248,6 +247,8 @@ OBJ = $(addprefix $(OBJ_ROOT)/, $(SRC:.c=.o))
 
 .PHONY: all debug release clean cleanall distclean install check_config
 all: $(OUT) $(BUILD_INFO)
+	@echo "[CP] include"
+	$(Q)$(CP) -r $(SRC_ROOT)/libm/include/ $(BUILD_ROOT)/include/
 
 check_config:
 	@[ "1" == "$(CONFIGURE_SUCCESS)" ] || (echo "Either configuration was faulty or not done, please run configure" && exit 1)
@@ -304,8 +305,11 @@ cleanall:
 distclean:
 	@echo "[RM] user_make.mk"
 	$(Q)$(RM) user_make.mk
+	@echo "[RM] config.h"
+	$(Q)$(RM) libm/include/config.h
 	$(Q)$(RM) sizeoftypes.c
 	$(Q)$(RM) sizeoftypes.o
+	$(Q)$(RM) Makefile
 
 install:
 	@echo "LibmCS cannot be installed."

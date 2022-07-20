@@ -15,7 +15,13 @@
 extern "C"{
 #endif
 
-#include "../common/config.h"
+#include "config.h"
+#include "internal_config.h"
+
+#ifndef __LIBMCS_WANT_COMPLEX
+    #error During the configure step you have chosen not to compile complex \
+           procedures as such you should not include complex.h in your software.
+#endif
 
 #define complex _Complex
 #define _Complex_I __extension__ 1.0fi
