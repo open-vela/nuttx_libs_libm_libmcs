@@ -110,113 +110,11 @@
  *
  *///
 
-/*
- * __rem_pio2_internal(x,y,e0,nx,prec,ipio2)
- * double x[],y[]; int e0,nx,prec; int ipio2[];
- *
- * __rem_pio2_internal return the last three digits of N with
- *        y = x - N*pi/2
- * so that |y| < pi/2.
- *
- * The method is to compute the integer (mod 8) and fraction parts of
- * (2/pi)*x without doing the full multiplication. In general we
- * skip the part of the product that are known to be a huge integer (
- * more accurately, = 0 mod 8 ). Thus the number of operations are
- * independent of the exponent of the input.
- *
- * (2/pi) is represented by an array of 24-bit integers in ipio2[].
- *
- * Input parameters:
- *     x[]    The input value (must be positive) is broken into nx
- *        pieces of 24-bit integers in double precision format.
- *        x[i] will be the i-th 24 bit of x. The scaled exponent
- *        of x[0] is given in input parameter e0 (i.e., x[0]*2^e0
- *        match x's up to 24 bits.
- *
- *        Example of breaking a double positive z into x[0]+x[1]+x[2]:
- *            e0 = ilogb(z)-23
- *            z  = scalbn(z,-e0)
- *        for i = 0,1,2
- *            x[i] = floor(z)
- *            z    = (z-x[i])*2**24
- *
- *
- *    y[]    ouput result in an array of double precision numbers.
- *        The dimension of y[] is:
- *            24-bit  precision    1
- *            53-bit  precision    2
- *            64-bit  precision    2
- *            113-bit precision    3
- *        The actual value is the sum of them. Thus for 113-bit
- *        precison, one may have to do something like:
- *
- *        long double t,w,r_head, r_tail;
- *        t = (long double)y[2] + (long double)y[1];
- *        w = (long double)y[0];
- *        r_head = t+w;
- *        r_tail = w - (r_head - t);
- *
- *    e0    The exponent of x[0]
- *
- *    nx    dimension of x[]
- *
- *      prec    an integer indicating the precision:
- *            0    24  bits (single)
- *            1    53  bits (double)
- *            2    64  bits (extended)
- *            3    113 bits (quad)
- *
- *    ipio2[]
- *        integer array, contains the (24*i)-th to (24*i+23)-th
- *        bit of 2/pi after binary point. The corresponding
- *        floating value is
- *
- *            ipio2[i] * 2^(-24(i+1)).
- *
- * External function:
- *    double scalbn(), floor();
- *
- *
- * Here is the description of some local variables:
- *
- *     jk    jk+1 is the initial number of terms of ipio2[] needed
- *        in the computation. The recommended value is 2,3,4,
- *        6 for single, double, extended,and quad.
- *
- *     jz    local integer variable indicating the number of
- *        terms of ipio2[] used.
- *
- *    jx    nx - 1
- *
- *    jv    index for pointing to the suitable ipio2[] for the
- *        computation. In general, we want
- *            ( 2^e0*x[0] * ipio2[jv-1]*2^(-24jv) )/8
- *        is an integer. Thus
- *            e0-3-24*jv >= 0 or (e0-3)/24 >= jv
- *        Hence jv = max(0,(e0-3)/24).
- *
- *    jp    jp+1 is the number of terms in PIo2[] needed, jp = jk.
- *
- *     q[]    double array with integral value, representing the
- *        24-bits chunk of the product of x and 2/pi.
- *
- *    q0    the corresponding exponent of q[0]. Note that the
- *        exponent for q[i] would be q0-24*i.
- *
- *    PIo2[]    double precision array, obtained by cutting pi/2
- *        into 24 bits chunks.
- *
- *    f[]    ipio2[] in floating point
- *
- *    iq[]    integer array by breaking up q[] in 24-bits chunk.
- *
- *    fq[]    final product of x*(2/pi) in fq[0],..,fq[jk]
- *
- *    ih    integer. If >0 it indicates q[] is >= 0.5, hence
- *        it also indicates the *sign* of the result.
- *
- */
+#include <math.h>
+#include "../../common/tools.h"
+#include "trigd.h"
 
+#ifndef __LIBMCS_DOUBLE_IS_32BITS
 
 /*
  * Constants:
@@ -226,12 +124,10 @@
  * to produce the hexadecimal values shown.
  */
 
-#include <math.h>
-#include "../../common/tools.h"
-#include "trigd.h"
-
-#ifndef __LIBMCS_DOUBLE_IS_32BITS
-
+/*
+ * Double precision array, obtained by cutting pi/2
+ * into 24 bits chunks.
+ */
 static const double PIo2[] = {
     1.57079625129699707031e+00, /* 0x3FF921FB, 0x40000000 */
     7.54978941586159635335e-08, /* 0x3E74442D, 0x00000000 */
@@ -245,6 +141,12 @@ static const double PIo2[] = {
 
 /*
  * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi
+ *
+ * The integer array contains the (24*i)-th to (24*i+23)-th
+ * bit of 2/pi after binary point. The corresponding
+ * floating value is
+ *
+ *            ipio2[i] * 2^(-24(i+1)).
  */
 static const int32_t ipio2[] = {
     0xA2F983, 0x6E4E44, 0x1529FC, 0x2757D1, 0xF534DD, 0xC0DB62, 0x95993C, 0x439041, 0xFE5163,
@@ -257,30 +159,66 @@ static const int32_t ipio2[] = {
     0x73A8C9, 0x60E27B, 0xC08C6B,
 };
 
-static const double
-zero    =  0.0,
-one     =  1.0,
-two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
-twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
+static const double zero    =  0.0;
+static const double one     =  1.0;
+static const double two24   =  0x1p+24; /* 1.6777216000000000000e+07    0x41700000, 0x00000000 */
+static const double twon24  =  0x1p-24; /* 5.9604644775390625000e-08    0x3E700000, 0x00000000 */
 
 static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
 {
-    int32_t jz, jx, jv, jp, jk, carry, n, i, j, k, m, q0, ih;
-    int32_t iq[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    int32_t jk = 4;     /* precision setting:
+                           2 for up to 32 bits single precision
+                           3 for up to 64 bits double precision
+                           4 for up to 80 bits extended precision
+                           6 for up to 128 bit quad precision
 
-    double z, fw;
-    double f[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    double fq[20] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    double q[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+                           jk+1 is the initial number of terms of ipio2[] needed in the computation. */
+    int32_t jp = jk;    /* stores the initial value of jk until the final result computation */
 
-    bool recompute;
+    int32_t k;          /* number of additional ipio2 terms needed for recomputation */
+    int32_t i, j, m;    /* general purpose indexes and variables */
+    int32_t jz, jx, jv; /* other specific indexes */
+    int32_t carry;      /* indicates whether there is a contribution of q when computing the complementary angle */
+    int32_t ih;         /* variable that indicates the position of the angle within the resulting quadrant.
+                           If ih is positive then q[] is >= 0.5, hence it acts as the "signbit" of the result,
+                           which will be positive for negative angles within the quadrant. */
 
-    /* initialize jk*/
-    jk = 4;
+
+    double  q[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,    /* value of q = x/(pi/2) = x*(2/pi) */
+                       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    int32_t q0;                                           /* the corresponding exponent of q[0]. Note that the exponent for q[i] would be q0-24*i */
+
+    int32_t n;                                            /* indicates the octant where the angle falls into; it is used to get the quadrant */
+    double  z;                                            /* high order fractional part of q, down to the q0 bit */
+    int32_t iq[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,      /* lower order 24 bit chunks of fractional part of q in inverted order. */
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };    /* iq starts after the q0 bits which are in z                           */
+
+    /* For an example angle of x = 900000.0 we would have that q = x/(pi/2) = x*(2/pi) = 572957.79513082320876798154814105170332405472466564321549160243861
+       q = 1.00010111110000111011100101110001101101100011001000110111001001001001011001101001100000110011101110000100110100110000100001011101111001001000000000
+       The q[] array will represent q = 153802180800000*2^−28 + 104097542400000*2^−52 + 19972857600000*2^-76 + 37128744000000*2^-100 + 231405883200000*2^-124
+       where q0 = -28.
+       This value of q will be split in (after removing the integer part 572957 and storing 572957 mod 8 = 5 in n):
+       n = 5                   (101)                             -> quadrant 1
+       z = 0.7951308228075504  (0.1100101110001101101100011001)
+       q = 1100101110001101101100011001 000110111001001001001011 001101101101110010110110 011010110101000001100001 011101111001001000000000
+                     z                           iq[3]                     iq[2]                   iq[1]                   iq[0]
+       (Note that z contains 28 bits, because of q0 = -28)
+       To obtain the end result, the complementary to 1 of z and iq are computed, as the result will be a negative angle within the quadrant 2.
+       x = 900000.0 radians is equivalent to 2.81978... radians which will result in an angle of -0.321807... radians in quadrant 2 [3*pi/4, 5*pi/4].
+     */
+
+    double fw;                                                                 /* temporary variable to compute q, iq, and fq           */
+    double f[20]  = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* ipio2[] terms taken fro computation in floating point */
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+    double fq[20] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,        /* final product of q*pi/2 in fq[0],..,fq[jk];                                */
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };      /* computing the fractional value [0,1] within the quadrant back into radians */
+
+
+
+    bool recompute;   /* variable used to signalize that a recomputation is needed as the current selection of ipio2[] terms has led to loss of significance.
+                         The recomputation will take more terms of ipio2[]. */
+    bool exhausted;   /* variable used to signalize that the available ipio2 precision has been exhausted making no further recomputing possible */
+
     jp = jk;
 
     /* determine jx,jv,q0, note that 3>q0 */
@@ -310,8 +248,9 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
 
     do {
         recompute = false;
+        exhausted = false;
 
-        /* distill q[] into iq[] reversingly */
+        /* distill the lower part of q[] into iq[] reversingly and leave the higher part in z */
         for (i = 0, j = jz, z = q[jz]; j > 0; i++, j--) {
             fw    = (double)((int32_t)(twon24 * z));
             iq[i] = (int32_t)(z - two24 * fw);
@@ -320,7 +259,7 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
 
         /* compute n */
         z  = scalbn(z, (int32_t)q0);       /* actual value of z */
-        z -= 8.0 * floor(z * 0.125);    /* trim off integer >= 8 */
+        z -= 8.0 * floor(z * 0.125);       /* trim off integer >= 8 */
         n  = (int32_t) z;
         z -= (double)n;
         ih = 0;
@@ -338,11 +277,12 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
             /* No action required */
         }
 
+        /* for the cases that the angle is in the upper side of the quadrant, the complementary is computed */
         if (ih > 0) { /* q > 0.5 */
             n += 1;
             carry = 0;
 
-            for (i = 0; i < jz ; i++) { /* compute 1-q */
+            for (i = 0; i < jz ; i++) { /* compute 1-q by computing the complementary of iq */
                 j = iq[i];
 
                 if (carry == 0) {
@@ -368,17 +308,22 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
                 }
             }
 
-            if (ih == 2) {
+            if (ih == 2) { /* compute the complementary of z */
                 z = one - z;
 
-                if (carry != 0) {
+                if (carry != 0) { /* in case that iq[] does have a contribution, subtract the order of magnitude
+                                     of this contribution from the complement of z so that z + iq can be computed. */
                     z -= scalbn(one, (int32_t)q0);
+                    /* Given the following decimal example of: z = 0.7 and iq = 0.01 for the angle z + iq = 0.71
+                       the complements would be z = 1 - z = 0.3 and iq = 0.1 - iq = 0.09
+                       now, z needs to be decremented by 0.1; z = z - 0.1 so that z + iq = 0.2 + 0.09 = 0.29
+                       which is the correct complement of the original angle 0.71 */
                 }
             }
         }
 
-        /* check if recomputation is needed */
-        if (z == zero) {
+        /* check if recomputation is needed in case of loss of significance in z and iq[] */
+        if (z == zero && !exhausted) {
             j = 0;
 
             for (i = jz - 1; i >= jk; i--) {
@@ -386,11 +331,16 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
             }
 
             if (j == 0) { /* need recomputation */
-                for (k = 1; iq[jk - k] == 0; k++) { /* k = no. of terms needed */
+                for (k = 1; (jk - k >= 0) && (iq[jk - k] == 0); k++) { /* k = no. of terms needed */
                 }
 
                 for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
-                    f[jx + i] = (double) ipio2[jv + i];
+                    if ((jv + i < 66) &&             /* don't pull more terms of ipio2[] than available */
+                        (jx + i < 20)) {             /* and don't overflow f[] */
+                        f[jx + i] = (double) ipio2[jv + i];
+                    } else {
+                        exhausted = true;
+                    }
 
                     for (j = 0, fw = 0.0; j <= jx; j++) {
                         fw += x[j] * f[jx + i - j];
@@ -403,7 +353,9 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
                 recompute = true;
             }
         }
-    } while (recompute);
+    } while (recompute); /* The original authors of the algorithm Payne and Hanek estimate the
+                            amount of needed recomputing to be low. Currently only 2 recomputes
+                            are observed at most */
 
     /* chop off zero terms */
     if (z == 0.0) {

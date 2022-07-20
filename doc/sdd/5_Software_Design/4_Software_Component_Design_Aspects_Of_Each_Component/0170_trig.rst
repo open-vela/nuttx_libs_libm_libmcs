@@ -154,10 +154,16 @@ Use the following constants as calculation/return values:
 
 --------------------------
 
-``__rem_pio2_internal``: Use Payne and Hanek's method for range reduction as described in the article *Radian reduction for trigonometric functions* [PH]_ and referenced by the paper *A New Range-Reduction Algorithm* [BDKMR]_. The description in the article is quite extensive and should be sufficient to implement the algorithm (refer to §3.0 of the article for a step by step outline), therefore its contents will not be repeated here.
+``__rem_pio2_internal``: Use Payne and Hanek's method for range reduction as described in the article *Radian reduction for trigonometric functions* [PH]_. The design of the algorithm is further detailed in [NG]_. As the description in the article is quite extensive it will only be outlined here.
 
-.. [PH] *Radian reduction for trigonometric functions* by Mary H. Payne and Robert N. Hanek.
-.. [BDKMR] *A New Range-Reduction Algorithm* by N. Brisebarre, D. Defour, P. Kornerup, J.-M Muller and R. Revol.
+The external range reduction ``__rem_pio2`` will split the angle :math:`x` into an array :math:`x[0]+x[1]+x[2]` where each :math:`x[]` item contains 24 bits of the original angle, and it will set the unbiased exponent of :math:`x` in :math:`e0`.
+
+The internal range reduction will compute the integer and fractional parts of the angle :math:`q = x/(\pi/2) = x\cdot(2/\pi)`. The constant :math:`2/\pi` is stored in high precision in an array containing 24 bit chunks of the constant.
+
+The method is to compute the integer (mod 8) and fraction parts of :math:`x\cdot(2/\pi)` without doing the full multiplication. In general the part of the product that are known to be a huge integer (more accurately the integer part that is 0 mod 8) are skipped. Thus the number of operations are independent of the exponent of the input.
+
+.. [PH] *Radian reduction for trigonometric functions* by Mary H. Payne and Robert N. Hanek (https://dl.acm.org/doi/pdf/10.1145/1057600.1057602).
+.. [NG] *ARGUMENT REDUCTION FOR HUGE ARGUMENTS: Good to the Last Bit* by K.C. NG and the members of the FP group of SunPro (https://www.csee.umbc.edu/~phatak/645/supl/Ng-ArgReduction.pdf)
 
 Requirements
 ^^^^^^^^^^^^
