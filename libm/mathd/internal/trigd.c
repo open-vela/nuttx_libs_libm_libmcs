@@ -19,8 +19,8 @@
  *     double __sin(double x, double y, int iy)
  *     int32_t __rem_pio2f(float x, float *y)
  *     int32_t __rem_pio2(double x, double *y)
- *     int __rem_pio2_internalf(float *x, float *y, int e0, int nx, int prec, const int32_t *ipio2)
- *     int __rem_pio2_internal(double *x, double *y, int e0, int nx, int prec, const int32_t *ipio2)
+ *     int __rem_pio2_internalf(float *x, float *y, int e0, int nx)
+ *     int __rem_pio2_internal(double *x, double *y, int e0, int nx)
  *
  * Description
  * ===========
@@ -176,8 +176,8 @@ static inline int __rem_pio2_internal(double *x, double *y, int e0, int nx)
     int32_t jp = jk;    /* stores the initial value of jk until the final result computation */
 
     int32_t k;          /* number of additional ipio2 terms needed for recomputation */
-    int32_t i, j, m;    /* general purpose indexes and variables */
-    int32_t jz, jx, jv; /* other specific indexes */
+    int32_t i, j, m;    /* general purpose indices and variables */
+    int32_t jz, jx, jv; /* other specific indices */
     int32_t carry;      /* indicates whether there is a contribution of q when computing the complementary angle */
     int32_t ih;         /* variable that indicates the position of the angle within the resulting quadrant.
                            If ih is positive then q[] is >= 0.5, hence it acts as the "signbit" of the result,
