@@ -201,8 +201,9 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
             if (ih == 2) { /* compute the complementary of z */
                 z = one - z;
 
-                if (carry != 0) { /* in case that iq[] does have a contribution, subtract the order of magnitude
-                                     of this contribution from the complement of z so that z + iq can be computed. */
+                /* in case that iq[] does have a contribution, subtract the order of magnitude
+                   of this contribution from the complement of z so that z + iq can be computed. */
+                if (carry != 0) {
                     z -= scalbnf(one, (int32_t)q0);
                     /* Given the following decimal example of: z = 0.7 and iq = 0.01 for the angle z + iq = 0.71
                        the complements would be z = 1 - z = 0.3 and iq = 0.1 - iq = 0.09
@@ -224,9 +225,12 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
                 for (k = 1; (jk - k >= 0) && (iq[jk - k] == 0); k++) { /* k = no. of terms needed */
                 }
 
-                for (i = jz + 1; i <= jz + k; i++) { /* add q[jz+1] to q[jz+k] */
-                    if ((jv + i < 66) &&             /* don't pull more terms of ipio2[] than available */
-                        (jx + i < 20)) {             /* and don't overflow f[] */
+                /* add q[jz+1] to q[jz+k]
+                   don't pull more terms of ipio2[] than available
+                   and don't overflow f[] */
+                for (i = jz + 1; i <= jz + k; i++) {
+                    if ((jv + i < 66) &&
+                        (jx + i < 20)) {
                         f[jx + i] = (float) ipio2[jv + i];
                     } else{
                         exhausted = true;
@@ -243,9 +247,10 @@ static inline int __rem_pio2f_internal(float *x, float *y, int e0, int nx)
                 recompute = true;
             }
         }
-    } while (recompute); /* The original authors of the algorithm Payne and Hanek estimate the
-                            amount of needed recomputing to be low. Currently only 2 recomputes
-                            are observed at most */
+    /* The original authors of the algorithm Payne and Hanek estimate the
+       amount of needed recomputing to be low. Currently only 2 recomputes
+       are observed at most */
+    } while (recompute);
 
     /* chop off zero terms */
     if (z == 0.0f) {
