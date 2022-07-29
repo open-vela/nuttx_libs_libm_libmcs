@@ -48,7 +48,7 @@ Limitations of the Libm
 Qualification Status
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This software release is qualified to :ref:`ECSS <ABBR>` category B, but only for the following configuration:
+This software release is qualified to :ref:`ECSS <ABBR>` category B, but only for the following configurations:
 
 #. target GR-CPCI-AT697 ("Compact PCI LEON2-FT (AT697E) Development Board") with a compiler toolchain based on EDISOFT's :ref:`RTEMS <ABBR>` 4.8 (including :ref:`GCC <ABBR>` 4.2.1), and
 #. target GR-CPCI-LEON4-N2X ("Quad-Core LEON4 Next Generation Microprocessor Evaluation Board") with a compiler toolchain based on OAR's :ref:`RTEMS <ABBR>` 4.11 (including :ref:`GCC <ABBR>` 4.9.3),
@@ -90,6 +90,17 @@ Compiler
 
 In general the library is prepared to be used with a :ref:`GCC <ABBR>` toolchain. It might be necessary to change parts of the library when using a different toolchain.
 The compiler used on the library shall be able to understand the ``asm`` keyword. For example :ref:`GCC <ABBR>` has the flag ``-std=gnu99`` to enable the :ref:`GNU <ABBR>` C language extensions which contain ``asm``.
+
+Data Model
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The library is compatibility with the following data model processor and compiler tool-chains combinations:
+
+* ILP32 or 4/4/4 (``int`` and ``long int`` are 32 bit)
+* LP64 or 4/8/8 (``int`` is 32 bit and ``long int`` is 64-bit)
+
+.. note::
+   The ``long long int`` type shall always be 64 bits.  
 
 Bessel functions
 ^^^^^^^^^^^^^^^^^^^^^^^^
