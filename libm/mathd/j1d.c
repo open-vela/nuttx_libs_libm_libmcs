@@ -41,7 +41,7 @@
  * Exceptions
  * ==========
  *
- * Does not raise overflow, division by zero, and invalid exceptions.
+ * Does not raise useful exceptions.
  *
  * .. May raise ``underflow`` exception.
  *
