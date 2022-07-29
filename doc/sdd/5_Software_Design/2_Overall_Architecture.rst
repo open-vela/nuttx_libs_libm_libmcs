@@ -340,12 +340,21 @@ Furthermore the library shall provide a number of constants, as such the followi
 Directory Structure and Naming Scheme
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../../figure/ml_components.png
-   :name: directory-structure
+.. figure:: ../../figure/libmcs-static-architecture.png
+   :name: static-architecture
 
-   Directory structure
+   Folder structure
 
-The :numref:`Fig. %s <directory-structure>` shows the planned directory structure for the ``libm``. As can be seen in the figure the main directory of the ``LibmCS`` will contain five elements, the library contents are in ``libm``, the licenses of all files are in ``LICENSES``, the combined license file for the library ``COPYING.md``, the ``Makefile`` to build the library, and finally there is a ``README.md`` containing general information about the library.
+The :numref:`Fig. %s <static-architecture>` shows the planned directory and file structure for the ``libm``. As can be seen in the figure the main directory of the ``LibmCS`` will contain eight elements:
+
+-  the library contents are in ``libm``,
+-  the licenses of all files are in ``LICENSES``,
+-  the combined license file for the library ``COPYING.md``, 
+-  the credits to the main contributors are in ``CREDITS.md``,
+-  the explanations on how to contribute to the library are in ``CONTRIBUTING.md``,
+-  the ``configure`` script to configure the library,
+-  the ``Makefile`` to build the library, and finally 
+-  there is a ``README.md`` containing general information about the library.
 
 The ``libm`` directory contains four types of subdirectories:
 
@@ -355,6 +364,21 @@ The ``libm`` directory contains four types of subdirectories:
 -  ``machine``: This directory is meant to be used for machine (hardware/toolchain) specific implementations of library functions. In this activity there will only be an example such that the user may include their own implementations for their machine.
 
 The ``LICENSES`` directory contains a file for each individual license used within the library. All library files contain an :ref:`SPDX <ABBR>`-license-identifier to refer to the licenses within this directory.
+
+.. figure:: ../../figure/libmcs-include-common.png
+   :name: include-common
+
+   Folders include and common
+
+.. figure:: ../../figure/libmcs-real.png
+   :name: real-procedures
+
+   Real procedures
+
+.. figure:: ../../figure/libmcs-complex.png
+   :name: complex-procedures
+
+   Complex procedures
 
 The C-Functions directly representing a required procedure are named the same as the procedure (e.g., ``asin``, ``asinf``, ``asinl``). The same applies to their filenames with the exception of the ``double``-type versions which have an additional ``d`` suffix (e.g., ``asind.c``), and the ``float-extended``-type which add an ``e`` to the already existing ``f`` suffix.
 
