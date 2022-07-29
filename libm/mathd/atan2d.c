@@ -41,7 +41,7 @@
  * Exceptions
  * ==========
  *
- * Does not raise useful exceptions. Does not raise ``divide-by-zero``
+ * Does not raise overflow, division by zero, and invalid exceptions. Does not raise ``divide-by-zero``
  * exception even if argument :math:`x` is zero.
  *
  * .. May raise ``underflow`` exception.
