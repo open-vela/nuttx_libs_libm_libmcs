@@ -96,6 +96,16 @@ Test coverage is not set using `configure`, it can be enabled by adding `COVERAG
 
 Note: LibmCS does not have an `install` target.
 
+#### Using Hardware Instructions
+
+To replace LibmCS procedures with custom procedures, such as hardware instruction calling procedures (e.g., using the CPU hardware implementation of procedures such as square root), several steps need to be followed:
+
++ Add the file containing the procedure into an architecture specific sub-directory within the `libm/machine` directory. If the directory does not exist, make one for your architecture. An example for this step has already been added to the library for the SPARC V8 architecture.
++ Replace the file you want to replace in the `Makefile.in`. As an example for this step check the branch `makefile-sparc-v8-hardware-sqrt` where this is done for the SPARC V8 `sqrt` procedure.
+
+Note that replacing procedures may cause different results and in turn may cause unit tests to fail. You will have to justify those fails, or change the respective tests and justify that change.
+
+
 ## How to Contribute
 
 To learn how to contribute to the LibmCS please read the CONTRIBUTING.md file.
