@@ -173,7 +173,7 @@ fi
 
 # Check toolchain for endianness
 echo "Check toolchain for endianness."
-endianness=$($CC -dM -E - < /dev/null | grep "__BYTE_ORDER__" | awk '{print $3}')
+endianness=$($CC -dM -E ${extra_cflags} - < /dev/null | grep "__BYTE_ORDER__" | awk '{print $3}')
 if [ "$endianness" != "__ORDER_LITTLE_ENDIAN__" ] && [ "$endianness" != "__ORDER_BIG_ENDIAN__" ] ; then
 	if [ -z ${BIG_ENDIAN+x} ]; then
 		echo "Your toolchain does not define endianness (__BYTE_ORDER__ is not defined as either __ORDER_BIG_ENDIAN__ or __ORDER_LITTLE_ENDIAN__). Which endianness is appropriate for your target platform (e.g. SPARCs are usually Big Endian)?";
