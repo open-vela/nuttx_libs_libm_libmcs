@@ -273,7 +273,7 @@ $(BUILD_INFO): $(OUT)
 	@printf "    dirty: " >> $(BUILD_INFO)
 	$(Q)((git diff --exit-code > /dev/null 2>&1 && echo "no") || ([ $$? -eq 1 ] && echo "yes") || echo "-") >> $(BUILD_INFO)
 	@printf "libm_sha256: " >> $(BUILD_INFO)
-	$(Q)$(SHA256) $(OUT) >> $(BUILD_INFO)
+	$(Q)echo `$(SHA256) $(OUT) | head -c 64` >> $(BUILD_INFO)
 	@echo "..." >> $(BUILD_INFO)
 
 # Include dependency info for *existing* .o files
