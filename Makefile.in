@@ -257,7 +257,7 @@ $(BUILD_INFO): $(OUT)
 	@echo "[LOG] $(BUILD_INFO)"
 	@echo "---" > $(BUILD_INFO)
 	@printf "date: " >> $(BUILD_INFO)
-	$(Q)$(DATE) >> $(BUILD_INFO)
+	$(Q)$(DATE) +"%Y-%m-%dT%H:%M:%S%z" >> $(BUILD_INFO)
 	@printf "compiler_path: " >> $(BUILD_INFO)
 	$(Q)$(WHICH) $(CC) >> $(BUILD_INFO)
 	@echo "compiler_information: |" >> $(BUILD_INFO)
