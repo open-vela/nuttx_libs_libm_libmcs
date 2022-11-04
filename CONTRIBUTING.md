@@ -4,24 +4,24 @@
 
 ### Reporting Bugs
 
-Report bugs by creating a GitLab Issue with the following information:
+Report bugs by creating a GitLab issue with the following information:
 
 1. Give the Issue a meaningful title
 2. Write a brief description of the issue you have
-3. Describe the issue details answering the following quiestions:
+3. Describe the issue details answering the following questions:
     - What are the steps to reproduce the *bug*?
     - What is the current *bug* behavior?
     - What is the expected *correct* behavior?
     - Relevant logs/screenshots and/or associated data.
 
-We will pick the Issue up and continue its workflow.
+We will pick up the issue and continue its workflow.
 
 ### Suggesting Enhancements
 
-Suggest enhancements by creating a GitLab Issue with the following information:
+Suggest enhancements by creating a GitLab issue with the following information:
 
 1. Problem to solve
-2. Proposal
+2. Proposed solution
 3. Intended use-case
 
 ### Pull Requests
@@ -35,7 +35,7 @@ Contribute source code by following the next steps:
     - All pipelines must pass
 3. Create a merge request on the LibmCS repository
 
-We will pick the Issue up and continue its workflow.
+We will pick up the merge request and continue its workflow.
 
 #### Styleguides
 
