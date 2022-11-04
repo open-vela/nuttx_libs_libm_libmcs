@@ -57,7 +57,7 @@ The wrapper cannot be called directly because ``ceval`` cannot be called from Ma
 
 .. code-block:: matlab
 
-   codegen -config:mex -args 0.0 -o libmcs_sin ../qlibmcs/build-<used_ARCH>/bin/libm.a libmcs_sin
+   codegen -config:mex -args 0.0 -o libmcs_sin ../libmcs/build-<used_ARCH>/bin/libm.a libmcs_sin
 
 Then calling the C function is possible from Matlab as one would expect. Matlab automatically uses the generated MEX function instead of the ``.m`` function:
 
