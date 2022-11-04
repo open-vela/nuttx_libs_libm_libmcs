@@ -107,7 +107,7 @@ Using the Software on a Typical Task
 
 Let's build the software using a shell command::
 
-   $ sparc-rtems-gcc test test_rtems.c qlibmcs/build-sparc_v8/bin/libm.a -Iqlibmcs/libm/include -qleon2 -frounding-math -fsignaling-nans -fno-builtin
+   $ sparc-rtems-gcc test test_rtems.c libmcs/build-sparc_v8/bin/libm.a -Ilibmcs/libm/include -qleon2 -frounding-math -fsignaling-nans -fno-builtin
 
 As one can see the command builds with the library, includes the header files, uses the LEON2 specific flag ``-qleon2``, and uses the flags provided in :ref:`OperationsEnviromentSoftwareConfiguration`, before finally producing the ``test`` executable.
 
@@ -246,7 +246,7 @@ Using the Software on a Typical Task
 
 Let's build the software using a shell command::
 
-   $ sparc-rtems-gcc test test_rtems.c qlibmcs/build-sparc_v8/bin/libm.a -Iqlibmcs/libm/include -qleon3mp -frounding-math -fsignaling-nans -fno-builtin
+   $ sparc-rtems-gcc test test_rtems.c libmcs/build-sparc_v8/bin/libm.a -Ilibmcs/libm/include -qleon3mp -frounding-math -fsignaling-nans -fno-builtin
 
 As one can see the command builds with the library, includes the header files, uses the LEON4 specific flag ``-qleon3mp`` (LEON3 and LEON4 use the same in this toolchain), and uses the flags provided in :ref:`OperationsEnviromentSoftwareConfiguration`, before finally producing the ``test`` executable.
 

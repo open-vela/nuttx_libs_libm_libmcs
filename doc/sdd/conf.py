@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information ----------------------------------------------
 
-project = "QlibmCS - SDD"
+project = "LibmCS - SDD"
 copyright = "2021, GTD GmbH"
 author = "GTD GmbH"
 
