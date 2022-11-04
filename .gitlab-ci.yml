@@ -44,10 +44,10 @@ pdf:
     script:
         - cd latex_sdd
         - make
-        - mv ./qlibmcs-sdd.pdf ../.
+        - mv ./libmcs-sdd.pdf ../.
         - cd ../latex_sum
         - make
-        - mv ./qlibmcs-sum.pdf ../.
+        - mv ./libmcs-sum.pdf ../.
     artifacts:
         paths:
             - ./*.pdf
@@ -65,7 +65,7 @@ pages:
   script:
     - mkdir public
     - cp doc/index.html public
-    - pandoc -s -o public/README.html --metadata title="QLibmCS Readme" README.md
+    - pandoc -s -o public/README.html --metadata title="LibmCS Readme" README.md
     - mv html_sum public/sum
     - mv html_sdd public/sdd
   artifacts:

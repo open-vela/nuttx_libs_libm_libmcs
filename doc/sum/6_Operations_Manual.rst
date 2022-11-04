@@ -64,7 +64,7 @@ After writing the project specific code, the last step to build a program which 
 
 As an example by using :ref:`GCC <ABBR>` the following line should work::
 
-   $ gcc -o new_executable_software new_software_source_code.c ./qlibmcs/build-x86_64-linux-gnu/bin/libm.a -I./qlibmcs/libm/include
+   $ gcc -o new_executable_software new_software_source_code.c libmcs/build-x86_64-linux-gnu/bin/libm.a -Ilibmcs/libm/include
 
 The user has to add a number of additional flags, beginning with those listed in :ref:`OperationsEnviromentSoftwareConfiguration`. One might also need a number of platform or hardware specific flags, e.g. the flag ``-qleon2`` when building for the Leon2 platform with Gaisler's :ref:`RTEMS <ABBR>`. Extra flags depend on the :ref:`OS <ABBR>`, the compilation toolchain, and possibly a :ref:`BSP <ABBR>`; please check the corresponding documentation for your situation. It is suggested to write a Makefile for this (or use tools for the creation of Makefiles).
 
