@@ -23,11 +23,60 @@ Subnormal Values
 
 The library regards subnormals the same as any other value, meaning when a procedure is called with a subnormal input argument, the procedures will do their work just as well as for any non subnormal value. This however only works as expected, if the :ref:`FPU <ABBR>` in use supports subnormal values.
 
-In case the :ref:`FPU <ABBR>` does not fully support subnormals the user should enable the define ``LIBMCS_FPU_DAZ`` while running the library's configuration when prompted to make the decision. This forces every input value to first be checked by the :ref:`FPU <ABBR>` for being a subnormal, and if it is, act according to the implementation of the :ref:`FPU <ABBR>`.
+In case the :ref:`FPU <ABBR>` does not fully support subnormals the user should enable the preprocessor define ``LIBMCS_FPU_DAZ`` while running the library's configuration when prompted to make the decision. This forces every input value to first be checked by the :ref:`FPU <ABBR>` for being a subnormal, and if it is, act according to the implementation of the :ref:`FPU <ABBR>`. This behavior will apply to most of the procedures contained in the library. Exceptions to this behavior being (i.e., the following procedures do correctly handle subnormals even if the FPU has no subnormal support):
+
+* ``fabs`` and ``fabsf``
+* ``copysign`` and ``copysignf``
+* ``fpclassify``
+* ``isfinite``
+* ``isinf``
+* ``isnan``
+* ``isnormal``
+* ``signbit``
+* ``isunordered``
+* ``isgreater`` (only on GRFPUs before GRFPU5)
+* ``isgreaterequal`` (only on GRFPUs before GRFPU5)
+* ``isless`` (only on GRFPUs before GRFPU5)
+* ``islessequal`` (only on GRFPUs before GRFPU5)
+* ``islessgreater`` (only on GRFPUs before GRFPU5)
+
+In addition to this the following procedures implement a non-standard behavior to ensure that they don't get stuck at subnormals when using them on FPUs without subnormal support (i.e., they jump over the subnormal range):
+
+* ``nextafter`` and ``nextafterf``
+* ``nexttoward`` and ``nexttowardf``
 
 One example of such a non-supporting :ref:`FPU <ABBR>` is the :ref:`GRFPU <ABBR>` from CAES/Gaisler. The :ref:`GRFPU <ABBR>` causes a trap if subnormal numbers occur and the :ref:`GRFPU <ABBR>` is not configured to use non-standard mode [#]_. If the non-standard mode is enabled however, the :ref:`FPU <ABBR>` behaves in a :ref:`DAZ <ABBR>` and :ref:`FTZ <ABBR>` way. This means when ``LIBMCS_FPU_DAZ`` is defined, every call to the library's procedures with a subnormal input will either cause a trap (in standard mode) or behave as if the input was zero (in non-standard mode).
 
 If the user's :ref:`FPU <ABBR>` behaves as the :ref:`GRFPU <ABBR>` we suggest using the standard mode during production and switching to non-standard mode after sufficient testing (or if the user decides that subnormals are part of normal behaviour). This has the benefit that errors can be found more easily during production (as subnormal numbers in most cases should be an error in the source code), and not causing a trap on the final product in the odd case that a subnormal still appears.
+
+The following table shows some FPUs, their support regarding subnormal floating-point numbers and the particularities of the supported :ref:`DAZ <ABBR>` and :ref:`FTZ <ABBR>` mode:
+
++--------------------------+-----------------------+-------------------------------------------------------------+
+| FPU                      | Subnormal support     | Operations not affected by FTZ/DAZ mode                     |
++==========================+=======================+=============================================================+
+| MEIKO FPU                |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPU (until v4)         |                 No    | compare, move, negate, and absolute value                   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPU-Lite               |                 No    | compare, move, negate, and absolute value                   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPU5                   |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| Gaisler NanoFPU          |                 No    | compare, move, negate, and absolute value                   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPUnv                  |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| ARM FPUs (NEON and VFPU) |            Selectable | V{Q}ABS, V{Q}NEG, VMOV, VMVN, VDUP, VLDR VSTR, VLDM, VSTM   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| SiFive FPU               |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| x86                      |            Selectable | x87 floating point instructions                             |
++--------------------------+-----------------------+-------------------------------------------------------------+
+
+This table is by no means exhaustive and shall only be used for preliminary iformation purposes. The user of the library shall the concretely check the specification of the :ref:`FPU <ABBR>` as there are may additional particularities to be taken into account. For example we have the particular case of ARM FPUs:
+
+* NEON and VFPv3 flush-to-zero preserves the sign bit. VFPv2 flush-to-zero flushes to +0.
+* NEON always uses flush-to-zero mode.
 
 .. [#] See `Handling denormalized numbers with the GRFPU <http://www.gaisler.com/doc/antn/GRLIB-AN-0007.pdf>`_ Section 4.1 for more information on how to enable non-standard mode on the :ref:`GRFPU <ABBR>`.
 
