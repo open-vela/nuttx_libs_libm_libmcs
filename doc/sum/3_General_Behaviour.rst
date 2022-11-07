@@ -80,6 +80,15 @@ This table is by no means exhaustive and shall only be used for preliminary ifor
 
 .. [#] See `Handling denormalized numbers with the GRFPU <http://www.gaisler.com/doc/antn/GRLIB-AN-0007.pdf>`_ Section 4.1 for more information on how to enable non-standard mode on the :ref:`GRFPU <ABBR>`.
 
+Fused Multiply-Add
+~~~~~~~~~~~~~~~~~~
+
+The IEEE-754 floating-point arithmetic standard requires since its 2008 version that compliant systems must support the :ref:`FMA <ABBR>` operation. This operation is also required by the ISO C standard. Older FPUs and the SPARC V8 instruction set however do not support nor require this operation. 
+
+Because of this reason the LibmCS includes the ``fma`` and ``fmaf`` procedures but only with a non-standard conform naive implementation carrying out a multiplication and addition in sequence with two roundings instead of the single rounding step required by the :ref:`FMA <ABBR>` operation.
+
+On systems supporting the :ref:`FMA <ABBR>` operation users can use compiler built-ins to explicitely call ``fma`` if needed.
+
 Exceptions
 ~~~~~~~~~~
 
