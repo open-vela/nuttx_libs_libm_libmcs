@@ -38,6 +38,12 @@ The targets ``all``, ``debug``, ``release``, and ``clean`` can be modified using
 * ``ARCH``: Tells the Makefile for which architecture the build is intended. If not provided this defaults to a target stated by the :ref:`GCC <ABBR>` provided via ``CROSS_COMPILE``.
 * ``COVERAGE=true``: Tells the Makefile to use flags specific to the generation of coverage reports.
 
+.. note::
+   The library has been built to compile without warnings but the compilation process might show some warnings about the use of potentially
+   uninitialized variables depending on the compiler version (and or specific compiler flags). These warnings can be
+   disregarded as all variable uses have been statically analyzed and shown to be correct
+   in all cases.
+
 The resulting libraries can be found in the ``build-ARCH/bin`` directory, with ``ARCH`` being the provided constant, or if not provided defaults to the target defined by :ref:`GCC <ABBR>` (this can be inspected with the shell command ``gcc -v``). The intermediate object files can be found in the ``build-ARCH/obj`` directory.
 
 After finishing the build `make` will also create a build info file within the ``build-ARCH`` directory. This file is aptly named ``build_info.yml`` and contains the following information in :ref:`YAML <ABBR>` format:
