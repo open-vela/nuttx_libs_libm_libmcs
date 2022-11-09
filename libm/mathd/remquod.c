@@ -4,8 +4,8 @@
 /**
  *
  * This family of functions implements the floating-point remainder :math:`x\
- * REM\ y` and puts the quotient (or at least the 3 least significant bits)
- * into the outpointer.
+ * REM\ y` and puts the quotient (or rather its sign and 3 least significant
+ * bits) into the outpointer.
  *
  * Synopsis
  * ========
@@ -24,9 +24,8 @@
  * n \cdot y` of their arguments :math:`x` and :math:`y`, where :math:`n` is
  * the integral value nearest to :math:`\frac{x}{y}`.
  *
- * :math:`n` is then put into the output pointer :math:`*quo`. If :math:`n` is
- * too large to be represented in an ``integer``, only the three least
- * significant bits of :math:`n` are correct.
+ * The 3 least significant bits of :math:`n` and its sign are then put into the
+ * output pointer :math:`*quo`.
  *
  * ``remquo`` and ``remainder`` are functionally equivalent concerning the
  * return value, ``remquo`` only adds an additional output.
@@ -41,8 +40,8 @@
  * Returns
  * =======
  *
- * ``remquo`` returns the floating-point remainder :math:`x\ REM\ y`. The
- * quotient :math:`n` is put into :math:`*quo`.
+ * ``remquo`` returns the floating-point remainder :math:`x\ REM\ y`. The sign
+ * and 3 least significant bits of quotient :math:`n` is put into :math:`*quo`.
  *
  * Exceptions
  * ==========
