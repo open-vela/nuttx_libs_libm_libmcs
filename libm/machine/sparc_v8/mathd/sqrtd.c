@@ -60,9 +60,9 @@ double sqrt(double x)
 {
     double root = 0.0;
 
-    asm volatile ("fsqrtd %[x], %[root]"
-                  : [root] "=f" (root)
-                  : [x] "f" (x));
+    __asm__ volatile ("fsqrtd %[x], %[root]"
+                      : [root] "=f" (root)
+                      : [x] "f" (x));
 
     return root;
 }
