@@ -3,7 +3,7 @@
 # Point to your pc-lint executeable
 LINT=./lint-nt.exe
 
-find ../libm/common -name  "*.c" | xargs grep -L "fenv.c" > result/files.lnt
+find ../libm/common -name  "*.c" | grep -v "fenv.c" > result/files.lnt
 find ../libm/complexd -name  "*.c" >> result/files.lnt
 find ../libm/complexf -name  "*.c" >> result/files.lnt
 find ../libm/mathd -name  "*.c" >> result/files.lnt
