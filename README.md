@@ -28,7 +28,7 @@ If you are a software product assurance engineer interested in the aspects for t
 
 If you are a software engineer interested in using the library in your software project you can continue reading the following section and taking a look at the Software User Manual available in this repository.
 
-*Note*: The OR-SRelD.00-ML and OP-QG.00-ML documents are accessible through the [ESA ESSR (European Space Software Repository)](https://essr.esa.int/) site, which is accessible to all ESA member states. Search this site for LibmCS.
+*Note*: The OR-SRelD.00-ML and OP-QG.00-ML documents are accessible through the [ESA ESSR (European Space Software Repository)](https://essr.esa.int/) site, which is accessible to all ESA member states (search this site for LibmCS). The documents and the qualification-kit can also be obtained through GTD GmbH (contact libmcs@gtd-gmbh.de).
 
 ### Programmer's Entry Point
 
