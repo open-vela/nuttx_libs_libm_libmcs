@@ -2,6 +2,7 @@ stages:
     - setup
     - doc
     - pdf
+    - pages
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
@@ -12,7 +13,7 @@ setup:
     stage: setup
     image: docker:stable
     before_script:
-        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+        - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     script:
         - docker build -t $CI_REGISTRY_IMAGE -f Dockerfile .
         - docker push $CI_REGISTRY_IMAGE
@@ -43,12 +44,30 @@ pdf:
     script:
         - cd latex_sdd
         - make
-        - mv ./qlibmcs-sdd.pdf ../.
+        - mv ./libmcs-sdd.pdf ../.
         - cd ../latex_sum
         - make
-        - mv ./qlibmcs-sum.pdf ../.
+        - mv ./libmcs-sum.pdf ../.
     artifacts:
         paths:
             - ./*.pdf
         expire_in: 30 days
     needs: ["doc"]
+
+pages:
+  stage: pages
+  image:
+    name: pandoc/core:2.16.2
+    entrypoint: [""]
+  dependencies:
+      - doc
+  needs: ["doc"]
+  script:
+    - mkdir public
+    - cp doc/index.html public
+    - pandoc -s -o public/README.html --metadata title="LibmCS Readme" --metadata mainfont="Lato,proxima-nova,Helvetica Neue,Arial,sans-serif" README.md
+    - mv html_sum public/sum
+    - mv html_sdd public/sdd
+  artifacts:
+    paths:
+      - public

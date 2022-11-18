@@ -3,8 +3,11 @@
 
 /**
  *
- * This family of functions implements the Bessel function of the first kind of
+ * This function implements the Bessel function of the first kind of
  * order :math:`n`.
+ *
+ * .. warning::
+ *    The implementation contains a potentially unbounded while loop.
  *
  * Synopsis
  * ========
@@ -43,7 +46,7 @@
  * Exceptions
  * ==========
  *
- * Does not raise useful exceptions.
+ * Does not raise overflow, division by zero, and invalid exceptions.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -286,4 +289,4 @@ double jn(int n, double x)
     }
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */

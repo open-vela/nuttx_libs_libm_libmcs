@@ -5,7 +5,8 @@
 extern "C"{
 #endif
 
-#include "../common/config.h"
+#include "config.h"
+#include "internal_config.h"
 
 /*
  * These macros define the errno and exception behaviour of the library. This
@@ -301,7 +302,7 @@ extern float                fmaf(float, float, float);
     extern double           nexttoward(double, long double);
     extern long double      nexttowardl(long double, long double);
 
-#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
+#endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
 
 /* signgam global variable used by the lgamma procedures to return the sign of gamma */
 #define signgam (__signgam)

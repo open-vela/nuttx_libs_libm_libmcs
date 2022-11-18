@@ -20,4 +20,4 @@ double carg(double complex z)
     return (double) cargf((float complex) z);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */

@@ -60,4 +60,18 @@ Additionally we have tested the following compilation flags which caused no prob
 
 In case the used architecture and toolchain support :ref:`FMA <ABBR>` instructions we advise using the flag ``-mno-fused-madd`` as the library was not tested for compatibility with said instruction.
 
+Remember to also add flags that alter the sizes of different types such as ``long double`` or ``long int`` to those appropriate for your hardware, for example ``-mlong-double-64`` can be set for x86 targets that typically use 80-bit ``long double``. These flags are different depending on the toolchain and should be in line with the rest of your software.
+
+.. _OperationsEnviromentUsingHardwareInstructions:
+
+Using Hardware Instructions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To replace LibmCS procedures with custom procedures, such as hardware instruction calling procedures, several steps need to be followed:
+
+* Add the file containing the procedure into an architecture specific sub-directory within the ``libm/machine`` directory. If the directory does not exist, make one for your architecture. An example for this step has already been added to the library for the SPARC V8 architecture.
+* Replace the file you want to replace in the ``Makefile.in``. As an example for this step we have added a patch for the library where this is done for the SPARC V8 ``sqrt`` procedure.
+
+Note that replacing procedures may cause different results and in turn may cause unit tests to fail. You will have to justify those fails, or change the respective tests and justify that change.
+
 .. [#] The flag ``-mhard-float`` is the default behaviour for SPARC compilations with :ref:`GCC <ABBR>`.

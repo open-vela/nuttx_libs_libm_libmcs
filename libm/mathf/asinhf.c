@@ -56,4 +56,4 @@ double asinh(double x)
     return (double) asinhf((float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

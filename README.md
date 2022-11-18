@@ -18,15 +18,17 @@ The copyright and licensing condition of the library can be found in the COPYING
 
 ### Documentation Entry Point
 
-If you are a system engineer interested in assessing the possibility to include the LibmCS in your software project you may start reading the:
+If you are a software architect interested in assessing the possibility to include the LibmCS in your software project you may start reading the:
 
 - Software Release Document (OR-SRelD.00-ML)
 
-If you are a product assurance engineer interested in the aspects for the delta-qualification of the LibmCS for your specific project you may start reading the:
+If you are a software product assurance engineer interested in the aspects for the delta-qualification of the LibmCS for your specific project you may start reading the:
 
 - Qualification Guideline (OP-QG.00-ML)
 
 If you are a software engineer interested in using the library in your software project you can continue reading the following section and taking a look at the Software User Manual available in this repository.
+
+*Note*: The OR-SRelD.00-ML and OP-QG.00-ML documents are accessible through the [ESA ESSR (European Space Software Repository)](https://essr.esa.int/) site, which is accessible to all ESA member states (search this site for LibmCS). The documents and the qualification-kit can also be obtained through GTD GmbH (contact libmcs@gtd-gmbh.de).
 
 ### Programmer's Entry Point
 
@@ -54,11 +56,32 @@ For CI and similar activities it can be useful to not use an interactive script 
 | `--big-endian`                     | Tells the compilation that variables are in big endian.                                                                                                                     |
 | `--little-endian`                  | Tells the compilation that variables are in little endian.                                                                                                                  |
 
-Of special note here is also that the library needs to know which endianness the platform uses. Most compilers use the define `__BYTE_ORDER__` with either `__ORDER_BIG_ENDIAN__` or `__ORDER_LITTLE_ENDIAN__` set, but if your toolchain does not provide this define you have to do it yourself (e.g. the EDISOFT RTEMS does not).
+Of special note here is also that the library needs to know which endianness the platform uses (big endian for SPARC processors and little usually for the rest). Most compilers use the define `__BYTE_ORDER__` with either `__ORDER_BIG_ENDIAN__` or `__ORDER_LITTLE_ENDIAN__` set, but if your toolchain does not provide this define you have to do it yourself (e.g. the EDISOFT RTEMS does not).
 
-#### Coverage
+##### Some Examples
 
-Coverage is not set using `configure`, it can be enabled by adding `COVERAGE=1` to the `make` call.
+1. For a LEON2 processor and the EDISOFT RTEMS 4.8 tool-chain, without `long double` functions nor complex functions, the configuration would look like this:
+
+```
+> ./configure --cross-compile /opt/rtems-4.8/bin/sparc-rtems4.8- --compilation-flags "" --enable-denormal-handling --disable-long-double-procedures --disable-complex-procedures --big-endian
+```
+
+2. For a LEON3/LEON4 processor and an OAR RTEMS 4.11 tool-chain, without `long double` functions nor complex functions, the configuration would look like this:
+
+```
+> ./configure --cross-compile /opt/rtems-4.11-2016.04.01.FPU/bin/sparc-rtems4.11- --compilation-flags "" --disable-denormal-handling --disable-long-double-procedures --disable-complex-procedures --big-endian
+```
+
+3. For an ARM R52 processor and a certain GCC cross compiler,  without `long double` functions nor complex functions, the configuration would look like this:
+
+```
+> ./configure --cross-compile <CROSS_COMPILER_PREFIX> --compilation-flags "" --enable-denormal-handling --disable-long-double-procedures --disable-complex-procedures --little-endian
+```
+
+
+#### Test Coverage
+
+Test coverage is not set using `configure`, it can be enabled by adding `COVERAGE=1` to the `make` call. Note that `configure` still has to be run first before `make` also for this case.
 
 #### Make Targets
 
@@ -69,6 +92,20 @@ Coverage is not set using `configure`, it can be enabled by adding `COVERAGE=1` 
 | `release`   | Builds the library. Equivalent to `all` with the additional flag `-DNDEBUG` set.                                                   |
 | `clean`     | Removes the build directory of the library of the current ARCH. (ARCH can be set manually or is extracted from using the compiler) |
 | `cleanall`  | Removes all build directories of the library.                                                                                      |
-| `distclean` | Removes the `user_make.mk` file (and other files possibly created by `configure`).                                                 |
+| `distclean` | Removes all files created by 'configure' and all builds.                                                                           |
 
 Note: LibmCS does not have an `install` target.
+
+#### Using Hardware Instructions
+
+To replace LibmCS procedures with custom procedures, such as hardware instruction calling procedures (e.g., using the CPU hardware implementation of procedures such as square root), several steps need to be followed:
+
++ Add the file containing the procedure into an architecture specific sub-directory within the `libm/machine` directory. If the directory does not exist, make one for your architecture. An example for this step has already been added to the library for the SPARC V8 architecture.
++ Replace the file you want to replace in the `Makefile.in`. As an example for this step check the branch `makefile-sparc-v8-hardware-sqrt` where this is done for the SPARC V8 `sqrt` procedure.
+
+Note that replacing procedures may cause different results and in turn may cause unit tests to fail. You will have to justify those fails, or change the respective tests and justify that change.
+
+
+## How to Contribute
+
+To learn how to contribute to the LibmCS please read the CONTRIBUTING.md file.

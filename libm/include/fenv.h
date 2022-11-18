@@ -4,7 +4,12 @@
 #ifndef LIBMCS_FENV_H
 #define LIBMCS_FENV_H
 
-#error fenv.h/fenv.c shall not be used as is. They have no functionality other than returning an error value and providing prototypes. If you, the user, want to use fenv you will have to implement the features yourself (or copy them from somewhere). We can not provide these functionalities for you as their implementation is highly platform dependant.
+#error fenv.h/fenv.c shall not be used as is. They have no functionality \
+       other than returning an error value and providing prototypes.     \
+       If you, the user, want to use fenv you will have to implement the \
+       features yourself (or copy them from somewhere). We can not       \
+       provide these functionalities for you as their implementation is  \
+       highly platform dependant.
 
 #ifdef __cplusplus
 extern "C"{

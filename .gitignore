@@ -31,6 +31,8 @@ libtool
 POTFILES
 *-POTFILES
 user_make.mk
+libm/include/config.h
+Makefile
 
 tags
 TAGS

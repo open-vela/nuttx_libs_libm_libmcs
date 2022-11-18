@@ -21,7 +21,6 @@
  *     SET_LOW_WORD(d,v);                       // this macro has no return value, the inputs are expected to be (double, int)
  *     GET_FLOAT_WORD(i,d);                     // this macro has no return value, the inputs are expected to be (int, float)
  *     SET_FLOAT_WORD(d,i);                     // this macro has no return value, the inputs are expected to be (float, int)
- *     SAFE_LEFT_SHIFT(op,amt);                 // this macros return value has the same type as input `op`, the inputs are expected to be integer types
  *     SAFE_RIGHT_SHIFT(op,amt);                // this macros return value has the same type as input `op`, the inputs are expected to be integer types
  *     double __forced_calculation(double x);
  *     float __forced_calculationf(float x);
@@ -67,13 +66,9 @@
  * ``SET_FLOAT_WORD`` is a macro to insert the integer representation into a
  * single floating-point datum.
  *
- * ``SAFE_LEFT_SHIFT`` is a macro to avoid undefined behaviour that can arise
- * if the amount of a left shift is exactly equal to the size of the shifted
- * operand. If the amount is equal to the size the macro returns 0.
- *
  * ``SAFE_RIGHT_SHIFT`` is a macro to avoid undefined behaviour that can arise
-* if the amount of a right shift is exactly equal to the size of the shifted
-* operand. If the amount is equal to the size the macro returns 0.
+ * if the amount of a right shift is exactly equal to the size of the shifted
+ * operand. If the amount is equal to the size the macro returns 0.
  *
  * ``__forced_calculation`` is a function to force the execution of the input
  * to go throught the :ref:`FPU <ABBR>`. The input for this function is usually
@@ -124,7 +119,6 @@
  *    SET\_LOW\_WORD_{\text{lowword of } d}(d, v) &= d \text{ with lowword } v  \\
  *    GET\_FLOAT\_WORD_{i}(d) &= \text{integer representation of } d  \\
  *    SET\_FLOAT\_WORD_{d}(i) &= \text{floating-point representation of } i  \\
- *    SAFE\_LEFT\_SHIFT(op, amt) &= \left\{\begin{array}{ll} op \ll amt, & amt < \text{size of } op \\ 0, & otherwise \end{array}\right.  \\
  *    SAFE\_RIGHT\_SHIFT(op, amt) &= \left\{\begin{array}{ll} op \gg amt, & amt < \text{size of } op \\ 0, & otherwise \end{array}\right.  \\
  *    \_\_forced\_calculation(x) &= x  \\
  *    \_\_raise\_invalid() &= NaN  \\
@@ -162,9 +156,6 @@
  *
  * ``SET_FLOAT_WORD`` has no return value. It places the created single
  * floating-point datum into the parameter ``d``.
- *
- * ``SAFE_LEFT_SHIFT`` returns the value ``op`` left shifted by ``amt`` if
- * ``amt`` is smaller than the size of ``op``, otherwise it returns zero.
  *
  * ``SAFE_RIGHT_SHIFT`` returns the value ``op`` right shifted by ``amt`` if
  * ``amt`` is smaller than the size of ``op``, otherwise it returns zero.
@@ -214,9 +205,9 @@
 
 #include <math.h>
 
-#ifndef __LIBMCS_EXCLUDE_COMPLEX
+#ifdef __LIBMCS_WANT_COMPLEX
     #include <complex.h>
-#endif /* !__LIBMCS_EXCLUDE_COMPLEX */
+#endif /* __LIBMCS_WANT_COMPLEX */
 
 /* A union which permits us to convert between a double and two 32 bit
    ints.  */
@@ -332,9 +323,6 @@ typedef union {
 /* Macros to avoid undefined behaviour that can arise if the amount
    of a shift is exactly equal to the size of the shifted operand.  */
 
-#define SAFE_LEFT_SHIFT(op,amt)                         \
-    (((amt) < 8 * sizeof(op)) ? ((op) << (amt)) : 0)
-
 #define SAFE_RIGHT_SHIFT(op,amt)                        \
     (((amt) < 8 * sizeof(op)) ? ((op) >> (amt)) : 0)
 
@@ -364,7 +352,7 @@ static inline double __raise_underflow(double x) {
 }
 static inline double __raise_inexact(double x) {
     volatile double huge = 1.0e300;
-    return ((huge - 1.0e-300) != 0) ? x : 0.0;
+    return (__forced_calculation(huge - 1.0e-300) != 0.0) ? x : 0.0;
 }
 
 static inline float __raise_invalidf() {
@@ -384,7 +372,7 @@ static inline float __raise_underflowf(float x) {
 }
 static inline float __raise_inexactf(float x) {
     volatile float huge = 1.0e30f;
-    return ((huge - 1.0e-30f) != 0) ? x : 0.0f;
+    return (__forced_calculationf(huge - 1.0e-30f) != 0.0f) ? x : 0.0f;
 }
 
 static inline int __issignaling(double x) {
@@ -408,7 +396,7 @@ static inline int __issignalingf(float x) {
     }
 }
 
-#ifndef __LIBMCS_EXCLUDE_COMPLEX
+#ifdef __LIBMCS_WANT_COMPLEX
     /*
      * Quoting from ISO/IEC 9899:TC2:
      *
@@ -436,6 +424,6 @@ static inline int __issignalingf(float x) {
     #define REAL_PART(z)    ((z).parts[0])
     #define IMAG_PART(z)    ((z).parts[1])
 
-#endif /* !__LIBMCS_EXCLUDE_COMPLEX */
+#endif /* __LIBMCS_WANT_COMPLEX */
 
 #endif /* !LIBMCS_TOOLS_H */

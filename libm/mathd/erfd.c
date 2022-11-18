@@ -36,7 +36,7 @@
  * Exceptions
  * ==========
  *
- * Does not raise useful exceptions.
+ * Does not raise overflow, division by zero, and invalid exceptions.
  *
  * .. May raise ``underflow`` exception.
  *
@@ -238,5 +238,5 @@ long double erfl(long double x)
     return (long double) erf((double) x);
 }
 
-#endif /* defined(__LIBMCS_LONG_DOUBLE_IS_64BITS) */
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_LONG_DOUBLE_IS_64BITS */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */

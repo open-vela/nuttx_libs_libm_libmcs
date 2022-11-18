@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information ----------------------------------------------
 
-project = "QlibmCS - SDD"
+project = "LibmCS - SDD"
 copyright = "2021, GTD GmbH"
 author = "GTD GmbH"
 
@@ -57,6 +57,15 @@ templates_path = ["../_templates"]
 # for a list of builtin themes.
 #
 html_theme = "sphinx_rtd_theme"
+
+html_theme_options = {
+    "display_version": True,
+    "collapse_navigation": False,
+    "logo_only": True,
+}
+
+html_logo = "../logo/libmcs-logo.png"
+html_favicon = "../logo/libmcs-favicon.ico"
 
 # Add any paths that contain custom static files (such as style sheets)
 # here, relative to this directory. They are copied after the builtin

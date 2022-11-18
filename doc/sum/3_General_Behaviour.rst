@@ -23,13 +23,71 @@ Subnormal Values
 
 The library regards subnormals the same as any other value, meaning when a procedure is called with a subnormal input argument, the procedures will do their work just as well as for any non subnormal value. This however only works as expected, if the :ref:`FPU <ABBR>` in use supports subnormal values.
 
-In case the :ref:`FPU <ABBR>` does not fully support subnormals the user should enable the define ``LIBMCS_FPU_DAZ`` while running the library's configuration when prompted to make the decision. This forces every input value to first be checked by the :ref:`FPU <ABBR>` for being a subnormal, and if it is, act according to the implementation of the :ref:`FPU <ABBR>`.
+In case the :ref:`FPU <ABBR>` does not fully support subnormals the user should enable the preprocessor define ``LIBMCS_FPU_DAZ`` while running the library's configuration when prompted to make the decision. This forces every input value to first be checked by the :ref:`FPU <ABBR>` for being a subnormal, and if it is, act according to the implementation of the :ref:`FPU <ABBR>`. This behavior will apply to most of the procedures contained in the library. Exceptions to this behavior being (i.e., the following procedures do correctly handle subnormals even if the FPU has no subnormal support):
+
+* ``fabs`` and ``fabsf``
+* ``copysign`` and ``copysignf``
+* ``fpclassify``
+* ``isfinite``
+* ``isinf``
+* ``isnan``
+* ``isnormal``
+* ``signbit``
+* ``isunordered``
+* ``isgreater`` (only on GRFPUs before GRFPU5)
+* ``isgreaterequal`` (only on GRFPUs before GRFPU5)
+* ``isless`` (only on GRFPUs before GRFPU5)
+* ``islessequal`` (only on GRFPUs before GRFPU5)
+* ``islessgreater`` (only on GRFPUs before GRFPU5)
+
+In addition to this the following procedures implement a non-standard behavior to ensure that they don't get stuck at subnormals when using them on FPUs without subnormal support (i.e., they jump over the subnormal range):
+
+* ``nextafter`` and ``nextafterf``
+* ``nexttoward`` and ``nexttowardf``
 
 One example of such a non-supporting :ref:`FPU <ABBR>` is the :ref:`GRFPU <ABBR>` from CAES/Gaisler. The :ref:`GRFPU <ABBR>` causes a trap if subnormal numbers occur and the :ref:`GRFPU <ABBR>` is not configured to use non-standard mode [#]_. If the non-standard mode is enabled however, the :ref:`FPU <ABBR>` behaves in a :ref:`DAZ <ABBR>` and :ref:`FTZ <ABBR>` way. This means when ``LIBMCS_FPU_DAZ`` is defined, every call to the library's procedures with a subnormal input will either cause a trap (in standard mode) or behave as if the input was zero (in non-standard mode).
 
 If the user's :ref:`FPU <ABBR>` behaves as the :ref:`GRFPU <ABBR>` we suggest using the standard mode during production and switching to non-standard mode after sufficient testing (or if the user decides that subnormals are part of normal behaviour). This has the benefit that errors can be found more easily during production (as subnormal numbers in most cases should be an error in the source code), and not causing a trap on the final product in the odd case that a subnormal still appears.
 
+The following table shows some FPUs, their support regarding subnormal floating-point numbers and the particularities of the supported :ref:`DAZ <ABBR>` and :ref:`FTZ <ABBR>` mode:
+
++--------------------------+-----------------------+-------------------------------------------------------------+
+| FPU                      | Subnormal support     | Operations not affected by FTZ/DAZ mode                     |
++==========================+=======================+=============================================================+
+| MEIKO FPU                |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPU (until v4)         |                 No    | compare, move, negate, and absolute value                   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPU-Lite               |                 No    | compare, move, negate, and absolute value                   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPU5                   |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| Gaisler NanoFPU          |                 No    | compare, move, negate, and absolute value                   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| GRFPUnv                  |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| ARM FPUs (NEON and VFPU) |            Selectable | V{Q}ABS, V{Q}NEG, VMOV, VMVN, VDUP, VLDR VSTR, VLDM, VSTM   |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| SiFive FPU               |                Yes    | Not applicable                                              |
++--------------------------+-----------------------+-------------------------------------------------------------+
+| x86                      |            Selectable | x87 floating point instructions                             |
++--------------------------+-----------------------+-------------------------------------------------------------+
+
+This table is by no means exhaustive and shall only be used for preliminary iformation purposes. The user of the library shall the concretely check the specification of the :ref:`FPU <ABBR>` as there are may additional particularities to be taken into account. For example we have the particular case of ARM FPUs:
+
+* NEON and VFPv3 flush-to-zero preserves the sign bit. VFPv2 flush-to-zero flushes to +0.
+* NEON always uses flush-to-zero mode.
+
 .. [#] See `Handling denormalized numbers with the GRFPU <http://www.gaisler.com/doc/antn/GRLIB-AN-0007.pdf>`_ Section 4.1 for more information on how to enable non-standard mode on the :ref:`GRFPU <ABBR>`.
+
+Fused Multiply-Add
+~~~~~~~~~~~~~~~~~~
+
+The IEEE-754 floating-point arithmetic standard requires since its 2008 version that compliant systems must support the :ref:`FMA <ABBR>` operation. This operation is also required by the ISO C standard. Older FPUs and the SPARC V8 instruction set however do not support nor require this operation. 
+
+Because of this reason the LibmCS includes the ``fma`` and ``fmaf`` procedures but only with a non-standard conform naive implementation carrying out a multiplication and addition in sequence with two roundings instead of the single rounding step required by the :ref:`FMA <ABBR>` operation.
+
+On systems supporting the :ref:`FMA <ABBR>` operation users can use compiler built-ins to explicitely call ``fma`` if needed.
 
 Exceptions
 ~~~~~~~~~~
@@ -48,7 +106,7 @@ Limitations of the Libm
 Qualification Status
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-This software release is qualified to :ref:`ECSS <ABBR>` category B, but only for the following configuration:
+This software release is qualified to :ref:`ECSS <ABBR>` category B, but only for the following configurations:
 
 #. target GR-CPCI-AT697 ("Compact PCI LEON2-FT (AT697E) Development Board") with a compiler toolchain based on EDISOFT's :ref:`RTEMS <ABBR>` 4.8 (including :ref:`GCC <ABBR>` 4.2.1), and
 #. target GR-CPCI-LEON4-N2X ("Quad-Core LEON4 Next Generation Microprocessor Evaluation Board") with a compiler toolchain based on OAR's :ref:`RTEMS <ABBR>` 4.11 (including :ref:`GCC <ABBR>` 4.9.3),
@@ -91,15 +149,31 @@ Compiler
 In general the library is prepared to be used with a :ref:`GCC <ABBR>` toolchain. It might be necessary to change parts of the library when using a different toolchain.
 The compiler used on the library shall be able to understand the ``asm`` keyword. For example :ref:`GCC <ABBR>` has the flag ``-std=gnu99`` to enable the :ref:`GNU <ABBR>` C language extensions which contain ``asm``.
 
+Data Model
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The library is compatibility with the following data model processor and compiler tool-chains combinations:
+
+* ILP32 or 4/4/4 (``int`` and ``long int`` are 32 bit)
+* LP64 or 4/8/8 (``int`` is 32 bit and ``long int`` is 64-bit)
+
+.. note::
+   The ``long long int`` type shall always be 64 bits.  
+
 Bessel functions
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 The procedures :ref:`jn` and :ref:`yn` have only been qualified until an ``n`` value of 15. If you for some reason need to use them with higher values for ``n``, just change the value in the unit- and validation-tests. The other Bessel procedures (:ref:`j0`, :ref:`j1`, :ref:`y0`, and :ref:`y1`) however are fully qualified.
 
+Complex procedures
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The complex procedures have a lower number of requirements than the procedures defined in ``math.h`` and are less detailed. This mirrors what happens in the :ref:`ISO <ABBR>` C and :ref:`POSIX <ABBR>` standards where far less information and requirements are defined for these procedures. As such their requirements fall short of what one could usually expect for Cat. B software. However the fact that these procedures are seldom if ever used in flight and critical software justifies their subpar requirements, while their existence is justified by the need to be able to integrate the library with other :ref:`COTS <ABBR>` software without restrictions (be aware that having them for integration purposes does not necessarily mean that they are used by other software components but that they expect them to exist).
+
 fenv.h
 ^^^^^^
 
-The mathematical library contains the header file ``fenv.h``. It declares - but does not implement - the functionalities listed in this section. The ``fenv.h`` header does not contain type definitions nor macros. This header file is only provided as the starting point for the user of the library to implement their own ``fenv.h`` as it is highly hardware dependent. Inclusion of the ``fenv.h`` file in an unmodified version produces an error at compile time, which should be removed by the user after implementing their own procedures. The library also provides an implementation file ``fenv.c`` which contains stub implementations for all procedures in ``fenv.h`` which simply return :math:`-1` which is a valid return value for all procedures and denotes that an error has accured while calling said procedure. User software will have to check for negative output values anyway as this is how the procedures are defined to give notice of errors. As such this is a reliable way to tell the user that an implementation of the procedures still needs to be provided.
+The mathematical library contains the header file ``fenv.h``. It declares - but does not implement - the functionalities listed in this section. The ``fenv.h`` header does not contain type definitions nor macros. This header file is only provided as the starting point for the user of the library to implement their own ``fenv.h`` as it is highly hardware dependent. Inclusion of the ``fenv.h`` file in an unmodified version produces an error at compile time, which should be removed by the user after implementing their own procedures. The library also provides an implementation file ``fenv.c`` which contains stub implementations for all procedures in ``fenv.h`` which simply return :math:`-1` which is a valid return value for all procedures and denotes that an error has accrued while calling said procedure. User software will have to check for negative output values anyway as this is how the procedures are defined to give notice of errors. As such this is a reliable way to tell the user that an implementation of the procedures still needs to be provided.
 
 A custom ``fenv.h`` file needs to contain the type definition of ``fenv_t`` and ``fexcept_t`` provided by the user:
 

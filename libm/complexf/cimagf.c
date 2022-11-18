@@ -18,4 +18,4 @@ double cimag(double complex z)
     return (double) cimagf((float complex) z);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */

@@ -70,10 +70,10 @@ float hypotf(float x, float y)
             b *= t1;
             a *= t1;
             k -= 126;
-        } else {        /* scale a and b by 2^68 */
-            ha += 0x22000000;     /* a *= 2^68 */
-            hb += 0x22000000;    /* b *= 2^68 */
-            k -= 68;
+        } else {        /* scale a and b by 2^80 */
+            ha += 0x28000000;     /* a *= 2^80 */
+            hb += 0x28000000;    /* b *= 2^80 */
+            k -= 80;
             SET_FLOAT_WORD(a, ha);
             SET_FLOAT_WORD(b, hb);
         }
@@ -110,4 +110,4 @@ double hypot(double x, double y)
     return (double) hypotf((float) x, (float) y);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

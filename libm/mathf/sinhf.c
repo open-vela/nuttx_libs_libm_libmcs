@@ -72,4 +72,4 @@ double sinh(double x)
     return (double) sinhf((float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */

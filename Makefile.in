@@ -213,8 +213,7 @@ SRC =   libm/common/signgam.c \
 
 ifeq ($(WANT_COMPLEX),1)
     SRC += $(CSRC)
-else
-    EXTRA_CFLAGS += -DLIBMCS_EXCLUDE_COMPLEX
+    EXTRA_CFLAGS += -DLIBMCS_WANT_COMPLEX
 endif
 
 SRC_ROOT = .
@@ -246,8 +245,10 @@ OBJ = $(addprefix $(OBJ_ROOT)/, $(SRC:.c=.o))
 .SUFFIXES:
 .SUFFIXES: .o .c
 
-.PHONY: all debug release clean cleanall distclean install check_config
+.PHONY: all debug release clean cleanall distclean install check_config help
 all: $(OUT) $(BUILD_INFO)
+	@echo "[CP] include"
+	$(Q)$(CP) -r $(SRC_ROOT)/libm/include/ $(BUILD_ROOT)/include/
 
 check_config:
 	@[ "1" == "$(CONFIGURE_SUCCESS)" ] || (echo "Either configuration was faulty or not done, please run configure" && exit 1)
@@ -256,11 +257,13 @@ $(BUILD_INFO): $(OUT)
 	@echo "[LOG] $(BUILD_INFO)"
 	@echo "---" > $(BUILD_INFO)
 	@printf "date: " >> $(BUILD_INFO)
-	$(Q)$(DATE) >> $(BUILD_INFO)
+	$(Q)$(DATE) +"%Y-%m-%dT%H:%M:%S%z" >> $(BUILD_INFO)
 	@printf "compiler_path: " >> $(BUILD_INFO)
 	$(Q)$(WHICH) $(CC) >> $(BUILD_INFO)
 	@echo "compiler_information: |" >> $(BUILD_INFO)
 	$(Q)$(CC) -v 2>&1 | sed 's/^/    /' >> $(BUILD_INFO)
+	@echo "binutils_information: |" >> $(BUILD_INFO)
+	$(Q)$(AR) -V 2>&1 | sed 's/^/    /' >> $(BUILD_INFO)
 	@echo "cflags_and_include: $(CFLAGS) $(CFLAGS_TARGET) $(INCLUDE)" >> $(BUILD_INFO)
 	@echo "git_info:" >> $(BUILD_INFO)
 	@printf "    branch: " >> $(BUILD_INFO)
@@ -270,7 +273,7 @@ $(BUILD_INFO): $(OUT)
 	@printf "    dirty: " >> $(BUILD_INFO)
 	$(Q)((git diff --exit-code > /dev/null 2>&1 && echo "no") || ([ $$? -eq 1 ] && echo "yes") || echo "-") >> $(BUILD_INFO)
 	@printf "libm_sha256: " >> $(BUILD_INFO)
-	$(Q)$(SHA256) $(OUT) >> $(BUILD_INFO)
+	$(Q)echo `$(SHA256) $(OUT) | head -c 64` >> $(BUILD_INFO)
 	@echo "..." >> $(BUILD_INFO)
 
 # Include dependency info for *existing* .o files
@@ -301,11 +304,30 @@ cleanall:
 	@echo "[RM] build-*"
 	$(Q)$(RM) build-*
 
-distclean:
+distclean: cleanall
 	@echo "[RM] user_make.mk"
 	$(Q)$(RM) user_make.mk
+	@echo "[RM] config.h"
+	$(Q)$(RM) libm/include/config.h
 	$(Q)$(RM) sizeoftypes.c
 	$(Q)$(RM) sizeoftypes.o
+	$(Q)$(RM) Makefile
 
 install:
 	@echo "LibmCS cannot be installed."
+
+help:
+	@echo "LibmCS make has the following targets:"
+	@echo "    all:"
+	@echo "        Builds the library. This is the default target."
+	@echo "    debug:"
+	@echo "        Builds the library. Currently equivalent to 'all'."
+	@echo "    release:"
+	@echo "        Builds the library. Equivalent to 'all' with the additional flag '-DNDEBUG' set."
+	@echo "    clean:"
+	@echo "        Removes the build directory of the library of the current ARCH. (ARCH can be set"
+	@echo "        manually or is extracted from using the compiler)"
+	@echo "    cleanall:"
+	@echo "        Removes all build directories of the library."
+	@echo "    distclean:"
+	@echo "        Removes all files created by 'configure' and all builds."

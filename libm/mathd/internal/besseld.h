@@ -439,6 +439,6 @@ static inline double __j1_q(double x)
     return (.375 + r / s) / x;
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifndef __LIBMCS_DOUBLE_IS_32BITS */
 
 #endif /* !LIBMCS_BESSELD_H */

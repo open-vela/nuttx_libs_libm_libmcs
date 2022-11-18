@@ -77,4 +77,4 @@ double log10(double x)
     return (double) log10f((float) x);
 }
 
-#endif /* defined(__LIBMCS_DOUBLE_IS_32BITS) */
+#endif /* #ifdef __LIBMCS_DOUBLE_IS_32BITS */
