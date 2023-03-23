@@ -81,7 +81,6 @@ CSRC =  libm/complexd/cabsd.c \
         libm/complexf/internal/ctrigf.c
 
 SRC =   libm/common/signgam.c \
-        libm/common/tools.c \
         libm/mathd/acosd.c \
         libm/mathd/acoshd.c \
         libm/mathd/asind.c \

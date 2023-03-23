@@ -28,7 +28,6 @@ Source Code Files
 ^^^^^^^^^^^^^^^^^
 
 * libm/common/tools.h
-* libm/common/tools.c
 
 References
 ^^^^^^^^^^
