@@ -36,14 +36,14 @@ typedef double double_t;
 #define M_SQRT2             1.41421356237309504880
 #define M_SQRT1_2           0.70710678118654752440
 
-#define HUGE_VAL            (__infd)
-#define HUGE_VALF           (__inff)
+#ifndef _HUGE_ENUF
+#define _HUGE_ENUF (1e+300)  /* _HUGE_ENUF*_HUGE_ENUF must overflow */
+#endif
+
+#define HUGE_VAL            ((double)(_HUGE_ENUF * _HUGE_ENUF))
+#define HUGE_VALF           ((float)(_HUGE_ENUF * _HUGE_ENUF))
 #define HUGE_VALL           ((long double) HUGE_VAL)
 #define INFINITY            HUGE_VALF
-
-/* Global constants that contain infinities. */
-extern const float __inff;
-extern const double __infd;
 
 #define NAN                 (nanf(""))
 
