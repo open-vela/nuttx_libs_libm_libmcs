@@ -335,7 +335,7 @@ static inline float __forced_calculationf(float x) {
     return r;
 }
 
-static inline double __raise_invalid() {
+static inline double __raise_invalid(void) {
     double r = __forced_calculation(0.0 / 0.0);
     return r;
 }
@@ -355,7 +355,7 @@ static inline double __raise_inexact(double x) {
     return (__forced_calculation(huge - 1.0e-300) != 0.0) ? x : 0.0;
 }
 
-static inline float __raise_invalidf() {
+static inline float __raise_invalidf(void) {
     double r = __forced_calculationf(0.0f / 0.0f);
     return r;
 }
