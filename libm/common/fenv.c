@@ -23,7 +23,7 @@ int fesetexceptflag(const fexcept_t *flagp, int excepts)
     return -1;
 }
 
-int fegetround()
+int fegetround(void)
 {
     return -1;
 }
